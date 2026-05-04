@@ -2,33 +2,33 @@
 
 import { useToast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { deleteChat, duplicateChat, updateChatName } from "@/features/chat/actions";
+import { deleteChat, duplicateChat, updateChat名称 } from "@/features/chat/actions";
 import { isServiceError } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import { ChatActionsDropdown } from "./chatActionsDropdown";
-import { DeleteChatDialog } from "./deleteChatDialog";
+import { Chat操作Dropdown } from "./chat操作Dropdown";
+import { 删除ChatDialog } from "./deleteChatDialog";
 import { DuplicateChatDialog } from "./duplicateChatDialog";
 import { RenameChatDialog } from "./renameChatDialog";
 
-interface ChatNameProps {
+interface Chat名称Props {
     name: string | null;
     id: string;
     isOwner?: boolean;
     isAuthenticated?: boolean;
 }
 
-export const ChatName = ({ name, id, isOwner = false, isAuthenticated = false }: ChatNameProps) => {
+export const Chat名称 = ({ name, id, isOwner = false, isAuthenticated = false }: Chat名称Props) => {
     const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
     const [isDuplicateDialogOpen, setIsDuplicateDialogOpen] = useState(false);
-    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [is删除DialogOpen, setIs删除DialogOpen] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
-    const onRenameChat = useCallback(async (newName: string): Promise<boolean> => {
-        const response = await updateChatName({
+    const onRenameChat = useCallback(async (new名称: string): Promise<boolean> => {
+        const response = await updateChat名称({
             chatId: id,
-            name: newName,
+            name: new名称,
         });
 
         if (isServiceError(response)) {
@@ -45,7 +45,7 @@ export const ChatName = ({ name, id, isOwner = false, isAuthenticated = false }:
         }
     }, [id, toast, router]);
 
-    const onDeleteChat = useCallback(async (): Promise<boolean> => {
+    const on删除Chat = useCallback(async (): Promise<boolean> => {
         const response = await deleteChat({ chatId: id });
 
         if (isServiceError(response)) {
@@ -62,8 +62,8 @@ export const ChatName = ({ name, id, isOwner = false, isAuthenticated = false }:
         }
     }, [id, toast, router]);
 
-    const onDuplicateChat = useCallback(async (newName: string): Promise<string | null> => {
-        const response = await duplicateChat({ chatId: id, newName });
+    const onDuplicateChat = useCallback(async (new名称: string): Promise<string | null> => {
+        const response = await duplicateChat({ chatId: id, new名称 });
 
         if (isServiceError(response)) {
             toast({
@@ -81,44 +81,44 @@ export const ChatName = ({ name, id, isOwner = false, isAuthenticated = false }:
 
     return (
         <>
-            <div className="flex flex-row gap-1 items-center">
-                <p className="text-sm font-medium">
+            <div class名称="flex flex-row gap-1 items-center">
+                <p class名称="text-sm font-medium">
                     {name ?? 'Untitled chat'}
                 </p>
                 {isOwner && (
-                    <ChatActionsDropdown
+                    <Chat操作Dropdown
                         onRenameClick={() => setIsRenameDialogOpen(true)}
                         onDuplicateClick={() => setIsDuplicateDialogOpen(true)}
-                        onDeleteClick={() => setIsDeleteDialogOpen(true)}
-                        showDelete={isAuthenticated}
+                        on删除Click={() => setIs删除DialogOpen(true)}
+                        show删除={isAuthenticated}
                         align="center"
                     >
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="h-6 w-6"
+                            class名称="h-6 w-6"
                         >
-                            <ChevronDown className="h-4 w-4" />
+                            <ChevronDown class名称="h-4 w-4" />
                         </Button>
-                    </ChatActionsDropdown>
+                    </Chat操作Dropdown>
                 )}
             </div>
             <RenameChatDialog
                 isOpen={isRenameDialogOpen}
                 onOpenChange={setIsRenameDialogOpen}
                 onRename={onRenameChat}
-                currentName={name ?? "Untitled chat"}
+                current名称={name ?? "Untitled chat"}
             />
-            <DeleteChatDialog
-                isOpen={isDeleteDialogOpen}
-                onOpenChange={setIsDeleteDialogOpen}
-                onDelete={onDeleteChat}
+            <删除ChatDialog
+                isOpen={is删除DialogOpen}
+                onOpenChange={setIs删除DialogOpen}
+                on删除={on删除Chat}
             />
             <DuplicateChatDialog
                 isOpen={isDuplicateDialogOpen}
                 onOpenChange={setIsDuplicateDialogOpen}
                 onDuplicate={onDuplicateChat}
-                currentName={name ?? "Untitled chat"}
+                current名称={name ?? "Untitled chat"}
             />
         </>
     )

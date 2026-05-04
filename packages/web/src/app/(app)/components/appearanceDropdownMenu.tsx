@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Settings2Icon } from "lucide-react"
+import { 设置2Icon } from "lucide-react"
 import { AppearanceDropdownMenuGroup } from "./appearanceDropdownMenuGroup"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 interface AppearanceDropdownMenuProps {
-    className?: string;
+    class名称?: string;
 }
 
-export const AppearanceDropdownMenu = ({ className }: AppearanceDropdownMenuProps) => {
+export const AppearanceDropdownMenu = ({ class名称 }: AppearanceDropdownMenuProps) => {
     return (
         <DropdownMenu>
             <Tooltip
@@ -16,8 +16,8 @@ export const AppearanceDropdownMenu = ({ className }: AppearanceDropdownMenuProp
             >
                 <TooltipTrigger asChild>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="icon" className={className}>
-                            <Settings2Icon className="h-4 w-4" />
+                        <Button variant="outline" size="icon" class名称={class名称}>
+                            <设置2Icon class名称="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                 </TooltipTrigger>

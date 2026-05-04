@@ -32,7 +32,7 @@ const blockingChatRequestSchema = z.object({
  * POST /api/chat/blocking
  *
  * A blocking (non-streaming) chat endpoint designed for MCP and other integrations.
- * Creates a chat session, runs the agent to completion, and returns the final answer.
+ * 创建s a chat session, runs the agent to completion, and returns the final answer.
  *
  * The chat session is persisted to the database, allowing users to view the full
  * conversation (including tool calls and reasoning) in the web UI.

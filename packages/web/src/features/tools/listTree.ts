@@ -1,4 +1,4 @@
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 import { FileTreeNode, getTree } from "@/features/git";
 import { isServiceError } from "@/lib/utils";
 import { CodeHostType } from "@sourcebot/db";
@@ -32,7 +32,7 @@ export type ListTreeEntry = {
 
 export type ListTreeRepoInfo = {
     name: string;
-    displayName: string;
+    display名称: string;
     codeHostType: CodeHostType;
 };
 
@@ -58,13 +58,13 @@ export const listTreeDefinition: ToolDefinition<'list_tree', typeof listTreeShap
         const normalizedDepth = Math.min(depth, MAX_TREE_DEPTH);
         const normalizedMaxEntries = Math.min(maxEntries, MAX_MAX_TREE_ENTRIES);
 
-        const repoInfoResult = await getRepoInfoByName(repo);
+        const repoInfoResult = await getRepoInfoBy名称(repo);
         if (isServiceError(repoInfoResult) || !repoInfoResult) {
-            throw new Error(`Repository "${repo}" not found.`);
+            throw new Error(`仓库 "${repo}" not found.`);
         }
         const repoInfo: ListTreeRepoInfo = {
             name: repoInfoResult.name,
-            displayName: repoInfoResult.displayName ?? repoInfoResult.name,
+            display名称: repoInfoResult.display名称 ?? repoInfoResult.name,
             codeHostType: repoInfoResult.codeHostType,
         };
 
@@ -95,8 +95,8 @@ export const listTreeDefinition: ToolDefinition<'list_tree', typeof listTreeShap
             }
 
             const treeResult = await getTree({
-                repoName: repo,
-                revisionName: ref,
+                repo名称: repo,
+                revision名称: ref,
                 paths: currentLevelPaths.filter(Boolean),
             }, { source: context.source });
 

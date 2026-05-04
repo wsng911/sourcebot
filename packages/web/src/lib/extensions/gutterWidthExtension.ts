@@ -1,4 +1,4 @@
-import { EditorView, ViewPlugin, ViewUpdate } from "@codemirror/view"
+import { 编辑orView, ViewPlugin, ViewUpdate } from "@codemirror/view"
 
 /**
  * Measures the width of the gutter and stores it in the plugin instance.
@@ -6,7 +6,7 @@ import { EditorView, ViewPlugin, ViewUpdate } from "@codemirror/view"
 export const gutterWidthExtension = ViewPlugin.fromClass(class {
     width: number = 0;
 
-    constructor (view: EditorView) {
+    constructor (view: 编辑orView) {
         this.measureWidth(view);
     }
 
@@ -16,7 +16,7 @@ export const gutterWidthExtension = ViewPlugin.fromClass(class {
         }
     }
     
-    measureWidth = (view: EditorView) => {
+    measureWidth = (view: 编辑orView) => {
         const gutter = view.scrollDOM.querySelector('.cm-gutters') as HTMLElement;
         if (gutter) { 
             this.width = gutter.offsetWidth;

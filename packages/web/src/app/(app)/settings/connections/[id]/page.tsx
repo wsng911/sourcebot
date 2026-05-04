@@ -1,7 +1,7 @@
 import { sew } from "@/middleware/sew";
-import { BackButton } from "@/app/(app)/components/backButton";
+import { 返回Button } from "@/app/(app)/components/backButton";
 import { DisplayDate } from "@/app/(app)/components/DisplayDate";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, Card描述, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { notFound as notFoundServiceError, ServiceErrorException } from "@/lib/serviceError";
@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 import { isServiceError } from "@/lib/utils";
 import { withAuth } from "@/middleware/withAuth";
 import { AzureDevOpsConnectionConfig, BitbucketConnectionConfig, GenericGitHostConnectionConfig, GerritConnectionConfig, GiteaConnectionConfig, GithubConnectionConfig, GitlabConnectionConfig } from "@sourcebot/schemas/v3/index.type";
-import { env, getConfigSettings } from "@sourcebot/shared";
+import { env, getConfig设置 } from "@sourcebot/shared";
 import { Info } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -35,16 +35,16 @@ export default async function ConnectionDetailPage(props: ConnectionDetailPagePr
         throw new ServiceErrorException(connection);
     }
 
-    const configSettings = await getConfigSettings(env.CONFIG_PATH);
+    const config设置 = await getConfig设置(env.CONFIG_PATH);
 
-    const nextSyncAttempt = (() => {
+    const next同步Attempt = (() => {
         const latestJob = connection.syncJobs.length > 0 ? connection.syncJobs[0] : null;
         if (!latestJob) {
             return undefined;
         }
 
         if (latestJob.completedAt) {
-            return new Date(latestJob.completedAt.getTime() + configSettings.resyncConnectionIntervalMs);
+            return new Date(latestJob.completedAt.getTime() + config设置.resyncConnectionIntervalMs);
         }
 
         return undefined;
@@ -91,32 +91,32 @@ export default async function ConnectionDetailPage(props: ConnectionDetailPagePr
 
     return (
         <div>
-            <BackButton
+            <返回Button
                 href={`/settings/connections`}
-                name="Back to connections"
-                className="mb-2"
+                name="返回 to connections"
+                class名称="mb-2"
             />
-            <div className="flex flex-col gap-2 mb-6">
-                <h1 className="text-3xl font-semibold">{connection.name}</h1>
+            <div class名称="flex flex-col gap-2 mb-6">
+                <h1 class名称="text-3xl font-semibold">{connection.name}</h1>
 
                 <Link
                     href={codeHostUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline text-muted-foreground"
+                    class名称="hover:underline text-muted-foreground"
                 >
                     {codeHostUrl}
                 </Link>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3 mb-8">
+            <div class名称="grid gap-4 md:grid-cols-3 mb-8">
                 <Card>
-                    <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium flex items-center gap-1.5">
-                            Created
+                    <CardHeader class名称="pb-3">
+                        <CardTitle class名称="text-sm font-medium flex items-center gap-1.5">
+                            创建d
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>When this connection was first added to Sourcebot</p>
@@ -125,17 +125,17 @@ export default async function ConnectionDetailPage(props: ConnectionDetailPagePr
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <span className="text-2xl font-semibold"><DisplayDate date={connection.createdAt} /></span>
+                        <span class名称="text-2xl font-semibold"><DisplayDate date={connection.createdAt} /></span>
                     </CardContent>
                 </Card>
 
                 <Card>
-                    <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium flex items-center gap-1.5">
+                    <CardHeader class名称="pb-3">
+                        <CardTitle class名称="text-sm font-medium flex items-center gap-1.5">
                             Last synced
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>The last time this connection was successfully synced</p>
@@ -144,17 +144,17 @@ export default async function ConnectionDetailPage(props: ConnectionDetailPagePr
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <span className="text-2xl font-semibold">{connection.syncedAt ? <DisplayDate date={connection.syncedAt} /> : "Never"}</span>
+                        <span class名称="text-2xl font-semibold">{connection.syncedAt ? <DisplayDate date={connection.syncedAt} /> : "Never"}</span>
                     </CardContent>
                 </Card>
 
                 <Card>
-                    <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium flex items-center gap-1.5">
+                    <CardHeader class名称="pb-3">
+                        <CardTitle class名称="text-sm font-medium flex items-center gap-1.5">
                             Scheduled
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>When the connection will be resynced next. Modifying the config will also trigger a resync.</p>
@@ -163,18 +163,18 @@ export default async function ConnectionDetailPage(props: ConnectionDetailPagePr
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <span className="text-2xl font-semibold">{nextSyncAttempt ? <DisplayDate date={nextSyncAttempt} /> : "-"}</span>
+                        <span class名称="text-2xl font-semibold">{next同步Attempt ? <DisplayDate date={next同步Attempt} /> : "-"}</span>
                     </CardContent>
                 </Card>
             </div>
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Sync History</CardTitle>
-                    <CardDescription>History of all sync jobs for this connection.</CardDescription>
+                    <CardTitle>同步 History</CardTitle>
+                    <Card描述>History of all sync jobs for this connection.</Card描述>
                 </CardHeader>
                 <CardContent>
-                    <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+                    <Suspense fallback={<Skeleton class名称="h-96 w-full" />}>
                         <ConnectionJobsTable
                             data={connection.syncJobs}
                             connectionId={connectionId}

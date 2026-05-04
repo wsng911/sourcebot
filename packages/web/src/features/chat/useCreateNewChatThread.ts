@@ -6,10 +6,10 @@ import { createUIMessage, getAllMentionElements } from "./utils";
 import { slateContentToString } from "./utils";
 import { useToast } from "@/components/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { createChat, getAskGhLoginWallData } from "./actions";
+import { createChat, getAskGh登录WallData } from "./actions";
 import { isServiceError } from "@/lib/utils";
 import { createPathWithQueryParams } from "@/lib/utils";
-import { SearchScope, SetChatStatePayload } from "./types";
+import { 搜索Scope, SetChatStatePayload } from "./types";
 import { SET_CHAT_STATE_SESSION_STORAGE_KEY } from "./constants";
 import { useSessionStorage } from "usehooks-ts";
 import type { IdentityProviderMetadata } from "@/lib/identityProviders";
@@ -17,24 +17,24 @@ import useCaptureEvent from "@/hooks/useCaptureEvent";
 
 const PENDING_NEW_CHAT_KEY = "askgh_pending_new_chat";
 
-interface UseCreateNewChatThreadOptions {
+interface Use创建NewChatThreadOptions {
     isAuthenticated?: boolean;
 }
 
-export const useCreateNewChatThread = ({ isAuthenticated = false }: UseCreateNewChatThreadOptions = {}) => {
+export const use创建NewChatThread = ({ isAuthenticated = false }: Use创建NewChatThreadOptions = {}) => {
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
     const [, setChatState] = useSessionStorage<SetChatStatePayload | null>(SET_CHAT_STATE_SESSION_STORAGE_KEY, null);
-    const [loginWallState, setLoginWallState] = useState<{ isOpen: boolean; providers: IdentityProviderMetadata[] }>({ isOpen: false, providers: [] });
+    const [loginWallState, set登录WallState] = useState<{ isOpen: boolean; providers: IdentityProviderMetadata[] }>({ isOpen: false, providers: [] });
     const hasRestoredPendingMessage = useRef(false);
     const captureEvent = useCaptureEvent();
 
-    const doCreateChat = useCallback(async (children: Descendant[], selectedSearchScopes: SearchScope[]) => {
+    const do创建Chat = useCallback(async (children: Descendant[], selected搜索Scopes: 搜索Scope[]) => {
         const text = slateContentToString(children);
         const mentions = getAllMentionElements(children);
 
-        const inputMessage = createUIMessage(text, mentions.map((mention) => mention.data), selectedSearchScopes);
+        const inputMessage = createUIMessage(text, mentions.map((mention) => mention.data), selected搜索Scopes);
 
         setIsLoading(true);
         const response = await createChat({ source: 'sourcebot-web-client' });
@@ -48,7 +48,7 @@ export const useCreateNewChatThread = ({ isAuthenticated = false }: UseCreateNew
 
         setChatState({
             inputMessage,
-            selectedSearchScopes,
+            selected搜索Scopes,
         });
 
         const url = createPathWithQueryParams(`/chat/${response.id}`);
@@ -56,19 +56,19 @@ export const useCreateNewChatThread = ({ isAuthenticated = false }: UseCreateNew
         router.push(url);
     }, [router, toast, setChatState]);
 
-    const createNewChatThread = useCallback(async (children: Descendant[], selectedSearchScopes: SearchScope[]) => {
+    const createNewChatThread = useCallback(async (children: Descendant[], selected搜索Scopes: 搜索Scope[]) => {
         if (!isAuthenticated) {
-            const result = await getAskGhLoginWallData();
+            const result = await getAskGh登录WallData();
             if (!isServiceError(result) && result.isEnabled) {
                 captureEvent('wa_askgh_login_wall_prompted', {});
-                sessionStorage.setItem(PENDING_NEW_CHAT_KEY, JSON.stringify({ children, selectedSearchScopes }));
-                setLoginWallState({ isOpen: true, providers: result.providers });
+                sessionStorage.setItem(PENDING_NEW_CHAT_KEY, JSON.stringify({ children, selected搜索Scopes }));
+                set登录WallState({ isOpen: true, providers: result.providers });
                 return;
             }
         }
 
-        doCreateChat(children, selectedSearchScopes);
-    }, [isAuthenticated, captureEvent, doCreateChat]);
+        do创建Chat(children, selected搜索Scopes);
+    }, [isAuthenticated, captureEvent, do创建Chat]);
 
     // Restore pending message after OAuth redirect
     useEffect(() => {
@@ -85,15 +85,15 @@ export const useCreateNewChatThread = ({ isAuthenticated = false }: UseCreateNew
         sessionStorage.removeItem(PENDING_NEW_CHAT_KEY);
 
         try {
-            const { children, selectedSearchScopes } = JSON.parse(stored) as {
+            const { children, selected搜索Scopes } = JSON.parse(stored) as {
                 children: Descendant[];
-                selectedSearchScopes: SearchScope[];
+                selected搜索Scopes: 搜索Scope[];
             };
-            doCreateChat(children, selectedSearchScopes);
+            do创建Chat(children, selected搜索Scopes);
         } catch (error) {
             console.error('Failed to restore pending message:', error);
         }
-    }, [isAuthenticated, doCreateChat]);
+    }, [isAuthenticated, do创建Chat]);
 
     return {
         createNewChatThread,
@@ -101,7 +101,7 @@ export const useCreateNewChatThread = ({ isAuthenticated = false }: UseCreateNew
         loginWall: {
             isOpen: loginWallState.isOpen,
             providers: loginWallState.providers,
-            onOpenChange: (open: boolean) => setLoginWallState(prev => ({ ...prev, isOpen: open })),
+            onOpenChange: (open: boolean) => set登录WallState(prev => ({ ...prev, isOpen: open })),
         },
     };
 }

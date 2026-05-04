@@ -1,14 +1,14 @@
 import { format } from "date-fns";
 import { GitCommitHorizontal } from "lucide-react";
 import Link from "next/link";
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 import { PathHeader } from "@/app/(app)/components/pathHeader";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getPathType, listCommitAuthors, listCommits } from "@/features/git";
 import { isServiceError } from "@/lib/utils";
 import { AuthorFilter } from "./authorFilter";
-import { dedupeCommitAuthorsByEmail, escapeGitBreLiteral } from "@/app/(app)/browse/components/commitAuthors";
+import { dedupeCommitAuthorsBy邮箱, escapeGitBreLiteral } from "@/app/(app)/browse/components/commitAuthors";
 import { CommitRow } from "./commitRow";
 import { CommitsPagination } from "./commitsPagination";
 import { DateFilter } from "./dateFilter";
@@ -16,8 +16,8 @@ import { getBrowsePath } from "@/app/(app)/browse/hooks/utils";
 
 interface CommitsPanelProps {
     path: string;
-    repoName: string;
-    revisionName?: string;
+    repo名称: string;
+    revision名称?: string;
     page: number;
     author?: string;
     since?: string;
@@ -27,7 +27,7 @@ interface CommitsPanelProps {
 const COMMITS_PER_PAGE = 35;
 const AUTHORS_PER_PAGE = 100;
 
-export const CommitsPanel = async ({ path, repoName, revisionName, page, author, since, until }: CommitsPanelProps) => {
+export const CommitsPanel = async ({ path, repo名称, revision名称, page, author, since, until }: CommitsPanelProps) => {
     const skip = (page - 1) * COMMITS_PER_PAGE;
 
     // The URL stores dates as YYYY-MM-DD. Always pass explicit timestamps to
@@ -39,50 +39,50 @@ export const CommitsPanel = async ({ path, repoName, revisionName, page, author,
 
     const [commitsResponse, repoInfoResponse, authorsResponse, pathTypeResponse] = await Promise.all([
         listCommits({
-            repo: repoName,
+            repo: repo名称,
             path: path || undefined,
-            ref: revisionName,
+            ref: revision名称,
             author: author ? escapeGitBreLiteral(author) : undefined,
             since: sinceForGit,
             until: untilForGit,
             maxCount: COMMITS_PER_PAGE,
             skip,
         }),
-        getRepoInfoByName(repoName),
+        getRepoInfoBy名称(repo名称),
         listCommitAuthors({
-            repo: repoName,
+            repo: repo名称,
             path: path || undefined,
-            ref: revisionName,
+            ref: revision名称,
             maxCount: AUTHORS_PER_PAGE,
             skip: 0,
         }),
         getPathType({
-            repo: repoName,
-            ref: revisionName,
+            repo: repo名称,
+            ref: revision名称,
             path,
         }),
     ]);
 
     if (isServiceError(commitsResponse)) {
-        return <div className="p-4 text-sm">Error loading commits: {commitsResponse.message}</div>;
+        return <div class名称="p-4 text-sm">Error loading commits: {commitsResponse.message}</div>;
     }
     if (isServiceError(repoInfoResponse)) {
-        return <div className="p-4 text-sm">Error loading repo info: {repoInfoResponse.message}</div>;
+        return <div class名称="p-4 text-sm">Error loading repo info: {repoInfoResponse.message}</div>;
     }
     if (isServiceError(authorsResponse)) {
-        return <div className="p-4 text-sm">Error loading commit authors: {authorsResponse.message}</div>;
+        return <div class名称="p-4 text-sm">Error loading commit authors: {authorsResponse.message}</div>;
     }
     // Fall back to 'blob' if the lookup fails so PathHeader still renders.
     const headerPathType = isServiceError(pathTypeResponse) ? 'blob' : pathTypeResponse;
 
-    const authors = dedupeCommitAuthorsByEmail(authorsResponse.authors);
+    const authors = dedupeCommitAuthorsBy邮箱(authorsResponse.authors);
     const { commits, totalCount } = commitsResponse;
     const isLastPage = page * COMMITS_PER_PAGE >= totalCount;
     const hasFilters = Boolean(author || since || until);
     const isEmpty = commits.length === 0;
     const clearFiltersHref = getBrowsePath({
-        repoName,
-        revisionName,
+        repo名称,
+        revision名称,
         path,
         pathType: 'commits',
     });
@@ -101,40 +101,40 @@ export const CommitsPanel = async ({ path, repoName, revisionName, page, author,
     }
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex flex-row py-1 px-2 items-center justify-between gap-2">
-                <div className="flex flex-row items-center gap-2 min-w-0">
-                    <span className="text-sm text-muted-foreground flex-shrink-0">History for</span>
+        <div class名称="flex flex-col h-full">
+            <div class名称="flex flex-row py-1 px-2 items-center justify-between gap-2">
+                <div class名称="flex flex-row items-center gap-2 min-w-0">
+                    <span class名称="text-sm text-muted-foreground flex-shrink-0">History for</span>
                     <PathHeader
                         path={path}
                         pathType={headerPathType}
                         repo={{
-                            name: repoName,
+                            name: repo名称,
                             codeHostType: repoInfoResponse.codeHostType,
-                            displayName: repoInfoResponse.displayName,
+                            display名称: repoInfoResponse.display名称,
                             externalWebUrl: repoInfoResponse.externalWebUrl,
                         }}
-                        revisionName={revisionName}
+                        revision名称={revision名称}
                         isFileIconVisible={headerPathType === 'blob'}
                     />
                 </div>
-                <div className="flex flex-row items-center gap-2 flex-shrink-0">
+                <div class名称="flex flex-row items-center gap-2 flex-shrink-0">
                     <AuthorFilter authors={authors} selectedAuthor={author} />
                     <DateFilter since={since} until={until} />
                 </div>
             </div>
             <Separator />
-            <div className="flex-1 overflow-auto">
+            <div class名称="flex-1 overflow-auto">
                 {isEmpty ? (
                     hasFilters ? (
-                        <div className="flex flex-col items-center justify-center gap-3 py-12">
-                            <p className="text-sm text-muted-foreground">No commits match these filters</p>
+                        <div class名称="flex flex-col items-center justify-center gap-3 py-12">
+                            <p class名称="text-sm text-muted-foreground">No commits match these filters</p>
                             <Button asChild variant="outline" size="sm">
                                 <Link href={clearFiltersHref}>Clear filters</Link>
                             </Button>
                         </div>
                     ) : (
-                        <div className="py-12 text-center text-sm text-muted-foreground">
+                        <div class名称="py-12 text-center text-sm text-muted-foreground">
                             No commits found
                         </div>
                     )
@@ -142,22 +142,22 @@ export const CommitsPanel = async ({ path, repoName, revisionName, page, author,
                     <>
                         {Array.from(groups.values()).map((group) => (
                             <div key={group.label}>
-                                <div className="sticky top-0 z-10 flex flex-row items-center gap-2 px-3 py-2 bg-muted text-sm font-medium text-muted-foreground border-b">
-                                    <GitCommitHorizontal className="h-4 w-4 flex-shrink-0" />
+                                <div class名称="sticky top-0 z-10 flex flex-row items-center gap-2 px-3 py-2 bg-muted text-sm font-medium text-muted-foreground border-b">
+                                    <GitCommitHorizontal class名称="h-4 w-4 flex-shrink-0" />
                                     {group.label}
                                 </div>
                                 {group.commits.map((commit) => (
                                     <CommitRow
                                         key={commit.hash}
                                         commit={commit}
-                                        repoName={repoName}
-                                        revisionName={revisionName}
+                                        repo名称={repo名称}
+                                        revision名称={revision名称}
                                     />
                                 ))}
                             </div>
                         ))}
                         {isLastPage && (
-                            <div className="py-8 text-center text-sm text-muted-foreground">
+                            <div class名称="py-8 text-center text-sm text-muted-foreground">
                                 End of commit history
                             </div>
                         )}

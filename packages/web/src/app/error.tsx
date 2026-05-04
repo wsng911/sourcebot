@@ -3,9 +3,9 @@
 import * as Sentry from "@sentry/nextjs";
 import { useEffect, useMemo } from 'react'
 import { useState } from "react"
-import { Copy, CheckCircle2, TriangleAlert } from "lucide-react"
+import { 复制, CheckCircle2, TriangleAlert } from "lucide-react"
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, Card描述, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { serviceErrorSchema } from '@/lib/serviceError';
 import { SourcebotLogo } from './components/sourcebotLogo';
@@ -38,9 +38,9 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
     }, [error]);
 
     return (
-        <div className="flex flex-col min-h-screen justify-center items-center bg-backgroundSecondary">
+        <div class名称="flex flex-col min-h-screen justify-center items-center bg-backgroundSecondary">
             <SourcebotLogo
-                className="mb-4"
+                class名称="mb-4"
                 size='large'
             />
             <ErrorCard
@@ -70,22 +70,22 @@ function ErrorCard({ message, errorCode, statusCode, onReloadButtonClicked }: Er
     }
 
     return (
-        <Card className="w-full max-w-md mx-auto">
-            <CardHeader className="space-y-1 flex">
-                <CardTitle className="text-2xl font-bold flex items-center gap-2 text-destructive">
-                    <TriangleAlert className="h-5 w-5 mt-0.5" />
+        <Card class名称="w-full max-w-md mx-auto">
+            <CardHeader class名称="space-y-1 flex">
+                <CardTitle class名称="text-2xl font-bold flex items-center gap-2 text-destructive">
+                    <TriangleAlert class名称="h-5 w-5 mt-0.5" />
                     Unexpected Error
                 </CardTitle>
-                <CardDescription className="text-sm">
-                    An unexpected error occurred. Please reload the page and try again. If the issue persists, <Link href={`mailto:${SOURCEBOT_SUPPORT_EMAIL}?subject=Sourcebot%20Error%20Report${errorCode ? `%20|%20Code:%20${errorCode}` : ''}`} className='underline'>please contact us</Link>.
-                </CardDescription>
+                <Card描述 class名称="text-sm">
+                    An unexpected error occurred. Please reload the page and try again. If the issue persists, <Link href={`mailto:${SOURCEBOT_SUPPORT_EMAIL}?subject=Sourcebot%20Error%20Report${errorCode ? `%20|%20Code:%20${errorCode}` : ''}`} class名称='underline'>please contact us</Link>.
+                </Card描述>
             </CardHeader>
-            <CardContent className="space-y-4">
-                <div className="space-y-3">
+            <CardContent class名称="space-y-4">
+                <div class名称="space-y-3">
                     <ErrorField
                         label="Error Message"
                         value={message}
-                        onCopy={() => copyToClipboard(message, "message")}
+                        on复制={() => copyToClipboard(message, "message")}
                         copied={copied === "message"}
                     />
 
@@ -93,16 +93,16 @@ function ErrorCard({ message, errorCode, statusCode, onReloadButtonClicked }: Er
                         <ErrorField
                             label="Error Code"
                             value={errorCode}
-                            onCopy={() => copyToClipboard(errorCode.toString(), "errorCode")}
+                            on复制={() => copyToClipboard(errorCode.toString(), "errorCode")}
                             copied={copied === "errorCode"}
                         />
                     )}
 
                     {statusCode && (
                         <ErrorField
-                            label="Status Code"
+                            label="状态 Code"
                             value={statusCode}
-                            onCopy={() => copyToClipboard(statusCode.toString(), "statusCode")}
+                            on复制={() => copyToClipboard(statusCode.toString(), "statusCode")}
                             copied={copied === "statusCode"}
                         />
                     )}
@@ -110,7 +110,7 @@ function ErrorCard({ message, errorCode, statusCode, onReloadButtonClicked }: Er
                 <Button
                     onClick={onReloadButtonClicked}
                     variant='outline'
-                    className='w-full'
+                    class名称='w-full'
                 >
                     Reload Page
                 </Button>
@@ -122,27 +122,27 @@ function ErrorCard({ message, errorCode, statusCode, onReloadButtonClicked }: Er
 interface ErrorFieldProps {
     label: string
     value: string | number
-    onCopy: () => void
+    on复制: () => void
     copied: boolean
 }
 
-function ErrorField({ label, value, onCopy, copied }: ErrorFieldProps) {
+function ErrorField({ label, value, on复制, copied }: ErrorFieldProps) {
     return (
-        <div className="space-y-2">
-            <div className="text-sm font-medium">{label}</div>
-            <div className="flex items-center gap-2">
-                <div className="bg-muted p-2 rounded text-sm flex-1 break-words">{value}</div>
+        <div class名称="space-y-2">
+            <div class名称="text-sm font-medium">{label}</div>
+            <div class名称="flex items-center gap-2">
+                <div class名称="bg-muted p-2 rounded text-sm flex-1 break-words">{value}</div>
                 <Button
                     variant="outline"
                     size="icon"
-                    className="h-8 w-8 shrink-0"
-                    onClick={onCopy}
-                    aria-label={`Copy ${label.toLowerCase()}`}
+                    class名称="h-8 w-8 shrink-0"
+                    onClick={on复制}
+                    aria-label={`复制 ${label.toLowerCase()}`}
                 >
                     {copied ? (
-                        <CheckCircle2 className="h-4 w-4 text-green-500" />
+                        <CheckCircle2 class名称="h-4 w-4 text-green-500" />
                     ) : (
-                        <Copy className="h-4 w-4" />
+                        <复制 class名称="h-4 w-4" />
                     )}
                 </Button>
             </div>

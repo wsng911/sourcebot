@@ -5,10 +5,10 @@ export type PosthogEventMap = {
         contentBytesLoaded: number,
         indexBytesLoaded: number,
         crashes: number,
-        /** @deprecated: use timeToFirstSearchResultMs and timeToSearchCompletionMs instead */
+        /** @deprecated: use timeToFirst搜索ResultMs and timeTo搜索CompletionMs instead */
         durationMs: number,
-        timeToFirstSearchResultMs: number,
-        timeToSearchCompletionMs: number,
+        timeToFirst搜索ResultMs: number,
+        timeTo搜索CompletionMs: number,
         fileCount: number,
         shardFilesConsidered: number,
         filesConsidered: number,
@@ -23,11 +23,11 @@ export type PosthogEventMap = {
         ngramLookups: number,
         wait: number,
         matchTreeConstruction: number,
-        matchTreeSearch: number,
+        matchTree搜索: number,
         regexpsConsidered: number,
         flushReason: string,
         fileLanguages: string[],
-        isSearchExhaustive: boolean,
+        is搜索Exhaustive: boolean,
         isBranchFilteringEnabled: boolean,
     },
     ////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ export type PosthogEventMap = {
         selectedRepos?: string[],
     },
     tool_used: {
-        toolName: string,
+        tool名称: string,
         source: string,
         success: boolean,
     },
@@ -274,12 +274,12 @@ export type PosthogEventMap = {
     wa_explore_menu_references_loaded: {
         durationMs: number,
         // Whether or not the user is searching all repositories.
-        isGlobalSearchEnabled: boolean,
+        isGlobal搜索Enabled: boolean,
     },
     wa_explore_menu_definitions_loaded: {
         durationMs: number,
         // Whether or not the user is searching all repositories.
-        isGlobalSearchEnabled: boolean,
+        isGlobal搜索Enabled: boolean,
     },
     //////////////////////////////////////////////////////////////////
     wa_file_tree_loaded: {
@@ -296,15 +296,15 @@ export type PosthogEventMap = {
     //////////////////////////////////////////////////////////////////
     wa_oauth_consent_viewed: {
         clientId: string,
-        clientName: string,
+        client名称: string,
     },
     wa_oauth_authorization_approved: {
         clientId: string,
-        clientName: string,
+        client名称: string,
     },
     wa_oauth_authorization_denied: {
         clientId: string,
-        clientName: string,
+        client名称: string,
     },
 } 
 export type PosthogEvent = keyof PosthogEventMap;

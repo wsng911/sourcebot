@@ -10,8 +10,8 @@ import { logger } from './logger';
 
 
 export const getFolderContentsRequestSchema = z.object({
-    repoName: z.string(),
-    revisionName: z.string(),
+    repo名称: z.string(),
+    revision名称: z.string(),
     path: z.string(),
 });
 export type GetFolderContentsRequest = z.infer<typeof getFolderContentsRequestSchema>;
@@ -20,11 +20,11 @@ export type GetFolderContentsRequest = z.infer<typeof getFolderContentsRequestSc
  * Returns the contents of a folder at a given path in a given repository,
  * at a given revision.
  */
-export const getFolderContents = async ({ repoName, revisionName, path }: GetFolderContentsRequest) => sew(() =>
+export const getFolderContents = async ({ repo名称, revision名称, path }: GetFolderContentsRequest) => sew(() =>
     withOptionalAuth(async ({ org, prisma }) => {
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
@@ -47,7 +47,7 @@ export const getFolderContents = async ({ repoName, revisionName, path }: GetFol
                 // Disable quoting of non-ASCII characters in paths
                 '-c', 'core.quotePath=false',
                 'ls-tree',
-                revisionName,
+                revision名称,
                 // format as output as {type},{path}
                 '--format=%(objecttype),%(path)',
                 ...(normalizedPath.length === 0 ? [] : [normalizedPath]),

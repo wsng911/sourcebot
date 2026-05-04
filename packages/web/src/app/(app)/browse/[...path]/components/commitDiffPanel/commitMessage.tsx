@@ -14,8 +14,8 @@ export const CommitMessage = ({ subject, body }: CommitMessageProps) => {
 
     return (
         <>
-            <div className="flex flex-row items-center gap-2">
-                <h1 className="text-lg font-semibold">{subject}</h1>
+            <div class名称="flex flex-row items-center gap-2">
+                <h1 class名称="text-lg font-semibold">{subject}</h1>
                 {hasBody && (
                     <CommitBodyToggle
                         pressed={isBodyExpanded}
@@ -24,7 +24,7 @@ export const CommitMessage = ({ subject, body }: CommitMessageProps) => {
                 )}
             </div>
             {hasBody && isBodyExpanded && (
-                <CommitBody body={body} className="rounded max-h-[40vh] overflow-y-auto" />
+                <CommitBody body={body} class名称="rounded max-h-[40vh] overflow-y-auto" />
             )}
         </>
     );

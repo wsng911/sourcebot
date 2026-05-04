@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
-import { Copy, Check } from "lucide-react"
+import { 复制, Check } from "lucide-react"
 import { useToast } from "@/components/hooks/use-toast"
 import { setInviteLinkEnabled } from "@/actions"
 import { isServiceError } from "@/lib/utils"
@@ -49,7 +49,7 @@ export function InviteLinkToggle({ inviteLinkEnabled, inviteLink }: InviteLinkTo
         }
     }
 
-    const handleCopy = async () => {
+    const handle复制 = async () => {
         if (!inviteLink) return
         
         try {
@@ -67,19 +67,19 @@ export function InviteLinkToggle({ inviteLinkEnabled, inviteLink }: InviteLinkTo
     }
 
     return (
-        <div className="p-4 rounded-lg border border-[var(--border)] bg-[var(--card)]">
-            <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-[var(--foreground)] mb-2">
+        <div class名称="p-4 rounded-lg border border-[var(--border)] bg-[var(--card)]">
+            <div class名称="flex items-start justify-between gap-4">
+                <div class名称="flex-1 min-w-0">
+                    <h3 class名称="font-medium text-[var(--foreground)] mb-2">
                         Enable invite link
                     </h3>
-                    <div className="max-w-2xl">
-                        <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
+                    <div class名称="max-w-2xl">
+                        <p class名称="text-sm text-[var(--muted-foreground)] leading-relaxed">
                             When enabled, team members can use the invite link to join your organization without requiring approval.
                         </p>
                     </div>
                 </div>
-                <div className="flex-shrink-0">
+                <div class名称="flex-shrink-0">
                     <Switch
                         checked={enabled}
                         onCheckedChange={handleToggle}
@@ -88,39 +88,39 @@ export function InviteLinkToggle({ inviteLinkEnabled, inviteLink }: InviteLinkTo
                 </div>
             </div>
             
-            <div className={`transition-all duration-300 ease-in-out ${
+            <div class名称={`transition-all duration-300 ease-in-out ${
                 enabled 
                     ? 'max-h-96 opacity-100 transform translate-y-0 mt-4' 
                     : 'max-h-0 opacity-0 transform -translate-y-2 overflow-hidden'
             }`}>
-                <div className="space-y-4 pt-4 border-t border-[var(--border)]">
-                    <div className="space-y-2">
-                        <div className="flex gap-2">
+                <div class名称="space-y-4 pt-4 border-t border-[var(--border)]">
+                    <div class名称="space-y-2">
+                        <div class名称="flex gap-2">
                             <Input
                                 value={inviteLink || "Failed to fetch invite link: org doesn't have inviteId property."}
                                 readOnly
-                                className={`flex-1 bg-[var(--muted)] border-[var(--border)] ${
+                                class名称={`flex-1 bg-[var(--muted)] border-[var(--border)] ${
                                     inviteLink ? 'text-[var(--foreground)]' : 'text-red-500'
                                 }`}
                             />
                             <Button
-                                onClick={handleCopy}
+                                onClick={handle复制}
                                 variant="outline"
                                 size="icon"
-                                className="shrink-0 border-[var(--border)] hover:bg-[var(--muted)]"
+                                class名称="shrink-0 border-[var(--border)] hover:bg-[var(--muted)]"
                                 disabled={!inviteLink}
                             >
                                 {copied ? (
-                                    <Check className="h-4 w-4 text-[var(--chart-2)]" />
+                                    <Check class名称="h-4 w-4 text-[var(--chart-2)]" />
                                 ) : (
-                                    <Copy className="h-4 w-4" />
+                                    <复制 class名称="h-4 w-4" />
                                 )}
                             </Button>
                         </div>
                     </div>
                     
-                    <p className="text-sm text-[var(--muted-foreground)]">
-                        You can find this link again in the <strong>Settings → Members</strong> page.
+                    <p class名称="text-sm text-[var(--muted-foreground)]">
+                        You can find this link again in the <strong>设置 → Members</strong> page.
                     </p>
                 </div>
             </div>

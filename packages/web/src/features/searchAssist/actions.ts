@@ -8,7 +8,7 @@ import { withOptionalAuth } from "@/middleware/withAuth";
 import { SEARCH_SYNTAX_DESCRIPTION } from "@sourcebot/query-language";
 import { generateObject } from "ai";
 import { z } from "zod";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 
 const SYSTEM_PROMPT = `You are a search query translator for Sourcebot, a code search engine.
 
@@ -24,13 +24,13 @@ ${SEARCH_SYNTAX_DESCRIPTION}
 - Keep the query as simple as possible while accurately capturing the intent.
 `;
 
-export const translateSearchQuery = async ({ prompt }: { prompt: string }) => sew(() =>
+export const translate搜索Query = async ({ prompt }: { prompt: string }) => sew(() =>
     withOptionalAuth(async () => {
         const models = await getConfiguredLanguageModels();
 
         if (models.length === 0) {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.INVALID_REQUEST_BODY,
                 message: 'No language models are configured.',
             } satisfies ServiceError;

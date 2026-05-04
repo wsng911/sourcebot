@@ -1,11 +1,11 @@
 // Original file: ../../vendor/zoekt/grpc/protos/zoekt/webserver/v1/webserver.proto
 
-import type { SearchRequest as _zoekt_webserver_v1_SearchRequest, SearchRequest__Output as _zoekt_webserver_v1_SearchRequest__Output } from '../../../zoekt/webserver/v1/SearchRequest';
+import type { 搜索Request as _zoekt_webserver_v1_搜索Request, 搜索Request__Output as _zoekt_webserver_v1_搜索Request__Output } from '../../../zoekt/webserver/v1/搜索Request';
 
-export interface StreamSearchRequest {
-  'request'?: (_zoekt_webserver_v1_SearchRequest | null);
+export interface Stream搜索Request {
+  'request'?: (_zoekt_webserver_v1_搜索Request | null);
 }
 
-export interface StreamSearchRequest__Output {
-  'request': (_zoekt_webserver_v1_SearchRequest__Output | null);
+export interface Stream搜索Request__Output {
+  'request': (_zoekt_webserver_v1_搜索Request__Output | null);
 }

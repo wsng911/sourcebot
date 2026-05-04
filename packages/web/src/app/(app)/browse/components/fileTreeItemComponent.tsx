@@ -59,7 +59,7 @@ export const FileTreeItemComponent = ({
         <Link
             ref={ref}
             href={href}
-            className={clsx("flex flex-row gap-1 items-center hover:bg-accent hover:text-accent-foreground rounded-sm cursor-pointer p-0.5", {
+            class名称={clsx("flex flex-row gap-1 items-center hover:bg-accent hover:text-accent-foreground rounded-sm cursor-pointer p-0.5", {
                 'bg-accent': isActive,
             })}
             style={{ paddingLeft: `${depth * 16}px` }}
@@ -68,18 +68,18 @@ export const FileTreeItemComponent = ({
             onNavigate={onNavigate}
         >
             <div
-                className="flex flex-row gap-1 cursor-pointer w-4 h-4 flex-shrink-0"
+                class名称="flex flex-row gap-1 cursor-pointer w-4 h-4 flex-shrink-0"
             >
                 {isCollapseChevronVisible && (
                     isCollapsed ? (
-                        <ChevronRightIcon className="w-4 h-4 flex-shrink-0" />
+                        <ChevronRightIcon class名称="w-4 h-4 flex-shrink-0" />
                     ) : (
-                        <ChevronDownIcon className="w-4 h-4 flex-shrink-0" />
+                        <ChevronDownIcon class名称="w-4 h-4 flex-shrink-0" />
                     )
                 )}
             </div>
             <FileTreeItemIcon item={node} />
-            <span className="text-sm">{node.name}</span>
+            <span class名称="text-sm">{node.name}</span>
         </Link>
     )
 }

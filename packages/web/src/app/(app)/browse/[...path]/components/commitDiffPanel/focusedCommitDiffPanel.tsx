@@ -1,4 +1,4 @@
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 import { PathHeader } from "@/app/(app)/components/pathHeader";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -11,19 +11,19 @@ import { formatAuthorsText, getCommitAuthors } from "../../../components/commitA
 import { AuthorsAvatarGroup } from "../../../components/commitParts";
 import { getBrowsePath } from "../../../hooks/utils";
 import { computeChangeCounts, DiffStat } from "./diffStat";
-import { FileStatus, getFileStatus, StatusBadge } from "./fileStatus";
+import { File状态, getFile状态, 状态Badge } from "./file状态";
 import { LightweightDiffViewer } from "./lightweightDiffViewer";
 
-const FILE_STATUS_LABELS: Record<FileStatus, string> = {
-    added: 'Added',
+const FILE_STATUS_LABELS: Record<File状态, string> = {
+    added: '添加ed',
     modified: 'Modified',
-    deleted: 'Deleted',
+    deleted: '删除d',
     renamed: 'Renamed',
 };
 
 interface FocusedCommitDiffPanelProps {
-    repoName: string;
-    revisionName?: string;
+    repo名称: string;
+    revision名称?: string;
     commitSha: string;
     path: string;
 }
@@ -33,28 +33,28 @@ interface FocusedCommitDiffPanelProps {
 const EMPTY_TREE_SHA = '4b825dc642cb6eb9a060e54bf8d69288fbee4904';
 
 export const FocusedCommitDiffPanel = async ({
-    repoName,
-    revisionName,
+    repo名称,
+    revision名称,
     commitSha,
     path,
 }: FocusedCommitDiffPanelProps) => {
     const [commitResponse, initialDiffResponse, repoInfoResponse] = await Promise.all([
         getCommit({
-            repo: repoName,
+            repo: repo名称,
             ref: commitSha,
         }),
         getDiff({
-            repo: repoName,
+            repo: repo名称,
             base: `${commitSha}^`,
             head: commitSha,
             path,
         }),
-        getRepoInfoByName(repoName),
+        getRepoInfoBy名称(repo名称),
     ]);
 
     if (isServiceError(commitResponse)) {
         return (
-            <div className="p-6 text-sm text-destructive">
+            <div class名称="p-6 text-sm text-destructive">
                 Error loading commit: {commitResponse.message}
             </div>
         );
@@ -62,7 +62,7 @@ export const FocusedCommitDiffPanel = async ({
 
     if (isServiceError(repoInfoResponse)) {
         return (
-            <div className="p-6 text-sm text-destructive">
+            <div class名称="p-6 text-sm text-destructive">
                 Error loading repo info: {repoInfoResponse.message}
             </div>
         );
@@ -73,7 +73,7 @@ export const FocusedCommitDiffPanel = async ({
     let diffResponse = initialDiffResponse;
     if (isServiceError(initialDiffResponse) && commitResponse.parents.length === 0) {
         diffResponse = await getDiff({
-            repo: repoName,
+            repo: repo名称,
             base: EMPTY_TREE_SHA,
             head: commitSha,
             path,
@@ -82,7 +82,7 @@ export const FocusedCommitDiffPanel = async ({
 
     if (isServiceError(diffResponse)) {
         return (
-            <div className="p-6 text-sm text-destructive">
+            <div class名称="p-6 text-sm text-destructive">
                 Error loading diff: {diffResponse.message}
             </div>
         );
@@ -100,57 +100,57 @@ export const FocusedCommitDiffPanel = async ({
     const absoluteDate = format(commitDate, 'PPpp');
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex flex-row py-1 px-2 items-center border-b shrink-0">
+        <div class名称="flex flex-col h-full">
+            <div class名称="flex flex-row py-1 px-2 items-center border-b shrink-0">
                 <PathHeader
                     path={path}
                     pathType="blob"
                     repo={{
-                        name: repoName,
+                        name: repo名称,
                         codeHostType: repoInfoResponse.codeHostType,
-                        displayName: repoInfoResponse.displayName,
+                        display名称: repoInfoResponse.display名称,
                         externalWebUrl: repoInfoResponse.externalWebUrl,
                     }}
-                    revisionName={revisionName}
+                    revision名称={revision名称}
                 />
             </div>
             {file ? (
                 <>
-                    <div className="flex flex-row items-center justify-between gap-2 px-4 py-2 border-b shrink-0">
-                        <div className="flex flex-row items-center gap-2">
-                            <StatusBadge status={getFileStatus(file)} />
-                            <h2 className="text-sm font-medium">
-                                {FILE_STATUS_LABELS[getFileStatus(file)]}
+                    <div class名称="flex flex-row items-center justify-between gap-2 px-4 py-2 border-b shrink-0">
+                        <div class名称="flex flex-row items-center gap-2">
+                            <状态Badge status={getFile状态(file)} />
+                            <h2 class名称="text-sm font-medium">
+                                {FILE_STATUS_LABELS[getFile状态(file)]}
                             </h2>
-                            <span className="text-sm text-muted-foreground">by</span>
+                            <span class名称="text-sm text-muted-foreground">by</span>
                             <AuthorsAvatarGroup authors={authors} />
                             <span
-                                className="text-sm font-medium"
+                                class名称="text-sm font-medium"
                                 title={authors.map((a) => a.name).join(", ")}
                             >
                                 {formatAuthorsText(authors)}
                             </span>
                             <span
-                                className="text-sm text-muted-foreground"
+                                class名称="text-sm text-muted-foreground"
                                 title={absoluteDate}
                             >
                                 {relativeDate}
                             </span>
-                            <span className="text-muted-foreground">·</span>
+                            <span class名称="text-muted-foreground">·</span>
                             <Link
                                 href={getBrowsePath({
-                                    repoName,
-                                    revisionName,
+                                    repo名称,
+                                    revision名称,
                                     path: '',
                                     pathType: 'commit',
                                     commitSha,
                                 })}
-                                className="text-sm text-link hover:underline"
+                                class名称="text-sm text-link hover:underline"
                             >
                                 View full commit
                             </Link>
                         </div>
-                        <div className="flex flex-row items-center gap-2">
+                        <div class名称="flex flex-row items-center gap-2">
                             <DiffStat {...computeChangeCounts(file)} />
                             <Tooltip key={commitSha}>
                                 <TooltipTrigger>
@@ -158,18 +158,18 @@ export const FocusedCommitDiffPanel = async ({
                                         asChild
                                         variant="ghost"
                                         size="icon"
-                                        className="h-6 w-6 text-muted-foreground"
+                                        class名称="h-6 w-6 text-muted-foreground"
                                     >
                                         <Link
                                             href={getBrowsePath({
-                                                repoName,
-                                                revisionName,
+                                                repo名称,
+                                                revision名称,
                                                 path,
                                                 pathType: 'blob',
                                             })}
                                             aria-label="Exit diff view"
                                         >
-                                            <X className="h-4 w-4" />
+                                            <X class名称="h-4 w-4" />
                                         </Link>
                                     </Button>
                                 </TooltipTrigger>
@@ -177,7 +177,7 @@ export const FocusedCommitDiffPanel = async ({
                             </Tooltip>
                         </div>
                     </div>
-                    <div className="flex-1 min-h-0 overflow-y-auto">
+                    <div class名称="flex-1 min-h-0 overflow-y-auto">
                         <LightweightDiffViewer
                             hunks={file.hunks}
                             oldPath={file.oldPath}
@@ -186,7 +186,7 @@ export const FocusedCommitDiffPanel = async ({
                     </div>
                 </>
             ) : (
-                <div className="p-4 text-sm text-muted-foreground">
+                <div class名称="p-4 text-sm text-muted-foreground">
                     This file was not modified in this commit.
                 </div>
             )}

@@ -11,25 +11,25 @@ import type { Author } from "./commitAuthors";
 
 interface AuthorsAvatarGroupProps {
     authors: Author[];
-    className?: string;
+    class名称?: string;
 }
 
-export const AuthorsAvatarGroup = ({ authors, className }: AuthorsAvatarGroupProps) => {
+export const AuthorsAvatarGroup = ({ authors, class名称 }: AuthorsAvatarGroupProps) => {
     const displayed = authors.slice(0, 2);
     const overflow = Math.max(0, authors.length - 2);
 
     return (
-        <AvatarGroup className={cn("flex-shrink-0", className)}>
+        <AvatarGroup class名称={cn("flex-shrink-0", class名称)}>
             {displayed.map((a) => (
                 <UserAvatar
                     key={a.email}
                     email={a.email}
                     title={a.email}
-                    className="h-5 w-5"
+                    class名称="h-5 w-5"
                 />
             ))}
             {overflow > 0 && (
-                <AvatarGroupCount className="size-5 text-xs">
+                <AvatarGroupCount class名称="size-5 text-xs">
                     +{overflow}
                 </AvatarGroupCount>
             )}
@@ -59,12 +59,12 @@ export const CommitBodyToggle = ({ pressed, onPressedChange }: CommitBodyToggleP
 
 interface CommitBodyProps {
     body: string;
-    className?: string;
+    class名称?: string;
 }
 
-export const CommitBody = ({ body, className }: CommitBodyProps) => (
-    <div className={cn("px-3 py-2 bg-muted/30", className)}>
-        <pre className="text-sm font-mono text-foreground whitespace-pre-wrap break-words">
+export const CommitBody = ({ body, class名称 }: CommitBodyProps) => (
+    <div class名称={cn("px-3 py-2 bg-muted/30", class名称)}>
+        <pre class名称="text-sm font-mono text-foreground whitespace-pre-wrap break-words">
             {body.trim()}
         </pre>
     </div>
@@ -79,7 +79,7 @@ interface CommitActionLinkProps {
 export const CommitActionLink = ({ href, label, icon }: CommitActionLinkProps) => (
     <Tooltip>
         <TooltipTrigger asChild>
-            <Button asChild variant="ghost" size="sm" className="h-6 w-6 text-muted-foreground">
+            <Button asChild variant="ghost" size="sm" class名称="h-6 w-6 text-muted-foreground">
                 <Link href={href} aria-label={label}>
                     {icon}
                 </Link>

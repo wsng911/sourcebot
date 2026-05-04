@@ -29,11 +29,11 @@ const SINGLE_REVIEW: sourcebot_file_diff_review[] = [
     },
 ];
 
-function makeMockOctokit(createReviewCommentResult: 'resolve' | 'reject' = 'resolve') {
+function makeMockOctokit(createReview评论Result: 'resolve' | 'reject' = 'resolve') {
     return {
         rest: {
             pulls: {
-                createReviewComment: createReviewCommentResult === 'resolve'
+                createReview评论: createReview评论Result === 'resolve'
                     ? vi.fn().mockResolvedValue({})
                     : vi.fn().mockRejectedValue(new Error('Unprocessable Entity')),
             },
@@ -47,8 +47,8 @@ describe('githubPushPrReviews', () => {
 
         await githubPushPrReviews(octokit, MOCK_PAYLOAD, SINGLE_REVIEW);
 
-        expect(octokit.rest.pulls.createReviewComment).toHaveBeenCalledOnce();
-        expect(octokit.rest.pulls.createReviewComment).toHaveBeenCalledWith(
+        expect(octokit.rest.pulls.createReview评论).toHaveBeenCalledOnce();
+        expect(octokit.rest.pulls.createReview评论).toHaveBeenCalledWith(
             expect.objectContaining({
                 owner: 'my-org',
                 repo: 'my-repo',
@@ -67,7 +67,7 @@ describe('githubPushPrReviews', () => {
 
         await githubPushPrReviews(octokit, MOCK_PAYLOAD, SINGLE_REVIEW);
 
-        const call = octokit.rest.pulls.createReviewComment.mock.calls[0][0];
+        const call = octokit.rest.pulls.createReview评论.mock.calls[0][0];
         expect(call).toHaveProperty('line', 10);
         expect(call).not.toHaveProperty('start_line');
     });
@@ -83,7 +83,7 @@ describe('githubPushPrReviews', () => {
 
         await githubPushPrReviews(octokit, MOCK_PAYLOAD, multiLineReviews);
 
-        const call = octokit.rest.pulls.createReviewComment.mock.calls[0][0];
+        const call = octokit.rest.pulls.createReview评论.mock.calls[0][0];
         expect(call).toHaveProperty('start_line', 5);
         expect(call).toHaveProperty('line', 15);
         expect(call).toHaveProperty('start_side', 'RIGHT');
@@ -94,20 +94,20 @@ describe('githubPushPrReviews', () => {
             {
                 filename: 'src/a.ts',
                 reviews: [
-                    { line_start: 1, line_end: 1, review: 'Comment A1' },
-                    { line_start: 5, line_end: 5, review: 'Comment A2' },
+                    { line_start: 1, line_end: 1, review: '评论 A1' },
+                    { line_start: 5, line_end: 5, review: '评论 A2' },
                 ],
             },
             {
                 filename: 'src/b.ts',
-                reviews: [{ line_start: 3, line_end: 3, review: 'Comment B1' }],
+                reviews: [{ line_start: 3, line_end: 3, review: '评论 B1' }],
             },
         ];
         const octokit = makeMockOctokit();
 
         await githubPushPrReviews(octokit, MOCK_PAYLOAD, multiFileReviews);
 
-        expect(octokit.rest.pulls.createReviewComment).toHaveBeenCalledTimes(3);
+        expect(octokit.rest.pulls.createReview评论).toHaveBeenCalledTimes(3);
     });
 
     test('continues posting remaining reviews when one fails', async () => {
@@ -120,14 +120,14 @@ describe('githubPushPrReviews', () => {
                 ],
             },
         ];
-        const mockCreate = vi.fn()
+        const mock创建 = vi.fn()
             .mockRejectedValueOnce(new Error('422'))
             .mockResolvedValueOnce({});
-        const octokit = { rest: { pulls: { createReviewComment: mockCreate } } } as any;
+        const octokit = { rest: { pulls: { createReview评论: mock创建 } } } as any;
 
         await githubPushPrReviews(octokit, MOCK_PAYLOAD, twoReviews);
 
-        expect(mockCreate).toHaveBeenCalledTimes(2);
+        expect(mock创建).toHaveBeenCalledTimes(2);
     });
 
     test('does not throw when all review comments fail', async () => {
@@ -143,6 +143,6 @@ describe('githubPushPrReviews', () => {
 
         await githubPushPrReviews(octokit, MOCK_PAYLOAD, []);
 
-        expect(octokit.rest.pulls.createReviewComment).not.toHaveBeenCalled();
+        expect(octokit.rest.pulls.createReview评论).not.toHaveBeenCalled();
     });
 });

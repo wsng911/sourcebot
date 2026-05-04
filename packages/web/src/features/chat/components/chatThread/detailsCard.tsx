@@ -9,11 +9,11 @@ import useCaptureEvent from '@/hooks/useCaptureEvent';
 import { cn, getShortenedNumberDisplayString } from '@/lib/utils';
 import isEqual from "fast-deep-equal/react";
 import { useStickToBottom } from 'use-stick-to-bottom';
-import { Brain, ChevronDown, ChevronRight, Clock, InfoIcon, Loader2, ScanSearchIcon, Wrench, Zap } from 'lucide-react';
+import { Brain, ChevronDown, ChevronRight, Clock, InfoIcon, Loader2, Scan搜索Icon, Wrench, Zap } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { usePrevious } from '@uidotdev/usehooks';
 import { SBChatMessageMetadata, SBChatMessagePart } from '../../types';
-import { SearchScopeIcon } from '../searchScopeIcon';
+import { 搜索ScopeIcon } from '../searchScopeIcon';
 import { MarkdownRenderer } from './markdownRenderer';
 import { FindSymbolDefinitionsToolComponent } from './tools/findSymbolDefinitionsToolComponent';
 import { FindSymbolReferencesToolComponent } from './tools/findSymbolReferencesToolComponent';
@@ -56,48 +56,48 @@ const DetailsCardComponent = ({
     }, [chatId, captureEvent, onExpandedChanged]);
 
     return (
-        <Card className="mb-4">
+        <Card class名称="mb-4">
             <Collapsible open={isExpanded} onOpenChange={handleExpandedChanged}>
                 <CollapsibleTrigger asChild>
                     <CardContent
-                        className={cn("p-3 cursor-pointer hover:bg-muted", {
+                        class名称={cn("p-3 cursor-pointer hover:bg-muted", {
                             "rounded-lg": !isExpanded,
                             "rounded-t-lg": isExpanded,
                         })}
                     >
-                        <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center space-x-4">
+                        <div class名称="flex items-center justify-between w-full">
+                            <div class名称="flex items-center space-x-4">
 
-                                <p className="flex items-center font-semibold text-muted-foreground text-sm">
+                                <p class名称="flex items-center font-semibold text-muted-foreground text-sm">
                                     {isThinking ? (
                                         <>
-                                            <Loader2 className="w-4 h-4 animate-spin mr-1 flex-shrink-0" />
+                                            <Loader2 class名称="w-4 h-4 animate-spin mr-1 flex-shrink-0" />
                                             Thinking...
                                         </>
                                     ) : (
                                         <>
-                                            <InfoIcon className="w-4 h-4 mr-1 flex-shrink-0" />
+                                            <InfoIcon class名称="w-4 h-4 mr-1 flex-shrink-0" />
                                             Details
                                         </>
                                     )}
                                 </p>
                                 {!isStreaming && (
                                     <>
-                                        <Separator orientation="vertical" className="h-4" />
-                                        {(metadata?.selectedSearchScopes && metadata.selectedSearchScopes.length > 0) && (
+                                        <Separator orientation="vertical" class名称="h-4" />
+                                        {(metadata?.selected搜索Scopes && metadata.selected搜索Scopes.length > 0) && (
                                             <Tooltip>
                                                 <TooltipTrigger asChild>
-                                                    <div className="flex items-center text-xs cursor-help">
-                                                        <ScanSearchIcon className="w-3 h-3 mr-1 flex-shrink-0" />
-                                                        {metadata.selectedSearchScopes.length} search scope{metadata.selectedSearchScopes.length === 1 ? '' : 's'}
+                                                    <div class名称="flex items-center text-xs cursor-help">
+                                                        <Scan搜索Icon class名称="w-3 h-3 mr-1 flex-shrink-0" />
+                                                        {metadata.selected搜索Scopes.length} search scope{metadata.selected搜索Scopes.length === 1 ? '' : 's'}
                                                     </div>
                                                 </TooltipTrigger>
                                                 <TooltipContent side="bottom">
-                                                    <div className="max-w-xs">
-                                                        <div className="space-y-2">
-                                                            {metadata.selectedSearchScopes.map((item) => (
-                                                                <div key={item.value} className="flex items-center gap-2 text-xs">
-                                                                    <SearchScopeIcon searchScope={item} className="h-3 w-3" />
+                                                    <div class名称="max-w-xs">
+                                                        <div class名称="space-y-2">
+                                                            {metadata.selected搜索Scopes.map((item) => (
+                                                                <div key={item.value} class名称="flex items-center gap-2 text-xs">
+                                                                    <搜索ScopeIcon searchScope={item} class名称="h-3 w-3" />
                                                                     <span>{item.name}</span>
                                                                 </div>
                                                             ))}
@@ -106,32 +106,32 @@ const DetailsCardComponent = ({
                                                 </TooltipContent>
                                             </Tooltip>
                                         )}
-                                        {metadata?.modelName && (
-                                            <div className="flex items-center text-xs">
-                                                <Brain className="w-3 h-3 mr-1 flex-shrink-0" />
-                                                {metadata?.modelName}
+                                        {metadata?.model名称 && (
+                                            <div class名称="flex items-center text-xs">
+                                                <Brain class名称="w-3 h-3 mr-1 flex-shrink-0" />
+                                                {metadata?.model名称}
                                             </div>
                                         )}
                                         {metadata?.totalTokens && (
                                             <Tooltip>
                                                 <TooltipTrigger asChild>
-                                                    <div className="flex items-center text-xs cursor-help">
-                                                        <Zap className="w-3 h-3 mr-1 flex-shrink-0" />
+                                                    <div class名称="flex items-center text-xs cursor-help">
+                                                        <Zap class名称="w-3 h-3 mr-1 flex-shrink-0" />
                                                         {getShortenedNumberDisplayString(metadata.totalTokens, 0)} tokens
                                                     </div>
                                                 </TooltipTrigger>
                                                 <TooltipContent side="bottom">
-                                                    <div className="space-y-1 text-xs">
-                                                        <div className="flex justify-between gap-4">
-                                                            <span className="text-muted-foreground">Input</span>
+                                                    <div class名称="space-y-1 text-xs">
+                                                        <div class名称="flex justify-between gap-4">
+                                                            <span class名称="text-muted-foreground">Input</span>
                                                             <span>{metadata.totalInputTokens?.toLocaleString() ?? '—'}</span>
                                                         </div>
-                                                        <div className="flex justify-between gap-4">
-                                                            <span className="text-muted-foreground">Output</span>
+                                                        <div class名称="flex justify-between gap-4">
+                                                            <span class名称="text-muted-foreground">Output</span>
                                                             <span>{metadata.totalOutputTokens?.toLocaleString() ?? '—'}</span>
                                                         </div>
-                                                        <div className="flex justify-between gap-4 border-t border-border pt-1">
-                                                            <span className="text-muted-foreground">Total</span>
+                                                        <div class名称="flex justify-between gap-4 border-t border-border pt-1">
+                                                            <span class名称="text-muted-foreground">Total</span>
                                                             <span>{metadata.totalTokens.toLocaleString()}</span>
                                                         </div>
                                                     </div>
@@ -139,14 +139,14 @@ const DetailsCardComponent = ({
                                             </Tooltip>
                                         )}
                                         {metadata?.totalResponseTimeMs && (
-                                            <div className="flex items-center text-xs">
-                                                <Clock className="w-3 h-3 mr-1 flex-shrink-0" />
+                                            <div class名称="flex items-center text-xs">
+                                                <Clock class名称="w-3 h-3 mr-1 flex-shrink-0" />
                                                 {Math.round(metadata.totalResponseTimeMs / 1000)} seconds
                                             </div>
                                         )}
                                         {toolCallCount > 0 && (
-                                            <div className="flex items-center text-xs">
-                                                <Wrench className="w-3 h-3 mr-1 flex-shrink-0" />
+                                            <div class名称="flex items-center text-xs">
+                                                <Wrench class名称="w-3 h-3 mr-1 flex-shrink-0" />
                                                 {toolCallCount} tool call{toolCallCount === 1 ? '' : 's'}
                                             </div>
                                         )}
@@ -155,15 +155,15 @@ const DetailsCardComponent = ({
                             </div>
 
                             {isExpanded ? (
-                                <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                                <ChevronDown class名称="w-4 h-4 text-muted-foreground" />
                             ) : (
-                                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                                <ChevronRight class名称="w-4 h-4 text-muted-foreground" />
                             )}
                         </div>
                     </CardContent>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                    <CardContent className="mt-2 p-0">
+                    <CardContent class名称="mt-2 p-0">
                         <ThinkingSteps
                             thinkingSteps={thinkingSteps}
                             isStreaming={isStreaming}
@@ -194,18 +194,18 @@ const ThinkingSteps = ({ thinkingSteps, isStreaming, isThinking }: { thinkingSte
     }, [isThinking, prevIsThinking, scrollToBottom]);
 
     return (
-        <div ref={scrollRef} className="max-h-[350px] overflow-y-auto px-6 py-2">
+        <div ref={scrollRef} class名称="max-h-[350px] overflow-y-auto px-6 py-2">
             <div ref={shouldStick ? contentRef : undefined}>
                 {thinkingSteps.length === 0 ? (
                     isStreaming ? (
-                        <Skeleton className="h-24 w-full" />
+                        <Skeleton class名称="h-24 w-full" />
                     ) : (
-                        <p className="text-sm text-muted-foreground">No thinking steps</p>
+                        <p class名称="text-sm text-muted-foreground">No thinking steps</p>
                     )
                 ) : thinkingSteps.map((step, index) => (
                     <div key={index}>
                         {step.map((part, index) => (
-                            <div key={index} className="mb-2">
+                            <div key={index} class名称="mb-2">
                                 <StepPartRenderer part={part} />
                             </div>
                         ))}
@@ -224,7 +224,7 @@ export const StepPartRenderer = ({ part }: { part: SBChatMessagePart }) => {
             return (
                 <MarkdownRenderer
                     content={part.text}
-                    className="text-sm prose-p:m-0 prose-code:text-xs"
+                    class名称="text-sm prose-p:m-0 prose-code:text-xs"
                 />
             )
         case 'tool-read_file':
@@ -240,7 +240,7 @@ export const StepPartRenderer = ({ part }: { part: SBChatMessagePart }) => {
             return (
                 <ToolOutputGuard
                     part={part}
-                    loadingText={'Searching...'}
+                    loadingText={'搜索ing...'}
                 >
                     {(output) => <GrepToolComponent {...output} />}
                 </ToolOutputGuard>
@@ -249,7 +249,7 @@ export const StepPartRenderer = ({ part }: { part: SBChatMessagePart }) => {
             return (
                 <ToolOutputGuard
                     part={part}
-                    loadingText="Searching files..."
+                    loadingText="搜索ing files..."
                 >
                     {(output) => <GlobToolComponent {...output} />}
                 </ToolOutputGuard>

@@ -28,7 +28,7 @@ export const generateDiffReviewPrompt = async (diff: sourcebot_diff, context: so
     ${diff.newSnippet}
     \`\`\`
 
-    # Additional Context
+    # 添加itional Context
 
     ${context.map(c => `${c.type}: ${c.description}\n\n${c.context}`).join("\n\n----------------------\n\n")}
 

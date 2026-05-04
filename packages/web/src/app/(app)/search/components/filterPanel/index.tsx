@@ -1,11 +1,11 @@
 'use client';
 
 import { FileIcon } from "@/components/ui/fileIcon";
-import { RepositoryInfo, SearchResultFile } from "@/features/search";
+import { 仓库Info, 搜索ResultFile } from "@/features/search";
 import { cn, getCodeHostInfoForRepo } from "@/lib/utils";
 import { LaptopIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, use搜索Params } from "next/navigation";
 import { useMemo } from "react";
 import { Entry } from "./entry";
 import { Filter } from "./filter";
@@ -13,8 +13,8 @@ import { LANGUAGES_QUERY_PARAM, REPOS_QUERY_PARAM, useFilteredMatches } from "./
 import { useGetSelectedFromQuery } from "./useGetSelectedFromQuery";
 
 interface FilePanelProps {
-    matches: SearchResultFile[];
-    repoInfo: Record<number, RepositoryInfo>;
+    matches: 搜索ResultFile[];
+    repoInfo: Record<number, 仓库Info>;
     onFilterChange?: () => void;
     isStreaming: boolean;
 }
@@ -28,7 +28,7 @@ interface FilePanelProps {
  * 2. When languages are selected, the repository filter will only show repositories that contain those languages
  * 
  * This prevents users from selecting filter combinations that would yield no results. For example:
- * - If Repository A only contains Python and JavaScript files, selecting it will only enable these languages
+ * - If 仓库 A only contains Python and JavaScript files, selecting it will only enable these languages
  * - If Language Python is selected, only repositories containing Python files will be enabled
  * 
  * @param matches - Array of search result files to filter
@@ -43,10 +43,10 @@ export const FilterPanel = ({
     isStreaming,
 }: FilePanelProps) => {
     const router = useRouter();
-    const searchParams = useSearchParams();
+    const searchParams = use搜索Params();
 
     const { getSelectedFromQuery } = useGetSelectedFromQuery();
-    const matchesFilteredByRepository = useFilteredMatches(matches, 'repository');
+    const matchesFilteredBy仓库 = useFilteredMatches(matches, 'repository');
     const matchesFilteredByLanguage = useFilteredMatches(matches, 'language');
 
     const repos = useMemo(() => {
@@ -55,23 +55,23 @@ export const FilterPanel = ({
             "repository",
             matches,
             /* createEntry = */ ({ key: repository, match }) => {
-                const repo: RepositoryInfo | undefined = repoInfo[match.repositoryId];
+                const repo: 仓库Info | undefined = repoInfo[match.repositoryId];
 
                 const info = repo ? getCodeHostInfoForRepo({
                     name: repo.name,
                     codeHostType: repo.codeHostType,
-                    displayName: repo.displayName,
+                    display名称: repo.display名称,
                     externalWebUrl: repo.webUrl,
                 }) : undefined;
 
                 const Icon = info ? (
                     <Image
                         src={info.icon}
-                        alt={info.codeHostName}
-                        className={cn('w-4 h-4 flex-shrink-0', info.iconClassName)}
+                        alt={info.codeHost名称}
+                        class名称={cn('w-4 h-4 flex-shrink-0', info.iconClass名称)}
                     />
                 ) : (
-                    <LaptopIcon className="w-4 h-4 flex-shrink-0" />
+                    <LaptopIcon class名称="w-4 h-4 flex-shrink-0" />
                 );
 
                 const isSelected = selectedRepos.has(repository);
@@ -82,7 +82,7 @@ export const FilterPanel = ({
 
                 return {
                     key: repository,
-                    displayName: info?.displayName ?? repository,
+                    display名称: info?.display名称 ?? repository,
                     count: 0,
                     isSelected,
                     isDisabled,
@@ -109,12 +109,12 @@ export const FilterPanel = ({
                 const isSelected = selectedLanguages.has(language);
 
                 // If the matches filtered by repository don't contain this language, then this entry is disabled
-                const isDisabled = !matchesFilteredByRepository.some((match) => match.language === language);
+                const isDisabled = !matchesFilteredBy仓库.some((match) => match.language === language);
                 const isHidden = isDisabled && !isSelected;
 
                 return {
                     key: language,
-                    displayName: language,
+                    display名称: language,
                     count: 0,
                     isSelected,
                     isDisabled,
@@ -123,10 +123,10 @@ export const FilterPanel = ({
                 } satisfies Entry;
             },
             /* shouldCount = */ ({ match }) => {
-                return matchesFilteredByRepository.some((value) => value.repository === match.repository)
+                return matchesFilteredBy仓库.some((value) => value.repository === match.repository)
             }
         );
-    }, [getSelectedFromQuery, matches, matchesFilteredByRepository]);
+    }, [getSelectedFromQuery, matches, matchesFilteredBy仓库]);
 
     const visibleRepos = useMemo(() => Object.values(repos).filter((entry) => !entry.isHidden), [repos]);
     const visibleLanguages = useMemo(() => Object.values(languages).filter((entry) => !entry.isHidden), [languages]);
@@ -135,16 +135,16 @@ export const FilterPanel = ({
     const numLanguages = useMemo(() => visibleLanguages.length > 100 ? '100+' : visibleLanguages.length, [visibleLanguages]);
 
     return (
-        <div className="p-3 flex flex-col gap-3 h-full">
+        <div class名称="p-3 flex flex-col gap-3 h-full">
             <Filter
-                title="Filter By Repository"
+                title="Filter By 仓库"
                 searchPlaceholder={`Filter ${numRepos} repositories`}
                 entries={visibleRepos}
                 onEntryClicked={(key) => {
                     const newRepos = { ...repos };
                     newRepos[key].isSelected = !newRepos[key].isSelected;
                     const selectedRepos = Object.keys(newRepos).filter((key) => newRepos[key].isSelected);
-                    const newParams = new URLSearchParams(searchParams.toString());
+                    const newParams = new URL搜索Params(searchParams.toString());
 
                     if (selectedRepos.length > 0) {
                         newParams.set(REPOS_QUERY_PARAM, selectedRepos.join(','));
@@ -157,7 +157,7 @@ export const FilterPanel = ({
                         onFilterChange?.();
                     }
                 }}
-                className="max-h-[50%]"
+                class名称="max-h-[50%]"
                 isStreaming={isStreaming}
             />
             <Filter
@@ -168,7 +168,7 @@ export const FilterPanel = ({
                     const newLanguages = { ...languages };
                     newLanguages[key].isSelected = !newLanguages[key].isSelected;
                     const selectedLanguages = Object.keys(newLanguages).filter((key) => newLanguages[key].isSelected);
-                    const newParams = new URLSearchParams(searchParams.toString());
+                    const newParams = new URL搜索Params(searchParams.toString());
 
                     if (selectedLanguages.length > 0) {
                         newParams.set(LANGUAGES_QUERY_PARAM, selectedLanguages.join(','));
@@ -181,15 +181,15 @@ export const FilterPanel = ({
                         onFilterChange?.();
                     }
                 }}
-                className="overflow-auto"
+                class名称="overflow-auto"
                 isStreaming={isStreaming}
             />
         </div>
     )
 }
 
-/* Aggregates `matches` by the given `propName`. The result is a record 
- * of `Entry` objects, where the key is the aggregated `propName` and
+/* Aggregates `matches` by the given `prop名称`. The result is a record 
+ * of `Entry` objects, where the key is the aggregated `prop名称` and
  * the value is the entry created by `createEntry`. Example:
  * 
  * "repo1": {
@@ -202,13 +202,13 @@ export const FilterPanel = ({
  * }
  */
 const aggregateMatches = (
-    propName: 'repository' | 'language',
-    matches: SearchResultFile[],
-    createEntry: (props: { key: string, match: SearchResultFile }) => Entry,
-    shouldCount: (props: { key: string, match: SearchResultFile }) => boolean,
+    prop名称: 'repository' | 'language',
+    matches: 搜索ResultFile[],
+    createEntry: (props: { key: string, match: 搜索ResultFile }) => Entry,
+    shouldCount: (props: { key: string, match: 搜索ResultFile }) => boolean,
 ) => {
     return matches
-        .map((match) => ({ key: match[propName], match }))
+        .map((match) => ({ key: match[prop名称], match }))
         .filter(({ key }) => key.length > 0)
         .reduce((aggregation, { key, match }) => {
             if (!aggregation[key]) {

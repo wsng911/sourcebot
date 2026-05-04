@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, Dialog描述, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components/ui/loading-button";
@@ -14,10 +14,10 @@ interface RenameChatDialogProps {
     isOpen: boolean;
     onOpenChange: (open: boolean) => void;
     onRename: (name: string) => Promise<boolean>;
-    currentName: string;
+    current名称: string;
 }
 
-export const RenameChatDialog = ({ isOpen, onOpenChange, onRename, currentName }: RenameChatDialogProps) => {
+export const RenameChatDialog = ({ isOpen, onOpenChange, onRename, current名称 }: RenameChatDialogProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = z.object({
@@ -33,11 +33,11 @@ export const RenameChatDialog = ({ isOpen, onOpenChange, onRename, currentName }
 
     useEffect(() => {
         form.reset({
-            name: currentName,
+            name: current名称,
         });
-    }, [currentName, form]);
+    }, [current名称, form]);
 
-    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const on提交 = async (data: z.infer<typeof formSchema>) => {
         setIsLoading(true);
         try {
             const success = await onRename(data.name);
@@ -64,18 +64,18 @@ export const RenameChatDialog = ({ isOpen, onOpenChange, onRename, currentName }
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Rename Chat</DialogTitle>
-                    <DialogDescription className="sr-only">
-                        {`Rename "${currentName ?? 'untitled chat'}" to a new name.`}
-                    </DialogDescription>
+                    <Dialog描述 class名称="sr-only">
+                        {`Rename "${current名称 ?? 'untitled chat'}" to a new name.`}
+                    </Dialog描述>
                 </DialogHeader>
                 <Form
                     {...form}
                 >
                     <form
-                        className="space-y-4 flex flex-col w-full py-2"
-                        onSubmit={(event) => {
+                        class名称="space-y-4 flex flex-col w-full py-2"
+                        on提交={(event) => {
                             event.stopPropagation();
-                            form.handleSubmit(onSubmit)(event);
+                            form.handle提交(on提交)(event);
                         }}
                     >
                         <FormField
@@ -83,9 +83,9 @@ export const RenameChatDialog = ({ isOpen, onOpenChange, onRename, currentName }
                             name="name"
                             render={({ field }) => (
                                 <FormItem
-                                    className="flex flex-col gap-2"
+                                    class名称="flex flex-col gap-2"
                                 >
-                                    <FormLabel className="font-normal">New chat title</FormLabel>
+                                    <FormLabel class名称="font-normal">New chat title</FormLabel>
                                     <FormControl>
                                         <Input
                                             {...field}
@@ -108,12 +108,12 @@ export const RenameChatDialog = ({ isOpen, onOpenChange, onRename, currentName }
                             onOpenChange(false);
                         }}
                     >
-                        Cancel
+                        取消
                     </Button>
                     <LoadingButton
                         loading={isLoading}
                         onClick={() => {
-                            form.handleSubmit(onSubmit)();
+                            form.handle提交(on提交)();
                         }}
                     >
                         Rename

@@ -19,16 +19,16 @@ export const symbolSchema = z.object({
     symbol: z.string(),
     kind: z.string(),
 });
-export type SearchSymbol = z.infer<typeof symbolSchema>;
+export type 搜索Symbol = z.infer<typeof symbolSchema>;
 
 export const repositoryInfoSchema = z.object({
     id: z.number(),
     codeHostType: z.nativeEnum(CodeHostType),
     name: z.string(),
-    displayName: z.string().optional(),
+    display名称: z.string().optional(),
     webUrl: z.string().optional(),
 });
-export type RepositoryInfo = z.infer<typeof repositoryInfoSchema>;
+export type 仓库Info = z.infer<typeof repositoryInfoSchema>;
 
 // @note: Many of these fields are defined in zoekt/api.go.
 export const searchStatsSchema = z.object({
@@ -50,14 +50,14 @@ export const searchStatsSchema = z.object({
     ngramLookups: z.number(),              // NgramLookups is the number of times we accessed an ngram in the index.
     wait: z.number(),                      // Wall clock time for queued search.
     matchTreeConstruction: z.number(),     // Aggregate wall clock time spent constructing and pruning the match tree. This accounts for time such as lookups in the trigram index.
-    matchTreeSearch: z.number(),           // Aggregate wall clock time spent searching the match tree. This accounts for the bulk of search work done looking for matches.
+    matchTree搜索: z.number(),           // Aggregate wall clock time spent searching the match tree. This accounts for the bulk of search work done looking for matches.
     regexpsConsidered: z.number(),         // Number of times regexp was called on files that we evaluated.
     flushReason: z.string(),               // FlushReason explains why results were flushed.
 });
-export type SearchStats = z.infer<typeof searchStatsSchema>;
+export type 搜索Stats = z.infer<typeof searchStatsSchema>;
 
 export const searchFileSchema = z.object({
-    fileName: z.object({
+    file名称: z.object({
         // The name of the file
         text: z.string(),
         // Any matching ranges
@@ -81,8 +81,8 @@ export const searchFileSchema = z.object({
     // Set if `whole` is true.
     content: z.string().optional(),
 });
-export type SearchResultFile = z.infer<typeof searchFileSchema>;
-export type SearchResultChunk = SearchResultFile["chunks"][number];
+export type 搜索ResultFile = z.infer<typeof searchFileSchema>;
+export type 搜索ResultChunk = 搜索ResultFile["chunks"][number];
 
 export const searchOptionsSchema = z.object({
     matches: z.number(),                              // The number of matches to return.
@@ -91,56 +91,56 @@ export const searchOptionsSchema = z.object({
     isRegexEnabled: z.boolean().optional(),           // Whether to enable regular expression search.
     isCaseSensitivityEnabled: z.boolean().optional(), // Whether to enable case sensitivity.
 });
-export type SearchOptions = z.infer<typeof searchOptionsSchema>;
+export type 搜索Options = z.infer<typeof searchOptionsSchema>;
 
 export const searchRequestSchema = z.object({
     query: z.string(),                                // The zoekt query to execute.
     ...searchOptionsSchema.shape,
 });
-export type SearchRequest = z.infer<typeof searchRequestSchema>;
+export type 搜索Request = z.infer<typeof searchRequestSchema>;
 
 export const searchResponseSchema = z.object({
     stats: searchStatsSchema,
     files: z.array(searchFileSchema),
     repositoryInfo: z.array(repositoryInfoSchema),
-    isSearchExhaustive: z.boolean(),
+    is搜索Exhaustive: z.boolean(),
 });
-export type SearchResponse = z.infer<typeof searchResponseSchema>;
+export type 搜索Response = z.infer<typeof searchResponseSchema>;
 
 /**
  * Sent after each chunk of results is processed.
  */
-export const streamedSearchChunkResponseSchema = z.object({
+export const streamed搜索ChunkResponseSchema = z.object({
     type: z.literal('chunk'),
     stats: searchStatsSchema,
     files: z.array(searchFileSchema),
     repositoryInfo: z.array(repositoryInfoSchema),
 });
-export type StreamedSearchChunkResponse = z.infer<typeof streamedSearchChunkResponseSchema>;
+export type Streamed搜索ChunkResponse = z.infer<typeof streamed搜索ChunkResponseSchema>;
 
 /**
  * Sent after the search is complete.
  */
-export const streamedSearchFinalResponseSchema = z.object({
+export const streamed搜索FinalResponseSchema = z.object({
     type: z.literal('final'),
     accumulatedStats: searchStatsSchema,
-    isSearchExhaustive: z.boolean(),
+    is搜索Exhaustive: z.boolean(),
 });
-export type StreamedSearchFinalResponse = z.infer<typeof streamedSearchFinalResponseSchema>;
+export type Streamed搜索FinalResponse = z.infer<typeof streamed搜索FinalResponseSchema>;
 
 /**
  * Sent when an error occurs during streaming.
  */
-export const streamedSearchErrorResponseSchema = z.object({
+export const streamed搜索ErrorResponseSchema = z.object({
     type: z.literal('error'),
     error: serviceErrorSchema,
 });
-export type StreamedSearchErrorResponse = z.infer<typeof streamedSearchErrorResponseSchema>;
+export type Streamed搜索ErrorResponse = z.infer<typeof streamed搜索ErrorResponseSchema>;
 
-export const streamedSearchResponseSchema = z.discriminatedUnion('type', [
-    streamedSearchChunkResponseSchema,
-    streamedSearchFinalResponseSchema,
-    streamedSearchErrorResponseSchema,
+export const streamed搜索ResponseSchema = z.discriminatedUnion('type', [
+    streamed搜索ChunkResponseSchema,
+    streamed搜索FinalResponseSchema,
+    streamed搜索ErrorResponseSchema,
 ]);
-export type StreamedSearchResponse = z.infer<typeof streamedSearchResponseSchema>;
+export type Streamed搜索Response = z.infer<typeof streamed搜索ResponseSchema>;
 

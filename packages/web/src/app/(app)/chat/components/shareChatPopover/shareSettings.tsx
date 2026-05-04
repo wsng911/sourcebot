@@ -21,11 +21,11 @@ import { usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 import { captureEvent } from "@/hooks/useCaptureEvent";
 
-interface ShareSettingsProps {
+interface 分享设置Props {
     chatId: string;
     visibility: ChatVisibility;
     onVisibilityChange: (visibility: ChatVisibility) => Promise<boolean>;
-    onRemoveSharedWithUser: (userId: string) => Promise<boolean>;
+    on移除分享dWithUser: (userId: string) => Promise<boolean>;
     onOpenInviteView: () => void;
     currentUser?: SessionUser;
     sharedWithUsers: SessionUser[];
@@ -33,24 +33,24 @@ interface ShareSettingsProps {
     isChatSharingEnabled: boolean;
 }
 
-export const ShareSettings = ({
+export const 分享设置 = ({
     chatId,
     visibility,
     onVisibilityChange,
-    onRemoveSharedWithUser,
+    on移除分享dWithUser,
     onOpenInviteView,
     currentUser,
     sharedWithUsers,
     isChatSharingEnabledInCurrentPlan,
     isChatSharingEnabled,
-}: ShareSettingsProps) => {
+}: 分享设置Props) => {
     const [isVisibilityUpdating, setIsVisibilityUpdating] = useState(false);
     const [removingUserIds, setRemovingUserIds] = useState<Set<string>>(new Set());
     const { toast } = useToast();
     const pathname = usePathname();
     const isAuthenticated = !!currentUser;
 
-    const handleCopyLink = useCallback(async () => {
+    const handle复制Link = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(window.location.href);
             captureEvent('wa_chat_link_copied', {
@@ -69,70 +69,70 @@ export const ShareSettings = ({
     }, [chatId, visibility, toast]);
 
     return (
-        <div className="flex flex-col py-3 px-4">
-            <p className="text-sm font-medium">Share</p>
-            <Separator className="-mx-4 w-auto mt-2 mb-4" />
+        <div class名称="flex flex-col py-3 px-4">
+            <p class名称="text-sm font-medium">分享</p>
+            <Separator class名称="-mx-4 w-auto mt-2 mb-4" />
 
-            {/* Fake Search Bar - Click to open invite view */}
+            {/* Fake 搜索 Bar - Click to open invite view */}
             {(isAuthenticated && isChatSharingEnabled) && (
                 <>
-                    <span className={cn({ "cursor-not-allowed": !isChatSharingEnabledInCurrentPlan })}>
+                    <span class名称={cn({ "cursor-not-allowed": !isChatSharingEnabledInCurrentPlan })}>
                         <Button
                             variant="outline"
-                            className={cn("w-full justify-start text-muted-foreground font-normal", {
+                            class名称={cn("w-full justify-start text-muted-foreground font-normal", {
                                 "opacity-50 pointer-events-none": !isChatSharingEnabledInCurrentPlan,
                             })}
                             onClick={onOpenInviteView}
                             disabled={!isChatSharingEnabledInCurrentPlan}
                         >
-                            Search for a user
+                            搜索 for a user
                         </Button>
                     </span>
 
                     {/* People with access */}
-                    <div className={cn("mt-4", {
+                    <div class名称={cn("mt-4", {
                         "opacity-50 cursor-not-allowed": !isChatSharingEnabledInCurrentPlan,
                         "[&_*]:pointer-events-none": !isChatSharingEnabledInCurrentPlan,
                     })}>
-                        <label className="text-sm text-muted-foreground mb-2 block">
+                        <label class名称="text-sm text-muted-foreground mb-2 block">
                             People with access
                         </label>
-                        <div className="space-y-1 max-h-[200px] overflow-y-auto pr-3">
+                        <div class名称="space-y-1 max-h-[200px] overflow-y-auto pr-3">
                             {/* Owner (current user) */}
                             {currentUser && (
-                                <div className="flex items-center justify-between py-2">
-                                    <div className="flex items-center gap-3">
+                                <div class名称="flex items-center justify-between py-2">
+                                    <div class名称="flex items-center gap-3">
                                         <UserAvatar
                                             email={currentUser.email}
                                             imageUrl={currentUser.image}
-                                            className="h-8 w-8"
+                                            class名称="h-8 w-8"
                                         />
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-medium">
+                                        <div class名称="flex flex-col">
+                                            <span class名称="text-sm font-medium">
                                                 {currentUser.name || currentUser.email}
-                                                <span className="text-muted-foreground font-normal"> (you)</span>
+                                                <span class名称="text-muted-foreground font-normal"> (you)</span>
                                             </span>
                                             {currentUser.name && currentUser.email && (
-                                                <span className="text-xs text-muted-foreground">{currentUser.email}</span>
+                                                <span class名称="text-xs text-muted-foreground">{currentUser.email}</span>
                                             )}
                                         </div>
                                     </div>
                                 </div>
                             )}
 
-                            {/* Shared users */}
+                            {/* 分享d users */}
                             {sharedWithUsers.map((user) => (
-                                <div key={user.id} className="flex items-center justify-between py-2">
-                                    <div className="flex items-center gap-3">
+                                <div key={user.id} class名称="flex items-center justify-between py-2">
+                                    <div class名称="flex items-center gap-3">
                                         <UserAvatar
                                             email={user.email}
                                             imageUrl={user.image}
-                                            className="h-8 w-8"
+                                            class名称="h-8 w-8"
                                         />
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-medium">{user.name || user.email}</span>
+                                        <div class名称="flex flex-col">
+                                            <span class名称="text-sm font-medium">{user.name || user.email}</span>
                                             {user.name && (
-                                                <span className="text-xs text-muted-foreground">{user.email}</span>
+                                                <span class名称="text-xs text-muted-foreground">{user.email}</span>
                                             )}
                                         </div>
                                     </div>
@@ -141,13 +141,13 @@ export const ShareSettings = ({
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                                                class名称="h-8 w-8 text-muted-foreground hover:text-foreground"
                                                 disabled={removingUserIds.has(user.id)}
                                                 onClick={async () => {
                                                     setRemovingUserIds(prev => new Set(prev).add(user.id));
                                                     try {
 
-                                                        await onRemoveSharedWithUser(user.id);
+                                                        await on移除分享dWithUser(user.id);
                                                     } finally {
                                                         setRemovingUserIds(prev => {
                                                             const next = new Set(prev);
@@ -158,13 +158,13 @@ export const ShareSettings = ({
                                                 }}
                                             >
                                                 {removingUserIds.has(user.id) ? (
-                                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                                    <Loader2 class名称="h-4 w-4 animate-spin" />
                                                 ) : (
-                                                    <X className="h-4 w-4" />
+                                                    <X class名称="h-4 w-4" />
                                                 )}
                                             </Button>
                                         </TooltipTrigger>
-                                        <TooltipContent side="bottom">Remove user</TooltipContent>
+                                        <TooltipContent side="bottom">移除 user</TooltipContent>
                                     </Tooltip>
                                 </div>
                             ))}
@@ -172,17 +172,17 @@ export const ShareSettings = ({
                     </div>
 
                     {!isChatSharingEnabledInCurrentPlan && (
-                        <p className="text-xs text-muted-foreground mt-2.5">
-                            <Info className="h-3 w-3 inline-block mr-1.5 align-middle" />
-                            <span className="align-middle">Sharing with specific users is not available on your current <Link href={'https://sourcebot.dev/pricing'} target="_blank" rel="noopener noreferrer" className="underline">plan</Link>.</span>
+                        <p class名称="text-xs text-muted-foreground mt-2.5">
+                            <Info class名称="h-3 w-3 inline-block mr-1.5 align-middle" />
+                            <span class名称="align-middle">Sharing with specific users is not available on your current <Link href={'https://sourcebot.dev/pricing'} target="_blank" rel="noopener noreferrer" class名称="underline">plan</Link>.</span>
                         </p>
                     )}
 
-                    <Separator className="-mx-4 w-auto my-4" />
+                    <Separator class名称="-mx-4 w-auto my-4" />
                 </>
             )}
 
-            <label className="text-sm text-muted-foreground mb-3">
+            <label class名称="text-sm text-muted-foreground mb-3">
                 Visibility
             </label>
             <Select
@@ -202,42 +202,42 @@ export const ShareSettings = ({
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value={ChatVisibility.PRIVATE}>
-                        <div className="flex items-center gap-2">
-                            <Lock className="h-4 w-4" />
+                        <div class名称="flex items-center gap-2">
+                            <Lock class名称="h-4 w-4" />
                             Only people with access
                         </div>
                     </SelectItem>
                     <SelectItem value={ChatVisibility.PUBLIC}>
-                        <div className="flex items-center gap-2">
-                            <Link2Icon className="h-4 w-4" />
+                        <div class名称="flex items-center gap-2">
+                            <Link2Icon class名称="h-4 w-4" />
                             Anyone with the link
                         </div>
                     </SelectItem>
                 </SelectContent>
             </Select>
             {!isAuthenticated && (
-                <p className="text-xs text-muted-foreground mt-2">
-                    <Link href={`/login?callbackUrl=${encodeURIComponent(pathname)}`} className="underline">Sign in</Link> to change chat visibility.
+                <p class名称="text-xs text-muted-foreground mt-2">
+                    <Link href={`/login?callbackUrl=${encodeURIComponent(pathname)}`} class名称="underline">登录</Link> to change chat visibility.
                 </p>
             )}
-            <Separator className="-mx-4 w-auto my-4" />
-            <div className="flex justify-between items-center">
+            <Separator class名称="-mx-4 w-auto my-4" />
+            <div class名称="flex justify-between items-center">
                 <Link
                     href="https://docs.sourcebot.dev/docs/features/ask/chat-sharing"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    class名称="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                    <Info className="h-4 w-4" />
+                    <Info class名称="h-4 w-4" />
                     How does sharing chats work?
                 </Link>
                 <Button
                     variant="outline"
-                    onClick={handleCopyLink}
-                    className="gap-2"
+                    onClick={handle复制Link}
+                    class名称="gap-2"
                 >
-                    <Link2Icon className="h-4 w-4" />
-                    Copy Link
+                    <Link2Icon class名称="h-4 w-4" />
+                    复制 Link
                 </Button>
             </div>
         </div>

@@ -44,7 +44,7 @@ export function CompleteOnboardingButton() {
         <Button 
             onClick={handleCompleteOnboarding}
             disabled={isLoading}
-            className="w-full"
+            class名称="w-full"
         >
             {isLoading ? "Completing..." : "Complete Onboarding →"}
         </Button>

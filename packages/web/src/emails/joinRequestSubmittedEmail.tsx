@@ -14,59 +14,59 @@ import {
     Tailwind,
     Text,
 } from '@react-email/components';
-import { EmailFooter } from './emailFooter';
+import { 邮箱Footer } from './emailFooter';
 import { SOURCEBOT_LOGO_LIGHT_LARGE_URL, SOURCEBOT_ARROW_IMAGE_URL, SOURCEBOT_PLACEHOLDER_AVATAR_URL } from './constants';
 
-interface JoinRequestSubmittedEmailProps {
+interface JoinRequest提交ted邮箱Props {
     baseUrl: string;
     requestor: {
         email: string;
         name?: string;
         avatarUrl?: string;
     },
-    orgName: string;
+    org名称: string;
     orgImageUrl?: string;
 }
 
-export const JoinRequestSubmittedEmail = ({
+export const JoinRequest提交ted邮箱 = ({
     baseUrl,
     requestor,
-    orgName,
+    org名称,
     orgImageUrl,
-}: JoinRequestSubmittedEmailProps) => {
-    const previewText = `${requestor.name ?? requestor.email} has requested to join ${orgName} on Sourcebot`;
+}: JoinRequest提交ted邮箱Props) => {
+    const previewText = `${requestor.name ?? requestor.email} has requested to join ${org名称} on Sourcebot`;
     const reviewLink = `${baseUrl}/settings/members?tab=requests`;
 
     return (
         <Html>
             <Head />
             <Tailwind>
-                <Body className="bg-white my-auto mx-auto font-sans px-2">
+                <Body class名称="bg-white my-auto mx-auto font-sans px-2">
                     <Preview>{previewText}</Preview>
-                    <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
-                        <Section className="mt-[32px]">
+                    <Container class名称="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
+                        <Section class名称="mt-[32px]">
                             <Img
                                 src={SOURCEBOT_LOGO_LIGHT_LARGE_URL}
                                 width="auto"
                                 height="60"
                                 alt="Sourcebot Logo"
-                                className="my-0 mx-auto"
+                                class名称="my-0 mx-auto"
                             />
                         </Section>
-                        <Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
-                            New Join Request for <strong>{orgName}</strong>
+                        <Heading class名称="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+                            New Join Request for <strong>{org名称}</strong>
                         </Heading>
-                        <Text className="text-black text-[14px] leading-[24px]">
+                        <Text class名称="text-black text-[14px] leading-[24px]">
                             Hello,
                         </Text>
-                        <Text className="text-black text-[14px] leading-[24px]">
-                            <RequestorInfo email={requestor.email} name={requestor.name} /> has requested to join your organization <strong>{orgName}</strong> on Sourcebot.
+                        <Text class名称="text-black text-[14px] leading-[24px]">
+                            <RequestorInfo email={requestor.email} name={requestor.name} /> has requested to join your organization <strong>{org名称}</strong> on Sourcebot.
                         </Text>
                         <Section>
                             <Row>
                                 <Column align="right">
                                     <Img
-                                        className="rounded-full"
+                                        class名称="rounded-full"
                                         src={requestor.avatarUrl ?? `${baseUrl}/api/minidenticon?email=${encodeURIComponent(requestor.email)}`}
                                         width="64"
                                         height="64"
@@ -83,7 +83,7 @@ export const JoinRequestSubmittedEmail = ({
                                 </Column>
                                 <Column align="left">
                                     <Img
-                                        className="rounded-full"
+                                        class名称="rounded-full"
                                         src={orgImageUrl ? orgImageUrl : SOURCEBOT_PLACEHOLDER_AVATAR_URL}
                                         width="64"
                                         height="64"
@@ -92,21 +92,21 @@ export const JoinRequestSubmittedEmail = ({
                                 </Column>
                             </Row>
                         </Section>
-                        <Section className="text-center mt-[32px] mb-[32px]">
+                        <Section class名称="text-center mt-[32px] mb-[32px]">
                             <Button
-                                className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
+                                class名称="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
                                 href={reviewLink}
                             >
                                 Review join request
                             </Button>
                         </Section>
-                        <Text className="text-black text-[14px] leading-[24px]">
+                        <Text class名称="text-black text-[14px] leading-[24px]">
                             or copy and paste this URL into your browser:{' '}
-                            <Link href={reviewLink} className="text-blue-600 no-underline">
+                            <Link href={reviewLink} class名称="text-blue-600 no-underline">
                                 {reviewLink}
                             </Link>
                         </Text>
-                        <EmailFooter />
+                        <邮箱Footer />
                     </Container>
                 </Body>
             </Tailwind>
@@ -115,7 +115,7 @@ export const JoinRequestSubmittedEmail = ({
 };
 
 const RequestorInfo = ({ email, name }: { email: string, name?: string }) => {
-    const emailElement = <Link href={`mailto:${email}`} className="text-blue-600 no-underline">{email}</Link>;
+    const emailElement = <Link href={`mailto:${email}`} class名称="text-blue-600 no-underline">{email}</Link>;
 
     if (name) {
         return <span><strong>{name}</strong> ({emailElement})</span>;
@@ -124,13 +124,13 @@ const RequestorInfo = ({ email, name }: { email: string, name?: string }) => {
     return emailElement;
 }
 
-JoinRequestSubmittedEmail.PreviewProps = {
+JoinRequest提交ted邮箱.PreviewProps = {
     baseUrl: 'http://localhost:3000',
     requestor: {
         name: 'Alan Turing',
         email: 'alan.turing@example.com',
     },
-    orgName: 'Enigma',
-} satisfies JoinRequestSubmittedEmailProps;
+    org名称: 'Enigma',
+} satisfies JoinRequest提交ted邮箱Props;
 
-export default JoinRequestSubmittedEmail;
+export default JoinRequest提交ted邮箱;

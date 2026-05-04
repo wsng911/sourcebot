@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { RepositoryQuery } from "@/lib/types";
+import { 仓库Query } from "@/lib/types";
 import { getCodeHostInfoForRepo, getShortenedNumberDisplayString } from "@/lib/utils";
 import clsx from "clsx";
 import { Loader2Icon, RefreshCwIcon } from "lucide-react";
@@ -16,7 +16,7 @@ import { useMemo } from "react";
 
 interface ProgressIndicatorProps {
     numberOfReposWithFirstTimeIndexingJobsInProgress: number;
-    sampleRepos: RepositoryQuery[];
+    sampleRepos: 仓库Query[];
 }
 
 export const ProgressIndicator = ({
@@ -36,19 +36,19 @@ export const ProgressIndicator = ({
         <Tooltip>
             <TooltipTrigger>
                 <Link href={`/repos`}>
-                    <Badge variant="outline" className="flex flex-row items-center gap-2 h-8">
-                        <Loader2Icon className="h-4 w-4 animate-spin" />
+                    <Badge variant="outline" class名称="flex flex-row items-center gap-2 h-8">
+                        <Loader2Icon class名称="h-4 w-4 animate-spin" />
                         <span>{numReposString}</span>
                     </Badge>
                 </Link>
             </TooltipTrigger>
-            <TooltipContent className="p-4 w-72">
-                <div className="flex flex-row gap-1 items-center">
-                    <p className="text-md font-medium">{`Syncing ${numReposString} ${numRepos === 1 ? 'repository' : 'repositories'}`}</p>
+            <TooltipContent class名称="p-4 w-72">
+                <div class名称="flex flex-row gap-1 items-center">
+                    <p class名称="text-md font-medium">{`同步ing ${numReposString} ${numRepos === 1 ? 'repository' : 'repositories'}`}</p>
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="h-6 w-6 text-muted-foreground"
+                        class名称="h-6 w-6 text-muted-foreground"
                         onClick={() => {
                             router.refresh();
                             toast({
@@ -56,18 +56,18 @@ export const ProgressIndicator = ({
                             });
                         }}
                     >
-                        <RefreshCwIcon className="w-3 h-3" />
+                        <RefreshCwIcon class名称="w-3 h-3" />
                     </Button>
                 </div>
-                <Separator className="my-3" />
-                <div className="flex flex-col gap-2">
+                <Separator class名称="my-3" />
+                <div class名称="flex flex-col gap-2">
                     {sampleRepos.map((repo) => (
                         <RepoItem key={repo.repoId} repo={repo} />
                     ))}
                 </div>
                 {numRepos > sampleRepos.length && (
-                    <div className="mt-2">
-                        <Link href={`/repos`} className="text-sm text-link hover:underline">
+                    <div class名称="mt-2">
+                        <Link href={`/repos`} class名称="text-sm text-link hover:underline">
                             {`View ${numRepos - sampleRepos.length} more`}
                         </Link>
                     </div>
@@ -77,35 +77,35 @@ export const ProgressIndicator = ({
     )
 }
 
-const RepoItem = ({ repo }: { repo: RepositoryQuery }) => {
+const RepoItem = ({ repo }: { repo: 仓库Query }) => {
 
-    const { repoIcon, displayName } = useMemo(() => {
+    const { repoIcon, display名称 } = useMemo(() => {
         const info = getCodeHostInfoForRepo({
-            name: repo.repoName,
+            name: repo.repo名称,
             codeHostType: repo.codeHostType,
-            displayName: repo.repoDisplayName,
+            display名称: repo.repoDisplay名称,
             externalWebUrl: repo.externalWebUrl,
         });
 
         return {
             repoIcon: <Image
                 src={info.icon}
-                alt={info.codeHostName}
-                className={`w-4 h-4 ${info.iconClassName}`}
+                alt={info.codeHost名称}
+                class名称={`w-4 h-4 ${info.iconClass名称}`}
             />,
-            displayName: info.displayName,
+            display名称: info.display名称,
         }
-    }, [repo.repoName, repo.codeHostType, repo.repoDisplayName, repo.externalWebUrl]);
+    }, [repo.repo名称, repo.codeHostType, repo.repoDisplay名称, repo.externalWebUrl]);
 
 
     return (
         <Link
-            className={clsx("flex flex-row items-center gap-2 border rounded-md p-2 text-clip")}
+            class名称={clsx("flex flex-row items-center gap-2 border rounded-md p-2 text-clip")}
             href={`/repos/${repo.repoId}`}
         >
             {repoIcon}
-            <span className="text-sm truncate">
-                {displayName}
+            <span class名称="text-sm truncate">
+                {display名称}
             </span>
         </Link>
     )

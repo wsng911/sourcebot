@@ -5,12 +5,12 @@ import {
     Text,
 } from '@react-email/components';
 
-export const EmailFooter = () => {
+export const 邮箱Footer = () => {
     return (
-        <Section className="mt-[10px]">
-            <Hr className="border border-solid border-[#eaeaea] mx-0 w-full" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
-                <Link href="https://sourcebot.dev" className="underline text-[#666666]" target="_blank">
+        <Section class名称="mt-[10px]">
+            <Hr class名称="border border-solid border-[#eaeaea] mx-0 w-full" />
+            <Text class名称="text-[#666666] text-[12px] leading-[24px]">
+                <Link href="https://sourcebot.dev" class名称="underline text-[#666666]" target="_blank">
                     Sourcebot.dev,
                 </Link>
                 &nbsp;blazingly fast code search.

@@ -16,7 +16,7 @@ const alertVariants = cva("grid gap-0.5 rounded-lg border px-2.5 py-2 text-left 
 })
 
 function Alert({
-  className,
+  class名称,
   variant,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
@@ -24,49 +24,49 @@ function Alert({
     <div
       data-slot="alert"
       role="alert"
-      className={cn(alertVariants({ variant }), className)}
+      class名称={cn(alertVariants({ variant }), class名称)}
       {...props}
     />
   )
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
+function AlertTitle({ class名称, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-title"
-      className={cn(
+      class名称={cn(
         "font-medium group-has-[>svg]/alert:col-start-2 [&_a]:hover:text-foreground [&_a]:underline [&_a]:underline-offset-3",
-        className
+        class名称
       )}
       {...props}
     />
   )
 }
 
-function AlertDescription({
-  className,
+function Alert描述({
+  class名称,
   ...props
 }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-description"
-      className={cn(
+      class名称={cn(
         "text-muted-foreground text-sm text-balance md:text-pretty group-has-[>svg]/alert:col-start-2 [&_p:not(:last-child)]:mb-4 [&_a]:hover:text-foreground [&_a]:underline [&_a]:underline-offset-3",
-        className
+        class名称
       )}
       {...props}
     />
   )
 }
 
-function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
+function AlertAction({ class名称, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-action"
-      className={cn("absolute top-2 right-2", className)}
+      class名称={cn("absolute top-2 right-2", class名称)}
       {...props}
     />
   )
 }
 
-export { Alert, AlertTitle, AlertDescription, AlertAction }
+export { Alert, AlertTitle, Alert描述, AlertAction }

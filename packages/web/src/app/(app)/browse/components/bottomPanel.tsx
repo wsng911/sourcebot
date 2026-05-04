@@ -43,10 +43,10 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
         updateBrowseState,
     } = useBrowseState();
 
-    const { repoName, revisionName, path } = useBrowseParams();
+    const { repo名称, revision名称, path } = useBrowseParams();
     const fullHistoryHref = getBrowsePath({
-        repoName,
-        revisionName,
+        repo名称,
+        revision名称,
         path,
         pathType: 'commits',
     });
@@ -76,7 +76,7 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
         onTabClick("explore");
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
+        enableOnContent编辑able: true,
         description: "Open Explore Panel",
     });
 
@@ -85,7 +85,7 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
         onTabClick("history");
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
+        enableOnContent编辑able: true,
         description: "Open History Panel",
     });
 
@@ -94,16 +94,16 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
 
     return (
         <>
-            <div className="w-full flex flex-row justify-between pt-1 pr-1">
+            <div class名称="w-full flex flex-row justify-between pt-1 pr-1">
                 <Tabs value={tabsValue}>
-                    <TabsList className="h-auto p-0 bg-transparent">
+                    <TabsList class名称="h-auto p-0 bg-transparent">
                         <LowProfileTabsTrigger
                             value="history"
                             onClick={() => onTabClick("history")}
-                            className="text-foreground"
+                            class名称="text-foreground"
                         >
-                            <span className="flex flex-row items-center gap-2">
-                                <History className="w-4 h-4" />
+                            <span class名称="flex flex-row items-center gap-2">
+                                <History class名称="w-4 h-4" />
                                 History
                                 <KeyboardShortcutHint shortcut="shift+mod+h" />
                             </span>
@@ -111,10 +111,10 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
                         <LowProfileTabsTrigger
                             value="explore"
                             onClick={() => onTabClick("explore")}
-                            className="text-foreground"
+                            class名称="text-foreground"
                         >
-                            <span className="flex flex-row items-center gap-2">
-                                <VscReferences className="w-4 h-4" />
+                            <span class名称="flex flex-row items-center gap-2">
+                                <VscReferences class名称="w-4 h-4" />
                                 Explore
                                 <KeyboardShortcutHint shortcut="shift+mod+e" />
                             </span>
@@ -123,17 +123,17 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
                 </Tabs>
 
                 {isBottomPanelCollapsed ? (
-                    <div className="flex flex-row items-center min-w-0 px-2 self-center">
+                    <div class名称="flex flex-row items-center min-w-0 px-2 self-center">
                         <LatestCommitInfo />
                     </div>
                 ) : (
-                    <div className="flex flex-row items-center gap-1 self-center">
+                    <div class名称="flex flex-row items-center gap-1 self-center">
                         {activeBottomPanelTab === "history" && (
                             <Button asChild variant="ghost" size="sm">
                                 <Link
                                     href={fullHistoryHref}
                                 >
-                                    <History className="w-4 h-4" />
+                                    <History class名称="w-4 h-4" />
                                     View full history
                                 </Link>
                             </Button>
@@ -145,7 +145,7 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
                                 updateBrowseState({ isBottomPanelCollapsed: true })
                             }}
                         >
-                            <FaChevronDown className="w-4 h-4" />
+                            <FaChevronDown class名称="w-4 h-4" />
                             Hide
                         </Button>
                     </div>
@@ -170,28 +170,28 @@ export const BottomPanel = ({ order }: BottomPanelProps) => {
             >
                 {activeBottomPanelTab === "explore" ? (
                     !hasCodeNavEntitlement ? (
-                        <div className="flex flex-col items-center justify-center h-full text-muted-foreground gap-2">
-                            <VscSymbolMisc className="w-6 h-6" />
-                            <p className="text-sm">
-                                Code navigation is not enabled for <span className="text-blue-500 hover:underline cursor-pointer" onClick={() => router.push(`/settings/license`)}>your plan</span>.
+                        <div class名称="flex flex-col items-center justify-center h-full text-muted-foreground gap-2">
+                            <VscSymbolMisc class名称="w-6 h-6" />
+                            <p class名称="text-sm">
+                                Code navigation is not enabled for <span class名称="text-blue-500 hover:underline cursor-pointer" onClick={() => router.push(`/settings/license`)}>your plan</span>.
                             </p>
 
                             <Link
                                 href={CODE_NAV_DOCS_URL}
                                 target="_blank"
-                                className="text-sm text-blue-500 hover:underline"
+                                class名称="text-sm text-blue-500 hover:underline"
                             >
                                 Learn more
                             </Link>
                         </div>
                     ) : !selectedSymbolInfo ? (
-                        <div className="flex flex-col items-center justify-center h-full text-muted-foreground gap-2">
-                            <VscSymbolMisc className="w-6 h-6" />
-                            <p className="text-sm">No symbol selected</p>
+                        <div class名称="flex flex-col items-center justify-center h-full text-muted-foreground gap-2">
+                            <VscSymbolMisc class名称="w-6 h-6" />
+                            <p class名称="text-sm">No symbol selected</p>
                             <Link
                                 href={CODE_NAV_DOCS_URL}
                                 target="_blank"
-                                className="text-sm text-blue-500 hover:underline"
+                                class名称="text-sm text-blue-500 hover:underline"
                             >
                                 Learn more
                             </Link>

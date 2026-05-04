@@ -15,14 +15,14 @@ export const newsData: NewsItem[] = [
     },
     {
         unique_id: "ai-search-assist",
-        header: "AI Search Assist",
+        header: "AI 搜索 Assist",
         sub_header: "Describe what you're looking for in natural language and AI will generate a code search query for you.",
         url: "https://docs.sourcebot.dev/docs/features/search/ai-search-assist"
     },
     {
         unique_id: "chat-sharing",
         header: "Chat Sharing",
-        sub_header: "Share Ask Sourcebot chats via link or with specific team members.",
+        sub_header: "分享 Ask Sourcebot chats via link or with specific team members.",
         url: "https://docs.sourcebot.dev/docs/features/ask/chat-sharing"
     },
     {
@@ -45,7 +45,7 @@ export const newsData: NewsItem[] = [
     },
     {
         unique_id: "analytics",
-        header: "Analytics Dashboard",
+        header: "Analytics 仪表盘",
         sub_header: "Understand your team's Sourcebot usage",
         url: "https://docs.sourcebot.dev/docs/features/analytics"
     },
@@ -81,7 +81,7 @@ export const newsData: NewsItem[] = [
     },
     {
         unique_id: "search-contexts",
-        header: "Search Contexts",
+        header: "搜索 Contexts",
         sub_header: "Filter searches by groups of repos",
         url: "https://docs.sourcebot.dev/docs/features/search/search-contexts"
     }

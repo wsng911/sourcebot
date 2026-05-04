@@ -9,7 +9,7 @@ export interface LineMatch {
   'line_end'?: (number | string | Long);
   'line_number'?: (number | string | Long);
   /**
-   * before and after are only set when SearchOptions.NumContextLines is > 0
+   * before and after are only set when 搜索Options.NumContextLines is > 0
    */
   'before'?: (Buffer | Uint8Array | string);
   'after'?: (Buffer | Uint8Array | string);
@@ -32,7 +32,7 @@ export interface LineMatch__Output {
   'line_end': (number);
   'line_number': (number);
   /**
-   * before and after are only set when SearchOptions.NumContextLines is > 0
+   * before and after are only set when 搜索Options.NumContextLines is > 0
    */
   'before': (Buffer);
   'after': (Buffer);

@@ -13,7 +13,7 @@ interface ApiHandlerConfig {
 type AnyHandler = (...args: any[]) => Promise<Response> | Response;
 
 /**
- * Creates an API route handler with automatic request tracking.
+ * 创建s an API route handler with automatic request tracking.
  *
  * @example
  * // Simple handler

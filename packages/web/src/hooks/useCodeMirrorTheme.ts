@@ -3,17 +3,17 @@
 import { useMemo } from "react";
 import { useThemeNormalized } from "./useThemeNormalized";
 import {
-    useCodeMirrorHighlighter,
-} from "./useCodeMirrorHighlighter";
-import { EditorView } from "@codemirror/view";
+    useCode镜像Highlighter,
+} from "./useCode镜像Highlighter";
+import { 编辑orView } from "@codemirror/view";
 import { syntaxHighlighting } from "@codemirror/language";
 import type { StyleSpec } from 'style-mod';
 import { Extension } from "@codemirror/state";
 import tailwind from "@/tailwind";
 
-export const useCodeMirrorTheme = () => {
+export const useCode镜像Theme = () => {
     const { theme } = useThemeNormalized();
-    const highlightStyle = useCodeMirrorHighlighter();
+    const highlightStyle = useCode镜像Highlighter();
 
     const cmTheme = useMemo(() => {
         const {
@@ -22,7 +22,7 @@ export const useCodeMirrorTheme = () => {
             caret,
             selection,
             selectionMatch,
-            gutterBackground,
+            gutter返回ground,
             gutterForeground,
             gutterBorder,
             gutterActiveForeground,
@@ -38,7 +38,7 @@ export const useCodeMirrorTheme = () => {
                     caret,
                     selection,
                     selectionMatch,
-                    gutterBackground,
+                    gutter返回ground,
                     gutterForeground,
                     gutterBorder,
                     gutterActiveForeground,
@@ -56,7 +56,7 @@ export const useCodeMirrorTheme = () => {
 
 
 // @see: https://github.com/uiwjs/react-codemirror/blob/e365f7d1f8a0ec2cd88455b7a248f6338c859cc7/themes/theme/src/index.tsx
-const createThemeExtension = ({ theme, settings = {} }: CreateThemeOptions): Extension => {
+const createThemeExtension = ({ theme, settings = {} }: 创建ThemeOptions): Extension => {
     const themeOptions: Record<string, StyleSpec> = {
         '.cm-gutters': {},
     };
@@ -82,8 +82,8 @@ const createThemeExtension = ({ theme, settings = {} }: CreateThemeOptions): Ext
             fontFamily: settings.fontFamily,
         };
     }
-    if (settings.gutterBackground) {
-        themeOptions['.cm-gutters'].backgroundColor = settings.gutterBackground;
+    if (settings.gutter返回ground) {
+        themeOptions['.cm-gutters'].backgroundColor = settings.gutter返回ground;
     }
     if (settings.gutterForeground) {
         themeOptions['.cm-gutters'].color = settings.gutterForeground;
@@ -115,7 +115,7 @@ const createThemeExtension = ({ theme, settings = {} }: CreateThemeOptions): Ext
 
     if (settings.selection) {
         themeOptions[
-            '&.cm-focused .cm-selectionBackground, & .cm-line::selection, & .cm-selectionLayer .cm-selectionBackground, .cm-content ::selection'
+            '&.cm-focused .cm-selection返回ground, & .cm-line::selection, & .cm-selectionLayer .cm-selection返回ground, .cm-content ::selection'
         ] = {
             background: settings.selection + ' !important',
         };
@@ -125,19 +125,19 @@ const createThemeExtension = ({ theme, settings = {} }: CreateThemeOptions): Ext
             backgroundColor: settings.selectionMatch,
         };
     }
-    const themeExtension = EditorView.theme(themeOptions, {
+    const themeExtension = 编辑orView.theme(themeOptions, {
         dark: theme === 'dark',
     });
 
     return themeExtension;
 };
 
-interface CreateThemeOptions {
+interface 创建ThemeOptions {
     theme: 'light' | 'dark';
-    settings: Settings;
+    settings: 设置;
 }
 
-interface Settings {
+interface 设置 {
     background?: string;
     backgroundImage?: string;
     foreground?: string;
@@ -145,7 +145,7 @@ interface Settings {
     selection?: string;
     selectionMatch?: string;
     lineHighlight?: string;
-    gutterBackground?: string;
+    gutter返回ground?: string;
     gutterForeground?: string;
     gutterActiveForeground?: string;
     gutterBorder?: string;

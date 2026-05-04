@@ -17,9 +17,9 @@ export const GcpIapAuth = ({ callbackUrl }: GcpIapAuthProps) => {
     }, [callbackUrl]);
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="text-center">
-                <p className="text-lg">Signing in with Google Cloud IAP...</p>
+        <div class名称="flex items-center justify-center min-h-screen">
+            <div class名称="text-center">
+                <p class名称="text-lg">Signing in with Google Cloud IAP...</p>
             </div>
         </div>
     );

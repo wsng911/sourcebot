@@ -4,15 +4,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { SymbolHoverPopup } from "@/ee/features/codeNav/components/symbolHoverPopup";
 import { symbolHoverTargetsExtension } from "@/ee/features/codeNav/components/symbolHoverPopup/symbolHoverTargetsExtension";
 import { useHasEntitlement } from "@/features/entitlements/useHasEntitlement";
-import { useCodeMirrorLanguageExtension } from "@/hooks/useCodeMirrorLanguageExtension";
-import { useCodeMirrorTheme } from "@/hooks/useCodeMirrorTheme";
+import { useCode镜像LanguageExtension } from "@/hooks/useCode镜像LanguageExtension";
+import { useCode镜像Theme } from "@/hooks/useCode镜像Theme";
 import { useKeymapExtension } from "@/hooks/useKeymapExtension";
 import { useNonEmptyQueryParam } from "@/hooks/useNonEmptyQueryParam";
 import { search } from "@codemirror/search";
-import CodeMirror, { EditorSelection, EditorView, ReactCodeMirrorRef, SelectionRange, ViewUpdate } from "@uiw/react-codemirror";
+import Code镜像, { 编辑orSelection, 编辑orView, ReactCode镜像Ref, SelectionRange, ViewUpdate } from "@uiw/react-codemirror";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { EditorContextMenu } from "@/app/(app)/components/editorContextMenu";
+import { 编辑orContextMenu } from "@/app/(app)/components/editorContextMenu";
 import { BrowseHighlightRange, getBrowsePath, HIGHLIGHT_RANGE_QUERY_PARAM } from "@/app/(app)/browse/hooks/utils";
 import { rangeHighlightingExtension } from "./rangeHighlightingExtension";
 import { blameGutterExtension } from "./blameGutterExtension";
@@ -20,8 +20,8 @@ import type { FileBlameResponse } from "@/features/git";
 
 interface PureCodePreviewPanelProps {
     path: string;
-    repoName: string;
-    revisionName: string;
+    repo名称: string;
+    revision名称: string;
     source: string;
     language: string;
     blame?: FileBlameResponse;
@@ -31,12 +31,12 @@ export const PureCodePreviewPanel = ({
     source,
     language,
     path,
-    repoName,
-    revisionName,
+    repo名称,
+    revision名称,
     blame,
 }: PureCodePreviewPanelProps) => {
-    const [editorRef, setEditorRef] = useState<ReactCodeMirrorRef | null>(null);
-    const languageExtension = useCodeMirrorLanguageExtension(language, editorRef?.view);
+    const [editorRef, set编辑orRef] = useState<ReactCode镜像Ref | null>(null);
+    const languageExtension = useCode镜像LanguageExtension(language, editorRef?.view);
     const [currentSelection, setCurrentSelection] = useState<SelectionRange>();
     const keymapExtension = useKeymapExtension(editorRef?.view);
     const hasCodeNavEntitlement = useHasEntitlement("code-nav");
@@ -44,24 +44,24 @@ export const PureCodePreviewPanel = ({
 
     const handleBlameCommitClick = useCallback((hash: string) => {
         router.push(getBrowsePath({
-            repoName,
-            revisionName,
+            repo名称,
+            revision名称,
             path,
             pathType: 'blob',
             previewRef: hash,
             diff: true,
         }));
-    }, [router, repoName, revisionName, path]);
+    }, [router, repo名称, revision名称, path]);
 
     const handleBlameReblameClick = useCallback((previous: { hash: string; path: string }) => {
         router.push(getBrowsePath({
-            repoName,
-            revisionName: previous.hash,
+            repo名称,
+            revision名称: previous.hash,
             path: previous.path,
             pathType: 'blob',
             blame: true,
         }));
-    }, [router, repoName]);
+    }, [router, repo名称]);
 
     const highlightRangeQuery = useNonEmptyQueryParam(HIGHLIGHT_RANGE_QUERY_PARAM);
     const highlightRange = useMemo((): BrowseHighlightRange | undefined => {
@@ -112,12 +112,12 @@ export const PureCodePreviewPanel = ({
     const extensions = useMemo(() => {
         return [
             languageExtension,
-            EditorView.lineWrapping,
+            编辑orView.lineWrapping,
             keymapExtension,
             search({
                 top: true,
             }),
-            EditorView.updateListener.of((update: ViewUpdate) => {
+            编辑orView.updateListener.of((update: ViewUpdate) => {
                 if (update.selectionSet) {
                     setCurrentSelection(update.state.selection.main);
                 }
@@ -156,7 +156,7 @@ export const PureCodePreviewPanel = ({
 
         const from = doc.line(start.lineNumber).from;
         const to = doc.line(end.lineNumber).to;
-        const selection = EditorSelection.range(from, to);
+        const selection = 编辑orSelection.range(from, to);
 
         // When the selection is in view, we don't want to perform any scrolling
         // as it could be jarring for the user. If it is not in view, scroll to the
@@ -167,18 +167,18 @@ export const PureCodePreviewPanel = ({
 
         editorRef.view?.dispatch({
             effects: [
-                EditorView.scrollIntoView(selection, { y: scrollStrategy }),
+                编辑orView.scrollIntoView(selection, { y: scrollStrategy }),
             ]
         });
     }, [editorRef, highlightRange]);
 
-    const theme = useCodeMirrorTheme();
+    const theme = useCode镜像Theme();
 
     return (
-        <ScrollArea className="h-full overflow-auto flex-1">
-            <CodeMirror
-                className="relative"
-                ref={setEditorRef}
+        <ScrollArea class名称="h-full overflow-auto flex-1">
+            <Code镜像
+                class名称="relative"
+                ref={set编辑orRef}
                 value={source}
                 extensions={extensions}
                 readOnly={true}
@@ -192,25 +192,25 @@ export const PureCodePreviewPanel = ({
                 }
             >
                 {editorRef && editorRef.view && currentSelection && (
-                    <EditorContextMenu
+                    <编辑orContextMenu
                         view={editorRef.view}
                         selection={currentSelection}
-                        repoName={repoName}
+                        repo名称={repo名称}
                         path={path}
-                        revisionName={revisionName}
+                        revision名称={revision名称}
                     />
                 )}
                 {editorRef && hasCodeNavEntitlement && (
                     <SymbolHoverPopup
                         source="preview"
                         editorRef={editorRef}
-                        revisionName={revisionName}
+                        revision名称={revision名称}
                         language={language}
-                        fileName={path}
-                        repoName={repoName}
+                        file名称={path}
+                        repo名称={repo名称}
                     />
                 )}
-            </CodeMirror>
+            </Code镜像>
 
         </ScrollArea>
     )

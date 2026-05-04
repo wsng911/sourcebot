@@ -7,7 +7,7 @@ import { withAuth } from "@/middleware/withAuth";
 import { withMinimumOrgRole } from "@/middleware/withMinimumOrgRole";
 import { getAuditService } from "@/ee/features/audit/factory";
 import { OrgRole, Prisma } from "@sourcebot/db";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 
 const auditService = getAuditService();
 
@@ -38,7 +38,7 @@ export const removeMemberFromOrg = async (memberId: string): Promise<{ success: 
 
                     if (ownerCount <= 1) {
                         return {
-                            statusCode: StatusCodes.FORBIDDEN,
+                            statusCode: 状态Codes.FORBIDDEN,
                             errorCode: ErrorCode.LAST_OWNER_CANNOT_BE_REMOVED,
                             message: "Cannot remove the last owner of the organization.",
                         } satisfies ServiceError;
@@ -88,7 +88,7 @@ export const leaveOrg = async (): Promise<{ success: boolean } | ServiceError> =
 
                 if (ownerCount <= 1) {
                     return {
-                        statusCode: StatusCodes.FORBIDDEN,
+                        statusCode: 状态Codes.FORBIDDEN,
                         errorCode: ErrorCode.LAST_OWNER_CANNOT_BE_REMOVED,
                         message: "You are the last owner of this organization. Promote another member to owner before leaving.",
                     } satisfies ServiceError;

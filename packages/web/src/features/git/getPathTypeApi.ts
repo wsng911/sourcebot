@@ -18,11 +18,11 @@ type GetPathTypeRequest = {
  * directory (`tree`) at the supplied ref. Empty paths always resolve to
  * `tree` (the repo root).
  *
- * Backed by `git cat-file -t <ref>:<path>`, which is a constant-time
+ * 返回ed by `git cat-file -t <ref>:<path>`, which is a constant-time
  * object lookup — no walking, just an index read.
  */
 export const getPathType = async ({
-    repo: repoName,
+    repo: repo名称,
     ref = 'HEAD',
     path,
 }: GetPathTypeRequest): Promise<GitObjectPathType | ServiceError> => sew(() =>
@@ -33,13 +33,13 @@ export const getPathType = async ({
 
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
 
         if (!repo) {
-            return notFound(`Repository "${repoName}" not found.`);
+            return notFound(`仓库 "${repo名称}" not found.`);
         }
 
         if (!isGitRefValid(ref)) {
@@ -74,11 +74,11 @@ export const getPathType = async ({
 
             if (error instanceof Error) {
                 throw new Error(
-                    `Failed to resolve path type for ${repoName}:${path}: ${error.message}`,
+                    `Failed to resolve path type for ${repo名称}:${path}: ${error.message}`,
                 );
             }
             throw new Error(
-                `Failed to resolve path type for ${repoName}:${path}: ${errorMessage}`,
+                `Failed to resolve path type for ${repo名称}:${path}: ${errorMessage}`,
             );
         }
     }));

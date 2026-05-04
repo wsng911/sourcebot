@@ -41,12 +41,12 @@ export type SuggestionMode =
     "searchHistory" |
     "context";
 
-interface SearchSuggestionsBoxProps {
-    className?: string;
+interface 搜索SuggestionsBoxProps {
+    class名称?: string;
     query: string;
     suggestionQuery: string;
     suggestionMode: SuggestionMode;
-    onCompletion: (newQuery: string, newCursorPosition: number, autoSubmit?: boolean) => void,
+    onCompletion: (newQuery: string, newCursorPosition: number, auto提交?: boolean) => void,
     isEnabled: boolean;
     cursorPosition: number;
     isFocused: boolean;
@@ -63,8 +63,8 @@ interface SearchSuggestionsBoxProps {
     searchContextSuggestions: Suggestion[];
 }
 
-const SearchSuggestionsBox = forwardRef(({
-    className,
+const 搜索SuggestionsBox = forwardRef(({
+    class名称,
     query,
     suggestionQuery,
     suggestionMode,
@@ -82,7 +82,7 @@ const SearchSuggestionsBox = forwardRef(({
     languageSuggestions,
     searchHistorySuggestions,
     searchContextSuggestions,
-}: SearchSuggestionsBoxProps, ref: Ref<HTMLDivElement>) => {
+}: 搜索SuggestionsBoxProps, ref: Ref<HTMLDivElement>) => {
     const [highlightedSuggestionIndex, setHighlightedSuggestionIndex] = useState(0);
     const { onOpenChanged } = useSyntaxGuide();
     const refineModeSuggestions = useRefineModeSuggestions();
@@ -120,8 +120,8 @@ const SearchSuggestionsBox = forwardRef(({
             list,
             isHighlightEnabled = false,
             isSpotlightEnabled = false,
-            isClientSideSearchEnabled = true,
-            isClientSideSearchCaseSensitive = true,
+            isClientSide搜索Enabled = true,
+            isClientSide搜索CaseSensitive = true,
             descriptionPlacement = "left",
             onSuggestionClicked,
             DefaultIcon,
@@ -131,8 +131,8 @@ const SearchSuggestionsBox = forwardRef(({
             list: Suggestion[],
             isHighlightEnabled?: boolean,
             isSpotlightEnabled?: boolean,
-            isClientSideSearchEnabled?: boolean,
-            isClientSideSearchCaseSensitive?: boolean,
+            isClientSide搜索Enabled?: boolean,
+            isClientSide搜索CaseSensitive?: boolean,
             descriptionPlacement?: "left" | "right",
             onSuggestionClicked: (value: string) => void,
             DefaultIcon?: IconType
@@ -158,14 +158,14 @@ const SearchSuggestionsBox = forwardRef(({
                         list: repoSuggestions,
                         DefaultIcon: VscRepo,
                         onSuggestionClicked: createOnSuggestionClickedHandler({ regexEscaped: true }),
-                        isClientSideSearchEnabled: false,
+                        isClientSide搜索Enabled: false,
                     }
                 case "language": {
                     return {
                         list: languageSuggestions,
                         onSuggestionClicked: createOnSuggestionClickedHandler(),
                         isSpotlightEnabled: true,
-                        isClientSideSearchCaseSensitive: false,
+                        isClientSide搜索CaseSensitive: false,
                     }
                 }
                 case "refine":
@@ -181,21 +181,21 @@ const SearchSuggestionsBox = forwardRef(({
                     return {
                         list: fileSuggestions,
                         onSuggestionClicked: createOnSuggestionClickedHandler({ regexEscaped: true }),
-                        isClientSideSearchEnabled: false,
+                        isClientSide搜索Enabled: false,
                         DefaultIcon: VscFile,
                     }
                 case "symbol":
                     return {
                         list: symbolSuggestions,
                         onSuggestionClicked: createOnSuggestionClickedHandler(),
-                        isClientSideSearchEnabled: false,
+                        isClientSide搜索Enabled: false,
                         DefaultIcon: VscSymbolMisc,
                     }
                 case "searchHistory":
                     return {
                         list: searchHistorySuggestions,
                         onSuggestionClicked: (value: string) => {
-                            onCompletion(value, value.length, /* autoSubmit = */ true);
+                            onCompletion(value, value.length, /* auto提交 = */ true);
                         },
                         descriptionPlacement: "right",
                     }
@@ -219,7 +219,7 @@ const SearchSuggestionsBox = forwardRef(({
         const fuse = new Fuse(list, {
             threshold,
             keys: ['value'],
-            isCaseSensitive: isClientSideSearchCaseSensitive,
+            isCaseSensitive: isClientSide搜索CaseSensitive,
         });
 
         const suggestions = (() => {
@@ -242,7 +242,7 @@ const SearchSuggestionsBox = forwardRef(({
                 return [];
             }
 
-            if (!isClientSideSearchEnabled) {
+            if (!isClientSide搜索Enabled) {
                 return list;
             }
 
@@ -286,7 +286,7 @@ const SearchSuggestionsBox = forwardRef(({
         }
         switch (suggestionMode) {
             case "repo":
-                return "Repositories";
+                return "仓库列表";
             case "refine":
                 return "Refine search";
             case "file":
@@ -296,9 +296,9 @@ const SearchSuggestionsBox = forwardRef(({
             case "language":
                 return "Languages";
             case "searchHistory":
-                return "Search history"
+                return "搜索 history"
             case "context":
-                return "Search contexts"
+                return "搜索 contexts"
             default:
                 return "";
         }
@@ -318,7 +318,7 @@ const SearchSuggestionsBox = forwardRef(({
     return (
         <div
             ref={ref}
-            className={cn("w-full absolute z-10 border rounded-md bg-background drop-shadow-2xl p-2", className)}
+            class名称={cn("w-full absolute z-10 border rounded-md bg-background drop-shadow-2xl p-2", class名称)}
             tabIndex={0}
             onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -354,15 +354,15 @@ const SearchSuggestionsBox = forwardRef(({
             onFocus={onFocus}
             onBlur={onBlur}
         >
-            <p className="text-muted-foreground text-sm mb-2">
+            <p class名称="text-muted-foreground text-sm mb-2">
                 {suggestionModeText}
             </p>
             {isLoadingSuggestions ? (
                 // Skeleton placeholder
-                <div className="animate-pulse flex flex-col gap-2 px-1 py-0.5">
+                <div class名称="animate-pulse flex flex-col gap-2 px-1 py-0.5">
                     {
                         Array.from({ length: 10 }).map((_, index) => (
-                            <Skeleton key={index} className="h-4 w-full" />
+                            <Skeleton key={index} class名称="h-4 w-full" />
                         ))
                     }
                 </div>
@@ -370,7 +370,7 @@ const SearchSuggestionsBox = forwardRef(({
                 // Suggestion list
                 <div
                     key={index}
-                    className={clsx("flex flex-row items-center font-mono text-sm hover:bg-muted rounded-md px-1 py-0.5 cursor-pointer", {
+                    class名称={clsx("flex flex-row items-center font-mono text-sm hover:bg-muted rounded-md px-1 py-0.5 cursor-pointer", {
                         "bg-muted": isFocused && index === highlightedSuggestionIndex,
                     })}
                     tabIndex={-1}
@@ -379,12 +379,12 @@ const SearchSuggestionsBox = forwardRef(({
                     }}
                 >
                     {result.Icon ? (
-                        <result.Icon className="w-3 h-3 mr-2 flex-none" />
+                        <result.Icon class名称="w-3 h-3 mr-2 flex-none" />
                     ) : DefaultIcon ? (
-                        <DefaultIcon className="w-3 h-3 mr-2 flex-none" />
+                        <DefaultIcon class名称="w-3 h-3 mr-2 flex-none" />
                     ) : null}
                     <span
-                        className={clsx('mr-2', {
+                        class名称={clsx('mr-2', {
                             "text-highlight": isHighlightEnabled,
                             "truncate": !result.description,
                         })}
@@ -393,7 +393,7 @@ const SearchSuggestionsBox = forwardRef(({
                     </span>
                     {result.description && (
                         <span
-                            className={clsx("text-muted-foreground font-light", {
+                            class名称={clsx("text-muted-foreground font-light", {
                                 "ml-auto": descriptionPlacement === "right",
                             })}
                         >
@@ -404,25 +404,25 @@ const SearchSuggestionsBox = forwardRef(({
             ))}
             <Separator
                 orientation="horizontal"
-                className="my-2"
+                class名称="my-2"
             />
-            <div className="flex flex-row items-center justify-between mt-1">
+            <div class名称="flex flex-row items-center justify-between mt-1">
                 <div
-                    className="flex flex-row gap-1.5 items-center cursor-pointer"
+                    class名称="flex flex-row gap-1.5 items-center cursor-pointer"
                     onClick={() => onOpenChanged(true)}
                 >
-                    <p className="text-muted-foreground text-sm">
+                    <p class名称="text-muted-foreground text-sm">
                         Syntax help:
                     </p>
-                    <div className="flex flex-row gap-0.5 items-center">
+                    <div class名称="flex flex-row gap-0.5 items-center">
                         <KeyboardShortcutHint shortcut="mod" />
                         <KeyboardShortcutHint shortcut="/" />
                     </div>
                 </div>
                 {isFocused && (
-                    <span className="flex flex-row gap-1.5 items-center">
+                    <span class名称="flex flex-row gap-1.5 items-center">
                         <KeyboardShortcutHint shortcut="enter" />
-                        <span className="text-muted-foreground text-sm font-medium">
+                        <span class名称="text-muted-foreground text-sm font-medium">
                             to select
                         </span>
                     </span>
@@ -432,8 +432,8 @@ const SearchSuggestionsBox = forwardRef(({
     )
 });
 
-SearchSuggestionsBox.displayName = "SearchSuggestionsBox";
-export { SearchSuggestionsBox };
+搜索SuggestionsBox.display名称 = "搜索SuggestionsBox";
+export { 搜索SuggestionsBox };
 
 export const splitQuery = (query: string, cursorPos: number) => {
     const queryParts = [];
@@ -500,7 +500,7 @@ export const completeSuggestion = (params: {
 
     let part = queryParts[cursorIndex];
 
-    // Remove whatever query we have in the suggestion so far (if any).
+    // 移除 whatever query we have in the suggestion so far (if any).
     // For example, if our part is "repo:gith", then we want to remove "gith"
     // from the part before we complete the suggestion.
     if (suggestionQuery.length > 0) {
@@ -521,7 +521,7 @@ export const completeSuggestion = (params: {
         part = part + suggestion;
     }
 
-    // Add a trailing space if we are at the end of the query
+    // 添加 a trailing space if we are at the end of the query
     if (trailingSpace && cursorIndex === queryParts.length - 1) {
         part += " ";
     }

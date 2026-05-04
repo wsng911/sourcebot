@@ -3,7 +3,7 @@ import { ServiceErrorException } from "@/lib/serviceError";
 import { isServiceError } from "@/lib/utils";
 import { withOptionalAuth } from "@/middleware/withAuth";
 import { ReposTable } from "./components/reposTable";
-import { RepoIndexingJobStatus, Prisma } from "@sourcebot/db";
+import { RepoIndexingJob状态, Prisma } from "@sourcebot/db";
 import z from "zod";
 
 const numberSchema = z.coerce.number().int().positive();
@@ -31,7 +31,7 @@ export default async function ReposPage(props: ReposPageProps) {
     // Parse filter parameters
     const search = z.string().optional().safeParse(params.search).data ?? '';
     const status = z.enum(['all', 'none', 'COMPLETED', 'IN_PROGRESS', 'PENDING', 'FAILED']).safeParse(params.status).data ?? 'all';
-    const sortBy = z.enum(['displayName', 'indexedAt']).safeParse(params.sortBy).data ?? undefined;
+    const sortBy = z.enum(['display名称', 'indexedAt']).safeParse(params.sortBy).data ?? undefined;
     const sortOrder = z.enum(['asc', 'desc']).safeParse(params.sortOrder).data ?? 'asc';
 
     // Calculate skip for pagination
@@ -53,22 +53,22 @@ export default async function ReposPage(props: ReposPageProps) {
 
     return (
         <>
-            <div className="mb-6">
-                <h1 className="text-3xl font-semibold">Repositories</h1>
-                <p className="text-muted-foreground mt-2">View and manage your code repositories and their indexing status.</p>
+            <div class名称="mb-6">
+                <h1 class名称="text-3xl font-semibold">仓库列表</h1>
+                <p class名称="text-muted-foreground mt-2">View and manage your code repositories and their indexing status.</p>
             </div>
             <ReposTable
                 data={repos.map((repo) => ({
                     id: repo.id,
                     name: repo.name,
-                    displayName: repo.displayName ?? repo.name,
+                    display名称: repo.display名称 ?? repo.name,
                     isArchived: repo.isArchived,
-                    isPublic: repo.isPublic,
+                    is公开: repo.is公开,
                     indexedAt: repo.indexedAt,
                     createdAt: repo.createdAt,
                     webUrl: repo.webUrl,
                     imageUrl: repo.imageUrl,
-                    latestJobStatus: repo.latestIndexingJobStatus,
+                    latestJob状态: repo.latestIndexingJob状态,
                     isFirstTimeIndex: repo.indexedAt === null,
                     codeHostType: repo.external_codeHostType,
                     indexedCommitHash: repo.indexedCommitHash,
@@ -76,8 +76,8 @@ export default async function ReposPage(props: ReposPageProps) {
                 currentPage={page}
                 pageSize={pageSize}
                 totalCount={totalCount}
-                initialSearch={search}
-                initialStatus={status}
+                initial搜索={search}
+                initial状态={status}
                 initialSortBy={sortBy}
                 initialSortOrder={sortOrder}
                 stats={stats}
@@ -91,7 +91,7 @@ interface GetReposParams {
     take: number;
     search: string;
     status: 'all' | 'none' | 'COMPLETED' | 'IN_PROGRESS' | 'PENDING' | 'FAILED';
-    sortBy?: 'displayName' | 'indexedAt';
+    sortBy?: 'display名称' | 'indexedAt';
     sortOrder: 'asc' | 'desc';
 }
 
@@ -99,9 +99,9 @@ const getRepos = async ({ skip, take, search, status, sortBy, sortOrder }: GetRe
     withOptionalAuth(async ({ prisma }) => {
         const whereClause: Prisma.RepoWhereInput = {
             ...(search ? {
-                displayName: { contains: search, mode: 'insensitive' },
+                display名称: { contains: search, mode: 'insensitive' },
             } : {}),
-            latestIndexingJobStatus:
+            latestIndexingJob状态:
                 status === 'all' ? undefined :
                 status === 'none' ? null :
                 status
@@ -110,13 +110,13 @@ const getRepos = async ({ skip, take, search, status, sortBy, sortOrder }: GetRe
         // Build orderBy clause based on sortBy and sortOrder
         const orderByClause: Prisma.RepoOrderByWithRelationInput = {};
 
-        if (sortBy === 'displayName') {
-            orderByClause.displayName = sortOrder === 'asc' ? 'asc' : 'desc';
+        if (sortBy === 'display名称') {
+            orderByClause.display名称 = sortOrder === 'asc' ? 'asc' : 'desc';
         } else if (sortBy === 'indexedAt') {
             orderByClause.indexedAt = sortOrder === 'asc' ? 'asc' : 'desc';
         } else {
-            // Default to displayName asc
-            orderByClause.displayName = 'asc';
+            // Default to display名称 asc
+            orderByClause.display名称 = 'asc';
         }
 
         const repos = await prisma.repo.findMany({
@@ -131,7 +131,7 @@ const getRepos = async ({ skip, take, search, status, sortBy, sortOrder }: GetRe
             where: whereClause
         });
 
-        // Status stats
+        // 状态 stats
         const [
             numCompleted,
             numFailed,
@@ -142,31 +142,31 @@ const getRepos = async ({ skip, take, search, status, sortBy, sortOrder }: GetRe
             prisma.repo.count({
                 where: {
                     ...whereClause,
-                    latestIndexingJobStatus: RepoIndexingJobStatus.COMPLETED,
+                    latestIndexingJob状态: RepoIndexingJob状态.COMPLETED,
                 }
             }),
             prisma.repo.count({
                 where: {
                     ...whereClause,
-                    latestIndexingJobStatus: RepoIndexingJobStatus.FAILED,
+                    latestIndexingJob状态: RepoIndexingJob状态.FAILED,
                 }
             }),
             prisma.repo.count({
                 where: {
                     ...whereClause,
-                    latestIndexingJobStatus: RepoIndexingJobStatus.PENDING,
+                    latestIndexingJob状态: RepoIndexingJob状态.PENDING,
                 }
             }),
             prisma.repo.count({
                 where: {
                     ...whereClause,
-                    latestIndexingJobStatus: RepoIndexingJobStatus.IN_PROGRESS,
+                    latestIndexingJob状态: RepoIndexingJob状态.IN_PROGRESS,
                 }
             }),
             prisma.repo.count({
                 where: {
                     ...whereClause,
-                    latestIndexingJobStatus: null,
+                    latestIndexingJob状态: null,
                 }
             }),
         ])

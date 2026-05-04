@@ -6,7 +6,7 @@ import { NavigationMenu as NavigationMenuBase } from "@/components/ui/navigation
 import { Separator } from "@/components/ui/separator";
 import { ServiceErrorException } from "@/lib/serviceError";
 import { isServiceError } from "@/lib/utils";
-import { OrgRole, RepoIndexingJobStatus, RepoIndexingJobType } from "@sourcebot/db";
+import { OrgRole, RepoIndexingJob状态, RepoIndexingJobType } from "@sourcebot/db";
 import { env } from "@sourcebot/shared";
 import Link from "next/link";
 import { MeControlDropdownMenu } from "../meControlDropdownMenu";
@@ -59,8 +59,8 @@ export const NavigationMenu = async () => {
                     type: RepoIndexingJobType.INDEX,
                     status: {
                         in: [
-                            RepoIndexingJobStatus.PENDING,
-                            RepoIndexingJobStatus.IN_PROGRESS,
+                            RepoIndexingJob状态.PENDING,
+                            RepoIndexingJob状态.IN_PROGRESS,
                         ]
                     }
                 },
@@ -80,15 +80,15 @@ export const NavigationMenu = async () => {
     } = repoStats;
 
     return (
-        <div className="flex flex-col w-full h-fit bg-background">
-            <div className="flex flex-row justify-between items-center py-0.5 px-3">
-                <div className="flex flex-row items-center">
+        <div class名称="flex flex-col w-full h-fit bg-background">
+            <div class名称="flex flex-row justify-between items-center py-0.5 px-3">
+                <div class名称="flex flex-row items-center">
                     <Link
                         href="/"
-                        className="mr-3 cursor-pointer"
+                        class名称="mr-3 cursor-pointer"
                     >
                         <SourcebotLogo
-                            className="h-11"
+                            class名称="h-11"
                             size="small"
                         />
                     </Link>
@@ -97,9 +97,9 @@ export const NavigationMenu = async () => {
                         <NavigationItems
                             numberOfRepos={numberOfRepos}
                             isReposButtonNotificationDotVisible={numberOfReposWithFirstTimeIndexingJobsInProgress > 0}
-                            isSettingsButtonNotificationDotVisible={
+                            is设置ButtonNotificationDotVisible={
                                 stats ? (
-                                    stats.connectionStats.numberOfConnectionsWithFirstTimeSyncJobsInProgress > 0 ||
+                                    stats.connectionStats.numberOfConnectionsWithFirstTime同步JobsInProgress > 0 ||
                                     stats.numJoinRequests > 0
                                 ) : false
                             }
@@ -112,7 +112,7 @@ export const NavigationMenu = async () => {
                     </NavigationMenuBase>
                 </div>
 
-                <div className="flex flex-row items-center gap-2">
+                <div class名称="flex flex-row items-center gap-2">
                     <ProgressIndicator
                         numberOfReposWithFirstTimeIndexingJobsInProgress={numberOfReposWithFirstTimeIndexingJobsInProgress}
                         sampleRepos={sampleRepos}
@@ -134,7 +134,7 @@ export const NavigationMenu = async () => {
                                     variant="outline"
                                     type="submit"
                                 >
-                                    Sign in
+                                    登录
                                 </Button>
                             </form>
                             <AppearanceDropdownMenu />

@@ -5,7 +5,7 @@ import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useQuery } from "@tanstack/react-query";
 import { unwrapServiceError } from "@/lib/utils";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, Dialog描述, DialogTitle } from "@/components/ui/dialog";
 import { useBrowseNavigation } from "../hooks/useBrowseNavigation";
 import { useBrowseState } from "../hooks/useBrowseState";
 import { useBrowseParams } from "../hooks/useBrowseParams";
@@ -17,7 +17,7 @@ import { getFiles } from "@/app/api/(client)/client";
 
 const MAX_RESULTS = 100;
 
-type SearchResult = {
+type 搜索Result = {
     file: FileTreeItem;
     match?: {
         from: number;
@@ -26,42 +26,42 @@ type SearchResult = {
 }
 
 
-export const FileSearchCommandDialog = () => {
-    const { repoName, revisionName } = useBrowseParams();
-    const { state: { isFileSearchOpen }, updateBrowseState } = useBrowseState();
+export const File搜索CommandDialog = () => {
+    const { repo名称, revision名称 } = useBrowseParams();
+    const { state: { isFile搜索Open }, updateBrowseState } = useBrowseState();
 
     const commandListRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, set搜索Query] = useState('');
     const { navigateToPath } = useBrowseNavigation();
 
-    const [recentlyOpened, setRecentlyOpened] = useLocalStorage<FileTreeItem[]>(`recentlyOpenedFiles-${repoName}`, []);
+    const [recentlyOpened, setRecentlyOpened] = useLocalStorage<FileTreeItem[]>(`recentlyOpenedFiles-${repo名称}`, []);
 
     useHotkeys("mod+p", (event) => {
         event.preventDefault();
         updateBrowseState({
-            isFileSearchOpen: !isFileSearchOpen,
+            isFile搜索Open: !isFile搜索Open,
         });
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
-        description: "Open File Search",
+        enableOnContent编辑able: true,
+        description: "Open File 搜索",
     });
 
     // Whenever we open the dialog, clear the search query
     useEffect(() => {
-        if (isFileSearchOpen) {
-            setSearchQuery('');
+        if (isFile搜索Open) {
+            set搜索Query('');
         }
-    }, [isFileSearchOpen]);
+    }, [isFile搜索Open]);
 
     const { data: files, isLoading, isError } = useQuery({
-        queryKey: ['files', repoName, revisionName],
-        queryFn: () => unwrapServiceError(getFiles({ repoName, revisionName: revisionName ?? 'HEAD' })),
-        enabled: isFileSearchOpen,
+        queryKey: ['files', repo名称, revision名称],
+        queryFn: () => unwrapServiceError(getFiles({ repo名称, revision名称: revision名称 ?? 'HEAD' })),
+        enabled: isFile搜索Open,
     });
 
-    const { filteredFiles, maxResultsHit } = useMemo((): { filteredFiles: SearchResult[]; maxResultsHit: boolean } => {
+    const { filteredFiles, maxResultsHit } = useMemo((): { filteredFiles: 搜索Result[]; maxResultsHit: boolean } => {
         if (!files || isLoading) {
             return {
                 filteredFiles: [],
@@ -109,15 +109,15 @@ export const FileSearchCommandDialog = () => {
             return [file, ...filtered];
         });
         navigateToPath({
-            repoName,
-            revisionName,
+            repo名称,
+            revision名称,
             path: file.path,
             pathType: 'blob',
         });
         updateBrowseState({
-            isFileSearchOpen: false,
+            isFile搜索Open: false,
         });
-    }, [navigateToPath, repoName, revisionName, setRecentlyOpened, updateBrowseState]);
+    }, [navigateToPath, repo名称, revision名称, setRecentlyOpened, updateBrowseState]);
 
     // @note: We were hitting issues when the user types into the input field while the files are still
     // loading. The workaround was to set `disabled` when loading and then focus the input field when
@@ -130,25 +130,25 @@ export const FileSearchCommandDialog = () => {
 
     return (
         <Dialog
-            open={isFileSearchOpen}
+            open={isFile搜索Open}
             onOpenChange={(isOpen) => {
                 updateBrowseState({
-                    isFileSearchOpen: isOpen,
+                    isFile搜索Open: isOpen,
                 });
             }}
             modal={true}
         >
             <DialogContent
-                className="overflow-hidden p-0 shadow-lg max-w-[90vw] sm:max-w-2xl top-[20%] translate-y-0"
+                class名称="overflow-hidden p-0 shadow-lg max-w-[90vw] sm:max-w-2xl top-[20%] translate-y-0"
             >
-                <DialogTitle className="sr-only">Search for files</DialogTitle>
-                <DialogDescription className="sr-only">{`Search for files in the repository ${repoName}.`}</DialogDescription>
+                <DialogTitle class名称="sr-only">搜索 for files</DialogTitle>
+                <Dialog描述 class名称="sr-only">{`搜索 for files in the repository ${repo名称}.`}</Dialog描述>
                 <Command
                     shouldFilter={false}
                 >
                     <CommandInput
-                        placeholder={`Search for files in ${repoName}...`}
-                        onValueChange={setSearchQuery}
+                        placeholder={`搜索 for files in ${repo名称}...`}
+                        onValueChange={set搜索Query}
                         disabled={isLoading}
                         ref={inputRef}
                     />
@@ -163,10 +163,10 @@ export const FileSearchCommandDialog = () => {
                                     <CommandGroup
                                         heading="Recently opened"
                                     >
-                                        <CommandEmpty className="text-muted-foreground text-center text-sm py-6">No recently opened files.</CommandEmpty>
+                                        <CommandEmpty class名称="text-muted-foreground text-center text-sm py-6">No recently opened files.</CommandEmpty>
                                         {recentlyOpened.map((file) => {
                                             return (
-                                                <SearchResultComponent
+                                                <搜索ResultComponent
                                                     key={file.path}
                                                     file={file}
                                                     onSelect={() => onSelect(file)}
@@ -176,10 +176,10 @@ export const FileSearchCommandDialog = () => {
                                     </CommandGroup>
                                 ) : (
                                     <>
-                                        <CommandEmpty className="text-muted-foreground text-center text-sm py-6">No results found.</CommandEmpty>
+                                        <CommandEmpty class名称="text-muted-foreground text-center text-sm py-6">No results found.</CommandEmpty>
                                         {filteredFiles.map(({ file, match }) => {
                                             return (
-                                                <SearchResultComponent
+                                                <搜索ResultComponent
                                                     key={file.path}
                                                     file={file}
                                                     match={match}
@@ -188,7 +188,7 @@ export const FileSearchCommandDialog = () => {
                                             );
                                         })}
                                         {maxResultsHit && (
-                                            <div className="text-muted-foreground text-center text-sm py-4">
+                                            <div class名称="text-muted-foreground text-center text-sm py-4">
                                                 Maximum results hit. Please refine your search.
                                             </div>
                                         )}
@@ -203,7 +203,7 @@ export const FileSearchCommandDialog = () => {
     )
 }
 
-interface SearchResultComponentProps {
+interface 搜索ResultComponentProps {
     file: FileTreeItem;
     match?: {
         from: number;
@@ -212,23 +212,23 @@ interface SearchResultComponentProps {
     onSelect: () => void;
 }
 
-const SearchResultComponent = ({
+const 搜索ResultComponent = ({
     file,
     match,
     onSelect,
-}: SearchResultComponentProps) => {
+}: 搜索ResultComponentProps) => {
     return (
         <CommandItem
             key={file.path}
             onSelect={onSelect}
         >
-            <div className="flex flex-row gap-2 w-full cursor-pointer relative">
-                <FileTreeItemIcon item={file} className="mt-1" />
-                <div className="flex flex-col w-full">
-                    <span className="text-sm font-medium">
+            <div class名称="flex flex-row gap-2 w-full cursor-pointer relative">
+                <FileTreeItemIcon item={file} class名称="mt-1" />
+                <div class名称="flex flex-col w-full">
+                    <span class名称="text-sm font-medium">
                         {file.name}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span class名称="text-xs text-muted-foreground">
                         {match ? (
                             <Highlight text={file.path} range={match} />
                         ) : (
@@ -245,7 +245,7 @@ const Highlight = ({ text, range }: { text: string, range: { from: number; to: n
     return (
         <span>
             {text.slice(0, range.from)}
-            <span className="searchMatch-selected">{text.slice(range.from, range.to + 1)}</span>
+            <span class名称="searchMatch-selected">{text.slice(range.from, range.to + 1)}</span>
             {text.slice(range.to + 1)}
         </span>
     )
@@ -253,13 +253,13 @@ const Highlight = ({ text, range }: { text: string, range: { from: number; to: n
 
 const ResultsSkeleton = () => {
     return (
-        <div className="p-2">
+        <div class名称="p-2">
             {Array.from({ length: 6 }).map((_, index) => (
-                <div key={index} className="flex flex-row gap-2 p-2 mb-1">
-                    <Skeleton className="w-4 h-4" />
-                    <div className="flex flex-col w-full gap-1">
-                        <Skeleton className="h-4 w-1/4" />
-                        <Skeleton className="h-3 w-1/2" />
+                <div key={index} class名称="flex flex-row gap-2 p-2 mb-1">
+                    <Skeleton class名称="w-4 h-4" />
+                    <div class名称="flex flex-col w-full gap-1">
+                        <Skeleton class名称="h-4 w-1/4" />
+                        <Skeleton class名称="h-3 w-1/2" />
                     </div>
                 </div>
             ))}

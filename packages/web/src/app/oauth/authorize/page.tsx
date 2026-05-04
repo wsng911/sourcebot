@@ -60,22 +60,22 @@ export default async function AuthorizePage({ searchParams }: AuthorizePageProps
     // If the user is not logged in, redirect to login with this page as the callback.
     const session = await auth();
     if (!session) {
-        const callbackUrl = `/oauth/authorize?${new URLSearchParams(params as Record<string, string>).toString()}`;
+        const callbackUrl = `/oauth/authorize?${new URL搜索Params(params as Record<string, string>).toString()}`;
         redirect(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`);
     }
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center bg-background">
-            <LogoutEscapeHatch className="absolute top-0 right-0 p-6" />
+        <div class名称="relative min-h-screen flex items-center justify-center bg-background">
+            <LogoutEscapeHatch class名称="absolute top-0 right-0 p-6" />
             <ConsentScreen
                 clientId={client_id!}
-                clientName={client.name}
+                client名称={client.name}
                 clientLogoUri={client.logoUri}
                 redirectUri={redirect_uri!}
                 codeChallenge={code_challenge!}
                 resource={resource ?? null}
                 state={state}
-                userEmail={session!.user.email!}
+                user邮箱={session!.user.email!}
             />
         </div>
     );
@@ -83,11 +83,11 @@ export default async function AuthorizePage({ searchParams }: AuthorizePageProps
 
 function ErrorPage({ message }: { message: string }) {
     return (
-        <div className="relative min-h-screen flex items-center justify-center bg-background">
-            <LogoutEscapeHatch className="absolute top-0 right-0 p-6" />
-            <div className="w-full max-w-md rounded-lg border border-border bg-card p-8 shadow-sm text-center">
-                <h1 className="text-xl font-semibold text-foreground mb-2">Authorization Error</h1>
-                <p className="text-sm text-muted-foreground">{message}</p>
+        <div class名称="relative min-h-screen flex items-center justify-center bg-background">
+            <LogoutEscapeHatch class名称="absolute top-0 right-0 p-6" />
+            <div class名称="w-full max-w-md rounded-lg border border-border bg-card p-8 shadow-sm text-center">
+                <h1 class名称="text-xl font-semibold text-foreground mb-2">Authorization Error</h1>
+                <p class名称="text-sm text-muted-foreground">{message}</p>
             </div>
         </div>
     );

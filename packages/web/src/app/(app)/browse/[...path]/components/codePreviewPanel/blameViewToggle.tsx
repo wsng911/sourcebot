@@ -5,13 +5,13 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { getBrowsePath } from "@/app/(app)/browse/hooks/utils";
 
 interface BlameViewToggleProps {
-    repoName: string;
-    revisionName?: string;
+    repo名称: string;
+    revision名称?: string;
     path: string;
     blame: boolean;
 }
 
-export const BlameViewToggle = ({ repoName, revisionName, path, blame }: BlameViewToggleProps) => {
+export const BlameViewToggle = ({ repo名称, revision名称, path, blame }: BlameViewToggleProps) => {
     const router = useRouter();
 
     const handleValueChange = (value: string) => {
@@ -22,8 +22,8 @@ export const BlameViewToggle = ({ repoName, revisionName, path, blame }: BlameVi
             return;
         }
         router.push(getBrowsePath({
-            repoName,
-            revisionName,
+            repo名称,
+            revision名称,
             path,
             pathType: 'blob',
             blame: value === 'blame',
@@ -44,19 +44,19 @@ export const BlameViewToggle = ({ repoName, revisionName, path, blame }: BlameVi
             value={blame ? 'blame' : 'code'}
             onValueChange={handleValueChange}
             variant="outline"
-            className="gap-0"
+            class名称="gap-0"
         >
             <ToggleGroupItem
                 value="code"
                 aria-label="View source code"
-                className={`${baseItemClass} rounded-r-none`}
+                class名称={`${baseItemClass} rounded-r-none`}
             >
                 Code
             </ToggleGroupItem>
             <ToggleGroupItem
                 value="blame"
                 aria-label="View blame"
-                className={`${baseItemClass} rounded-l-none -ml-px`}
+                class名称={`${baseItemClass} rounded-l-none -ml-px`}
             >
                 Blame
             </ToggleGroupItem>

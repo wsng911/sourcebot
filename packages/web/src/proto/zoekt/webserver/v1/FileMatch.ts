@@ -22,19 +22,19 @@ export interface FileMatch {
    */
   'file_name'?: (Buffer | Uint8Array | string);
   /**
-   * Repository is the globally unique name of the repo of the
+   * 仓库 is the globally unique name of the repo of the
    * match
    */
   'repository'?: (string);
   'branches'?: (string)[];
   /**
    * One of line_matches or chunk_matches will be returned depending on whether
-   * the SearchOptions.ChunkMatches is set.
+   * the 搜索Options.ChunkMatches is set.
    */
   'line_matches'?: (_zoekt_webserver_v1_LineMatch)[];
   'chunk_matches'?: (_zoekt_webserver_v1_ChunkMatch)[];
   /**
-   * repository_id is a Sourcegraph extension. This is the ID of Repository in
+   * repository_id is a Sourcegraph extension. This is the ID of 仓库 in
    * Sourcegraph.
    */
   'repository_id'?: (number);
@@ -86,19 +86,19 @@ export interface FileMatch__Output {
    */
   'file_name': (Buffer);
   /**
-   * Repository is the globally unique name of the repo of the
+   * 仓库 is the globally unique name of the repo of the
    * match
    */
   'repository': (string);
   'branches': (string)[];
   /**
    * One of line_matches or chunk_matches will be returned depending on whether
-   * the SearchOptions.ChunkMatches is set.
+   * the 搜索Options.ChunkMatches is set.
    */
   'line_matches': (_zoekt_webserver_v1_LineMatch__Output)[];
   'chunk_matches': (_zoekt_webserver_v1_ChunkMatch__Output)[];
   /**
-   * repository_id is a Sourcegraph extension. This is the ID of Repository in
+   * repository_id is a Sourcegraph extension. This is the ID of 仓库 in
    * Sourcegraph.
    */
   'repository_id': (number);

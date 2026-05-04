@@ -36,7 +36,7 @@ type GetDiffRequest = {
 }
 
 export const getDiff = async ({
-    repo: repoName,
+    repo: repo名称,
     base,
     head,
     path,
@@ -52,13 +52,13 @@ export const getDiff = async ({
 
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
 
         if (!repo) {
-            return notFound(`Repository "${repoName}" not found.`);
+            return notFound(`仓库 "${repo名称}" not found.`);
         }
 
         const { path: repoPath } = getRepoPath(repo);
@@ -105,6 +105,6 @@ export const getDiff = async ({
                 return invalidGitRef(`${base}..${head}`);
             }
 
-            return unexpectedError(`Failed to compute diff for ${repoName}: ${message}`);
+            return unexpectedError(`Failed to compute diff for ${repo名称}: ${message}`);
         }
     }));

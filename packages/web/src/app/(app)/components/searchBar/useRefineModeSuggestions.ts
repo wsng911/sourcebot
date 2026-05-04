@@ -2,96 +2,96 @@
 
 import { useMemo } from "react";
 import { Suggestion } from "./searchSuggestionsBox";
-import { SearchPrefix } from "./constants";
+import { 搜索Prefix } from "./constants";
 import { useHasEntitlement } from "@/features/entitlements/useHasEntitlement";
 
-const negate = (prefix: SearchPrefix) => {
+const negate = (prefix: 搜索Prefix) => {
     return `-${prefix}`;
 }
 
 export const useRefineModeSuggestions = () => {
-    const isSearchContextsEnabled = useHasEntitlement('search-contexts');
+    const is搜索ContextsEnabled = useHasEntitlement('search-contexts');
 
     const suggestions = useMemo((): Suggestion[] => {
         return [
-            ...(isSearchContextsEnabled ? [
+            ...(is搜索ContextsEnabled ? [
                 {
-                    value: SearchPrefix.context,
+                    value: 搜索Prefix.context,
                     description: "Include only results from the given search context.",
                     spotlight: true,
                 },
                 {
-                    value: negate(SearchPrefix.context),
+                    value: negate(搜索Prefix.context),
                     description: "Exclude results from the given search context."
                 },
             ] : []),
             {
-                value: SearchPrefix.visibility,
+                value: 搜索Prefix.visibility,
                 description: "Filter on repository visibility."
             },
             {
-                value: SearchPrefix.repo,
+                value: 搜索Prefix.repo,
                 description: "Include only results from the given repository.",
                 spotlight: true,
             },
             {
-                value: negate(SearchPrefix.repo),
+                value: negate(搜索Prefix.repo),
                 description: "Exclude results from the given repository."
             },
             {
-                value: SearchPrefix.lang,
+                value: 搜索Prefix.lang,
                 description: "Include only results from the given language.",
                 spotlight: true,
             },
             {
-                value: negate(SearchPrefix.lang),
+                value: negate(搜索Prefix.lang),
                 description: "Exclude results from the given language."
             },
             {
-                value: SearchPrefix.file,
+                value: 搜索Prefix.file,
                 description: "Include only results from filepaths matching the given search pattern.",
                 spotlight: true,
             },
             {
-                value: negate(SearchPrefix.file),
+                value: negate(搜索Prefix.file),
                 description: "Exclude results from file paths matching the given search pattern."
             },
             {
-                value: SearchPrefix.rev,
-                description: "Search a given branch or tag instead of the default branch.",
+                value: 搜索Prefix.rev,
+                description: "搜索 a given branch or tag instead of the default branch.",
                 spotlight: true,
             },
             {
-                value: negate(SearchPrefix.rev),
+                value: negate(搜索Prefix.rev),
                 description: "Exclude results from the given branch or tag."
             },
             {
-                value: SearchPrefix.sym,
+                value: 搜索Prefix.sym,
                 description: "Include only symbols matching the given search pattern.",
                 spotlight: true,
             },
             {
-                value: negate(SearchPrefix.sym),
+                value: negate(搜索Prefix.sym),
                 description: "Exclude results from symbols matching the given search pattern."
             },
             {
-                value: SearchPrefix.content,
+                value: 搜索Prefix.content,
                 description: "Include only results from files if their content matches the given search pattern."
             },
             {
-                value: negate(SearchPrefix.content),
+                value: negate(搜索Prefix.content),
                 description: "Exclude results from files if their content matches the given search pattern."
             },
             {
-                value: SearchPrefix.archived,
+                value: 搜索Prefix.archived,
                 description: "Include results from archived repositories.",
             },
             {
-                value: SearchPrefix.fork,
+                value: 搜索Prefix.fork,
                 description: "Include only results from forked repositories."
             },
         ];
-    }, [isSearchContextsEnabled]);
+    }, [is搜索ContextsEnabled]);
 
     return suggestions;
 }

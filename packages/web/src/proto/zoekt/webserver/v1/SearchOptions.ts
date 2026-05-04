@@ -3,7 +3,7 @@
 import type { Duration as _google_protobuf_Duration, Duration__Output as _google_protobuf_Duration__Output } from '../../../google/protobuf/Duration';
 import type { Long } from '@grpc/proto-loader';
 
-export interface SearchOptions {
+export interface 搜索Options {
   /**
    * Return an upper-bound estimate of eligible documents in
    * stats.ShardFilesConsidered.
@@ -79,7 +79,7 @@ export interface SearchOptions {
   'max_match_display_count'?: (number | string | Long);
 }
 
-export interface SearchOptions__Output {
+export interface 搜索Options__Output {
   /**
    * Return an upper-bound estimate of eligible documents in
    * stats.ShardFilesConsidered.

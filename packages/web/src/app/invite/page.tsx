@@ -49,8 +49,8 @@ export default async function InvitePage(props: InvitePageProps) {
 
     // User is logged in but not a member, show join invitation
     return (
-        <div className="min-h-screen flex items-center justify-center p-6">
-            <LogoutEscapeHatch className="absolute top-0 right-0 p-6" />
+        <div class名称="min-h-screen flex items-center justify-center p-6">
+            <LogoutEscapeHatch class名称="absolute top-0 right-0 p-6" />
             <JoinOrganizationCard inviteLinkId={inviteLinkId} />
         </div>
     );
@@ -58,18 +58,18 @@ export default async function InvitePage(props: InvitePageProps) {
 
 function WelcomeCard({ inviteLinkId, providers }: { inviteLinkId: string; providers: IdentityProviderMetadata[] }) {
     return (    
-        <div className="min-h-screen bg-gradient-to-br from-[var(--background)] to-[var(--accent)]/30 flex items-center justify-center p-6">
-            <Card className="w-full max-w-md">
-                <CardHeader className="text-center">
-                    <SourcebotLogo className="h-12 mb-4 mx-auto" size="large" />
-                    <CardTitle className="text-2xl font-semibold">
+        <div class名称="min-h-screen bg-gradient-to-br from-[var(--background)] to-[var(--accent)]/30 flex items-center justify-center p-6">
+            <Card class名称="w-full max-w-md">
+                <CardHeader class名称="text-center">
+                    <SourcebotLogo class名称="h-12 mb-4 mx-auto" size="large" />
+                    <CardTitle class名称="text-2xl font-semibold">
                         Welcome to Sourcebot
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                    <div className="text-center space-y-3">
-                        <p className="text-[var(--muted-foreground)] text-[15px] leading-6">
-                            You&apos;ve been invited to join this Sourcebot deployment. Sign up to get started.
+                <CardContent class名称="space-y-6">
+                    <div class名称="text-center space-y-3">
+                        <p class名称="text-[var(--muted-foreground)] text-[15px] leading-6">
+                            You&apos;ve been invited to join this Sourcebot deployment. 注册 to get started.
                         </p>
                     </div>  
 

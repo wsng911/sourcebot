@@ -5,7 +5,7 @@ import { VscodeFileIcon } from "@/app/components/vscodeFileIcon";
 import { Skeleton } from "@/components/ui/skeleton";
 import { isServiceError, unwrapServiceError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import { ReactCode镜像Ref } from '@uiw/react-codemirror';
 import { memo, useCallback } from "react";
 import { FileReference, FileSource, Reference } from "../../types";
 import { ReferencedFileSourceListItem } from "./referencedFileSourceListItem";
@@ -21,7 +21,7 @@ export interface ReferencedFileSourceListItemContainerProps {
     onSelectedReferenceChanged: (reference?: Reference) => void;
     isExpanded: boolean;
     onExpandedChanged: (fileId: string, isExpanded: boolean) => void;
-    onEditorRef: (fileId: string, ref: ReactCodeMirrorRef | null) => void;
+    on编辑orRef: (fileId: string, ref: ReactCode镜像Ref | null) => void;
 }
 
 const ReferencedFileSourceListItemContainerComponent = ({
@@ -34,9 +34,9 @@ const ReferencedFileSourceListItemContainerComponent = ({
     onSelectedReferenceChanged,
     isExpanded,
     onExpandedChanged,
-    onEditorRef,
+    on编辑orRef,
 }: ReferencedFileSourceListItemContainerProps) => {
-    const fileName = fileSource.path.split('/').pop() ?? fileSource.path;
+    const file名称 = fileSource.path.split('/').pop() ?? fileSource.path;
 
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['fileSource', fileSource.path, fileSource.repo, fileSource.revision],
@@ -48,9 +48,9 @@ const ReferencedFileSourceListItemContainerComponent = ({
         staleTime: Infinity,
     });
 
-    const handleRef = useCallback((ref: ReactCodeMirrorRef | null) => {
-        onEditorRef(fileId, ref);
-    }, [fileId, onEditorRef]);
+    const handleRef = useCallback((ref: ReactCode镜像Ref | null) => {
+        on编辑orRef(fileId, ref);
+    }, [fileId, on编辑orRef]);
 
     const handleExpandedChanged = useCallback((isExpanded: boolean) => {
         onExpandedChanged(fileId, isExpanded);
@@ -58,24 +58,24 @@ const ReferencedFileSourceListItemContainerComponent = ({
 
     if (isLoading) {
         return (
-            <div className="space-y-2">
-                <div className="flex items-center gap-2 p-2">
-                    <VscodeFileIcon fileName={fileName} className="w-4 h-4" />
-                    <span className="text-sm font-medium">{fileName}</span>
+            <div class名称="space-y-2">
+                <div class名称="flex items-center gap-2 p-2">
+                    <VscodeFileIcon file名称={file名称} class名称="w-4 h-4" />
+                    <span class名称="text-sm font-medium">{file名称}</span>
                 </div>
-                <Skeleton className="h-48 w-full" />
+                <Skeleton class名称="h-48 w-full" />
             </div>
         );
     }
 
     if (isError || isServiceError(data) || !data) {
         return (
-            <div className="space-y-2">
-                <div className="flex items-center gap-2 p-2">
-                    <VscodeFileIcon fileName={fileName} className="w-4 h-4" />
-                    <span className="text-sm font-medium">{fileName}</span>
+            <div class名称="space-y-2">
+                <div class名称="flex items-center gap-2 p-2">
+                    <VscodeFileIcon file名称={file名称} class名称="w-4 h-4" />
+                    <span class名称="text-sm font-medium">{file名称}</span>
                 </div>
-                <div className="p-4 text-sm text-destructive bg-destructive/10 rounded border">
+                <div class名称="p-4 text-sm text-destructive bg-destructive/10 rounded border">
                     Failed to load file: {isServiceError(data) ? data.message : error?.message ?? 'Unknown error'}
                 </div>
             </div>
@@ -88,11 +88,11 @@ const ReferencedFileSourceListItemContainerComponent = ({
             code={data.source}
             language={data.language}
             revision={fileSource.revision}
-            repoName={fileSource.repo}
+            repo名称={fileSource.repo}
             repoCodeHostType={data.repoCodeHostType}
-            repoDisplayName={data.repoDisplayName}
+            repoDisplay名称={data.repoDisplay名称}
             repoWebUrl={data.repoExternalWebUrl}
-            fileName={data.path}
+            file名称={data.path}
             references={references}
             ref={handleRef}
             onSelectedReferenceChanged={onSelectedReferenceChanged}

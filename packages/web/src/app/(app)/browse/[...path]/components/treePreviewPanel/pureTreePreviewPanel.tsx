@@ -12,12 +12,12 @@ interface PureTreePreviewPanelProps {
 }
 
 export const PureTreePreviewPanel = ({ items }: PureTreePreviewPanelProps) => {
-    const { repoName, revisionName } = useBrowseParams();
+    const { repo名称, revision名称 } = useBrowseParams();
     const scrollAreaRef = useRef<HTMLDivElement>(null);
    
     return (
         <ScrollArea
-            className="flex flex-col p-0.5"
+            class名称="flex flex-col p-0.5"
             ref={scrollAreaRef}
         >
             {items.map((item) => (
@@ -29,8 +29,8 @@ export const PureTreePreviewPanel = ({ items }: PureTreePreviewPanelProps) => {
                     isCollapseChevronVisible={false}
                     parentRef={scrollAreaRef}
                     href={getBrowsePath({
-                        repoName,
-                        revisionName,
+                        repo名称,
+                        revision名称,
                         path: item.path,
                         pathType: item.type === 'tree' ? 'tree' : 'blob',
                     })}

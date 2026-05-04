@@ -1,10 +1,10 @@
 'use client';
 
 import { Slate } from "slate-react";
-import { useCustomSlateEditor } from "./useCustomSlateEditor";
+import { useCustomSlate编辑or } from "./useCustomSlate编辑or";
 import { CustomElement } from "./types";
 
-interface CustomSlateEditorProps {
+interface CustomSlate编辑orProps {
     children: React.ReactNode;
 }
 
@@ -15,8 +15,8 @@ const initialValue: CustomElement[] = [
     },
 ];
 
-export const CustomSlateEditor = ({ children }: CustomSlateEditorProps) => {
-    const editor = useCustomSlateEditor();
+export const CustomSlate编辑or = ({ children }: CustomSlate编辑orProps) => {
+    const editor = useCustomSlate编辑or();
 
     return <Slate
         editor={editor}

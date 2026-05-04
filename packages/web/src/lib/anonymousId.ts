@@ -8,7 +8,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year in seconds
  * Gets the anonymous session ID from the cookie, or creates one if it doesn't exist.
  * This is used to track ownership of chats created by anonymous (non-authenticated) users.
  */
-export const getOrCreateAnonymousId = async (): Promise<string> => {
+export const getOr创建AnonymousId = async (): Promise<string> => {
     const cookieStore = await cookies();
     const existingId = cookieStore.get(ANONYMOUS_ID_COOKIE_NAME)?.value;
 

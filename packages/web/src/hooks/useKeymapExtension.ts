@@ -1,12 +1,12 @@
 'use client';
 
-import { EditorView, keymap } from "@uiw/react-codemirror";
+import { 编辑orView, keymap } from "@uiw/react-codemirror";
 import { useExtensionWithDependency } from "./useExtensionWithDependency";
 import { useKeymapType } from "./useKeymapType";
 import { defaultKeymap } from "@codemirror/commands";
 import { vim } from "@replit/codemirror-vim";
 
-export const useKeymapExtension = (view: EditorView | undefined) => {
+export const useKeymapExtension = (view: 编辑orView | undefined) => {
     const [keymapType] = useKeymapType();
 
     const extension = useExtensionWithDependency(

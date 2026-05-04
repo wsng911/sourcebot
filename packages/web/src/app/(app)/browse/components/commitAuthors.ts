@@ -14,7 +14,7 @@ export const parseCoAuthors = (body: string): Author[] => {
 
 export const getCommitAuthors = (commit: Commit): Author[] => {
     const all: Author[] = [
-        { name: commit.authorName, email: commit.authorEmail },
+        { name: commit.author名称, email: commit.author邮箱 },
         ...parseCoAuthors(commit.body),
     ];
     const seen = new Set<string>();
@@ -35,24 +35,24 @@ export const getCommitAuthors = (commit: Commit): Author[] => {
  * The canonical name picked is the one with the most commits; counts are
  * summed. Result is resorted by commitCount descending.
  */
-export const dedupeCommitAuthorsByEmail = (authors: CommitAuthor[]): CommitAuthor[] => {
-    type Accum = CommitAuthor & { bestNameCount: number };
-    const byEmail = new Map<string, Accum>();
+export const dedupeCommitAuthorsBy邮箱 = (authors: CommitAuthor[]): CommitAuthor[] => {
+    type Accum = CommitAuthor & { best名称Count: number };
+    const by邮箱 = new Map<string, Accum>();
     for (const a of authors) {
         const key = a.email.toLowerCase();
-        const existing = byEmail.get(key);
+        const existing = by邮箱.get(key);
         if (!existing) {
-            byEmail.set(key, { ...a, bestNameCount: a.commitCount });
+            by邮箱.set(key, { ...a, best名称Count: a.commitCount });
         } else {
             existing.commitCount += a.commitCount;
-            if (a.commitCount > existing.bestNameCount) {
+            if (a.commitCount > existing.best名称Count) {
                 existing.name = a.name;
                 existing.email = a.email;
-                existing.bestNameCount = a.commitCount;
+                existing.best名称Count = a.commitCount;
             }
         }
     }
-    return Array.from(byEmail.values())
+    return Array.from(by邮箱.values())
         .map(({ name, email, commitCount }) => ({ name, email, commitCount }))
         .sort((a, b) => b.commitCount - a.commitCount);
 };

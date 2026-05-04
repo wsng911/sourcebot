@@ -28,7 +28,7 @@ interface DataTableProps<TData, TValue> {
     data: TData[]
     searchKey: string
     searchPlaceholder?: string,
-    headerActions?: React.ReactNode,
+    header操作?: React.ReactNode,
 }
 
 export function DataTable<TData, TValue>({
@@ -36,7 +36,7 @@ export function DataTable<TData, TValue>({
     data,
     searchKey,
     searchPlaceholder,
-    headerActions,
+    header操作,
 
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -62,23 +62,23 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
-            <div className="flex items-center py-4">
+            <div class名称="flex items-center py-4">
                 <Input
                     placeholder={searchPlaceholder}
                     value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn(searchKey)?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    class名称="max-w-sm"
                 />
                 {/*
-                    TODO(auth): Combine this logic with existing add repo button logic in AddRepoButton component
+                    TODO(auth): Combine this logic with existing add repo button logic in 添加RepoButton component
                     Show a button on the demo site that allows users to add new repositories
                     by updating the demo-site-config.json file and opening a PR.
                 */}
-                {headerActions}
+                {header操作}
             </div>
-            <div className="rounded-md border">
+            <div class名称="rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -120,7 +120,7 @@ export function DataTable<TData, TValue>({
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} class名称="h-24 text-center">
                                     No results.
                                 </TableCell>
                             </TableRow>
@@ -128,7 +128,7 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
+            <div class名称="flex items-center justify-end space-x-2 py-4">
                 <Button
                     variant="outline"
                     size="sm"

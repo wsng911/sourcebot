@@ -4,7 +4,7 @@ import { Suggestion } from "./searchSuggestionsBox";
  * List of search prefixes that can be used while the
  * `refine` suggestion mode is active.
  */
-export enum SearchPrefix {
+export enum 搜索Prefix {
     repo = "repo:",
     r = "r:",
     lang = "lang:",

@@ -19,7 +19,7 @@ export type GetTreeResponse = z.infer<typeof getTreeResponseSchema>;
  * repo/revision, including intermediate directories needed to connect them
  * into a single tree.
  */
-export const getTree = async ({ repoName, revisionName, paths }: GetTreeRequest, { source }: { source?: string } = {}): Promise<GetTreeResponse | ServiceError> => sew(() =>
+export const getTree = async ({ repo名称, revision名称, paths }: GetTreeRequest, { source }: { source?: string } = {}): Promise<GetTreeResponse | ServiceError> => sew(() =>
     withOptionalAuth(async ({ org, prisma, user }) => {
         if (user) {
             const resolvedSource = source ?? (await headers()).get('X-Sourcebot-Client-Source') ?? undefined;
@@ -34,17 +34,17 @@ export const getTree = async ({ repoName, revisionName, paths }: GetTreeRequest,
 
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
 
         if (!repo) {
-            return notFound(`Repository "${repoName}" not found.`);
+            return notFound(`仓库 "${repo名称}" not found.`);
         }
 
-        if (!isGitRefValid(revisionName)) {
-            return invalidGitRef(revisionName);
+        if (!isGitRefValid(revision名称)) {
+            return invalidGitRef(revision名称);
         }
 
         const { path: repoPath } = getRepoPath(repo);
@@ -63,7 +63,7 @@ export const getTree = async ({ repoName, revisionName, paths }: GetTreeRequest,
                 // Disable quoting of non-ASCII characters in paths
                 '-c', 'core.quotePath=false',
                 'ls-tree',
-                revisionName,
+                revision名称,
                 // format as output as {type},{path}
                 '--format=%(objecttype),%(path)',
                 // include tree nodes

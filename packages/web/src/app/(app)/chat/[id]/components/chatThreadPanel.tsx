@@ -2,23 +2,23 @@
 
 import { ResizablePanel } from '@/components/ui/resizable';
 import { ChatThread } from '@/features/chat/components/chatThread';
-import { LanguageModelInfo, SBChatMessage, SearchScope, SetChatStatePayload } from '@/features/chat/types';
+import { LanguageModelInfo, SBChatMessage, 搜索Scope, SetChatStatePayload } from '@/features/chat/types';
 import { SELECTED_SEARCH_SCOPES_LOCAL_STORAGE_KEY, SET_CHAT_STATE_SESSION_STORAGE_KEY } from '@/features/chat/constants';
-import { RepositoryQuery, SearchContextQuery } from '@/lib/types';
-import { CreateUIMessage } from 'ai';
+import { 仓库Query, 搜索ContextQuery } from '@/lib/types';
+import { 创建UIMessage } from 'ai';
 import { useEffect, useState } from 'react';
 import { useChatId } from '../../useChatId';
 import { useSessionStorage } from 'usehooks-ts';
 
 interface ChatThreadPanelProps {
     languageModels: LanguageModelInfo[];
-    repos: RepositoryQuery[];
-    searchContexts: SearchContextQuery[];
+    repos: 仓库Query[];
+    searchContexts: 搜索ContextQuery[];
     order: number;
     messages: SBChatMessage[];
     isOwner: boolean;
     isAuthenticated: boolean;
-    chatName?: string;
+    chat名称?: string;
 }
 
 export const ChatThreadPanel = ({
@@ -29,12 +29,12 @@ export const ChatThreadPanel = ({
     messages,
     isOwner,
     isAuthenticated,
-    chatName,
+    chat名称,
 }: ChatThreadPanelProps) => {
     // @note: we are guaranteed to have a chatId because this component will only be
     // mounted when on a /chat/[id] route.
     const chatId = useChatId()!;
-    const [inputMessage, setInputMessage] = useState<CreateUIMessage<SBChatMessage> | undefined>(undefined);
+    const [inputMessage, setInputMessage] = useState<创建UIMessage<SBChatMessage> | undefined>(undefined);
     const [chatState, setChatState] = useSessionStorage<SetChatStatePayload | null>(SET_CHAT_STATE_SESSION_STORAGE_KEY, null);
 
     // Clear the landing page's persisted search scope selection so that returning
@@ -45,8 +45,8 @@ export const ChatThreadPanel = ({
     
     // Use the last user's last message to determine what repos and contexts we should select by default.
     const lastUserMessage = messages.findLast((message) => message.role === "user");
-    const defaultSelectedSearchScopes = lastUserMessage?.metadata?.selectedSearchScopes ?? [];
-    const [selectedSearchScopes, setSelectedSearchScopes] = useState<SearchScope[]>(defaultSelectedSearchScopes);
+    const defaultSelected搜索Scopes = lastUserMessage?.metadata?.selected搜索Scopes ?? [];
+    const [selected搜索Scopes, setSelected搜索Scopes] = useState<搜索Scope[]>(defaultSelected搜索Scopes);
     
     useEffect(() => {
         if (!chatState) {
@@ -55,7 +55,7 @@ export const ChatThreadPanel = ({
 
         try {
             setInputMessage(chatState.inputMessage);
-            setSelectedSearchScopes(chatState.selectedSearchScopes);
+            setSelected搜索Scopes(chatState.selected搜索Scopes);
         } catch {
             console.error('Invalid chat state in session storage');
         } finally {
@@ -70,7 +70,7 @@ export const ChatThreadPanel = ({
             id="chat-thread-panel"
             defaultSize={85}
         >
-            <div className="flex flex-col h-full w-full">
+            <div class名称="flex flex-col h-full w-full">
                 <ChatThread
                     id={chatId}
                     initialMessages={messages}
@@ -78,11 +78,11 @@ export const ChatThreadPanel = ({
                     languageModels={languageModels}
                     repos={repos}
                     searchContexts={searchContexts}
-                    selectedSearchScopes={selectedSearchScopes}
-                    onSelectedSearchScopesChange={setSelectedSearchScopes}
+                    selected搜索Scopes={selected搜索Scopes}
+                    onSelected搜索ScopesChange={setSelected搜索Scopes}
                     isOwner={isOwner}
                     isAuthenticated={isAuthenticated}
-                    chatName={chatName}
+                    chat名称={chat名称}
                 />
             </div>
         </ResizablePanel>

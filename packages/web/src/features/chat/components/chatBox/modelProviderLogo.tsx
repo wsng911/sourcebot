@@ -17,24 +17,24 @@ import { Box, LucideIcon } from "lucide-react";
 
 interface ModelProviderLogoProps {
     provider: LanguageModelProvider;
-    className?: string;
+    class名称?: string;
 }
 
 export const ModelProviderLogo = ({
     provider,
-    className,
+    class名称,
 }: ModelProviderLogoProps) => {
-    const { src, Icon, className: logoClassName } = useMemo((): { src?: string, Icon?: LucideIcon, className?: string } => {
+    const { src, Icon, class名称: logoClass名称 } = useMemo((): { src?: string, Icon?: LucideIcon, class名称?: string } => {
         switch (provider) {
             case 'amazon-bedrock':
                 return {
                     src: bedrockLogo,
-                    className: 'dark:invert'
+                    class名称: 'dark:invert'
                 };
             case 'anthropic':
                 return {
                     src: anthropicLogo,
-                    className: 'dark:invert'
+                    class名称: 'dark:invert'
                 };
             case 'azure':
                 return {
@@ -47,7 +47,7 @@ export const ModelProviderLogo = ({
             case 'openai':
                 return {
                     src: openaiLogo,
-                    className: 'dark:invert'
+                    class名称: 'dark:invert'
                 };
             case 'google-generative-ai':
             case 'google-vertex':
@@ -57,7 +57,7 @@ export const ModelProviderLogo = ({
             case 'google-vertex-anthropic':
                 return {
                     src: anthropicLogo,
-                    className: 'dark:invert'
+                    class名称: 'dark:invert'
                 };
             case 'mistral':
                 return {
@@ -66,17 +66,17 @@ export const ModelProviderLogo = ({
             case 'openrouter':
                 return {
                     src: openrouterLogo,
-                    className: 'dark:invert'
+                    class名称: 'dark:invert'
                 };
             case 'xai':
                 return {
                     src: xaiLogo,
-                    className: 'dark:invert'
+                    class名称: 'dark:invert'
                 };
             case 'openai-compatible':
                 return {
                     Icon: Box,
-                    className: 'text-muted-foreground'
+                    class名称: 'text-muted-foreground'
                 };
         }
     }, [provider]);
@@ -85,17 +85,17 @@ export const ModelProviderLogo = ({
         <Image
             src={src}
             alt={provider}
-            className={cn(
+            class名称={cn(
                 'w-3.5 h-3.5',
-                logoClassName,
-                className
+                logoClass名称,
+                class名称
             )}
         />
     ) : Icon ? (
-        <Icon className={cn(
+        <Icon class名称={cn(
             'w-3.5 h-3.5',
-            logoClassName,
-            className
+            logoClass名称,
+            class名称
         )} />
     ) : null;
 }

@@ -5,7 +5,7 @@ import z from 'zod';
 import {
     publicEeAuditQuerySchema,
     publicEeAuditResponseSchema,
-    publicEeDeleteUserResponseSchema,
+    publicEe删除UserResponseSchema,
     publicEeUserSchema,
     publicEeUsersResponseSchema,
     publicFileBlameRequestSchema,
@@ -26,15 +26,15 @@ import {
     publicListCommitsResponseSchema,
     publicListReposQueryParamsSchema,
     publicListReposResponseSchema,
-    publicSearchRequestSchema,
-    publicSearchResponseSchema,
+    public搜索RequestSchema,
+    public搜索ResponseSchema,
     publicServiceErrorSchema,
     publicVersionResponseSchema,
 } from './publicApiSchemas.js';
 import dedent from 'dedent';
 
-const searchTag = { name: 'Search & Navigation', description: 'Code search and symbol navigation endpoints.' };
-const reposTag = { name: 'Repositories', description: 'Repository listing and metadata endpoints.' };
+const searchTag = { name: '搜索 & Navigation', description: 'Code search and symbol navigation endpoints.' };
+const reposTag = { name: '仓库列表', description: '仓库 listing and metadata endpoints.' };
 const gitTag = { name: 'Git', description: 'Git history, diff, and file content endpoints.' };
 const systemTag = { name: 'System', description: 'System health and version endpoints.' };
 const eeTag = { name: 'Enterprise (EE)', description: 'Enterprise endpoints for user management and audit logging.' };
@@ -53,7 +53,7 @@ const publicFileTreeNodeSchema: SchemaObject = {
         name: { type: 'string' },
         children: {
             type: 'array',
-            items: { $ref: '#/components/schemas/PublicFileTreeNode' },
+            items: { $ref: '#/components/schemas/公开FileTreeNode' },
         },
     },
     required: ['type', 'path', 'name', 'children'],
@@ -63,24 +63,24 @@ const publicFileTreeNodeSchema: SchemaObject = {
 const publicGetTreeResponseSchema: SchemaObject = {
     type: 'object',
     properties: {
-        tree: { $ref: '#/components/schemas/PublicFileTreeNode' },
+        tree: { $ref: '#/components/schemas/公开FileTreeNode' },
     },
     required: ['tree'],
     additionalProperties: false,
 };
 
-const securitySchemeNames = {
+const securityScheme名称s = {
     bearerToken: 'bearerToken',
     apiKeyHeader: 'apiKeyHeader',
 } as const;
 
-const securitySchemes: Record<keyof typeof securitySchemeNames, SecuritySchemeObject> = {
-    [securitySchemeNames.bearerToken]: {
+const securitySchemes: Record<keyof typeof securityScheme名称s, SecuritySchemeObject> = {
+    [securityScheme名称s.bearerToken]: {
         type: 'http',
         scheme: 'bearer',
         description: 'Bearer authentication header of the form `Bearer <token>`, where `<token>` is your API key.',
     },
-    [securitySchemeNames.apiKeyHeader]: {
+    [securityScheme名称s.apiKeyHeader]: {
         type: 'apiKey',
         in: 'header',
         name: 'X-Sourcebot-Api-Key',
@@ -103,7 +103,7 @@ function errorJson(description: string) {
     };
 }
 
-export function createPublicOpenApiDocument(version: string) {
+export function create公开OpenApiDocument(version: string) {
     const registry = new OpenAPIRegistry();
 
     registry.registerPath({
@@ -111,18 +111,18 @@ export function createPublicOpenApiDocument(version: string) {
         path: '/api/search',
         operationId: 'search',
         tags: [searchTag.name],
-        summary: 'Search code',
+        summary: '搜索 code',
         description: 'Executes a blocking code search and returns all matching file chunks.',
         request: {
             body: {
                 required: true,
-                content: jsonContent(publicSearchRequestSchema),
+                content: jsonContent(public搜索RequestSchema),
             },
         },
         responses: {
             200: {
-                description: 'Search results.',
-                content: jsonContent(publicSearchResponseSchema),
+                description: '搜索 results.',
+                content: jsonContent(public搜索ResponseSchema),
             },
             400: errorJson('Invalid request body.'),
             500: errorJson('Unexpected search failure.'),
@@ -139,7 +139,7 @@ export function createPublicOpenApiDocument(version: string) {
     registry.registerPath({
         method: 'get',
         path: '/api/repos',
-        operationId: 'listRepositories',
+        operationId: 'list仓库列表',
         tags: [reposTag.name],
         summary: 'List repositories',
         description: 'Returns a paginated list of repositories indexed by this Sourcebot instance.',
@@ -217,7 +217,7 @@ export function createPublicOpenApiDocument(version: string) {
                 content: jsonContent(publicFileSourceResponseSchema),
             },
             400: errorJson('Invalid query parameters or git ref.'),
-            404: errorJson('Repository or file not found.'),
+            404: errorJson('仓库 or file not found.'),
             500: errorJson('Unexpected file retrieval failure.'),
         },
     });
@@ -246,7 +246,7 @@ export function createPublicOpenApiDocument(version: string) {
                 content: jsonContent(publicFileBlameResponseSchema),
             },
             400: errorJson('Invalid query parameters or git ref.'),
-            404: errorJson('Repository or file not found.'),
+            404: errorJson('仓库 or file not found.'),
             500: errorJson('Unexpected blame retrieval failure.'),
         },
     });
@@ -270,7 +270,7 @@ export function createPublicOpenApiDocument(version: string) {
                 content: jsonContent(publicGetTreeResponseSchema),
             },
             400: errorJson('Invalid request body or git ref.'),
-            404: errorJson('Repository or path not found.'),
+            404: errorJson('仓库 or path not found.'),
             500: errorJson('Unexpected tree retrieval failure.'),
         },
     });
@@ -292,7 +292,7 @@ export function createPublicOpenApiDocument(version: string) {
                 content: jsonContent(publicGetDiffResponseSchema),
             },
             400: errorJson('Invalid query parameters or git ref.'),
-            404: errorJson('Repository not found.'),
+            404: errorJson('仓库 not found.'),
             500: errorJson('Unexpected diff failure.'),
         },
     });
@@ -369,7 +369,7 @@ export function createPublicOpenApiDocument(version: string) {
                 content: jsonContent(publicListCommitsResponseSchema),
             },
             400: errorJson('Invalid query parameters.'),
-            404: errorJson('Repository not found.'),
+            404: errorJson('仓库 not found.'),
             500: errorJson('Unexpected failure.'),
         },
     });
@@ -390,7 +390,7 @@ export function createPublicOpenApiDocument(version: string) {
                 content: jsonContent(publicCommitDetailSchema),
             },
             400: errorJson('Invalid query parameters or git ref.'),
-            404: errorJson('Repository or revision not found.'),
+            404: errorJson('仓库 or revision not found.'),
             500: errorJson('Unexpected failure.'),
         },
     });
@@ -421,7 +421,7 @@ export function createPublicOpenApiDocument(version: string) {
                 content: jsonContent(publicListCommitAuthorsResponseSchema),
             },
             400: errorJson('Invalid query parameters or git ref.'),
-            404: errorJson('Repository not found.'),
+            404: errorJson('仓库 not found.'),
             500: errorJson('Unexpected failure.'),
         },
     });
@@ -459,7 +459,7 @@ export function createPublicOpenApiDocument(version: string) {
         path: '/api/ee/user',
         operationId: 'deleteUser',
         tags: [eeTag.name],
-        summary: 'Delete a user',
+        summary: '删除 a user',
         description: 'Permanently deletes a user and all associated records. Only organization owners can delete other users.',
         request: {
             query: z.object({
@@ -469,7 +469,7 @@ export function createPublicOpenApiDocument(version: string) {
         responses: {
             200: {
                 description: 'User deleted successfully.',
-                content: jsonContent(publicEeDeleteUserResponseSchema),
+                content: jsonContent(publicEe删除UserResponseSchema),
             },
             400: errorJson('Missing userId parameter or attempting to delete own account.'),
             403: errorJson('Insufficient permissions.'),
@@ -541,14 +541,14 @@ export function createPublicOpenApiDocument(version: string) {
     const document = generator.generateDocument({
         openapi: '3.0.3',
         info: {
-            title: 'Sourcebot Public API',
+            title: 'Sourcebot 公开 API',
             version,
             description: 'OpenAPI description for the public Sourcebot REST endpoints used for search, repository listing, and file browsing. Authentication is instance-dependent: API keys are the standard integration mechanism, OAuth bearer tokens are EE-only, and some instances may allow anonymous access.',
         },
         tags: [searchTag, reposTag, gitTag, systemTag, eeTag],
         security: [
-            { [securitySchemeNames.bearerToken]: [] },
-            { [securitySchemeNames.apiKeyHeader]: [] },
+            { [securityScheme名称s.bearerToken]: [] },
+            { [securityScheme名称s.apiKeyHeader]: [] },
             {},
         ],
     });
@@ -556,7 +556,7 @@ export function createPublicOpenApiDocument(version: string) {
     const components: ComponentsObject = document.components ?? {};
     components.schemas = {
         ...(components.schemas ?? {}),
-        PublicFileTreeNode: publicFileTreeNodeSchema,
+        公开FileTreeNode: publicFileTreeNodeSchema,
     };
     components.securitySchemes = {
         ...(components.securitySchemes ?? {}),

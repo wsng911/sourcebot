@@ -50,7 +50,7 @@ export const POST = oauthApiHandler(async (request: NextRequest) => {
 
         if ('error' in result) {
             return Response.json(
-                { error: result.error, error_description: result.errorDescription },
+                { error: result.error, error_description: result.error描述 },
                 { status: 400 }
             );
         }
@@ -82,7 +82,7 @@ export const POST = oauthApiHandler(async (request: NextRequest) => {
 
         if ('error' in result) {
             return Response.json(
-                { error: result.error, error_description: result.errorDescription },
+                { error: result.error, error_description: result.error描述 },
                 { status: 400 }
             );
         }

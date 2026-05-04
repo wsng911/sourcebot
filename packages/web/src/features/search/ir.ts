@@ -8,7 +8,7 @@ import { RepoRegexp } from '@/proto/zoekt/webserver/v1/RepoRegexp';
 import { BranchesRepos } from '@/proto/zoekt/webserver/v1/BranchesRepos';
 import { RepoIds } from '@/proto/zoekt/webserver/v1/RepoIds';
 import { RepoSet } from '@/proto/zoekt/webserver/v1/RepoSet';
-import { FileNameSet } from '@/proto/zoekt/webserver/v1/FileNameSet';
+import { File名称Set } from '@/proto/zoekt/webserver/v1/File名称Set';
 import { Type } from '@/proto/zoekt/webserver/v1/Type';
 import { Substring } from '@/proto/zoekt/webserver/v1/Substring';
 import { And } from '@/proto/zoekt/webserver/v1/And';
@@ -32,7 +32,7 @@ export const isRepoRegexpQuery = (query: QueryIR): query is QueryIR & { repo_reg
 export const isBranchesReposQuery = (query: QueryIR): query is QueryIR & { branches_repos: BranchesRepos } => query.branches_repos != null;
 export const isRepoIdsQuery = (query: QueryIR): query is QueryIR & { repo_ids: RepoIds } => query.repo_ids != null;
 export const isRepoSetQuery = (query: QueryIR): query is QueryIR & { repo_set: RepoSet } => query.repo_set != null;
-export const isFileNameSetQuery = (query: QueryIR): query is QueryIR & { file_name_set: FileNameSet } => query.file_name_set != null;
+export const isFile名称SetQuery = (query: QueryIR): query is QueryIR & { file_name_set: File名称Set } => query.file_name_set != null;
 export const isTypeQuery = (query: QueryIR): query is QueryIR & { type: Type } => query.type != null;
 export const isSubstringQuery = (query: QueryIR): query is QueryIR & { substring: Substring } => query.substring != null;
 export const isAndQuery = (query: QueryIR): query is QueryIR & { and: And } => query.and != null;
@@ -56,7 +56,7 @@ export type QueryVisitor = {
     onBranchesRepos?: (query: QueryIR) => boolean | void;
     onRepoIds?: (query: QueryIR) => boolean | void;
     onRepoSet?: (query: QueryIR) => boolean | void;
-    onFileNameSet?: (query: QueryIR) => boolean | void;
+    onFile名称Set?: (query: QueryIR) => boolean | void;
     onType?: (query: QueryIR) => boolean | void;
     onSubstring?: (query: QueryIR) => boolean | void;
     onAnd?: (query: QueryIR) => boolean | void;
@@ -111,8 +111,8 @@ export function traverseQueryIR(
     } else if (isRepoSetQuery(query)) {
         shouldContinue = visitor.onRepoSet?.(query);
 
-    } else if (isFileNameSetQuery(query)) {
-        shouldContinue = visitor.onFileNameSet?.(query);
+    } else if (isFile名称SetQuery(query)) {
+        shouldContinue = visitor.onFile名称Set?.(query);
 
     } else if (isTypeQuery(query)) {
         shouldContinue = visitor.onType?.(query);
@@ -182,7 +182,7 @@ export function findInQueryIR(
         onBranchesRepos: (q) => { if (predicate(q)) { found = q; return false; } },
         onRepoIds: (q) => { if (predicate(q)) { found = q; return false; } },
         onRepoSet: (q) => { if (predicate(q)) { found = q; return false; } },
-        onFileNameSet: (q) => { if (predicate(q)) { found = q; return false; } },
+        onFile名称Set: (q) => { if (predicate(q)) { found = q; return false; } },
         onType: (q) => { if (predicate(q)) { found = q; return false; } },
         onSubstring: (q) => { if (predicate(q)) { found = q; return false; } },
         onAnd: (q) => { if (predicate(q)) { found = q; return false; } },

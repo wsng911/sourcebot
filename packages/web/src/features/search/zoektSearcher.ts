@@ -4,10 +4,10 @@ import type { ProtoGrpcType } from '@/proto/webserver';
 import { FileMatch__Output as ZoektGrpcFileMatch } from "@/proto/zoekt/webserver/v1/FileMatch";
 import { FlushReason as ZoektGrpcFlushReason } from "@/proto/zoekt/webserver/v1/FlushReason";
 import { Range__Output as ZoektGrpcRange } from "@/proto/zoekt/webserver/v1/Range";
-import type { SearchRequest as ZoektGrpcSearchRequest } from '@/proto/zoekt/webserver/v1/SearchRequest';
-import { SearchResponse__Output as ZoektGrpcSearchResponse } from "@/proto/zoekt/webserver/v1/SearchResponse";
-import { StreamSearchRequest as ZoektGrpcStreamSearchRequest } from "@/proto/zoekt/webserver/v1/StreamSearchRequest";
-import { StreamSearchResponse__Output as ZoektGrpcStreamSearchResponse } from "@/proto/zoekt/webserver/v1/StreamSearchResponse";
+import type { 搜索Request as ZoektGrpc搜索Request } from '@/proto/zoekt/webserver/v1/搜索Request';
+import { 搜索Response__Output as ZoektGrpc搜索Response } from "@/proto/zoekt/webserver/v1/搜索Response";
+import { Stream搜索Request as ZoektGrpcStream搜索Request } from "@/proto/zoekt/webserver/v1/Stream搜索Request";
+import { Stream搜索Response__Output as ZoektGrpcStream搜索Response } from "@/proto/zoekt/webserver/v1/Stream搜索Response";
 import { WebserverServiceClient } from '@/proto/zoekt/webserver/v1/WebserverService';
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
@@ -16,19 +16,19 @@ import { PrismaClient, Repo } from "@sourcebot/db";
 import { createLogger, env } from "@sourcebot/shared";
 import path from 'path';
 import { isBranchQuery, QueryIR, someInQueryIR } from './ir';
-import { RepositoryInfo, SearchResponse, SearchResultFile, SearchStats, SourceRange, StreamedSearchErrorResponse, StreamedSearchResponse } from "./types";
+import { 仓库Info, 搜索Response, 搜索ResultFile, 搜索Stats, SourceRange, Streamed搜索ErrorResponse, Streamed搜索Response } from "./types";
 import { captureEvent } from "@/lib/posthog";
 import { getBrowsePath } from "@/app/(app)/browse/hooks/utils";
 
 const logger = createLogger("zoekt-searcher");
 
 /**
- * Creates a ZoektGrpcSearchRequest given a query IR.
+ * 创建s a ZoektGrpc搜索Request given a query IR.
  */
-export const createZoektSearchRequest = async ({
+export const createZoekt搜索Request = async ({
     query,
     options,
-    repoSearchScope,
+    repo搜索Scope,
 }: {
     query: QueryIR;
     options: {
@@ -37,12 +37,12 @@ export const createZoektSearchRequest = async ({
         whole?: boolean,
     };
     // Allows the caller to scope the search to a specific set of repositories.
-    repoSearchScope?: string[];
+    repo搜索Scope?: string[];
 }) => {
     // Find if there are any `rev:` filters in the query.
     const containsRevExpression = someInQueryIR(query, (q) => isBranchQuery(q));
 
-    const zoektSearchRequest: ZoektGrpcSearchRequest = {
+    const zoekt搜索Request: ZoektGrpc搜索Request = {
         query: {
             and: {
                 children: [
@@ -54,9 +54,9 @@ export const createZoektSearchRequest = async ({
                             exact: true,
                         }
                     }] : []),
-                    ...(repoSearchScope ? [{
+                    ...(repo搜索Scope ? [{
                         repo_set: {
-                            set: repoSearchScope.reduce((acc, repo) => {
+                            set: repo搜索Scope.reduce((acc, repo) => {
                                 acc[repo] = true;
                                 return acc;
                             }, {} as Record<string, boolean>)
@@ -94,12 +94,12 @@ export const createZoektSearchRequest = async ({
             // `totalMatchCount` to `MaxMatchDisplayCount`.
             //
             // if (totalMatchCount ≤ actualMatchCount):
-            //     Search is EXHAUSTIVE (found all possible matches)
+            //     搜索 is EXHAUSTIVE (found all possible matches)
             //     Proof: totalMatchCount ≤ MaxMatchDisplayCount < TotalMaxMatchCount
             //         Therefore Zoekt stopped naturally, not due to limit
             //     
             // if (totalMatchCount > actualMatchCount):
-            //     Search is TRUNCATED (more matches exist)
+            //     搜索 is TRUNCATED (more matches exist)
             //     Proof: totalMatchCount > MaxMatchDisplayCount + 1 = TotalMaxMatchCount
             //         Therefore Zoekt hit the limit and stopped searching
             //
@@ -114,15 +114,15 @@ export const createZoektSearchRequest = async ({
         },
     };
 
-    return zoektSearchRequest;
+    return zoekt搜索Request;
 }
 
-export const zoektSearch = async (searchRequest: ZoektGrpcSearchRequest, prisma: PrismaClient): Promise<SearchResponse> => {
+export const zoekt搜索 = async (searchRequest: ZoektGrpc搜索Request, prisma: PrismaClient): Promise<搜索Response> => {
     const client = createGrpcClient();
     const metadata = new grpc.Metadata();
 
     return new Promise((resolve, reject) => {
-        client.Search(searchRequest, metadata, (error, response) => {
+        client.搜索(searchRequest, metadata, (error, response) => {
             if (error || !response) {
                 reject(new ServiceErrorException(unexpectedError(error?.details || 'No response received')))
                 return;
@@ -131,14 +131,14 @@ export const zoektSearch = async (searchRequest: ZoektGrpcSearchRequest, prisma:
             (async () => {
                 try {
                     const reposMapCache = await createReposMapForChunk(response, new Map<string | number, Repo>(), prisma);
-                    const { stats, files, repositoryInfo } = await transformZoektSearchResponse(response, reposMapCache);
+                    const { stats, files, repositoryInfo } = await transformZoekt搜索Response(response, reposMapCache);
 
                     resolve({
                         stats,
                         files,
                         repositoryInfo,
-                        isSearchExhaustive: stats.totalMatchCount <= stats.actualMatchCount,
-                    } satisfies SearchResponse);
+                        is搜索Exhaustive: stats.totalMatchCount <= stats.actualMatchCount,
+                    } satisfies 搜索Response);
                 } catch (err) {
                     reject(err);
                 }
@@ -147,12 +147,12 @@ export const zoektSearch = async (searchRequest: ZoektGrpcSearchRequest, prisma:
     });
 }
 
-export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, prisma: PrismaClient): Promise<ReadableStream> => {
+export const zoektStream搜索 = async (searchRequest: ZoektGrpc搜索Request, prisma: PrismaClient): Promise<ReadableStream> => {
     const client = createGrpcClient();
-    let grpcStream: ReturnType<WebserverServiceClient['StreamSearch']> | null = null;
+    let grpcStream: ReturnType<WebserverServiceClient['Stream搜索']> | null = null;
     let isStreamActive = true;
     let pendingChunks = 0;
-    let accumulatedStats: SearchStats = {
+    let accumulatedStats: 搜索Stats = {
         actualMatchCount: 0,
         totalMatchCount: 0,
         duration: 0,
@@ -171,19 +171,19 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
         ngramLookups: 0,
         wait: 0,
         matchTreeConstruction: 0,
-        matchTreeSearch: 0,
+        matchTree搜索: 0,
         regexpsConsidered: 0,
         flushReason: ZoektGrpcFlushReason.FLUSH_REASON_UNKNOWN_UNSPECIFIED,
     };
 
     return new ReadableStream({
         async start(controller) {
-            const tryCloseController = () => {
+            const try关闭Controller = () => {
                 if (!isStreamActive && pendingChunks === 0) {
-                    const finalResponse: StreamedSearchResponse = {
+                    const finalResponse: Streamed搜索Response = {
                         type: 'final',
                         accumulatedStats,
-                        isSearchExhaustive: accumulatedStats.totalMatchCount <= accumulatedStats.actualMatchCount,
+                        is搜索Exhaustive: accumulatedStats.totalMatchCount <= accumulatedStats.actualMatchCount,
                     }
 
                     controller.enqueue(encodeSSEREsponseChunk(finalResponse));
@@ -197,18 +197,18 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
             try {
                 const metadata = new grpc.Metadata();
 
-                const streamRequest: ZoektGrpcStreamSearchRequest = {
+                const streamRequest: ZoektGrpcStream搜索Request = {
                     request: searchRequest,
                 };
 
-                grpcStream = client.StreamSearch(streamRequest, metadata);
+                grpcStream = client.Stream搜索(streamRequest, metadata);
 
                 // `_reposMapCache` is used to cache repository metadata across all chunks.
                 // This reduces the number of database queries required to transform file matches.
                 const _reposMapCache = new Map<string | number, Repo>();
 
                 // Handle incoming data chunks
-                grpcStream.on('data', async (chunk: ZoektGrpcStreamSearchResponse) => {
+                grpcStream.on('data', async (chunk: ZoektGrpcStream搜索Response) => {
                     if (!isStreamActive) {
                         logger.debug('SSE stream closed, skipping chunk');
                         return;
@@ -229,11 +229,11 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
                         }
 
                         const reposMapCache = await createReposMapForChunk(chunk.response_chunk, _reposMapCache, prisma);
-                        const { stats, files, repositoryInfo } = await transformZoektSearchResponse(chunk.response_chunk, reposMapCache);
+                        const { stats, files, repositoryInfo } = await transformZoekt搜索Response(chunk.response_chunk, reposMapCache);
 
                         accumulatedStats = accumulateStats(accumulatedStats, stats);
 
-                        const response: StreamedSearchResponse = {
+                        const response: Streamed搜索Response = {
                             type: 'chunk',
                             files,
                             repositoryInfo,
@@ -247,7 +247,7 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
                         isStreamActive = false;
 
                         const errorMessage = error instanceof Error ? error.message : 'Unknown error processing chunk';
-                        const errorResponse: StreamedSearchErrorResponse = {
+                        const errorResponse: Streamed搜索ErrorResponse = {
                             type: 'error',
                             error: unexpectedError(errorMessage),
                         };
@@ -262,9 +262,9 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
                         // resulting in the controller being closed prematurely. The workaround was to
                         // keep track of the number of pending chunks and only close the controller
                         // when there are no more chunks to process. We need to explicitly call
-                        // `tryCloseController` since there _seems_ to be no ordering guarantees between
+                        // `try关闭Controller` since there _seems_ to be no ordering guarantees between
                         // the 'end' event handler and this callback.
-                        tryCloseController();
+                        try关闭Controller();
                     }
                 });
 
@@ -274,7 +274,7 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
                         return;
                     }
                     isStreamActive = false;
-                    tryCloseController();
+                    try关闭Controller();
                 });
 
                 // Handle errors
@@ -288,7 +288,7 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
                     isStreamActive = false;
 
                     // Send properly typed error response
-                    const errorResponse: StreamedSearchErrorResponse = {
+                    const errorResponse: Streamed搜索ErrorResponse = {
                         type: 'error',
                         error: unexpectedError(error.details || error.message),
                     };
@@ -302,7 +302,7 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
                 Sentry.captureException(error);
 
                 const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-                const errorResponse: StreamedSearchErrorResponse = {
+                const errorResponse: Streamed搜索ErrorResponse = {
                     type: 'error',
                     error: unexpectedError(errorMessage),
                 };
@@ -316,7 +316,7 @@ export const zoektStreamSearch = async (searchRequest: ZoektGrpcSearchRequest, p
             logger.warn('SSE stream cancelled by client');
             isStreamActive = false;
 
-            // Cancel the gRPC stream to stop receiving data
+            // 取消 the gRPC stream to stop receiving data
             if (grpcStream) {
                 grpcStream.cancel();
             }
@@ -332,9 +332,9 @@ const encodeSSEREsponseChunk = (response: object | string) => {
     return new TextEncoder().encode(`data: ${data}\n\n`);
 }
 
-// Creates a mapping between all repository ids in a given response
+// 创建s a mapping between all repository ids in a given response
 // chunk. The mapping allows us to efficiently lookup repository metadata.
-const createReposMapForChunk = async (chunk: ZoektGrpcSearchResponse, reposMapCache: Map<string | number, Repo>, prisma: PrismaClient): Promise<Map<string | number, Repo>> => {
+const createReposMapForChunk = async (chunk: ZoektGrpc搜索Response, reposMapCache: Map<string | number, Repo>, prisma: PrismaClient): Promise<Map<string | number, Repo>> => {
     const reposMap = new Map<string | number, Repo>();
     await Promise.all(chunk.files.map(async (file) => {
         const id = getRepoIdForFile(file);
@@ -375,13 +375,13 @@ const createReposMapForChunk = async (chunk: ZoektGrpcSearchResponse, reposMapCa
     return reposMap;
 }
 
-const transformZoektSearchResponse = async (response: ZoektGrpcSearchResponse, reposMapCache: Map<string | number, Repo>): Promise<{
-    stats: SearchStats,
-    files: SearchResultFile[],
-    repositoryInfo: RepositoryInfo[],
+const transformZoekt搜索Response = async (response: ZoektGrpc搜索Response, reposMapCache: Map<string | number, Repo>): Promise<{
+    stats: 搜索Stats,
+    files: 搜索ResultFile[],
+    repositoryInfo: 仓库Info[],
 }> => {
     const files = response.files.map((file) => {
-        const fileNameChunks = file.chunk_matches.filter((chunk) => chunk.file_name);
+        const file名称Chunks = file.chunk_matches.filter((chunk) => chunk.file_name);
         const repoId = getRepoIdForFile(file);
         const repo = reposMapCache.get(repoId);
 
@@ -399,7 +399,7 @@ const transformZoektSearchResponse = async (response: ZoektGrpcSearchResponse, r
         }
 
         // @todo: address "file_name might not be a valid UTF-8 string" warning.
-        const fileName = file.file_name.toString('utf-8');
+        const file名称 = file.file_name.toString('utf-8');
 
         const convertRange = (range: ZoektGrpcRange): SourceRange => ({
             start: {
@@ -415,27 +415,27 @@ const transformZoektSearchResponse = async (response: ZoektGrpcSearchResponse, r
         })
 
         // If a file has multiple branches, default to the first one.
-        const branchName = file.branches.length > 0 ? file.branches[0] : undefined;
+        const branch名称 = file.branches.length > 0 ? file.branches[0] : undefined;
 
         return {
-            fileName: {
-                text: fileName,
-                matchRanges: fileNameChunks.length === 1 ? fileNameChunks[0].ranges.map(convertRange) : [],
+            file名称: {
+                text: file名称,
+                matchRanges: file名称Chunks.length === 1 ? file名称Chunks[0].ranges.map(convertRange) : [],
             },
             repository: repo.name,
             repositoryId: repo.id,
             language: file.language,
             webUrl: `${env.AUTH_URL}${getBrowsePath({
-                repoName: repo.name,
-                path: fileName,
+                repo名称: repo.name,
+                path: file名称,
                 pathType: 'blob',
-                revisionName: branchName,
+                revision名称: branch名称,
             })}`,
             externalWebUrl: getCodeHostBrowseFileAtBranchUrl({
                 webUrl: repo.webUrl,
                 codeHostType: repo.external_codeHostType,
-                branchName: branchName ?? 'HEAD',
-                filePath: fileName,
+                branch名称: branch名称 ?? 'HEAD',
+                filePath: file名称,
             }),
             chunks: file.chunk_matches
                 .filter((chunk) => !chunk.file_name) // filter out filename chunks.
@@ -475,11 +475,11 @@ const transformZoektSearchResponse = async (response: ZoektGrpcSearchResponse, r
             acc + file.chunks.reduce(
                 (acc, chunk) => acc + chunk.matchRanges.length,
                 0,
-            ) + file.fileName.matchRanges.length,
+            ) + file.file名称.matchRanges.length,
         0,
     );
 
-    const stats: SearchStats = {
+    const stats: 搜索Stats = {
         actualMatchCount,
         totalMatchCount: response.stats?.match_count ?? 0,
         duration: response.stats?.duration?.nanos ?? 0,
@@ -498,7 +498,7 @@ const transformZoektSearchResponse = async (response: ZoektGrpcSearchResponse, r
         ngramLookups: response.stats?.ngram_lookups ?? 0,
         wait: response.stats?.wait?.nanos ?? 0,
         matchTreeConstruction: response.stats?.match_tree_construction?.nanos ?? 0,
-        matchTreeSearch: response.stats?.match_tree_search?.nanos ?? 0,
+        matchTree搜索: response.stats?.match_tree_search?.nanos ?? 0,
         regexpsConsidered: response.stats?.regexps_considered ?? 0,
         flushReason: response.stats?.flush_reason?.toString() ?? ZoektGrpcFlushReason.FLUSH_REASON_UNKNOWN_UNSPECIFIED,
     }
@@ -509,22 +509,22 @@ const transformZoektSearchResponse = async (response: ZoektGrpcSearchResponse, r
             id: repo.id,
             codeHostType: repo.external_codeHostType,
             name: repo.name,
-            displayName: repo.displayName ?? undefined,
+            display名称: repo.display名称 ?? undefined,
             webUrl: repo.webUrl ?? undefined,
         })),
         stats,
     }
 }
 
-// @note (2025-05-12): in zoekt, repositories are identified by the `RepositoryID` field
+// @note (2025-05-12): in zoekt, repositories are identified by the `仓库ID` field
 // which corresponds to the `id` in the Repo table. In order to efficiently fetch repository
 // metadata when transforming (potentially thousands) of file matches, we aggregate a unique
 // set of repository ids* and map them to their corresponding Repo record.
 //
-// *Q: Why is `RepositoryID` optional? And why are we falling back to `Repository`?
-//  A: Prior to this change, the repository id was not plumbed into zoekt, so RepositoryID was
+// *Q: Why is `仓库ID` optional? And why are we falling back to `仓库`?
+//  A: Prior to this change, the repository id was not plumbed into zoekt, so 仓库ID was
 // always undefined. To make this a non-breaking change, we fallback to using the repository's name
-// (`Repository`) as the identifier in these cases. This is not guaranteed to be unique, but in
+// (`仓库`) as the identifier in these cases. This is not guaranteed to be unique, but in
 // practice it is since the repository name includes the host and path (e.g., 'github.com/org/repo',
 // 'gitea.com/org/repo', etc.).
 // 
@@ -539,7 +539,7 @@ const createGrpcClient = (): WebserverServiceClient => {
     const protoBasePath = path.join(process.cwd(), '../../vendor/zoekt/grpc/protos');
     const protoPath = path.join(protoBasePath, 'zoekt/webserver/v1/webserver.proto');
 
-    const packageDefinition = protoLoader.loadSync(protoPath, {
+    const packageDefinition = protoLoader.load同步(protoPath, {
         keepCase: true,
         longs: Number,
         enums: String,
@@ -552,10 +552,10 @@ const createGrpcClient = (): WebserverServiceClient => {
 
     // Extract host and port from ZOEKT_WEBSERVER_URL
     const zoektUrl = new URL(env.ZOEKT_WEBSERVER_URL);
-    const grpcAddress = `${zoektUrl.hostname}:${zoektUrl.port}`;
+    const grpc添加ress = `${zoektUrl.hostname}:${zoektUrl.port}`;
 
     return new proto.zoekt.webserver.v1.WebserverService(
-        grpcAddress,
+        grpc添加ress,
         grpc.credentials.createInsecure(),
         {
             'grpc.max_receive_message_length': 500 * 1024 * 1024, // 500MB
@@ -565,7 +565,7 @@ const createGrpcClient = (): WebserverServiceClient => {
 }
 
 
-const accumulateStats = (a: SearchStats, b: SearchStats): SearchStats => {
+const accumulateStats = (a: 搜索Stats, b: 搜索Stats): 搜索Stats => {
     return {
         actualMatchCount: a.actualMatchCount + b.actualMatchCount,
         totalMatchCount: a.totalMatchCount + b.totalMatchCount,
@@ -585,7 +585,7 @@ const accumulateStats = (a: SearchStats, b: SearchStats): SearchStats => {
         ngramLookups: a.ngramLookups + b.ngramLookups,
         wait: a.wait + b.wait,
         matchTreeConstruction: a.matchTreeConstruction + b.matchTreeConstruction,
-        matchTreeSearch: a.matchTreeSearch + b.matchTreeSearch,
+        matchTree搜索: a.matchTree搜索 + b.matchTree搜索,
         regexpsConsidered: a.regexpsConsidered + b.regexpsConsidered,
         // Capture the first non-unknown flush reason.
         ...(a.flushReason === ZoektGrpcFlushReason.FLUSH_REASON_UNKNOWN_UNSPECIFIED ? {

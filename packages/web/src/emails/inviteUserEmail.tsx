@@ -14,10 +14,10 @@ import {
     Tailwind,
     Text,
 } from '@react-email/components';
-import { EmailFooter } from './emailFooter';
+import { 邮箱Footer } from './emailFooter';
 import { SOURCEBOT_LOGO_LIGHT_LARGE_URL, SOURCEBOT_ARROW_IMAGE_URL, SOURCEBOT_PLACEHOLDER_AVATAR_URL } from './constants';
 
-interface InviteUserEmailProps {
+interface InviteUser邮箱Props {
     baseUrl: string;
     inviteLink: string;
     host: {
@@ -28,51 +28,51 @@ interface InviteUserEmailProps {
     recipient: {
         name?: string;
     },
-    orgName: string;
+    org名称: string;
     orgImageUrl?: string;
 }
 
-export const InviteUserEmail = ({
+export const InviteUser邮箱 = ({
     baseUrl,
     host,
     recipient,
-    orgName,
+    org名称,
     orgImageUrl,
     inviteLink,
-}: InviteUserEmailProps) => {
+}: InviteUser邮箱Props) => {
     const previewText = `Join ${host.name ?? host.email} on Sourcebot`;
 
     return (
         <Html>
             <Head />
             <Tailwind>
-                <Body className="bg-white my-auto mx-auto font-sans px-2">
+                <Body class名称="bg-white my-auto mx-auto font-sans px-2">
                     <Preview>{previewText}</Preview>
-                    <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
-                        <Section className="mt-[32px]">
+                    <Container class名称="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
+                        <Section class名称="mt-[32px]">
                             <Img
                                 src={SOURCEBOT_LOGO_LIGHT_LARGE_URL}
                                 width="auto"
                                 height="60"
                                 alt="Sourcebot Logo"
-                                className="my-0 mx-auto"
+                                class名称="my-0 mx-auto"
                             />
                         </Section>
-                        <Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
-                            Join <strong>{orgName}</strong> on <strong>Sourcebot</strong>
+                        <Heading class名称="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+                            Join <strong>{org名称}</strong> on <strong>Sourcebot</strong>
                         </Heading>
-                        <Text className="text-black text-[14px] leading-[24px]">
+                        <Text class名称="text-black text-[14px] leading-[24px]">
                             {`Hello${recipient.name ? ` ${recipient.name.split(' ')[0]}` : ''},`}
                         </Text>
-                        <Text className="text-black text-[14px] leading-[24px]">
-                            <InvitedByText email={host.email} name={host.name} /> has invited you to the <strong>{orgName}</strong> organization on{' '}
+                        <Text class名称="text-black text-[14px] leading-[24px]">
+                            <InvitedByText email={host.email} name={host.name} /> has invited you to the <strong>{org名称}</strong> organization on{' '}
                             <strong>Sourcebot</strong>.
                         </Text>
                         <Section>
                             <Row>
                                 <Column align="right">
                                     <Img
-                                        className="rounded-full"
+                                        class名称="rounded-full"
                                         src={host.avatarUrl ?? `${baseUrl}/api/minidenticon?email=${encodeURIComponent(host.email)}`}
                                         width="64"
                                         height="64"
@@ -88,7 +88,7 @@ export const InviteUserEmail = ({
                                 </Column>
                                 <Column align="left">
                                     <Img
-                                        className="rounded-full"
+                                        class名称="rounded-full"
                                         src={orgImageUrl ? orgImageUrl : SOURCEBOT_PLACEHOLDER_AVATAR_URL}
                                         width="64"
                                         height="64"
@@ -96,21 +96,21 @@ export const InviteUserEmail = ({
                                 </Column>
                             </Row>
                         </Section>
-                        <Section className="text-center mt-[32px] mb-[32px]">
+                        <Section class名称="text-center mt-[32px] mb-[32px]">
                             <Button
-                                className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
+                                class名称="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
                                 href={inviteLink}
                             >
                                 Join the organization
                             </Button>
                         </Section>
-                        <Text className="text-black text-[14px] leading-[24px]">
+                        <Text class名称="text-black text-[14px] leading-[24px]">
                             or copy and paste this URL into your browser:{' '}
-                            <Link href={inviteLink} className="text-blue-600 no-underline">
+                            <Link href={inviteLink} class名称="text-blue-600 no-underline">
                                 {inviteLink}
                             </Link>
                         </Text>
-                        <EmailFooter />
+                        <邮箱Footer />
                     </Container>
                 </Body>
             </Tailwind>
@@ -119,17 +119,17 @@ export const InviteUserEmail = ({
 };
 
 const InvitedByText = ({ email, name }: { email: string, name?: string }) => {
-    const emailElement = <Link href={`mailto:${email}`} className="text-blue-600 no-underline">{email}</Link>;
+    const emailElement = <Link href={`mailto:${email}`} class名称="text-blue-600 no-underline">{email}</Link>;
 
     if (name) {
-        const firstName = name.split(' ')[0];
-        return <span><strong>{firstName}</strong> ({emailElement})</span>;
+        const first名称 = name.split(' ')[0];
+        return <span><strong>{first名称}</strong> ({emailElement})</span>;
     }
 
     return emailElement;
 }
 
-InviteUserEmail.PreviewProps = {
+InviteUser邮箱.PreviewProps = {
     baseUrl: 'http://localhost:3000',
     host: {
         name: 'Alan Turing',
@@ -138,8 +138,8 @@ InviteUserEmail.PreviewProps = {
     recipient: {
         // name: 'alanturing',
     },
-    orgName: 'Enigma',
+    org名称: 'Enigma',
     inviteLink: 'http://localhost:3000/redeem?invite_id=1234',
-} satisfies InviteUserEmailProps;
+} satisfies InviteUser邮箱Props;
 
-export default InviteUserEmail;
+export default InviteUser邮箱;

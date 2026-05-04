@@ -3,13 +3,13 @@
 import { useMemo } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
-type Search = {
+type 搜索 = {
     query: string;
     date: string;
 }
 
-export const useSearchHistory = () => {
-    const [_searchHistory, setSearchHistory] = useLocalStorage<Search[]>("searchHistory", []);
+export const use搜索History = () => {
+    const [_searchHistory, set搜索History] = useLocalStorage<搜索[]>("searchHistory", []);
 
     const searchHistory = useMemo(() => {
         return _searchHistory.toSorted((a, b) => {
@@ -19,6 +19,6 @@ export const useSearchHistory = () => {
 
     return {
         searchHistory,
-        setSearchHistory,
+        set搜索History,
     }
 }

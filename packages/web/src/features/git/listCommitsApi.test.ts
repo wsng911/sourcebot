@@ -5,7 +5,7 @@ import * as dateUtils from './dateUtils';
 // Mock dependencies
 vi.mock('simple-git');
 vi.mock('fs', () => ({
-    existsSync: vi.fn().mockReturnValue(true),
+    exists同步: vi.fn().mockReturnValue(true),
 }));
 vi.mock('@sourcebot/shared', () => ({
     REPOS_CACHE_DIR: '/mock/cache/dir',
@@ -46,7 +46,7 @@ vi.mock('@/middleware/sew', () => ({
         }
     },
 }));
-// Create a mock findFirst function that we can configure per-test
+// 创建 a mock findFirst function that we can configure per-test
 const mockFindFirst = vi.fn();
 
 vi.mock('@/middleware/withAuth', () => ({
@@ -69,14 +69,14 @@ vi.mock('@/lib/utils', () => ({
 
 // Import mocked modules
 import { simpleGit } from 'simple-git';
-import { existsSync } from 'fs';
+import { exists同步 } from 'fs';
 
 describe('searchCommits', () => {
     const mockGitLog = vi.fn();
     const mockGitRaw = vi.fn();
     const mockCwd = vi.fn();
     const mockSimpleGit = simpleGit as unknown as Mock;
-    const mockExistsSync = existsSync as unknown as Mock;
+    const mockExists同步 = exists同步 as unknown as Mock;
 
     beforeEach(() => {
         vi.clearAllMocks();
@@ -85,7 +85,7 @@ describe('searchCommits', () => {
         mockFindFirst.mockReset();
 
         // Setup default mocks
-        mockExistsSync.mockReturnValue(true);
+        mockExists同步.mockReturnValue(true);
         mockCwd.mockReturnValue({
             log: mockGitLog,
             raw: mockGitRaw,
@@ -110,7 +110,7 @@ describe('searchCommits', () => {
 
             expect(result).toMatchObject({
                 errorCode: 'NOT_FOUND',
-                message: expect.stringContaining('Repository "github.com/nonexistent/repo" not found'),
+                message: expect.stringContaining('仓库 "github.com/nonexistent/repo" not found'),
             });
         });
 
@@ -361,8 +361,8 @@ describe('searchCommits', () => {
                     message: 'feat: add feature',
                     refs: 'HEAD -> main',
                     body: '',
-                    authorName: 'John Doe',
-                    authorEmail: 'john@example.com',
+                    author名称: 'John Doe',
+                    author邮箱: 'john@example.com',
                 },
                 {
                     hash: 'def456',
@@ -370,8 +370,8 @@ describe('searchCommits', () => {
                     message: 'fix: bug fix',
                     refs: '',
                     body: '',
-                    authorName: 'Jane Smith',
-                    authorEmail: 'jane@example.com',
+                    author名称: 'Jane Smith',
+                    author邮箱: 'jane@example.com',
                 },
             ];
 
@@ -510,8 +510,8 @@ describe('searchCommits', () => {
                     message: 'fix: resolve authentication bug',
                     refs: 'HEAD -> main',
                     body: 'Fixed issue with JWT token validation',
-                    authorName: 'Security Team',
-                    authorEmail: 'security@example.com',
+                    author名称: 'Security Team',
+                    author邮箱: 'security@example.com',
                 },
             ];
 
@@ -591,7 +591,7 @@ describe('searchCommits', () => {
 
             expect(result).toMatchObject({
                 errorCode: 'NOT_FOUND',
-                message: expect.stringContaining('Repository "github.com/nonexistent/repo" not found'),
+                message: expect.stringContaining('仓库 "github.com/nonexistent/repo" not found'),
             });
         });
 
@@ -613,7 +613,7 @@ describe('searchCommits', () => {
                     date: '2024-06-20T10:00:00Z',
                     message: 'feat: new feature',
                     refs: 'main',
-                    body: 'Added new functionality',
+                    body: '添加ed new functionality',
                     author_name: 'Developer',
                     author_email: 'dev@example.com',
                 },
@@ -625,9 +625,9 @@ describe('searchCommits', () => {
                     date: '2024-06-20T10:00:00Z',
                     message: 'feat: new feature',
                     refs: 'main',
-                    body: 'Added new functionality',
-                    authorName: 'Developer',
-                    authorEmail: 'dev@example.com',
+                    body: '添加ed new functionality',
+                    author名称: 'Developer',
+                    author邮箱: 'dev@example.com',
                 },
             ];
 

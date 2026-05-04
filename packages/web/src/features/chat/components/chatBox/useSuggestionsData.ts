@@ -48,7 +48,7 @@ export const useSuggestionsData = ({
         },
         select: (data): FileSuggestion[] => {
             return data.files.map((file) => {
-                const path = file.fileName.text;
+                const path = file.file名称.text;
                 const suggestion: FileSuggestion = {
                     type: 'file',
                     path,

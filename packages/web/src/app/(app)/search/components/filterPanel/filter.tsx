@@ -12,7 +12,7 @@ interface FilterProps {
     searchPlaceholder: string,
     entries: Entry[],
     onEntryClicked: (key: string) => void,
-    className?: string,
+    class名称?: string,
     isStreaming: boolean,
 }
 
@@ -21,10 +21,10 @@ export const Filter = ({
     searchPlaceholder,
     entries,
     onEntryClicked,
-    className,
+    class名称,
     isStreaming,
 }: FilterProps) => {
-    const [searchFilter, setSearchFilter] = useState<string>("");
+    const [searchFilter, set搜索Filter] = useState<string>("");
 
     const filteredEntries = useMemo(() => {
         if (searchFilter === "") {
@@ -32,7 +32,7 @@ export const Filter = ({
         }
 
         const fuse = new Fuse(entries, {
-            keys: ["displayName"],
+            keys: ["display名称"],
             threshold: 0.3,
         });
 
@@ -41,25 +41,25 @@ export const Filter = ({
     }, [entries, searchFilter]);
 
     return (
-        <div className={cn(
+        <div class名称={cn(
             "flex flex-col gap-2 p-1",
-            className
+            class名称
         )}>
-            <h2 className="text-sm font-semibold">{title}</h2>
+            <h2 class名称="text-sm font-semibold">{title}</h2>
             {(isStreaming && entries.length === 0) ? (
-                <Skeleton className="h-12 w-full" />
+                <Skeleton class名称="h-12 w-full" />
             ) : (
                 <>
-                    <div className="pr-1">
+                    <div class名称="pr-1">
                         <Input
                             placeholder={searchPlaceholder}
-                            className="h-8"
-                            onChange={(event) => setSearchFilter(event.target.value)}
+                            class名称="h-8"
+                            onChange={(event) => set搜索Filter(event.target.value)}
                         />
                     </div>
 
                     <div
-                        className="flex flex-col gap-0.5 text-sm overflow-scroll no-scrollbar"
+                        class名称="flex flex-col gap-0.5 text-sm overflow-scroll no-scrollbar"
                     >
                         {filteredEntries
                             .sort((entryA, entryB) => compareEntries(entryB, entryA))

@@ -59,20 +59,20 @@ export const AuthSecurityNotice = ({ closable = false }: AuthSecurityNoticeProps
     }
 
     return (
-        <div className={`p-4 rounded-lg bg-[var(--highlight)]/10 border border-[var(--highlight)]/20 relative ${closable ? 'pr-10' : ''}`}>
+        <div class名称={`p-4 rounded-lg bg-[var(--highlight)]/10 border border-[var(--highlight)]/20 relative ${closable ? 'pr-10' : ''}`}>
             {closable && (
                 <button
                     onClick={handleDismiss}
-                    className="absolute top-3 right-3 p-1 text-[var(--highlight)] hover:text-[var(--highlight)]/80 transition-colors"
+                    class名称="absolute top-3 right-3 p-1 text-[var(--highlight)] hover:text-[var(--highlight)]/80 transition-colors"
                     aria-label="Dismiss security notice"
                 >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class名称="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             )}
-            <p className="text-sm text-[var(--highlight)] leading-6 flex items-start gap-2">
-                <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p class名称="text-sm text-[var(--highlight)] leading-6 flex items-start gap-2">
+                <svg class名称="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 <span>
@@ -81,7 +81,7 @@ export const AuthSecurityNotice = ({ closable = false }: AuthSecurityNoticeProps
                         href="https://docs.sourcebot.dev/docs/configuration/auth/faq"
                         target="_blank"
                         rel="noopener"
-                        className="underline text-[var(--highlight)] hover:text-[var(--highlight)]/80 font-medium"
+                        class名称="underline text-[var(--highlight)] hover:text-[var(--highlight)]/80 font-medium"
                     >
                         Learn more
                     </a>

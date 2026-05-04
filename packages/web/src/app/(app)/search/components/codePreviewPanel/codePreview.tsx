@@ -1,23 +1,23 @@
 'use client';
 
 import { useBrowseNavigation } from "@/app/(app)/browse/hooks/useBrowseNavigation";
-import { EditorContextMenu } from "@/app/(app)/components/editorContextMenu";
+import { 编辑orContextMenu } from "@/app/(app)/components/editorContextMenu";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SymbolHoverPopup } from "@/ee/features/codeNav/components/symbolHoverPopup";
 import { symbolHoverTargetsExtension } from "@/ee/features/codeNav/components/symbolHoverPopup/symbolHoverTargetsExtension";
 import { useHasEntitlement } from "@/features/entitlements/useHasEntitlement";
-import { SearchResultChunk } from "@/features/search";
-import { useCodeMirrorLanguageExtension } from "@/hooks/useCodeMirrorLanguageExtension";
-import { useCodeMirrorTheme } from "@/hooks/useCodeMirrorTheme";
+import { 搜索ResultChunk } from "@/features/search";
+import { useCode镜像LanguageExtension } from "@/hooks/useCode镜像LanguageExtension";
+import { useCode镜像Theme } from "@/hooks/useCode镜像Theme";
 import { useKeymapExtension } from "@/hooks/useKeymapExtension";
 import { gutterWidthExtension } from "@/lib/extensions/gutterWidthExtension";
 import { highlightRanges, searchResultHighlightExtension } from "@/lib/extensions/searchResultHighlightExtension";
 import { search } from "@codemirror/search";
-import { EditorView } from "@codemirror/view";
+import { 编辑orView } from "@codemirror/view";
 import { Cross1Icon, FileIcon } from "@radix-ui/react-icons";
 import { Scrollbar } from "@radix-ui/react-scroll-area";
-import CodeMirror, { ReactCodeMirrorRef, SelectionRange } from '@uiw/react-codemirror';
+import Code镜像, { ReactCode镜像Ref, SelectionRange } from '@uiw/react-codemirror';
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
 
@@ -25,35 +25,35 @@ export interface CodePreviewFile {
     content: string;
     filepath: string;
     link?: string;
-    matches: SearchResultChunk[];
+    matches: 搜索ResultChunk[];
     language: string;
     revision: string;
 }
 
 interface CodePreviewProps {
     file: CodePreviewFile;
-    repoName: string;
+    repo名称: string;
     selectedMatchIndex: number;
     onSelectedMatchIndexChange: Dispatch<SetStateAction<number>>;
-    onClose: () => void;
+    on关闭: () => void;
 }
 
 export const CodePreview = ({
     file,
-    repoName,
+    repo名称,
     selectedMatchIndex,
     onSelectedMatchIndexChange,
-    onClose,
+    on关闭,
 }: CodePreviewProps) => {
-    const [editorRef, setEditorRef] = useState<ReactCodeMirrorRef | null>(null);
+    const [editorRef, set编辑orRef] = useState<ReactCode镜像Ref | null>(null);
     const { navigateToPath } = useBrowseNavigation();
     const hasCodeNavEntitlement = useHasEntitlement("code-nav");
 
     const [gutterWidth, setGutterWidth] = useState(0);
-    const theme = useCodeMirrorTheme();
+    const theme = useCode镜像Theme();
 
     const keymapExtension = useKeymapExtension(editorRef?.view);
-    const languageExtension = useCodeMirrorLanguageExtension(file?.language ?? '', editorRef?.view);
+    const languageExtension = useCode镜像LanguageExtension(file?.language ?? '', editorRef?.view);
     const [currentSelection, setCurrentSelection] = useState<SelectionRange>();
 
     const extensions = useMemo(() => {
@@ -61,18 +61,18 @@ export const CodePreview = ({
             keymapExtension,
             gutterWidthExtension,
             languageExtension,
-            EditorView.lineWrapping,
+            编辑orView.lineWrapping,
             searchResultHighlightExtension(),
             search({
                 top: true,
             }),
-            EditorView.updateListener.of((update) => {
+            编辑orView.updateListener.of((update) => {
                 const width = update.view.plugin(gutterWidthExtension)?.width;
                 if (width) {
                     setGutterWidth(width);
                 }
             }),
-            EditorView.updateListener.of((update) => {
+            编辑orView.updateListener.of((update) => {
                 // @note: it's important we reset the selection when
                 // the document changes... otherwise we will get a floating
                 // context menu where it shouldn't be.
@@ -111,29 +111,29 @@ export const CodePreview = ({
     }, [onSelectedMatchIndexChange]);
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex flex-row bg-accent items-center justify-between pr-3 py-0.5 mt-7">
+        <div class名称="flex flex-col h-full">
+            <div class名称="flex flex-row bg-accent items-center justify-between pr-3 py-0.5 mt-7">
 
                 {/* Gutter icon */}
-                <div className="flex flex-row">
+                <div class名称="flex flex-row">
                     <div
                         style={{ width: `${gutterWidth}px` }}
-                        className="flex justify-center items-center"
+                        class名称="flex justify-center items-center"
                     >
-                        <FileIcon className="h-4 w-4" />
+                        <FileIcon class名称="h-4 w-4" />
                     </div>
                 </div>
 
                 {/* File path */}
-                <div className="flex-1 overflow-hidden">
+                <div class名称="flex-1 overflow-hidden">
                     <span
-                        className="block truncate-start text-sm font-mono cursor-pointer hover:underline"
+                        class名称="block truncate-start text-sm font-mono cursor-pointer hover:underline"
                         onClick={() => {
                             navigateToPath({
-                                repoName,
+                                repo名称,
                                 path: file.filepath,
                                 pathType: 'blob',
-                                revisionName: file.revision,
+                                revision名称: file.revision,
                             });
                         }}
                         title={file.filepath}
@@ -142,47 +142,47 @@ export const CodePreview = ({
                     </span>
                 </div>
 
-                <div className="flex flex-row gap-1 items-center pl-2">
+                <div class名称="flex flex-row gap-1 items-center pl-2">
                     {/* Match selector */}
                     {file.matches.length > 0 && (
                         <>
-                            <p className="text-sm">{`${selectedMatchIndex + 1} of ${ranges.length}`}</p>
+                            <p class名称="text-sm">{`${selectedMatchIndex + 1} of ${ranges.length}`}</p>
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-6 w-6"
+                                class名称="h-6 w-6"
                                 disabled={selectedMatchIndex === 0}
                                 onClick={onUpClicked}
                             >
-                                <ArrowUp className="h-4 w-4" />
+                                <ArrowUp class名称="h-4 w-4" />
                             </Button>
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-6 w-6"
+                                class名称="h-6 w-6"
                                 onClick={onDownClicked}
                                 disabled={selectedMatchIndex === ranges.length - 1}
                             >
-                                <ArrowDown className="h-4 w-4" />
+                                <ArrowDown class名称="h-4 w-4" />
                             </Button>
                         </>
                     )}
 
-                    {/* Close button */}
+                    {/* 关闭 button */}
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="h-6 w-6"
-                        onClick={onClose}
+                        class名称="h-6 w-6"
+                        onClick={on关闭}
                     >
-                        <Cross1Icon className="h-4 w-4" />
+                        <Cross1Icon class名称="h-4 w-4" />
                     </Button>
                 </div>
             </div>
-            <ScrollArea className="h-full overflow-auto flex-1">
-                <CodeMirror
-                    ref={setEditorRef}
-                    className="relative"
+            <ScrollArea class名称="h-full overflow-auto flex-1">
+                <Code镜像
+                    ref={set编辑orRef}
+                    class名称="relative"
                     readOnly={true}
                     value={file?.content}
                     extensions={extensions}
@@ -191,15 +191,15 @@ export const CodePreview = ({
                     {
                         editorRef?.view &&
                         file?.filepath &&
-                        repoName &&
+                        repo名称 &&
                         currentSelection &&
                         (
-                            <EditorContextMenu
+                            <编辑orContextMenu
                                 view={editorRef.view}
                                 path={file?.filepath}
-                                repoName={repoName}
+                                repo名称={repo名称}
                                 selection={currentSelection}
-                                revisionName={file.revision}
+                                revision名称={file.revision}
                             />
                         )
                     }
@@ -209,12 +209,12 @@ export const CodePreview = ({
                             source="preview"
                             editorRef={editorRef}
                             language={file.language}
-                            revisionName={file.revision}
-                            fileName={file.filepath}
-                            repoName={repoName}
+                            revision名称={file.revision}
+                            file名称={file.filepath}
+                            repo名称={repo名称}
                         />
                     )}
-                </CodeMirror>
+                </Code镜像>
                 <Scrollbar orientation="vertical" />
                 <Scrollbar orientation="horizontal" />
             </ScrollArea>

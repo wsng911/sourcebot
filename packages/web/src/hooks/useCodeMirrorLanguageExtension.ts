@@ -1,10 +1,10 @@
 'use client';
 
-import { EditorView } from "@codemirror/view";
+import { 编辑orView } from "@codemirror/view";
 import { useExtensionWithDependency } from "./useExtensionWithDependency";
 import { getCodemirrorLanguage } from "@/lib/codemirrorLanguage";
 
-export const useCodeMirrorLanguageExtension = (linguistLanguage: string, view: EditorView | undefined) => {
+export const useCode镜像LanguageExtension = (linguistLanguage: string, view: 编辑orView | undefined) => {
     const extension = useExtensionWithDependency(
         view ?? null,
         () => {

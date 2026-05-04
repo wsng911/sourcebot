@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { use搜索Params } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { Code, FileCode } from "lucide-react";
 import type { Commit } from "@/features/git";
@@ -14,15 +14,15 @@ import { AuthorsAvatarGroup, CommitActionLink } from "./commitParts";
 
 interface HistoryRowProps {
     commit: Commit;
-    repoName: string;
-    revisionName?: string;
+    repo名称: string;
+    revision名称?: string;
     path: string;
     pathType: BrowsePathType;
 }
 
-export const HistoryRow = ({ commit, repoName, revisionName, path, pathType }: HistoryRowProps) => {
+export const HistoryRow = ({ commit, repo名称, revision名称, path, pathType }: HistoryRowProps) => {
     const browseParams = useBrowseParams();
-    const searchParams = useSearchParams();
+    const searchParams = use搜索Params();
     const shortSha = commit.hash.slice(0, 7);
     const relativeDate = formatDistanceToNow(new Date(commit.date), { addSuffix: true });
     const isBlobPath = pathType === 'blob';
@@ -34,24 +34,24 @@ export const HistoryRow = ({ commit, repoName, revisionName, path, pathType }: H
     const authors = useMemo(() => getCommitAuthors(commit), [commit]);
 
     const viewCodeHref = getBrowsePath({
-        repoName,
-        revisionName,
+        repo名称,
+        revision名称,
         path,
         pathType: 'blob',
         previewRef: commit.hash,
     });
 
     const viewRepoHref = getBrowsePath({
-        repoName,
-        revisionName: commit.hash,
+        repo名称,
+        revision名称: commit.hash,
         path: '',
         pathType: 'tree',
     });
 
     // The short SHA always links to the full commit diff (`/-/commit/<sha>`).
     const fullCommitHref = getBrowsePath({
-        repoName,
-        revisionName,
+        repo名称,
+        revision名称,
         path: '',
         pathType: 'commit',
         commitSha: commit.hash,
@@ -61,8 +61,8 @@ export const HistoryRow = ({ commit, repoName, revisionName, path, pathType }: H
     // only meaningful when the user is browsing a file (blob path).
     const focusedDiffHref = isBlobPath
         ? getBrowsePath({
-            repoName,
-            revisionName,
+            repo名称,
+            revision名称,
             path,
             pathType: 'blob',
             previewRef: commit.hash,
@@ -72,14 +72,14 @@ export const HistoryRow = ({ commit, repoName, revisionName, path, pathType }: H
 
     return (
         <div
-            className={cn(
+            class名称={cn(
                 'flex flex-row items-center gap-3 px-3 py-1.5 border-b min-w-0',
                 isSelected ? 'bg-accent' : 'hover:bg-muted',
             )}
         >
             <HoverPrefetchLink
                 href={fullCommitHref}
-                className="text-sm font-mono text-muted-foreground hover:underline flex-shrink-0"
+                class名称="text-sm font-mono text-muted-foreground hover:underline flex-shrink-0"
                 title={commit.hash}
             >
                 {shortSha}
@@ -87,14 +87,14 @@ export const HistoryRow = ({ commit, repoName, revisionName, path, pathType }: H
             {focusedDiffHref ? (
                 <HoverPrefetchLink
                     href={focusedDiffHref}
-                    className="text-sm truncate flex-1 min-w-0 hover:underline"
+                    class名称="text-sm truncate flex-1 min-w-0 hover:underline"
                     title={commit.message}
                 >
                     {commit.message}
                 </HoverPrefetchLink>
             ) : (
                 <span
-                    className="text-sm truncate flex-1 min-w-0"
+                    class名称="text-sm truncate flex-1 min-w-0"
                     title={commit.message}
                 >
                     {commit.message}
@@ -102,29 +102,29 @@ export const HistoryRow = ({ commit, repoName, revisionName, path, pathType }: H
             )}
             <AuthorsAvatarGroup authors={authors} />
             <span
-                className="text-sm text-muted-foreground flex-shrink-0 truncate max-w-[120px]"
+                class名称="text-sm text-muted-foreground flex-shrink-0 truncate max-w-[120px]"
                 title={authors.map((a) => a.name).join(", ")}
             >
                 {formatAuthorsText(authors)}
             </span>
             <span
-                className="text-sm text-muted-foreground flex-shrink-0"
+                class名称="text-sm text-muted-foreground flex-shrink-0"
                 title={commit.date}
             >
                 {relativeDate}
             </span>
-            <div className="flex flex-row items-center gap-1 flex-shrink-0">
+            <div class名称="flex flex-row items-center gap-1 flex-shrink-0">
                 {isBlobPath && (
                     <CommitActionLink
                         href={viewCodeHref}
                         label="View code at this commit"
-                        icon={<FileCode className="h-3 w-3" />}
+                        icon={<FileCode class名称="h-3 w-3" />}
                     />
                 )}
                 <CommitActionLink
                     href={viewRepoHref}
                     label="View repository at this commit"
-                    icon={<Code className="h-3 w-3" />}
+                    icon={<Code class名称="h-3 w-3" />}
                 />
             </div>
         </div>

@@ -7,28 +7,28 @@ import { env, hasEntitlement } from "@sourcebot/shared";
 import { headers } from "next/headers";
 import { QueryIR } from './ir';
 import { parseQuerySyntaxIntoIR } from './parser';
-import { SearchOptions } from "./types";
-import { createZoektSearchRequest, zoektSearch, zoektStreamSearch } from './zoektSearcher';
+import { 搜索Options } from "./types";
+import { createZoekt搜索Request, zoekt搜索, zoektStream搜索 } from './zoekt搜索er';
 
 
-type QueryStringSearchRequest = {
+type QueryString搜索Request = {
     queryType: 'string';
     query: string;
-    options: SearchOptions;
+    options: 搜索Options;
     source?: string;
 }
 
-type QueryIRSearchRequest = {
+type QueryIR搜索Request = {
     queryType: 'ir';
     query: QueryIR;
     // Omit options that are specific to query syntax parsing.
-    options: Omit<SearchOptions, 'isRegexEnabled' | 'isCaseSensitivityEnabled'>;
+    options: Omit<搜索Options, 'isRegexEnabled' | 'isCaseSensitivityEnabled'>;
     source?: string;
 }
 
-type SearchRequest = QueryStringSearchRequest | QueryIRSearchRequest;
+type 搜索Request = QueryString搜索Request | QueryIR搜索Request;
 
-export const search = (request: SearchRequest) => sew(() =>
+export const search = (request: 搜索Request) => sew(() =>
     withOptionalAuth(async ({ prisma, user, org }) => {
         if (user) {
             const source = request.source ?? (await headers()).get('X-Sourcebot-Client-Source') ?? undefined;
@@ -41,7 +41,7 @@ export const search = (request: SearchRequest) => sew(() =>
             });
         }
 
-        const repoSearchScope = await getAccessibleRepoNamesForUser({ user, prisma });
+        const repo搜索Scope = await getAccessibleRepo名称sForUser({ user, prisma });
 
         // If needed, parse the query syntax into the query intermediate representation.
         const query = request.queryType === 'string' ? await parseQuerySyntaxIntoIR({
@@ -50,16 +50,16 @@ export const search = (request: SearchRequest) => sew(() =>
             prisma,
         }) : request.query;
 
-        const zoektSearchRequest = await createZoektSearchRequest({
+        const zoekt搜索Request = await createZoekt搜索Request({
             query,
             options: request.options,
-            repoSearchScope,
+            repo搜索Scope,
         });
 
-        return zoektSearch(zoektSearchRequest, prisma);
+        return zoekt搜索(zoekt搜索Request, prisma);
     }));
 
-export const streamSearch = (request: SearchRequest) => sew(() =>
+export const stream搜索 = (request: 搜索Request) => sew(() =>
     withOptionalAuth(async ({ prisma, user, org }) => {
         if (user) {
             const source = request.source ?? (await headers()).get('X-Sourcebot-Client-Source') ?? undefined;
@@ -72,7 +72,7 @@ export const streamSearch = (request: SearchRequest) => sew(() =>
             });
         }
 
-        const repoSearchScope = await getAccessibleRepoNamesForUser({ user, prisma });
+        const repo搜索Scope = await getAccessibleRepo名称sForUser({ user, prisma });
 
         // If needed, parse the query syntax into the query intermediate representation.
         const query = request.queryType === 'string' ? await parseQuerySyntaxIntoIR({
@@ -81,20 +81,20 @@ export const streamSearch = (request: SearchRequest) => sew(() =>
             prisma,
         }) : request.query;
 
-        const zoektSearchRequest = await createZoektSearchRequest({
+        const zoekt搜索Request = await createZoekt搜索Request({
             query,
             options: request.options,
-            repoSearchScope,
+            repo搜索Scope,
         });
 
-        return zoektStreamSearch(zoektSearchRequest, prisma);
+        return zoektStream搜索(zoekt搜索Request, prisma);
     }));
 
 /**
  * Returns a list of repository names that the user has access to.
  * If permission syncing is disabled, returns undefined.
  */
-const getAccessibleRepoNamesForUser = async ({ user, prisma }: { user?: UserWithAccounts, prisma: PrismaClient }) => {
+const getAccessibleRepo名称sForUser = async ({ user, prisma }: { user?: UserWithAccounts, prisma: PrismaClient }) => {
     if (
         env.PERMISSION_SYNC_ENABLED !== 'true' ||
         !hasEntitlement('permission-syncing')

@@ -12,67 +12,67 @@ import {
     Tailwind,
     Text,
 } from '@react-email/components';
-import { EmailFooter } from './emailFooter';
+import { 邮箱Footer } from './emailFooter';
 import { SOURCEBOT_LOGO_LIGHT_LARGE_URL, SOURCEBOT_PLACEHOLDER_AVATAR_URL } from './constants';
 
-interface JoinRequestApprovedEmailProps {
+interface JoinRequestApproved邮箱Props {
     baseUrl: string;
     user: {
         email: string;
         name?: string;
         avatarUrl?: string;
     },
-    orgName: string;
+    org名称: string;
 }
 
-export const JoinRequestApprovedEmail = ({
+export const JoinRequestApproved邮箱 = ({
     baseUrl,
     user,
-    orgName,
-}: JoinRequestApprovedEmailProps) => {
-    const previewText = `Your request to join ${orgName} on Sourcebot has been approved`;
+    org名称,
+}: JoinRequestApproved邮箱Props) => {
+    const previewText = `Your request to join ${org名称} on Sourcebot has been approved`;
     const orgLink = baseUrl;
 
     return (
         <Html>
             <Head />
             <Tailwind>
-                <Body className="bg-white my-auto mx-auto font-sans px-2">
+                <Body class名称="bg-white my-auto mx-auto font-sans px-2">
                     <Preview>{previewText}</Preview>
-                    <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
-                        <Section className="mt-[32px]">
+                    <Container class名称="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
+                        <Section class名称="mt-[32px]">
                             <Img
                                 src={SOURCEBOT_LOGO_LIGHT_LARGE_URL}
                                 width="auto"
                                 height="60"
                                 alt="Sourcebot Logo"
-                                className="my-0 mx-auto"
+                                class名称="my-0 mx-auto"
                             />
                         </Section>
-                        <Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
-                            Welcome to <strong>{orgName}</strong>
+                        <Heading class名称="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+                            Welcome to <strong>{org名称}</strong>
                         </Heading>
-                        <Text className="text-black text-[14px] leading-[24px]">
+                        <Text class名称="text-black text-[14px] leading-[24px]">
                             Hello{user.name ? ` ${user.name}` : ''},
                         </Text>
-                        <Text className="text-black text-[14px] leading-[24px]">
-                            Your request to join <strong>{orgName}</strong> on Sourcebot has been approved. You now have access to the organization.
+                        <Text class名称="text-black text-[14px] leading-[24px]">
+                            Your request to join <strong>{org名称}</strong> on Sourcebot has been approved. You now have access to the organization.
                         </Text>
-                        <Section className="text-center mt-[32px] mb-[32px]">
+                        <Section class名称="text-center mt-[32px] mb-[32px]">
                             <Button
-                                className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
+                                class名称="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
                                 href={orgLink}
                             >
-                                Go to {orgName}
+                                Go to {org名称}
                             </Button>
                         </Section>
-                        <Text className="text-black text-[14px] leading-[24px]">
+                        <Text class名称="text-black text-[14px] leading-[24px]">
                             or copy and paste this URL into your browser:{' '}
-                            <Link href={orgLink} className="text-blue-600 no-underline">
+                            <Link href={orgLink} class名称="text-blue-600 no-underline">
                                 {orgLink}
                             </Link>
                         </Text>
-                        <EmailFooter />
+                        <邮箱Footer />
                     </Container>
                 </Body>
             </Tailwind>
@@ -80,14 +80,14 @@ export const JoinRequestApprovedEmail = ({
     );
 };
 
-JoinRequestApprovedEmail.PreviewProps = {
+JoinRequestApproved邮箱.PreviewProps = {
     baseUrl: 'https://sourcebot.example.com',
     user: {
         name: 'Alan Turing',
         email: 'alan.turing@example.com',
         avatarUrl: SOURCEBOT_PLACEHOLDER_AVATAR_URL,
     },
-    orgName: 'Enigma',
-} satisfies JoinRequestApprovedEmailProps;
+    org名称: 'Enigma',
+} satisfies JoinRequestApproved邮箱Props;
 
-export default JoinRequestApprovedEmail; 
+export default JoinRequestApproved邮箱; 

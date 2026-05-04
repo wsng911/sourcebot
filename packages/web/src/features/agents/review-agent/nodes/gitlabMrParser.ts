@@ -32,7 +32,7 @@ export const gitlabMrParser = async (
 
     const pathParts = mrPayload.project.path_with_namespace.split('/');
     const namespace = pathParts.slice(0, -1).join('/');
-    const repoName = pathParts[pathParts.length - 1];
+    const repo名称 = pathParts[pathParts.length - 1];
 
     const sourcebotFileDiffs: (sourcebot_file_diff | null)[] = fileDiffs.map((fileDiff) => {
         const fromPath = fileDiff.old_path as string;
@@ -94,7 +94,7 @@ export const gitlabMrParser = async (
         description: mr.description ?? "",
         hostDomain,
         owner: namespace,
-        repo: repoName,
+        repo: repo名称,
         file_diffs: filteredSourcebotFileDiffs,
         number: mrIid,
         head_sha: mr.sha ?? mrPayload.object_attributes.last_commit.id,

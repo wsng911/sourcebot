@@ -45,9 +45,9 @@ export function JoinOrganizationButton({ inviteLinkId }: { inviteLinkId?: string
         <Button 
             onClick={handleJoinOrganization}
             disabled={isLoading}
-            className="w-full h-11 bg-primary hover:bg-primary/90 text-[var(--primary-foreground)] transition-all duration-200 font-medium"
+            class名称="w-full h-11 bg-primary hover:bg-primary/90 text-[var(--primary-foreground)] transition-all duration-200 font-medium"
         >
-            {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+            {isLoading && <Loader2 class名称="w-4 h-4 mr-2 animate-spin" />}
             Join Organization
         </Button>
     );

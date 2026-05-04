@@ -1,4 +1,4 @@
-import SearchPage from "./search/page";
+import 搜索Page from "./search/page";
 
 interface Props {
     searchParams: Promise<{ query?: string }>;
@@ -6,5 +6,5 @@ interface Props {
 
 export default async function Home(props: Props) {
     // Default to rendering the search page.
-    return <SearchPage {...props} />;
+    return <搜索Page {...props} />;
 }

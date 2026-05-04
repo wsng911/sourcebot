@@ -34,14 +34,14 @@ export default async function RedeemPage(props: RedeemPageProps) {
     const inviteInfo = await getInviteInfo(inviteId);
 
     return (
-        <div className="flex flex-col items-center min-h-screen py-24 bg-backgroundSecondary relative">
-            <LogoutEscapeHatch className="absolute top-0 right-0 p-12" />
+        <div class名称="flex flex-col items-center min-h-screen py-24 bg-backgroundSecondary relative">
+            <LogoutEscapeHatch class名称="absolute top-0 right-0 p-12" />
             {isServiceError(inviteInfo) ? (
                 <InviteNotFoundCard />
             ) : (
                 <AcceptInviteCard
                     inviteId={inviteId}
-                    orgName={inviteInfo.orgName}
+                    org名称={inviteInfo.org名称}
                     host={inviteInfo.host}
                     recipient={inviteInfo.recipient}
                     orgImageUrl={inviteInfo.orgImageUrl}

@@ -4,7 +4,7 @@ import { getBrowsePath } from "@/app/(app)/browse/hooks/utils";
 import { PathHeader } from "@/app/(app)/components/pathHeader";
 import { LightweightCodeHighlighter } from "@/app/(app)/components/lightweightCodeHighlighter";
 import { FindRelatedSymbolsResponse } from "@/features/codeNav/types";
-import { RepositoryInfo, SourceRange } from "@/features/search";
+import { 仓库Info, SourceRange } from "@/features/search";
 import { useMemo, useRef } from "react";
 import useCaptureEvent from "@/hooks/useCaptureEvent";
 import { useVirtualizer } from "@tanstack/react-virtual";
@@ -12,7 +12,7 @@ import Link from "next/link";
 
 interface ReferenceListProps {
     data: FindRelatedSymbolsResponse;
-    revisionName: string;
+    revision名称: string;
 }
 
 const ESTIMATED_LINE_HEIGHT_PX = 30;
@@ -20,13 +20,13 @@ const ESTIMATED_MATCH_CONTAINER_HEIGHT_PX = 30;
 
 export const ReferenceList = ({
     data,
-    revisionName,
+    revision名称,
 }: ReferenceListProps) => {
     const repoInfoMap = useMemo(() => {
         return data.repositoryInfo.reduce((acc, repo) => {
             acc[repo.id] = repo;
             return acc;
-        }, {} as Record<number, RepositoryInfo>);
+        }, {} as Record<number, 仓库Info>);
     }, [data.repositoryInfo]);
 
     const captureEvent = useCaptureEvent();
@@ -83,7 +83,7 @@ export const ReferenceList = ({
                             }}
                         >
                             <div
-                                className="bg-accent py-1 px-2 flex flex-row sticky top-0 z-10"
+                                class名称="bg-accent py-1 px-2 flex flex-row sticky top-0 z-10"
                                 style={{
                                     top: `-${virtualRow.start}px`,
                                 }}
@@ -91,23 +91,23 @@ export const ReferenceList = ({
                                 <PathHeader
                                     repo={{
                                         name: repoInfo.name,
-                                        displayName: repoInfo.displayName,
+                                        display名称: repoInfo.display名称,
                                         codeHostType: repoInfo.codeHostType,
                                         externalWebUrl: repoInfo.webUrl,
                                     }}
-                                    path={file.fileName}
-                                    revisionName={revisionName === "HEAD" ? undefined : revisionName}
+                                    path={file.file名称}
+                                    revision名称={revision名称 === "HEAD" ? undefined : revision名称}
                                 />
                             </div>
-                            <div className="divide-y">
+                            <div class名称="divide-y">
                                 {file.matches
                                     .sort((a, b) => a.range.start.lineNumber - b.range.start.lineNumber)
                                     .map((match, index) => (
                                         <Link
                                             href={getBrowsePath({
-                                                repoName: file.repository,
-                                                revisionName,
-                                                path: file.fileName,
+                                                repo名称: file.repository,
+                                                revision名称,
+                                                path: file.file名称,
                                                 pathType: 'blob',
                                                 highlightRange: match.range,
                                             })}
@@ -148,7 +148,7 @@ const ReferenceListItem = ({
 
     return (
         <div
-            className="w-full hover:bg-accent py-1 cursor-pointer"
+            class名称="w-full hover:bg-accent py-1 cursor-pointer"
         >
             <LightweightCodeHighlighter
                 language={language}

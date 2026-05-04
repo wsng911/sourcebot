@@ -28,7 +28,7 @@ export const CredentialsForm = ({ callbackUrl, context }: CredentialsFormProps) 
         },
     });
 
-    const onSubmit = (values: z.infer<typeof verifyCredentialsRequestSchema>) => {
+    const on提交 = (values: z.infer<typeof verifyCredentialsRequestSchema>) => {
         setIsLoading(true);
         captureEvent("wa_login_with_credentials", {});
         signIn("credentials", {
@@ -45,15 +45,15 @@ export const CredentialsForm = ({ callbackUrl, context }: CredentialsFormProps) 
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full"
+                on提交={form.handle提交(on提交)}
+                class名称="w-full"
             >
                 <FormField
                     control={form.control}
                     name="email"
                     render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel>Email</FormLabel>
+                        <FormItem class名称="mb-4">
+                            <FormLabel>邮箱</FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder="email@example.com"
@@ -69,8 +69,8 @@ export const CredentialsForm = ({ callbackUrl, context }: CredentialsFormProps) 
                     control={form.control}
                     name="password"
                     render={({ field }) => (
-                        <FormItem className="mb-8">
-                            <FormLabel>Password</FormLabel>
+                        <FormItem class名称="mb-8">
+                            <FormLabel>密码</FormLabel>
                             <FormControl>
                                 <Input
                                     type="password"
@@ -84,11 +84,11 @@ export const CredentialsForm = ({ callbackUrl, context }: CredentialsFormProps) 
                 />
                 <Button
                     type="submit"
-                    className="w-full"
+                    class名称="w-full"
                     disabled={isLoading}
                 >
-                    {isLoading ? <Loader2 className="animate-spin mr-2" /> : ""}
-                    {context === "login" ? "Sign in with credentials" : "Sign up with credentials"}
+                    {isLoading ? <Loader2 class名称="animate-spin mr-2" /> : ""}
+                    {context === "login" ? "登录 with credentials" : "注册 with credentials"}
                 </Button>
             </form>
         </Form>

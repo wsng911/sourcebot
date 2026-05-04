@@ -29,7 +29,7 @@ const pruneOldGuestUser = async () => {
             },
         });
 
-        logger.info(`Deleted old guest user ${guestUser.userId}`);
+        logger.info(`删除d old guest user ${guestUser.userId}`);
     }
 }
 
@@ -63,8 +63,8 @@ const init = async () => {
     // If we don't have the search context entitlement then wipe any existing
     // search contexts that may be present in the DB. This could happen if a deployment had
     // the entitlement, synced search contexts, and then no longer had the entitlement
-    const hasSearchContextEntitlement = hasEntitlement("search-contexts")
-    if (!hasSearchContextEntitlement) {
+    const has搜索ContextEntitlement = hasEntitlement("search-contexts")
+    if (!has搜索ContextEntitlement) {
         await __unsafePrisma.searchContext.deleteMany({
             where: {
                 orgId: SINGLE_TENANT_ORG_ID,
@@ -72,9 +72,9 @@ const init = async () => {
         });
     }
 
-    // Sync anonymous access config from the config file
+    // 同步 anonymous access config from the config file
     const config = await loadConfig(env.CONFIG_PATH);
-    const forceEnableAnonymousAccess = config.settings?.enablePublicAccess ?? env.FORCE_ENABLE_ANONYMOUS_ACCESS === 'true';
+    const forceEnableAnonymousAccess = config.settings?.enable公开Access ?? env.FORCE_ENABLE_ANONYMOUS_ACCESS === 'true';
 
     if (forceEnableAnonymousAccess) {
         if (!hasAnonymousAccessEntitlement) {
@@ -99,7 +99,7 @@ const init = async () => {
         }
     }
 
-    // Sync member approval setting from env var (only if explicitly set)
+    // 同步 member approval setting from env var (only if explicitly set)
     if (env.REQUIRE_APPROVAL_NEW_MEMBERS !== undefined) {
         const requireApprovalNewMembers = env.REQUIRE_APPROVAL_NEW_MEMBERS === 'true';
         const org = await __unsafePrisma.org.findUnique({ where: { id: SINGLE_TENANT_ORG_ID } });

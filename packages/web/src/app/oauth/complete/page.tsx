@@ -10,7 +10,7 @@ export default function OAuthCompletePage() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const raw = new URLSearchParams(window.location.search).get('url');
+        const raw = new URL搜索Params(window.location.search).get('url');
         if (!raw) {
             setError('Missing redirect URL. You may close this window.');
             return;
@@ -24,8 +24,8 @@ export default function OAuthCompletePage() {
     }, []);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-background">
-            <p className="text-sm text-muted-foreground">
+        <div class名称="min-h-screen flex items-center justify-center bg-background">
+            <p class名称="text-sm text-muted-foreground">
                 {error ?? 'Redirecting, you may close this window...'}
             </p>
         </div>

@@ -2,23 +2,23 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { CodePreview } from "./codePreview";
-import { SearchResultFile } from "@/features/search";
+import { 搜索ResultFile } from "@/features/search";
 import { SymbolIcon } from "@radix-ui/react-icons";
 import { SetStateAction, Dispatch, useMemo } from "react";
 import { unwrapServiceError } from "@/lib/utils";
 import { getFileSource } from "@/app/api/(client)/client";
 
 interface CodePreviewPanelProps {
-    previewedFile: SearchResultFile;
+    previewedFile: 搜索ResultFile;
     selectedMatchIndex: number;
-    onClose: () => void;
+    on关闭: () => void;
     onSelectedMatchIndexChange: Dispatch<SetStateAction<number>>;
 }
 
 export const CodePreviewPanel = ({
     previewedFile,
     selectedMatchIndex,
-    onClose,
+    on关闭,
     onSelectedMatchIndexChange,
 }: CodePreviewPanelProps) => {
 
@@ -32,7 +32,7 @@ export const CodePreviewPanel = ({
         queryKey: ["source", previewedFile, branch],
         queryFn: () => unwrapServiceError(
             getFileSource({
-                path: previewedFile.fileName.text,
+                path: previewedFile.file名称.text,
                 repo: previewedFile.repository,
                 ref: branch,
             })
@@ -40,7 +40,7 @@ export const CodePreviewPanel = ({
         select: (data) => {
             return {
                 content: data.source,
-                filepath: previewedFile.fileName.text,
+                filepath: previewedFile.file名称.text,
                 matches: previewedFile.chunks,
                 link: previewedFile.externalWebUrl,
                 language: previewedFile.language,
@@ -50,9 +50,9 @@ export const CodePreviewPanel = ({
     });
 
     if (isLoading || isPending) {
-        return <div className="flex flex-col items-center justify-center h-full">
-            <SymbolIcon className="h-6 w-6 animate-spin" />
-            <p className="font-semibold text-center">Loading...</p>
+        return <div class名称="flex flex-col items-center justify-center h-full">
+            <SymbolIcon class名称="h-6 w-6 animate-spin" />
+            <p class名称="font-semibold text-center">加载中...</p>
         </div>
     }
 
@@ -65,10 +65,10 @@ export const CodePreviewPanel = ({
     return (
         <CodePreview
             file={file}
-            repoName={previewedFile.repository}
+            repo名称={previewedFile.repository}
             selectedMatchIndex={selectedMatchIndex}
             onSelectedMatchIndexChange={onSelectedMatchIndexChange}
-            onClose={onClose}
+            on关闭={on关闭}
         />
     )
 }

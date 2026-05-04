@@ -7,7 +7,7 @@ import { AuthMethodSelector } from "@/app/components/authMethodSelector"
 import { SourcebotLogo } from "@/app/components/sourcebotLogo"
 import { auth } from "@/auth";
 import { getIdentityProviderMetadata } from "@/lib/identityProviders";
-import { OrganizationAccessSettings } from "@/app/components/organizationAccessSettings";
+import { OrganizationAccess设置 } from "@/app/components/organizationAccess设置";
 import { CompleteOnboardingButton } from "./components/completeOnboardingButton";
 import { SINGLE_TENANT_ORG_ID } from "@/lib/constants";
 import { __unsafePrisma } from "@/prisma";
@@ -86,28 +86,28 @@ export default async function Onboarding(props: OnboardingProps) {
             title: "Code Host Connections",
             description: "Learn how to index repos across Sourcebot's supported platforms",
             href: "https://docs.sourcebot.dev/docs/connections/overview",
-            icon: <GitBranchIcon className="w-4 h-4" />,
+            icon: <GitBranchIcon class名称="w-4 h-4" />,
         },
         {
             id: "language-models",
             title: "Language Models",
             description: "Learn how to configure your language model providers to start using Ask Sourcebot",
             href: "https://docs.sourcebot.dev/docs/configuration/language-model-providers",
-            icon: <Brain className="w-4 h-4" />,
+            icon: <Brain class名称="w-4 h-4" />,
         },
         {
             id: "authentication-system",
             title: "Authentication System",
             description: "Learn how to setup additional auth providers, invite members, and more",
             href: "https://docs.sourcebot.dev/docs/configuration/auth",
-            icon: <LockIcon className="w-4 h-4" />,
+            icon: <LockIcon class名称="w-4 h-4" />,
         },
         {
             id: "mcp-server",
             title: "MCP Server",
             description: "Learn how to setup Sourcebot's MCP server to provide code context to your AI agents",
             href: "https://docs.sourcebot.dev/docs/features/mcp-server",
-            icon: <BetweenHorizontalStart className="w-4 h-4" />,
+            icon: <BetweenHorizontalStart class名称="w-4 h-4" />,
         }
     ]
 
@@ -117,8 +117,8 @@ export default async function Onboarding(props: OnboardingProps) {
             title: "Welcome to Sourcebot",
             subtitle: "This onboarding flow will guide you through creating your owner account and configuring your organization.",
             component: (
-                <div className="space-y-6">
-                    <Button asChild className="w-full">
+                <div class名称="space-y-6">
+                    <Button asChild class名称="w-full">
                         <Link href="/onboard?step=1">Get Started →</Link>
                     </Button>
                 </div>
@@ -126,7 +126,7 @@ export default async function Onboarding(props: OnboardingProps) {
         },
         {
             id: "owner-signup",
-            title: "Create Owner Account",
+            title: "创建 Owner Account",
             subtitle: (
                 <>
                     Use your preferred authentication method to create your owner account. To set up additional authentication providers, check out our{" "}
@@ -134,14 +134,14 @@ export default async function Onboarding(props: OnboardingProps) {
                         href="https://docs.sourcebot.dev/docs/configuration/auth/overview"
                         target="_blank"
                         rel="noopener"
-                        className="underline text-primary hover:text-primary/80 transition-colors"
+                        class名称="underline text-primary hover:text-primary/80 transition-colors"
                     >
                         documentation
                     </a>.
                 </>
             ),
             component: (
-                <div className="space-y-6">
+                <div class名称="space-y-6">
                     <AuthMethodSelector
                         providers={providers}
                         callbackUrl="/onboard"
@@ -153,7 +153,7 @@ export default async function Onboarding(props: OnboardingProps) {
         },
         {
             id: "configure-org",
-            title: "Configure Access Settings",
+            title: "Configure Access 设置",
             subtitle: (
                 <>
                     Set up your organization&apos;s access settings.{" "}
@@ -161,16 +161,16 @@ export default async function Onboarding(props: OnboardingProps) {
                         href="https://docs.sourcebot.dev/docs/configuration/auth/access-settings"
                         target="_blank"
                         rel="noopener"
-                        className="underline text-primary hover:text-primary/80 transition-colors"
+                        class名称="underline text-primary hover:text-primary/80 transition-colors"
                     >
                         Learn more
                     </a>
                 </>
             ),
             component: (
-                <div className="space-y-6">
-                    <OrganizationAccessSettings />
-                    <Button asChild className="w-full">
+                <div class名称="space-y-6">
+                    <OrganizationAccess设置 />
+                    <Button asChild class名称="w-full">
                         <Link href="/onboard?step=3">Continue →</Link>
                     </Button>
                 </div>
@@ -182,9 +182,9 @@ export default async function Onboarding(props: OnboardingProps) {
             subtitle: (
                 <>
                     Your Sourcebot deployment is ready. Check out these resources to learn how to get the most out of Sourcebot.
-                    <div className="text-center space-y-4 mt-6">
-                        <div className="w-16 h-16 mx-auto bg-primary rounded-full flex items-center justify-center">
-                            <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class名称="text-center space-y-4 mt-6">
+                        <div class名称="w-16 h-16 mx-auto bg-primary rounded-full flex items-center justify-center">
+                            <svg class名称="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
@@ -192,33 +192,33 @@ export default async function Onboarding(props: OnboardingProps) {
                 </>
             ),
             component: (
-                <div className="space-y-6">
-                    <div className="grid grid-cols-1 gap-3">
+                <div class名称="space-y-6">
+                    <div class名称="grid grid-cols-1 gap-3">
                         {resourceCards.map((resourceCard) => (
                             <a
                                 key={resourceCard.id}
                                 href={resourceCard.href}
                                 target="_blank"
                                 rel="noopener"
-                                className="p-4 rounded-lg bg-accent hover:bg-accent/80 border border-border hover:border-primary/20 transition-all duration-200 group"
+                                class名称="p-4 rounded-lg bg-accent hover:bg-accent/80 border border-border hover:border-primary/20 transition-all duration-200 group"
                         >
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <div class名称="flex items-center gap-3">
+                                <div class名称="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                                     {resourceCard.icon && (
-                                        <div className="text-primary">
+                                        <div class名称="text-primary">
                                             {resourceCard.icon}
                                         </div>
                                     )}
                                 </div>
-                                <div className="flex-1 text-left">
-                                    <div className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">
+                                <div class名称="flex-1 text-left">
+                                    <div class名称="font-medium text-foreground text-sm group-hover:text-primary transition-colors">
                                         {resourceCard.title}
                                     </div>
-                                    <div className="text-muted-foreground text-xs mt-1 leading-4">
+                                    <div class名称="text-muted-foreground text-xs mt-1 leading-4">
                                         {resourceCard.description}
                                     </div>
                                 </div>
-                                <svg className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class名称="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                 </svg>
                             </div>
@@ -234,38 +234,38 @@ export default async function Onboarding(props: OnboardingProps) {
     const currentStepData = steps[currentStep]
 
     return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-6">
-            <div className="w-full max-w-6xl mx-auto">
-                <div className="overflow-hidden bg-background">
-                    <div className="flex min-h-[700px]">
+        <div class名称="min-h-screen bg-background flex items-center justify-center p-6">
+            <div class名称="w-full max-w-6xl mx-auto">
+                <div class名称="overflow-hidden bg-background">
+                    <div class名称="flex min-h-[700px]">
                         {/* Left Panel - Progress & Branding */}
-                        <div className="w-2/5 bg-background p-10 border-r border-border">
-                            <div className="h-full flex flex-col">
-                                <div className="flex-1">
-                                    <div className="mb-16">
+                        <div class名称="w-2/5 bg-background p-10 border-r border-border">
+                            <div class名称="h-full flex flex-col">
+                                <div class名称="flex-1">
+                                    <div class名称="mb-16">
                                         <SourcebotLogo
-                                            className="w-full h-auto mb-12"
+                                            class名称="w-full h-auto mb-12"
                                             size="large"
                                         />
                                     </div>
 
                                     {/* Step Progress Indicators */}
-                                    <div className="space-y-8">
+                                    <div class名称="space-y-8">
                                         {steps.map((step, index) => (
-                                            <div key={step.id} className="flex items-center group">
-                                                <div className="flex items-center space-x-4 flex-1">
-                                                                                        <div className="relative">
+                                            <div key={step.id} class名称="flex items-center group">
+                                                <div class名称="flex items-center space-x-4 flex-1">
+                                                                                        <div class名称="relative">
                                         {/* Connecting line */}
                                         {index < steps.length - 1 && (
                                             <div
-                                                className={`absolute top-10 left-1/2 transform -translate-x-1/2 w-0.5 h-8 transition-all duration-300 ${
+                                                class名称={`absolute top-10 left-1/2 transform -translate-x-1/2 w-0.5 h-8 transition-all duration-300 ${
                                                     index < currentStep ? "bg-primary" : "bg-border"
                                                 }`}
                                             />
                                         )}
                                         {/* Circle - positioned above the line with z-index */}
                                         <div
-                                            className={`relative z-10 w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold text-sm transition-all duration-300 ${
+                                            class名称={`relative z-10 w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold text-sm transition-all duration-300 ${
                                                 index < currentStep
                                                     ? "bg-primary border-primary text-primary-foreground"
                                                     : index === currentStep
@@ -274,7 +274,7 @@ export default async function Onboarding(props: OnboardingProps) {
                                             }`}
                                         >
                                             {index < currentStep ? (
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg class名称="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                                                 </svg>
                                             ) : (
@@ -282,8 +282,8 @@ export default async function Onboarding(props: OnboardingProps) {
                                             )}
                                         </div>
                                     </div>
-                                                    <div className="flex-1">
-                                                        <div className={`font-medium text-sm transition-all duration-200 ${
+                                                    <div class名称="flex-1">
+                                                        <div class名称={`font-medium text-sm transition-all duration-200 ${
                                                             index <= currentStep ? "text-foreground" : "text-muted-foreground"
                                                         }`}>
                                                             {step.title}
@@ -296,12 +296,12 @@ export default async function Onboarding(props: OnboardingProps) {
                                 </div>
 
                                 {/* Footer */}
-                                <div className="pt-8 border-t border-border">
-                                    <p className="text-xs text-muted-foreground leading-5">
+                                <div class名称="pt-8 border-t border-border">
+                                    <p class名称="text-xs text-muted-foreground leading-5">
                                         Need help? Check out our{" "}
                                         <a
                                             href="https://docs.sourcebot.dev/docs/overview"
-                                            className="text-primary hover:underline font-medium transition-colors"
+                                            class名称="text-primary hover:underline font-medium transition-colors"
                                             target="_blank"
                                             rel="noopener"
                                         >
@@ -310,7 +310,7 @@ export default async function Onboarding(props: OnboardingProps) {
                                         or{" "}
                                         <a
                                             href="https://github.com/sourcebot-dev/sourcebot/discussions"
-                                            className="text-primary hover:underline font-medium transition-colors"
+                                            class名称="text-primary hover:underline font-medium transition-colors"
                                             target="_blank"
                                             rel="noopener"
                                         >
@@ -323,29 +323,29 @@ export default async function Onboarding(props: OnboardingProps) {
                         </div>
 
                         {/* Right Panel - Content */}
-                        <div className="w-3/5 bg-background p-10">
-                            <div className="h-full flex flex-col justify-center max-w-lg mx-auto">
-                                <div className="space-y-8">
+                        <div class名称="w-3/5 bg-background p-10">
+                            <div class名称="h-full flex flex-col justify-center max-w-lg mx-auto">
+                                <div class名称="space-y-8">
                                     {/* Step Header */}
-                                    <div className="space-y-6">
-                                        <div className="flex items-center space-x-3">
-                                            <div className="text-sm font-medium text-muted-foreground">
+                                    <div class名称="space-y-6">
+                                        <div class名称="flex items-center space-x-3">
+                                            <div class名称="text-sm font-medium text-muted-foreground">
                                                 Step {currentStep + 1} of {steps.length}
                                             </div>
-                                            <div className="flex-1 h-px bg-border"></div>
+                                            <div class名称="flex-1 h-px bg-border"></div>
                                         </div>
-                                        <div className="space-y-3">
-                                            <h1 className="text-3xl font-bold text-foreground leading-tight">
+                                        <div class名称="space-y-3">
+                                            <h1 class名称="text-3xl font-bold text-foreground leading-tight">
                                                 {currentStepData.title}
                                             </h1>
-                                            <div className="text-muted-foreground text-base leading-relaxed">
+                                            <div class名称="text-muted-foreground text-base leading-relaxed">
                                                 {currentStepData.subtitle}
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Step Content */}
-                                    <div className="transition-all duration-300 ease-out">
+                                    <div class名称="transition-all duration-300 ease-out">
                                         {currentStepData.component}
                                     </div>
                                 </div>
@@ -360,52 +360,52 @@ export default async function Onboarding(props: OnboardingProps) {
 
 function NonOwnerOnboardingMessage() {
     return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-6">
-            <LogoutEscapeHatch className="absolute top-0 right-0 p-6" />
-            <div className="w-full max-w-md mx-auto">
-                <Card className="overflow-hidden shadow-lg border border-border bg-card">
-                    <CardContent className="p-8">
-                        <div className="text-center space-y-6">
-                            <div className="w-16 h-16 mx-auto bg-muted rounded-full flex items-center justify-center">
-                                <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class名称="min-h-screen bg-background flex items-center justify-center p-6">
+            <LogoutEscapeHatch class名称="absolute top-0 right-0 p-6" />
+            <div class名称="w-full max-w-md mx-auto">
+                <Card class名称="overflow-hidden shadow-lg border border-border bg-card">
+                    <CardContent class名称="p-8">
+                        <div class名称="text-center space-y-6">
+                            <div class名称="w-16 h-16 mx-auto bg-muted rounded-full flex items-center justify-center">
+                                <svg class名称="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
 
-                            <div className="space-y-3">
-                                <h1 className="text-2xl font-semibold text-foreground">
+                            <div class名称="space-y-3">
+                                <h1 class名称="text-2xl font-semibold text-foreground">
                                     Onboarding In Progress
                                 </h1>
-                                <p className="text-muted-foreground text-base leading-relaxed">
+                                <p class名称="text-muted-foreground text-base leading-relaxed">
                                     Your Sourcebot deployment is being configured by the organization owner.
                                 </p>
                             </div>
 
-                            <div className="p-4 rounded-lg bg-accent/50 border border-border">
-                                <div className="flex items-start gap-3">
-                                    <div className="w-5 h-5 mt-0.5 flex-shrink-0">
-                                        <svg className="w-full h-full text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class名称="p-4 rounded-lg bg-accent/50 border border-border">
+                                <div class名称="flex items-start gap-3">
+                                    <div class名称="w-5 h-5 mt-0.5 flex-shrink-0">
+                                        <svg class名称="w-full h-full text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                     </div>
-                                    <div className="text-left">
-                                        <p className="text-sm font-medium text-foreground mb-1">
+                                    <div class名称="text-left">
+                                        <p class名称="text-sm font-medium text-foreground mb-1">
                                             Owner Access Required
                                         </p>
-                                        <p className="text-sm text-muted-foreground leading-relaxed">
+                                        <p class名称="text-sm text-muted-foreground leading-relaxed">
                                             Only the organization owner can complete the initial setup and configuration. Once onboarding is complete, you&apos;ll be able to access Sourcebot.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="space-y-3">
-                                <div className="text-xs text-muted-foreground leading-relaxed">
+                            <div class名称="space-y-3">
+                                <div class名称="text-xs text-muted-foreground leading-relaxed">
                                     Need help? Contact your organization owner or check out our{" "}
                                     <a
                                         href="https://docs.sourcebot.dev/docs/overview"
-                                        className="text-primary hover:text-primary/80 underline transition-colors"
+                                        class名称="text-primary hover:text-primary/80 underline transition-colors"
                                         target="_blank"
                                         rel="noopener"
                                     >

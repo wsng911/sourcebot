@@ -5,7 +5,7 @@ import { ToolDefinition } from "./types";
 import { logger } from "./logger";
 import description from "./readFile.txt";
 import { CodeHostType } from "@sourcebot/db";
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 
 // NOTE: if you change these values, update readFile.txt to match.
 const READ_FILES_MAX_LINES = 500;
@@ -28,7 +28,7 @@ const readFileShape = {
 
 export type ReadFileRepoInfo = {
     name: string;
-    displayName: string;
+    display名称: string;
     codeHostType: CodeHostType;
 };
 
@@ -104,13 +104,13 @@ export const readFileDefinition: ToolDefinition<"read_file", typeof readFileShap
 
         output += `\n</content>`;
 
-        const repoInfoResult = await getRepoInfoByName(fileSource.repo);
+        const repoInfoResult = await getRepoInfoBy名称(fileSource.repo);
         if (isServiceError(repoInfoResult) || !repoInfoResult) {
-            throw new Error(`Repository "${fileSource.repo}" not found.`);
+            throw new Error(`仓库 "${fileSource.repo}" not found.`);
         }
         const repoInfo: ReadFileRepoInfo = {
             name: repoInfoResult.name,
-            displayName: repoInfoResult.displayName ?? repoInfoResult.name,
+            display名称: repoInfoResult.display名称 ?? repoInfoResult.name,
             codeHostType: repoInfoResult.codeHostType,
         };
 

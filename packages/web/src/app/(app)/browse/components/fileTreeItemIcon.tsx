@@ -7,17 +7,17 @@ import { FileTreeItem } from "@/features/git";
 
 interface FileTreeItemIconProps {
     item: FileTreeItem;
-    className?: string;
+    class名称?: string;
 }
 
-export const FileTreeItemIcon = ({ item, className }: FileTreeItemIconProps) => {
+export const FileTreeItemIcon = ({ item, class名称 }: FileTreeItemIconProps) => {
     const ItemIcon = useMemo(() => {
         if (item.type === 'tree') {
-            return <VscodeFolderIcon folderName={item.name} className={className} />
+            return <VscodeFolderIcon folder名称={item.name} class名称={class名称} />
         } else {
-            return <VscodeFileIcon fileName={item.name} className={className} />
+            return <VscodeFileIcon file名称={item.name} class名称={class名称} />
         }
-    }, [item.name, item.type, className]);
+    }, [item.name, item.type, class名称]);
 
     return ItemIcon;
 }

@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils"
 
 interface NotificationDotProps {
-    className?: string
+    class名称?: string
 }
 
-export const NotificationDot = ({ className }: NotificationDotProps) => {
-    return <div className={cn("w-2 h-2 rounded-full bg-green-600", className)} />
+export const NotificationDot = ({ class名称 }: NotificationDotProps) => {
+    return <div class名称={cn("w-2 h-2 rounded-full bg-green-600", class名称)} />
 }

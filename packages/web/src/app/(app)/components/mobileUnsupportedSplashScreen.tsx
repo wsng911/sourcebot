@@ -20,17 +20,17 @@ export const MobileUnsupportedSplashScreen = () => {
     }, [captureEvent]);
 
     return (
-        <div className="flex flex-col items-center justify-center p-2 min-h-screen bg-backgroundSecondary">
-            <Card className="flex flex-col items-center text-center mb-10 p-4 max-w-sm">
-                <TriangleAlert className="w-10 h-10 mb-4 text-yellow-600/90 dark:text-yellow-300/90" />
-                <div className="text-2xl font-semibold flex items-center mb-2">
+        <div class名称="flex flex-col items-center justify-center p-2 min-h-screen bg-backgroundSecondary">
+            <Card class名称="flex flex-col items-center text-center mb-10 p-4 max-w-sm">
+                <TriangleAlert class名称="w-10 h-10 mb-4 text-yellow-600/90 dark:text-yellow-300/90" />
+                <div class名称="text-2xl font-semibold flex items-center mb-2">
                     Mobile is not supported.
                 </div>
-                <p className="text-sm text-muted-foreground mb-8">
+                <p class名称="text-sm text-muted-foreground mb-8">
                     Sourcebot on mobile is still a work in progress. Please use a desktop computer to get the best experience.
                 </p>
                     <Button
-                        className="w-full"
+                        class名称="w-full"
                         variant="outline"
                         onClick={onDismissed}
                     >

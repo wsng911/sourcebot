@@ -9,7 +9,7 @@ import type { RepoRegexp as _zoekt_webserver_v1_RepoRegexp, RepoRegexp__Output a
 import type { BranchesRepos as _zoekt_webserver_v1_BranchesRepos, BranchesRepos__Output as _zoekt_webserver_v1_BranchesRepos__Output } from '../../../zoekt/webserver/v1/BranchesRepos';
 import type { RepoIds as _zoekt_webserver_v1_RepoIds, RepoIds__Output as _zoekt_webserver_v1_RepoIds__Output } from '../../../zoekt/webserver/v1/RepoIds';
 import type { RepoSet as _zoekt_webserver_v1_RepoSet, RepoSet__Output as _zoekt_webserver_v1_RepoSet__Output } from '../../../zoekt/webserver/v1/RepoSet';
-import type { FileNameSet as _zoekt_webserver_v1_FileNameSet, FileNameSet__Output as _zoekt_webserver_v1_FileNameSet__Output } from '../../../zoekt/webserver/v1/FileNameSet';
+import type { File名称Set as _zoekt_webserver_v1_File名称Set, File名称Set__Output as _zoekt_webserver_v1_File名称Set__Output } from '../../../zoekt/webserver/v1/File名称Set';
 import type { Type as _zoekt_webserver_v1_Type, Type__Output as _zoekt_webserver_v1_Type__Output } from '../../../zoekt/webserver/v1/Type';
 import type { Substring as _zoekt_webserver_v1_Substring, Substring__Output as _zoekt_webserver_v1_Substring__Output } from '../../../zoekt/webserver/v1/Substring';
 import type { And as _zoekt_webserver_v1_And, And__Output as _zoekt_webserver_v1_And__Output } from '../../../zoekt/webserver/v1/And';
@@ -30,7 +30,7 @@ export interface Q {
   'branches_repos'?: (_zoekt_webserver_v1_BranchesRepos | null);
   'repo_ids'?: (_zoekt_webserver_v1_RepoIds | null);
   'repo_set'?: (_zoekt_webserver_v1_RepoSet | null);
-  'file_name_set'?: (_zoekt_webserver_v1_FileNameSet | null);
+  'file_name_set'?: (_zoekt_webserver_v1_File名称Set | null);
   'type'?: (_zoekt_webserver_v1_Type | null);
   'substring'?: (_zoekt_webserver_v1_Substring | null);
   'and'?: (_zoekt_webserver_v1_And | null);
@@ -53,7 +53,7 @@ export interface Q__Output {
   'branches_repos'?: (_zoekt_webserver_v1_BranchesRepos__Output | null);
   'repo_ids'?: (_zoekt_webserver_v1_RepoIds__Output | null);
   'repo_set'?: (_zoekt_webserver_v1_RepoSet__Output | null);
-  'file_name_set'?: (_zoekt_webserver_v1_FileNameSet__Output | null);
+  'file_name_set'?: (_zoekt_webserver_v1_File名称Set__Output | null);
   'type'?: (_zoekt_webserver_v1_Type__Output | null);
   'substring'?: (_zoekt_webserver_v1_Substring__Output | null);
   'and'?: (_zoekt_webserver_v1_And__Output | null);

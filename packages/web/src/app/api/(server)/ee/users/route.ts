@@ -8,7 +8,7 @@ import { withAuth } from "@/middleware/withAuth";
 import { withMinimumOrgRole } from "@/middleware/withMinimumOrgRole";
 import { OrgRole } from "@sourcebot/db";
 import { createLogger, hasEntitlement } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { ErrorCode } from "@/lib/errorCodes";
 
 const logger = createLogger('ee-users-api');
@@ -17,7 +17,7 @@ const auditService = getAuditService();
 export const GET = apiHandler(async () => {
     if (!hasEntitlement('org-management')) {
         return serviceErrorResponse({
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
             message: "Organization management is not enabled for your license",
         });

@@ -26,7 +26,7 @@ export function useBrowserNotification(): UseBrowserNotificationReturn {
         return Notification.permission as NotificationPermission;
     });
 
-    // Sync permission state if it changes externally
+    // 同步 permission state if it changes externally
     useEffect(() => {
         if (!isSupported) return;
         setPermission(Notification.permission as NotificationPermission);

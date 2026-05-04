@@ -30,8 +30,8 @@ function getReviewAgentLogPath(identifier: string): string | undefined {
     }
 
     const reviewAgentLogDir = getReviewAgentLogDir();
-    if (!fs.existsSync(reviewAgentLogDir)) {
-        fs.mkdirSync(reviewAgentLogDir, { recursive: true });
+    if (!fs.exists同步(reviewAgentLogDir)) {
+        fs.mkdir同步(reviewAgentLogDir, { recursive: true });
     }
 
     const timestamp = new Date().toLocaleString('en-US', {

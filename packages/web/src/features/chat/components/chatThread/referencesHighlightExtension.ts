@@ -1,5 +1,5 @@
-import { EditorState, Range, StateEffect, StateField } from "@codemirror/state";
-import { Decoration, DecorationSet, EditorView } from "@codemirror/view";
+import { 编辑orState, Range, StateEffect, StateField } from "@codemirror/state";
+import { Decoration, DecorationSet, 编辑orView } from "@codemirror/view";
 import { FileReference } from "../../types";
 
 const lineDecoration = Decoration.line({
@@ -33,7 +33,7 @@ const hoveredSelectedField = StateField.define<{ hoveredId?: string; selectedId?
     },
 });
 
-function getReferenceAtPos(references: FileReference[], x: number, y: number, view: EditorView): FileReference | undefined {
+function getReferenceAtPos(references: FileReference[], x: number, y: number, view: 编辑orView): FileReference | undefined {
     const pos = view.posAtCoords({ x, y });
     if (pos === null) {
         return undefined;
@@ -63,7 +63,7 @@ function getReferenceAtPos(references: FileReference[], x: number, y: number, vi
     return matchingRanges[0];
 }
 
-function buildDecorations(state: EditorState, references: FileReference[], hoveredId: string | undefined, selectedId: string | undefined): DecorationSet {
+function buildDecorations(state: 编辑orState, references: FileReference[], hoveredId: string | undefined, selectedId: string | undefined): DecorationSet {
     const decorations: Range<Decoration>[] = [];
 
     for (const { range, id } of references) {
@@ -111,13 +111,13 @@ export function createReferencesHighlightExtension(
             }
             return deco.map(tr.changes);
         },
-        provide: (field) => EditorView.decorations.from(field),
+        provide: (field) => 编辑orView.decorations.from(field),
     });
 
     return [
         hoveredSelectedField,
         decorationField,
-        EditorView.domEventHandlers({
+        编辑orView.domEventHandlers({
             click: (event, view) => {
                 const reference = getReferenceAtPos(references, event.clientX, event.clientY, view);
                 if (reference) {

@@ -2,9 +2,9 @@ import { apiHandler } from "@/lib/apiHandler";
 import { queryParamsSchemaValidationError, serviceErrorResponse } from "@/lib/serviceError";
 import { isServiceError } from "@/lib/utils";
 import { NextRequest } from "next/server";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { z } from "zod";
-import { getAccountSyncStatus } from "./api";
+import { getAccount同步状态 } from "./api";
 
 const queryParamsSchema = z.object({
     jobId: z.string(),
@@ -22,11 +22,11 @@ export const GET = apiHandler(async (request: NextRequest) => {
         );
     }
 
-    const result = await getAccountSyncStatus(parsed.data.jobId);
+    const result = await getAccount同步状态(parsed.data.jobId);
 
     if (isServiceError(result)) {
         return serviceErrorResponse(result);
     }
 
-    return Response.json(result, { status: StatusCodes.OK });
+    return Response.json(result, { status: 状态Codes.OK });
 });

@@ -8,7 +8,7 @@ import useCaptureEvent from "@/hooks/useCaptureEvent";
 import Link from "next/link";
 import type { IdentityProviderMetadata } from "@/lib/identityProviders";
 
-interface LoginFormProps {
+interface 登录FormProps {
     callbackUrl?: string;
     error?: string;
     providers: IdentityProviderMetadata[];
@@ -17,7 +17,7 @@ interface LoginFormProps {
     hideSecurityNotice?: boolean;
 }
 
-export const LoginForm = ({ callbackUrl, error, providers, context, isAnonymousAccessEnabled = false, hideSecurityNotice = false }: LoginFormProps) => {
+export const 登录Form = ({ callbackUrl, error, providers, context, isAnonymousAccessEnabled = false, hideSecurityNotice = false }: 登录FormProps) => {
     const captureEvent = useCaptureEvent();
 
     const safeCallbackUrl = useMemo(() => {
@@ -44,7 +44,7 @@ export const LoginForm = ({ callbackUrl, error, providers, context, isAnonymousA
     }, [error]);
 
     // Helper function to get the correct analytics event name
-    const getLoginEventName = (providerId: string) => {
+    const get登录Event名称 = (providerId: string) => {
         switch (providerId) {
             case "github":
                 return "wa_login_with_github" as const;
@@ -67,22 +67,22 @@ export const LoginForm = ({ callbackUrl, error, providers, context, isAnonymousA
 
     // Analytics callback for provider clicks
     const handleProviderClick = (providerId: string) => {
-        captureEvent(getLoginEventName(providerId), {});
+        captureEvent(get登录Event名称(providerId), {});
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-full">
-            <div className="mb-6 flex flex-col items-center">
+        <div class名称="flex flex-col items-center justify-center w-full">
+            <div class名称="mb-6 flex flex-col items-center">
                 <SourcebotLogo
-                    className="h-12 sm:h-16 mb-3"
+                    class名称="h-12 sm:h-16 mb-3"
                 />
-                <h2 className="text-lg font-medium text-center">
-                    {context === "login" ? "Sign in to your account" : "Create a new account"}
+                <h2 class名称="text-lg font-medium text-center">
+                    {context === "login" ? "登录 to your account" : "创建 a new account"}
                 </h2>
             </div>
-            <Card className="flex flex-col items-center border p-6 sm:p-12 rounded-lg gap-4 sm:gap-6 w-full sm:w-[500px] max-w-[500px] bg-background">
+            <Card class名称="flex flex-col items-center border p-6 sm:p-12 rounded-lg gap-4 sm:gap-6 w-full sm:w-[500px] max-w-[500px] bg-background">
                 {error && (
-                    <div className="text-sm text-destructive text-center text-wrap border p-2 rounded-md border-destructive">
+                    <div class名称="text-sm text-destructive text-center text-wrap border p-2 rounded-md border-destructive">
                         {errorMessage}
                     </div>
                 )}
@@ -94,20 +94,20 @@ export const LoginForm = ({ callbackUrl, error, providers, context, isAnonymousA
                     securityNoticeClosable={true}
                     hideSecurityNotice={hideSecurityNotice}
                 />
-                <p className="text-sm text-muted-foreground mt-8">
+                <p class名称="text-sm text-muted-foreground mt-8">
                     {context === "login" ?
                         <>
-                            Don&apos;t have an account? <Link className="underline" href={callbackUrl ? `/signup?callbackUrl=${encodeURIComponent(callbackUrl)}` : "/signup"}>Sign up</Link>
+                            Don&apos;t have an account? <Link class名称="underline" href={callbackUrl ? `/signup?callbackUrl=${encodeURIComponent(callbackUrl)}` : "/signup"}>注册</Link>
                         </>
                     :
                         <>
-                            Already have an account? <Link className="underline" href={callbackUrl ? `/login?callbackUrl=${encodeURIComponent(callbackUrl)}` : "/login"}>Sign in</Link>
+                            Already have an account? <Link class名称="underline" href={callbackUrl ? `/login?callbackUrl=${encodeURIComponent(callbackUrl)}` : "/login"}>登录</Link>
                         </>
                     }
                 </p>
                 {isAnonymousAccessEnabled && (
-                    <p className="text-sm text-muted-foreground">
-                        <Link className="underline" href={safeCallbackUrl}>Continue as guest</Link>
+                    <p class名称="text-sm text-muted-foreground">
+                        <Link class名称="underline" href={safeCallbackUrl}>Continue as guest</Link>
                     </p>
                 )}
             </Card>

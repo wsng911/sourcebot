@@ -5,7 +5,7 @@ import { search } from "@/features/search";
 import { ServiceError } from "@/lib/serviceError";
 import { isServiceError } from "@/lib/utils";
 import { withOptionalAuth } from "@/middleware/withAuth";
-import { SearchResponse } from "../search/types";
+import { 搜索Response } from "../search/types";
 import { FindRelatedSymbolsRequest, FindRelatedSymbolsResponse } from "./types";
 import { QueryIR } from '../search/ir';
 import escapeStringRegexp from "escape-string-regexp";
@@ -13,13 +13,13 @@ import escapeStringRegexp from "escape-string-regexp";
 // The maximum number of matches to return from the search API.
 const MAX_REFERENCE_COUNT = 1000;
 
-export const findSearchBasedSymbolReferences = async (props: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => sew(() =>
+export const find搜索BasedSymbolReferences = async (props: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => sew(() =>
     withOptionalAuth(async () => {
         const {
-            symbolName,
+            symbol名称,
             language,
-            revisionName = "HEAD",
-            repoName,
+            revision名称 = "HEAD",
+            repo名称,
         } = props;
 
         const query: QueryIR = {
@@ -27,7 +27,7 @@ export const findSearchBasedSymbolReferences = async (props: FindRelatedSymbolsR
                 children: [
                     {
                         regexp: {
-                            regexp: `\\b${symbolName}\\b`,
+                            regexp: `\\b${symbol名称}\\b`,
                             case_sensitive: true,
                             file_name: false,
                             content: true,
@@ -35,14 +35,14 @@ export const findSearchBasedSymbolReferences = async (props: FindRelatedSymbolsR
                     },
                     {
                         branch: {
-                            pattern: revisionName,
+                            pattern: revision名称,
                             exact: true,
                         }
                     },
                     ...(language ? [getExpandedLanguageFilter(language)] : []),
-                    ...(repoName ? [{
+                    ...(repo名称 ? [{
                         repo: {
-                            regexp: `^${escapeStringRegexp(repoName)}$`,
+                            regexp: `^${escapeStringRegexp(repo名称)}$`,
                         }
                     }]: [])
                 ]
@@ -63,17 +63,17 @@ export const findSearchBasedSymbolReferences = async (props: FindRelatedSymbolsR
             return searchResult;
         }
 
-        return parseRelatedSymbolsSearchResponse(searchResult);
+        return parseRelatedSymbols搜索Response(searchResult);
     }));
 
 
-export const findSearchBasedSymbolDefinitions = async (props: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => sew(() =>
+export const find搜索BasedSymbolDefinitions = async (props: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => sew(() =>
     withOptionalAuth(async () => {
         const {
-            symbolName,
+            symbol名称,
             language,
-            revisionName = "HEAD",
-            repoName
+            revision名称 = "HEAD",
+            repo名称
         } = props;
 
         const query: QueryIR = {
@@ -83,7 +83,7 @@ export const findSearchBasedSymbolDefinitions = async (props: FindRelatedSymbols
                         symbol: {
                             expr: {
                                 regexp: {
-                                    regexp: `\\b${symbolName}\\b`,
+                                    regexp: `\\b${symbol名称}\\b`,
                                     case_sensitive: true,
                                     file_name: false,
                                     content: true,
@@ -93,14 +93,14 @@ export const findSearchBasedSymbolDefinitions = async (props: FindRelatedSymbols
                     },
                     {
                         branch: {
-                            pattern: revisionName,
+                            pattern: revision名称,
                             exact: true,
                         }
                     },
                     ...(language ? [getExpandedLanguageFilter(language)] : []),
-                    ...(repoName ? [{
+                    ...(repo名称 ? [{
                         repo: {
-                            regexp: `^${escapeStringRegexp(repoName)}$`,
+                            regexp: `^${escapeStringRegexp(repo名称)}$`,
                         }
                     }]: [])
                 ]
@@ -121,10 +121,10 @@ export const findSearchBasedSymbolDefinitions = async (props: FindRelatedSymbols
             return searchResult;
         }
 
-        return parseRelatedSymbolsSearchResponse(searchResult);
+        return parseRelatedSymbols搜索Response(searchResult);
     }));
 
-const parseRelatedSymbolsSearchResponse = (searchResult: SearchResponse): FindRelatedSymbolsResponse => {
+const parseRelatedSymbols搜索Response = (searchResult: 搜索Response): FindRelatedSymbolsResponse => {
     return {
         stats: {
             matchCount: searchResult.stats.actualMatchCount,
@@ -133,7 +133,7 @@ const parseRelatedSymbolsSearchResponse = (searchResult: SearchResponse): FindRe
             const chunks = file.chunks;
 
             return {
-                fileName: file.fileName.text,
+                file名称: file.file名称.text,
                 repository: file.repository,
                 repositoryId: file.repositoryId,
                 webUrl: file.webUrl,

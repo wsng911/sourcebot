@@ -9,10 +9,10 @@ import { useBrowseParams } from "@/app/(app)/browse/hooks/useBrowseParams";
 
 const renderLoadingSkeleton = (depth: number) => {
     return (
-        <div className="flex items-center gap-1 p-0.5 text-sm text-muted-foreground" style={{ paddingLeft: `${depth * 16}px` }}>
-            <div className="w-5 h-4" />
-            <div className="h-3 w-3 rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground animate-spin" />
-            <span>Loading...</span>
+        <div class名称="flex items-center gap-1 p-0.5 text-sm text-muted-foreground" style={{ paddingLeft: `${depth * 16}px` }}>
+            <div class名称="w-5 h-4" />
+            <div class名称="h-3 w-3 rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground animate-spin" />
+            <span>加载中...</span>
         </div>
     );
 }
@@ -26,7 +26,7 @@ interface PureFileTreePanelProps {
 
 export const PureFileTreePanel = ({ tree, openPaths, path, onTreeNodeClicked }: PureFileTreePanelProps) => {
     const scrollAreaRef = useRef<HTMLDivElement>(null);
-    const { repoName, revisionName } = useBrowseParams();
+    const { repo名称, revision名称 } = useBrowseParams();
 
     const renderTree = useCallback((nodes: FileTreeNode, depth = 0): React.ReactNode => {
         return (
@@ -36,8 +36,8 @@ export const PureFileTreePanel = ({ tree, openPaths, path, onTreeNodeClicked }: 
                         <React.Fragment key={node.path}>
                             <FileTreeItemComponent
                                 href={getBrowsePath({
-                                    repoName,
-                                    revisionName,
+                                    repo名称,
+                                    revision名称,
                                     path: node.path,
                                     pathType: node.type === 'tree' ? 'tree' : 'blob',
                                 })}
@@ -77,13 +77,13 @@ export const PureFileTreePanel = ({ tree, openPaths, path, onTreeNodeClicked }: 
                 })}
             </>
         );
-    }, [onTreeNodeClicked, path, repoName, revisionName, openPaths]);
+    }, [onTreeNodeClicked, path, repo名称, revision名称, openPaths]);
 
     const renderedTree = useMemo(() => renderTree(tree), [tree, renderTree]);
 
     return (
         <ScrollArea
-            className="h-full w-full overflow-auto p-0.5"
+            class名称="h-full w-full overflow-auto p-0.5"
             ref={scrollAreaRef}
         >
             {renderedTree}

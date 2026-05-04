@@ -1,6 +1,6 @@
 'use client';
 
-import { useCodeMirrorHighlighter } from "@/hooks/useCodeMirrorHighlighter";
+import { useCode镜像Highlighter } from "@/hooks/useCode镜像Highlighter";
 import { getCodeParserByFilename } from "@/lib/codeHighlight";
 import { DiffHunk } from "@/features/git";
 import { presentableDiff } from "@codemirror/merge";
@@ -42,7 +42,7 @@ const MARKER: Record<'add' | 'del' | 'context', string> = {
     context: ' ',
 };
 
-// Mirrors `lightweightCodeHighlighter`: skip rendering when any line in the
+// 镜像s `lightweightCodeHighlighter`: skip rendering when any line in the
 // diff exceeds this length. Tree-sitter parsing + per-character span emission
 // gets very expensive on minified files (one-line bundles, etc.), and the
 // resulting display is unreadable anyway.
@@ -50,7 +50,7 @@ const MAX_NUMBER_OF_CHARACTER_PER_LINE = 1000;
 
 export const LightweightDiffViewer = ({ hunks, oldPath, newPath }: LightweightDiffViewerProps) => {
     const filename = (newPath ?? oldPath ?? '').split('/').pop() ?? '';
-    const highlighter = useCodeMirrorHighlighter();
+    const highlighter = useCode镜像Highlighter();
 
     const [parser, setParser] = useState<Parser | null>(null);
     useEffect(() => {
@@ -73,7 +73,7 @@ export const LightweightDiffViewer = ({ hunks, oldPath, newPath }: LightweightDi
 
     if (isDiffTooLargeToDisplay) {
         return (
-            <div className="p-4 text-sm text-muted-foreground">
+            <div class名称="p-4 text-sm text-muted-foreground">
                 Diff too large to display in preview.
             </div>
         );
@@ -81,7 +81,7 @@ export const LightweightDiffViewer = ({ hunks, oldPath, newPath }: LightweightDi
 
     return (
         <div
-            className="font-mono text-xs leading-relaxed"
+            class名称="font-mono text-xs leading-relaxed"
             style={{
                 display: 'grid',
                 // Six tracks total — three per side: line number, marker,
@@ -105,7 +105,7 @@ export const LightweightDiffViewer = ({ hunks, oldPath, newPath }: LightweightDi
                     <Fragment key={hunkIdx}>
                         <HunkHeader
                             hunk={hunk}
-                            className={hunkIdx === 0 ? 'border-b' : 'border-y'}
+                            class名称={hunkIdx === 0 ? 'border-b' : 'border-y'}
                         />
                         {rows.map((row, rowIdx) => (
                             <SplitRowView
@@ -122,15 +122,15 @@ export const LightweightDiffViewer = ({ hunks, oldPath, newPath }: LightweightDi
     );
 };
 
-const HunkHeader = ({ hunk, className = '' }: { hunk: DiffHunk; className?: string }) => {
+const HunkHeader = ({ hunk, class名称 = '' }: { hunk: DiffHunk; class名称?: string }) => {
     const range = `@@ -${hunk.oldRange.start},${hunk.oldRange.lines} +${hunk.newRange.start},${hunk.newRange.lines} @@`;
     return (
         <div
-            className={`px-3 py-1 bg-muted text-muted-foreground text-xs ${className}`}
+            class名称={`px-3 py-1 bg-muted text-muted-foreground text-xs ${class名称}`}
             style={{ gridColumn: '1 / -1' }}
         >
             <span>{range}</span>
-            {hunk.heading && <span className="ml-2">{hunk.heading}</span>}
+            {hunk.heading && <span class名称="ml-2">{hunk.heading}</span>}
         </div>
     );
 };
@@ -194,7 +194,7 @@ const SideCell = ({ line, side, parser, highlighter, innerDiffRanges }: SideCell
     if (!line) {
         return (
             <div
-                className={`${SIDE_BG[side].blank} ${separator} px-2 py-px`}
+                class名称={`${SIDE_BG[side].blank} ${separator} px-2 py-px`}
                 style={{ gridColumn: 'span 3' }}
                 aria-hidden="true"
             />
@@ -207,7 +207,7 @@ const SideCell = ({ line, side, parser, highlighter, innerDiffRanges }: SideCell
 
     return (
         <div
-            className={`${bg} ${separator} items-start py-px`}
+            class名称={`${bg} ${separator} items-start py-px`}
             style={{
                 gridColumn: 'span 3',
                 display: 'grid',
@@ -217,18 +217,18 @@ const SideCell = ({ line, side, parser, highlighter, innerDiffRanges }: SideCell
                 gridTemplateColumns: 'subgrid',
             }}
         >
-            <span className="text-muted-foreground select-none text-right tabular-nums px-2">
+            <span class名称="text-muted-foreground select-none text-right tabular-nums px-2">
                 {lineNumber ?? ''}
             </span>
-            <span className="text-muted-foreground select-none">{marker}</span>
-            <span className="whitespace-pre-wrap break-words pr-2">
+            <span class名称="text-muted-foreground select-none">{marker}</span>
+            <span class名称="whitespace-pre-wrap break-words pr-2">
                 {renderLineContent(line.content, parser, highlighter, innerDiffRanges, INNER_DIFF_BG[side])}
             </span>
         </div>
     );
 };
 
-// Synchronous Lezer highlight + optional inner-diff overlay. Walks tokens
+// 同步hronous Lezer highlight + optional inner-diff overlay. Walks tokens
 // returned by `highlightTree`, fills in unstyled gaps, and splits each token
 // further at inner-diff range boundaries so we can apply the inner-diff class
 // without breaking syntax classes.
@@ -265,10 +265,10 @@ const renderLineContent = (
                 }
             }
             const text = content.slice(cursor, next);
-            const className = [syntaxClass, inDiff ? innerDiffClass : null].filter(Boolean).join(' ');
+            const class名称 = [syntaxClass, inDiff ? innerDiffClass : null].filter(Boolean).join(' ');
             output.push(
-                className
-                    ? <span key={`${cursor}-${next}`} className={className}>{text}</span>
+                class名称
+                    ? <span key={`${cursor}-${next}`} class名称={class名称}>{text}</span>
                     : <Fragment key={`${cursor}-${next}`}>{text}</Fragment>
             );
             cursor = next;

@@ -32,27 +32,27 @@ export const GlobToolComponent = (output: ToolResult<GlobMetadata>) => {
 
     return (
         <HoverCard openDelay={200}>
-            <div className="flex items-center gap-2 select-none cursor-default">
-                <div className="flex-1 min-w-0">
+            <div class名称="flex items-center gap-2 select-none cursor-default">
+                <div class名称="flex-1 min-w-0">
                     <HoverCardTrigger asChild>
-                        <span className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 overflow-hidden">
-                            <span className="flex-shrink-0">Searched files</span>
-                            <code className="text-xs bg-muted px-1 py-0.5 rounded truncate text-foreground max-w-[300px]">{output.metadata.pattern}</code>
-                            {output.metadata.inputRepo && <><span className="flex-shrink-0">in</span><RepoBadge repo={output.metadata.inputRepo} /></>}
+                        <span class名称="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 overflow-hidden">
+                            <span class名称="flex-shrink-0">搜索ed files</span>
+                            <code class名称="text-xs bg-muted px-1 py-0.5 rounded truncate text-foreground max-w-[300px]">{output.metadata.pattern}</code>
+                            {output.metadata.inputRepo && <><span class名称="flex-shrink-0">in</span><RepoBadge repo={output.metadata.inputRepo} /></>}
                         </span>
                     </HoverCardTrigger>
                 </div>
-                <span className="text-xs text-muted-foreground flex-shrink-0">{stats}</span>
-                <Separator orientation="vertical" className="h-3 flex-shrink-0" />
+                <span class名称="text-xs text-muted-foreground flex-shrink-0">{stats}</span>
+                <Separator orientation="vertical" class名称="h-3 flex-shrink-0" />
             </div>
             {output.metadata.files.length > 0 && (
-                <HoverCardContent align="start" className="w-96 p-0">
-                    <div className="overflow-y-auto max-h-72">
+                <HoverCardContent align="start" class名称="w-96 p-0">
+                    <div class名称="overflow-y-auto max-h-72">
                         {Array.from(filesByRepo.entries()).map(([repo, files]) => (
                             <div key={repo}>
                                 <RepoHeader
                                     repo={output.metadata.repoInfoMap[repo]}
-                                    repoName={repo}
+                                    repo名称={repo}
                                     isPrimary={false}
                                 />
                                 {files.map((file) => (

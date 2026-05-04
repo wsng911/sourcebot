@@ -51,7 +51,7 @@ export const isOwnerOfChat = async (chat: Chat, user: User | undefined): Promise
 /**
  * Checks if a user has been explicitly shared access to a chat.
  */
-export const isChatSharedWithUser = async ({
+export const isChat分享dWithUser = async ({
     prisma, chatId, userId,
 }: {
     prisma: PrismaClient;
@@ -92,12 +92,12 @@ export const updateChatMessages = async ({
 
     if (env.DEBUG_WRITE_CHAT_MESSAGES_TO_FILE) {
         const chatDir = path.join(env.DATA_CACHE_DIR, 'chats');
-        if (!fs.existsSync(chatDir)) {
-            fs.mkdirSync(chatDir, { recursive: true });
+        if (!fs.exists同步(chatDir)) {
+            fs.mkdir同步(chatDir, { recursive: true });
         }
 
         const chatFile = path.join(chatDir, `${chatId}.json`);
-        fs.writeFileSync(chatFile, JSON.stringify(messages, null, 2));
+        fs.writeFile同步(chatFile, JSON.stringify(messages, null, 2));
     }
 };
 /**
@@ -126,11 +126,11 @@ export const getConfiguredLanguageModelsInfo = async () => {
     return models.map((model): LanguageModelInfo => ({
         provider: model.provider,
         model: model.model,
-        displayName: model.displayName,
+        display名称: model.display名称,
     }));
 };
 
-export const generateChatNameFromMessage = async ({ message, languageModelConfig }: { message: string, languageModelConfig: LanguageModel }) => {
+export const generateChat名称FromMessage = async ({ message, languageModelConfig }: { message: string, languageModelConfig: LanguageModel }) => {
     const { model } = await getAISDKLanguageModelAndOptions(languageModelConfig);
 
     const prompt = `Convert this question into a short topic title (max 50 characters). 
@@ -233,7 +233,7 @@ export const getAISDKLanguageModelAndOptions = async (config: LanguageModel): Pr
                     baseURL: config.baseUrl,
                     apiKey: config.token ? (await getTokenFromConfig(config.token)) : env.AZURE_API_KEY,
                     apiVersion: config.apiVersion,
-                    resourceName: config.resourceName ?? env.AZURE_RESOURCE_NAME,
+                    resource名称: config.resource名称 ?? env.AZURE_RESOURCE_NAME,
                     headers: config.headers
                         ? await extractLanguageModelKeyValuePairs(config.headers)
                         : undefined,
@@ -374,7 +374,7 @@ export const getAISDKLanguageModelAndOptions = async (config: LanguageModel): Pr
             case 'openai-compatible': {
                 const openai = createOpenAICompatible({
                     baseURL: config.baseUrl,
-                    name: config.displayName ?? modelId,
+                    name: config.display名称 ?? modelId,
                     apiKey: config.token
                         ? await getTokenFromConfig(config.token)
                         : undefined,
@@ -390,7 +390,7 @@ export const getAISDKLanguageModelAndOptions = async (config: LanguageModel): Pr
                     model: openai.chatModel(modelId),
                     middleware: [
                         extractReasoningMiddleware({
-                            tagName: config.reasoningTag ?? 'think',
+                            tag名称: config.reasoningTag ?? 'think',
                         }),
                     ]
                 });

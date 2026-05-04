@@ -27,9 +27,9 @@ export const CodeBlock = ({
     }, [lineCount]);
 
     return (
-        <div className="flex flex-col rounded-md border overflow-hidden not-prose my-4">
+        <div class名称="flex flex-col rounded-md border overflow-hidden not-prose my-4">
             <div
-                className={cn(
+                class名称={cn(
                     "overflow-hidden transition-all duration-300 ease-in-out",
                     {
                         "max-h-[350px]": !isExpanded && isExpandButtonVisible, // Roughly 14 lines
@@ -41,7 +41,7 @@ export const CodeBlock = ({
                     language={language}
                     lineNumbers={true}
                     renderWhitespace={true}
-                    isCopyButtonVisible={true}
+                    is复制ButtonVisible={true}
                 >
                     {code}
                 </LightweightCodeHighlighter>
@@ -49,7 +49,7 @@ export const CodeBlock = ({
             {isExpandButtonVisible && (
                 <div
                     tabIndex={0}
-                    className="flex flex-row items-center justify-center w-full bg-accent py-1 cursor-pointer text-muted-foreground hover:text-foreground"
+                    class名称="flex flex-row items-center justify-center w-full bg-accent py-1 cursor-pointer text-muted-foreground hover:text-foreground"
                     onClick={() => setIsExpanded(!isExpanded)}
                     onKeyDown={(e) => {
                         if (e.key !== "Enter") {
@@ -58,8 +58,8 @@ export const CodeBlock = ({
                         setIsExpanded(!isExpanded);
                     }}
                 >
-                    {isExpanded ? <DoubleArrowUpIcon className="w-3 h-3" /> : <DoubleArrowDownIcon className="w-3 h-3" />}
-                    <span className="text-sm ml-1">{isExpanded ? 'Show less' : 'Show more'}</span>
+                    {isExpanded ? <DoubleArrowUpIcon class名称="w-3 h-3" /> : <DoubleArrowDownIcon class名称="w-3 h-3" />}
+                    <span class名称="text-sm ml-1">{isExpanded ? 'Show less' : 'Show more'}</span>
                 </div>
             )}
         </div>

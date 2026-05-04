@@ -1,10 +1,10 @@
-import { CodeMirrorLanguageKey } from "@/lib/codemirrorLanguage";
+import { Code镜像LanguageKey } from "@/lib/codemirrorLanguage";
 
 type LanguageMetadataMap = { [key: string]: LanguageMetadata };
 
 type LanguageMetadata = {
    iconify: string | null;
-   codemirrorLanguage: CodeMirrorLanguageKey | null;
+   codemirrorLanguage: Code镜像LanguageKey | null;
 };
 
 // Languages:
@@ -676,7 +676,7 @@ export const languageMetadataMap: LanguageMetadataMap = {
       "iconify": null,
       "codemirrorLanguage": null,
    },
-   "EditorConfig": {
+   "编辑orConfig": {
       "iconify": "file-icons:editorconfig",
       "codemirrorLanguage": null,
    },
@@ -820,7 +820,7 @@ export const languageMetadataMap: LanguageMetadataMap = {
       "iconify": "file-icons:gap",
       "codemirrorLanguage": null,
    },
-   "GCC Machine Description": {
+   "GCC Machine 描述": {
       "iconify": "devicon:gcc",
       "codemirrorLanguage": "common lisp",
    },
@@ -1172,7 +1172,7 @@ export const languageMetadataMap: LanguageMetadataMap = {
       "iconify": "vscode-icons:file-type-json",
       "codemirrorLanguage": "json",
    },
-   "JSON with Comments": {
+   "JSON with 评论": {
       "iconify": "vscode-icons:file-type-json",
       "codemirrorLanguage": "jsonc",
    },
@@ -2020,7 +2020,7 @@ export const languageMetadataMap: LanguageMetadataMap = {
       "iconify": "vscode-icons:file-type-protobuf",
       "codemirrorLanguage": null,
    },
-   "Public Key": {
+   "公开 Key": {
       "iconify": "vscode-icons:file-type-key",
       "codemirrorLanguage": null,
    },
@@ -2772,7 +2772,7 @@ export const languageMetadataMap: LanguageMetadataMap = {
       "iconify": null,
       "codemirrorLanguage": null,
    },
-   "World of Warcraft Addon Data": {
+   "World of Warcraft 添加on Data": {
       "iconify": null,
       "codemirrorLanguage": null,
    },

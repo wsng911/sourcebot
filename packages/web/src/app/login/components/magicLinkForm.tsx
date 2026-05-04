@@ -54,15 +54,15 @@ export const MagicLinkForm = ({ callbackUrl, context }: MagicLinkFormProps) => {
             {...magicLinkForm}
         >
             <form
-                onSubmit={magicLinkForm.handleSubmit(onSignIn)}
-                className="w-full"
+                on提交={magicLinkForm.handle提交(onSignIn)}
+                class名称="w-full"
             >
                 <FormField
                     control={magicLinkForm.control}
                     name="email"
                     render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel>Email</FormLabel>
+                        <FormItem class名称="mb-4">
+                            <FormLabel>邮箱</FormLabel>
                             <FormControl>
                                 <Input placeholder="email@example.com" {...field} />
                             </FormControl>
@@ -72,12 +72,12 @@ export const MagicLinkForm = ({ callbackUrl, context }: MagicLinkFormProps) => {
                 />
                 <Button
                     type="submit"
-                    className="w-full"
+                    class名称="w-full"
                     variant="outline"
                     disabled={isLoading}
                 >
-                    {isLoading ? <Loader2 className="animate-spin mr-2" /> : ""}
-                    {context === "login" ? "Sign in with login code" : "Sign up with login code"}
+                    {isLoading ? <Loader2 class名称="animate-spin mr-2" /> : ""}
+                    {context === "login" ? "登录 with login code" : "注册 with login code"}
                 </Button>
             </form>
         </Form>

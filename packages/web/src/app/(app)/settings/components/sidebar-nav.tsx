@@ -18,14 +18,14 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
     items: SidebarNavItem[]
 }
 
-export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
+export function SidebarNav({ class名称, items, ...props }: SidebarNavProps) {
     const pathname = usePathname()
 
     return (
         <nav
-            className={cn(
+            class名称={cn(
                 "flex flex-col space-x-2 lg:space-x-0 lg:space-y-1",
-                className
+                class名称
             )}
             {...props}
         >
@@ -36,7 +36,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
                     <Link
                         key={item.href}
                         href={item.href}
-                        className={cn(
+                        class名称={cn(
                             buttonVariants({ variant: "ghost" }),
                             isActive
                                 ? "bg-muted hover:bg-muted"
@@ -45,7 +45,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
                         )}
                     >
                         {item.title}
-                        {item.isNotificationDotVisible && <NotificationDot className="ml-1.5" />}
+                        {item.isNotificationDotVisible && <NotificationDot class名称="ml-1.5" />}
                     </Link>
                 )
             })}

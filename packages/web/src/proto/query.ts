@@ -6,7 +6,7 @@ import type { Boost as _zoekt_webserver_v1_Boost, Boost__Output as _zoekt_webser
 import type { Branch as _zoekt_webserver_v1_Branch, Branch__Output as _zoekt_webserver_v1_Branch__Output } from './zoekt/webserver/v1/Branch';
 import type { BranchRepos as _zoekt_webserver_v1_BranchRepos, BranchRepos__Output as _zoekt_webserver_v1_BranchRepos__Output } from './zoekt/webserver/v1/BranchRepos';
 import type { BranchesRepos as _zoekt_webserver_v1_BranchesRepos, BranchesRepos__Output as _zoekt_webserver_v1_BranchesRepos__Output } from './zoekt/webserver/v1/BranchesRepos';
-import type { FileNameSet as _zoekt_webserver_v1_FileNameSet, FileNameSet__Output as _zoekt_webserver_v1_FileNameSet__Output } from './zoekt/webserver/v1/FileNameSet';
+import type { File名称Set as _zoekt_webserver_v1_File名称Set, File名称Set__Output as _zoekt_webserver_v1_File名称Set__Output } from './zoekt/webserver/v1/File名称Set';
 import type { Language as _zoekt_webserver_v1_Language, Language__Output as _zoekt_webserver_v1_Language__Output } from './zoekt/webserver/v1/Language';
 import type { Meta as _zoekt_webserver_v1_Meta, Meta__Output as _zoekt_webserver_v1_Meta__Output } from './zoekt/webserver/v1/Meta';
 import type { Not as _zoekt_webserver_v1_Not, Not__Output as _zoekt_webserver_v1_Not__Output } from './zoekt/webserver/v1/Not';
@@ -35,7 +35,7 @@ export interface ProtoGrpcType {
         Branch: MessageTypeDefinition<_zoekt_webserver_v1_Branch, _zoekt_webserver_v1_Branch__Output>
         BranchRepos: MessageTypeDefinition<_zoekt_webserver_v1_BranchRepos, _zoekt_webserver_v1_BranchRepos__Output>
         BranchesRepos: MessageTypeDefinition<_zoekt_webserver_v1_BranchesRepos, _zoekt_webserver_v1_BranchesRepos__Output>
-        FileNameSet: MessageTypeDefinition<_zoekt_webserver_v1_FileNameSet, _zoekt_webserver_v1_FileNameSet__Output>
+        File名称Set: MessageTypeDefinition<_zoekt_webserver_v1_File名称Set, _zoekt_webserver_v1_File名称Set__Output>
         Language: MessageTypeDefinition<_zoekt_webserver_v1_Language, _zoekt_webserver_v1_Language__Output>
         Meta: MessageTypeDefinition<_zoekt_webserver_v1_Meta, _zoekt_webserver_v1_Meta__Output>
         Not: MessageTypeDefinition<_zoekt_webserver_v1_Not, _zoekt_webserver_v1_Not__Output>

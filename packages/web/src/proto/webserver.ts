@@ -10,7 +10,7 @@ import type { BranchRepos as _zoekt_webserver_v1_BranchRepos, BranchRepos__Outpu
 import type { BranchesRepos as _zoekt_webserver_v1_BranchesRepos, BranchesRepos__Output as _zoekt_webserver_v1_BranchesRepos__Output } from './zoekt/webserver/v1/BranchesRepos';
 import type { ChunkMatch as _zoekt_webserver_v1_ChunkMatch, ChunkMatch__Output as _zoekt_webserver_v1_ChunkMatch__Output } from './zoekt/webserver/v1/ChunkMatch';
 import type { FileMatch as _zoekt_webserver_v1_FileMatch, FileMatch__Output as _zoekt_webserver_v1_FileMatch__Output } from './zoekt/webserver/v1/FileMatch';
-import type { FileNameSet as _zoekt_webserver_v1_FileNameSet, FileNameSet__Output as _zoekt_webserver_v1_FileNameSet__Output } from './zoekt/webserver/v1/FileNameSet';
+import type { File名称Set as _zoekt_webserver_v1_File名称Set, File名称Set__Output as _zoekt_webserver_v1_File名称Set__Output } from './zoekt/webserver/v1/File名称Set';
 import type { IndexMetadata as _zoekt_webserver_v1_IndexMetadata, IndexMetadata__Output as _zoekt_webserver_v1_IndexMetadata__Output } from './zoekt/webserver/v1/IndexMetadata';
 import type { Language as _zoekt_webserver_v1_Language, Language__Output as _zoekt_webserver_v1_Language__Output } from './zoekt/webserver/v1/Language';
 import type { LineFragmentMatch as _zoekt_webserver_v1_LineFragmentMatch, LineFragmentMatch__Output as _zoekt_webserver_v1_LineFragmentMatch__Output } from './zoekt/webserver/v1/LineFragmentMatch';
@@ -34,14 +34,14 @@ import type { RepoListEntry as _zoekt_webserver_v1_RepoListEntry, RepoListEntry_
 import type { RepoRegexp as _zoekt_webserver_v1_RepoRegexp, RepoRegexp__Output as _zoekt_webserver_v1_RepoRegexp__Output } from './zoekt/webserver/v1/RepoRegexp';
 import type { RepoSet as _zoekt_webserver_v1_RepoSet, RepoSet__Output as _zoekt_webserver_v1_RepoSet__Output } from './zoekt/webserver/v1/RepoSet';
 import type { RepoStats as _zoekt_webserver_v1_RepoStats, RepoStats__Output as _zoekt_webserver_v1_RepoStats__Output } from './zoekt/webserver/v1/RepoStats';
-import type { Repository as _zoekt_webserver_v1_Repository, Repository__Output as _zoekt_webserver_v1_Repository__Output } from './zoekt/webserver/v1/Repository';
-import type { RepositoryBranch as _zoekt_webserver_v1_RepositoryBranch, RepositoryBranch__Output as _zoekt_webserver_v1_RepositoryBranch__Output } from './zoekt/webserver/v1/RepositoryBranch';
-import type { SearchOptions as _zoekt_webserver_v1_SearchOptions, SearchOptions__Output as _zoekt_webserver_v1_SearchOptions__Output } from './zoekt/webserver/v1/SearchOptions';
-import type { SearchRequest as _zoekt_webserver_v1_SearchRequest, SearchRequest__Output as _zoekt_webserver_v1_SearchRequest__Output } from './zoekt/webserver/v1/SearchRequest';
-import type { SearchResponse as _zoekt_webserver_v1_SearchResponse, SearchResponse__Output as _zoekt_webserver_v1_SearchResponse__Output } from './zoekt/webserver/v1/SearchResponse';
+import type { 仓库 as _zoekt_webserver_v1_仓库, 仓库__Output as _zoekt_webserver_v1_仓库__Output } from './zoekt/webserver/v1/仓库';
+import type { 仓库Branch as _zoekt_webserver_v1_仓库Branch, 仓库Branch__Output as _zoekt_webserver_v1_仓库Branch__Output } from './zoekt/webserver/v1/仓库Branch';
+import type { 搜索Options as _zoekt_webserver_v1_搜索Options, 搜索Options__Output as _zoekt_webserver_v1_搜索Options__Output } from './zoekt/webserver/v1/搜索Options';
+import type { 搜索Request as _zoekt_webserver_v1_搜索Request, 搜索Request__Output as _zoekt_webserver_v1_搜索Request__Output } from './zoekt/webserver/v1/搜索Request';
+import type { 搜索Response as _zoekt_webserver_v1_搜索Response, 搜索Response__Output as _zoekt_webserver_v1_搜索Response__Output } from './zoekt/webserver/v1/搜索Response';
 import type { Stats as _zoekt_webserver_v1_Stats, Stats__Output as _zoekt_webserver_v1_Stats__Output } from './zoekt/webserver/v1/Stats';
-import type { StreamSearchRequest as _zoekt_webserver_v1_StreamSearchRequest, StreamSearchRequest__Output as _zoekt_webserver_v1_StreamSearchRequest__Output } from './zoekt/webserver/v1/StreamSearchRequest';
-import type { StreamSearchResponse as _zoekt_webserver_v1_StreamSearchResponse, StreamSearchResponse__Output as _zoekt_webserver_v1_StreamSearchResponse__Output } from './zoekt/webserver/v1/StreamSearchResponse';
+import type { Stream搜索Request as _zoekt_webserver_v1_Stream搜索Request, Stream搜索Request__Output as _zoekt_webserver_v1_Stream搜索Request__Output } from './zoekt/webserver/v1/Stream搜索Request';
+import type { Stream搜索Response as _zoekt_webserver_v1_Stream搜索Response, Stream搜索Response__Output as _zoekt_webserver_v1_Stream搜索Response__Output } from './zoekt/webserver/v1/Stream搜索Response';
 import type { Substring as _zoekt_webserver_v1_Substring, Substring__Output as _zoekt_webserver_v1_Substring__Output } from './zoekt/webserver/v1/Substring';
 import type { Symbol as _zoekt_webserver_v1_Symbol, Symbol__Output as _zoekt_webserver_v1_Symbol__Output } from './zoekt/webserver/v1/Symbol';
 import type { SymbolInfo as _zoekt_webserver_v1_SymbolInfo, SymbolInfo__Output as _zoekt_webserver_v1_SymbolInfo__Output } from './zoekt/webserver/v1/SymbolInfo';
@@ -69,7 +69,7 @@ export interface ProtoGrpcType {
         BranchesRepos: MessageTypeDefinition<_zoekt_webserver_v1_BranchesRepos, _zoekt_webserver_v1_BranchesRepos__Output>
         ChunkMatch: MessageTypeDefinition<_zoekt_webserver_v1_ChunkMatch, _zoekt_webserver_v1_ChunkMatch__Output>
         FileMatch: MessageTypeDefinition<_zoekt_webserver_v1_FileMatch, _zoekt_webserver_v1_FileMatch__Output>
-        FileNameSet: MessageTypeDefinition<_zoekt_webserver_v1_FileNameSet, _zoekt_webserver_v1_FileNameSet__Output>
+        File名称Set: MessageTypeDefinition<_zoekt_webserver_v1_File名称Set, _zoekt_webserver_v1_File名称Set__Output>
         FlushReason: EnumTypeDefinition
         IndexMetadata: MessageTypeDefinition<_zoekt_webserver_v1_IndexMetadata, _zoekt_webserver_v1_IndexMetadata__Output>
         Language: MessageTypeDefinition<_zoekt_webserver_v1_Language, _zoekt_webserver_v1_Language__Output>
@@ -94,14 +94,14 @@ export interface ProtoGrpcType {
         RepoRegexp: MessageTypeDefinition<_zoekt_webserver_v1_RepoRegexp, _zoekt_webserver_v1_RepoRegexp__Output>
         RepoSet: MessageTypeDefinition<_zoekt_webserver_v1_RepoSet, _zoekt_webserver_v1_RepoSet__Output>
         RepoStats: MessageTypeDefinition<_zoekt_webserver_v1_RepoStats, _zoekt_webserver_v1_RepoStats__Output>
-        Repository: MessageTypeDefinition<_zoekt_webserver_v1_Repository, _zoekt_webserver_v1_Repository__Output>
-        RepositoryBranch: MessageTypeDefinition<_zoekt_webserver_v1_RepositoryBranch, _zoekt_webserver_v1_RepositoryBranch__Output>
-        SearchOptions: MessageTypeDefinition<_zoekt_webserver_v1_SearchOptions, _zoekt_webserver_v1_SearchOptions__Output>
-        SearchRequest: MessageTypeDefinition<_zoekt_webserver_v1_SearchRequest, _zoekt_webserver_v1_SearchRequest__Output>
-        SearchResponse: MessageTypeDefinition<_zoekt_webserver_v1_SearchResponse, _zoekt_webserver_v1_SearchResponse__Output>
+        仓库: MessageTypeDefinition<_zoekt_webserver_v1_仓库, _zoekt_webserver_v1_仓库__Output>
+        仓库Branch: MessageTypeDefinition<_zoekt_webserver_v1_仓库Branch, _zoekt_webserver_v1_仓库Branch__Output>
+        搜索Options: MessageTypeDefinition<_zoekt_webserver_v1_搜索Options, _zoekt_webserver_v1_搜索Options__Output>
+        搜索Request: MessageTypeDefinition<_zoekt_webserver_v1_搜索Request, _zoekt_webserver_v1_搜索Request__Output>
+        搜索Response: MessageTypeDefinition<_zoekt_webserver_v1_搜索Response, _zoekt_webserver_v1_搜索Response__Output>
         Stats: MessageTypeDefinition<_zoekt_webserver_v1_Stats, _zoekt_webserver_v1_Stats__Output>
-        StreamSearchRequest: MessageTypeDefinition<_zoekt_webserver_v1_StreamSearchRequest, _zoekt_webserver_v1_StreamSearchRequest__Output>
-        StreamSearchResponse: MessageTypeDefinition<_zoekt_webserver_v1_StreamSearchResponse, _zoekt_webserver_v1_StreamSearchResponse__Output>
+        Stream搜索Request: MessageTypeDefinition<_zoekt_webserver_v1_Stream搜索Request, _zoekt_webserver_v1_Stream搜索Request__Output>
+        Stream搜索Response: MessageTypeDefinition<_zoekt_webserver_v1_Stream搜索Response, _zoekt_webserver_v1_Stream搜索Response__Output>
         Substring: MessageTypeDefinition<_zoekt_webserver_v1_Substring, _zoekt_webserver_v1_Substring__Output>
         Symbol: MessageTypeDefinition<_zoekt_webserver_v1_Symbol, _zoekt_webserver_v1_Symbol__Output>
         SymbolInfo: MessageTypeDefinition<_zoekt_webserver_v1_SymbolInfo, _zoekt_webserver_v1_SymbolInfo__Output>

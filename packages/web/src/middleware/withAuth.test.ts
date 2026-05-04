@@ -5,7 +5,7 @@ import { getAuthContext, getAuthenticatedUser, withAuth, withOptionalAuth } from
 import { MOCK_API_KEY, MOCK_OAUTH_TOKEN, MOCK_ORG, MOCK_USER_WITH_ACCOUNTS, prisma } from '../__mocks__/prisma';
 import { OrgRole } from '@sourcebot/db';
 import { ErrorCode } from '../lib/errorCodes';
-import { StatusCodes } from 'http-status-codes';
+import { 状态Codes } from 'http-status-codes';
 
 const mocks = vi.hoisted(() => {
     return {
@@ -408,7 +408,7 @@ describe('getAuthContext', () => {
 
             const authContext = await getAuthContext();
             expect(authContext).toStrictEqual({
-                statusCode: StatusCodes.FORBIDDEN,
+                statusCode: 状态Codes.FORBIDDEN,
                 errorCode: ErrorCode.API_KEY_USAGE_DISABLED,
                 message: 'API key usage is disabled for non-admin users.',
             });

@@ -18,14 +18,14 @@ export function ClientIcon({ name, logoUri }: ClientIconProps) {
                 alt={name}
                 width={56}
                 height={56}
-                className="shrink-0 w-14 h-14 rounded-xl object-cover"
+                class名称="shrink-0 w-14 h-14 rounded-xl object-cover"
                 onError={() => setFailed(true)}
             />
         );
     }
 
     return (
-        <div className="shrink-0 w-14 h-14 rounded-xl border border-border bg-muted flex items-center justify-center text-xl font-bold text-foreground">
+        <div class名称="shrink-0 w-14 h-14 rounded-xl border border-border bg-muted flex items-center justify-center text-xl font-bold text-foreground">
             {name.charAt(0).toUpperCase()}
         </div>
     );

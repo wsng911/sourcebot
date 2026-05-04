@@ -47,7 +47,7 @@ type ListCommitsRequest = {
  * these formats in the --since and --until flags.
  */
 export const listCommits = async ({
-    repo: repoName,
+    repo: repo名称,
     query,
     since,
     until,
@@ -60,13 +60,13 @@ export const listCommits = async ({
     withOptionalAuth(async ({ org, prisma }) => {
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
 
         if (!repo) {
-            return notFound(`Repository "${repoName}" not found.`);
+            return notFound(`仓库 "${repo名称}" not found.`);
         }
 
         if (!isGitRefValid(ref)) {
@@ -138,8 +138,8 @@ export const listCommits = async ({
                 message: c.message,
                 refs: c.refs,
                 body: c.body,
-                authorName: c.author_name,
-                authorEmail: c.author_email,
+                author名称: c.author_name,
+                author邮箱: c.author_email,
             }));
 
             return { commits, totalCount };
@@ -163,7 +163,7 @@ export const listCommits = async ({
 
             if (errorMessage.includes('timeout')) {
                 return unexpectedError(
-                    `Git operation timed out after 30 seconds for repository ${repoName}. ` +
+                    `Git operation timed out after 30 seconds for repository ${repo名称}. ` +
                     `The repository may be too large or the git operation is taking too long.`
                 );
             }
@@ -171,11 +171,11 @@ export const listCommits = async ({
             // Generic error fallback
             if (error instanceof Error) {
                 throw new Error(
-                    `Failed to search commits in repository ${repoName}: ${error.message}`
+                    `Failed to search commits in repository ${repo名称}: ${error.message}`
                 );
             } else {
                 throw new Error(
-                    `Failed to search commits in repository ${repoName}: ${errorMessage}`
+                    `Failed to search commits in repository ${repo名称}: ${errorMessage}`
                 );
             }
         }

@@ -3,14 +3,14 @@ import { signOut } from "@/auth";
 import posthog from "posthog-js";
 
 interface LogoutEscapeHatchProps {
-    className?: string;
+    class名称?: string;
 }
 
 export const LogoutEscapeHatch = ({
-    className,
+    class名称,
 }: LogoutEscapeHatchProps) => {
     return (
-        <div className={className}>
+        <div class名称={class名称}>
             <form
                 action={async () => {
                     "use server";
@@ -23,10 +23,10 @@ export const LogoutEscapeHatch = ({
             >
                 <button
                     type="submit"
-                    className="flex flex-row items-center gap-2 text-sm text-muted-foreground cursor-pointer"
+                    class名称="flex flex-row items-center gap-2 text-sm text-muted-foreground cursor-pointer"
                 >
-                    <LogOutIcon className="w-4 h-4" />
-                    Log out
+                    <LogOutIcon class名称="w-4 h-4" />
+                    退出登录
                 </button>
             </form>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { SearchResultFile } from "@/features/search";
+import { 搜索ResultFile } from "@/features/search";
 import {  useMemo } from "react";
 import { useGetSelectedFromQuery } from "./useGetSelectedFromQuery";
 
@@ -9,7 +9,7 @@ export const REPOS_QUERY_PARAM = "repos";
 
 
 export const useFilteredMatches = (
-    matches: SearchResultFile[],
+    matches: 搜索ResultFile[],
     filterBy: 'repository' | 'language' | 'all' = 'all'
 ) => {
     const { getSelectedFromQuery } = useGetSelectedFromQuery();

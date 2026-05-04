@@ -28,7 +28,7 @@ export const useExtractTOCItems = ({ target }: Props) => {
 
             headings.forEach((heading) => {
                 const element = heading as HTMLElement;
-                const level = parseInt(element.tagName.charAt(1));
+                const level = parseInt(element.tag名称.charAt(1));
                 const text = element.textContent?.trim() || '';
 
                 if (text && element.id) {

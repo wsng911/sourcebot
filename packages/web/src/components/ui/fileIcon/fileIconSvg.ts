@@ -53,7 +53,7 @@ export const getFileIconSvg = (language: string): any | null => {
         "HTML+Razor": HTMLIcon,
         "Haskell": HaskellIcon,
         "Html": HTMLIcon,
-        "JSON with Comments": JSONIcon,
+        "JSON with 评论": JSONIcon,
         "JSON5": JSONIcon,
         "JSONLD": JSONIcon,
         "JSONiq": JSONIcon,

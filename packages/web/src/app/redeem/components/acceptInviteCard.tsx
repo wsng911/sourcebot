@@ -16,7 +16,7 @@ import { isServiceError } from "@/lib/utils";
 
 interface AcceptInviteCardProps {
     inviteId: string;
-    orgName: string;
+    org名称: string;
     orgImageUrl?: string;
     host: {
         name?: string;
@@ -29,7 +29,7 @@ interface AcceptInviteCardProps {
     };
 }
 
-export const AcceptInviteCard = ({ inviteId, orgName, orgImageUrl, host, recipient }: AcceptInviteCardProps) => {
+export const AcceptInviteCard = ({ inviteId, org名称, orgImageUrl, host, recipient }: AcceptInviteCardProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const { toast } = useToast();
@@ -45,7 +45,7 @@ export const AcceptInviteCard = ({ inviteId, orgName, orgImageUrl, host, recipie
                     });
                 } else {
                     toast({
-                        description: `✅ You are now a member of the ${orgName} organization.`,
+                        description: `✅ You are now a member of the ${org名称} organization.`,
                     });
                     router.push('/');
                 }
@@ -53,43 +53,43 @@ export const AcceptInviteCard = ({ inviteId, orgName, orgImageUrl, host, recipie
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [inviteId, orgName, router, toast]);
+    }, [inviteId, org名称, router, toast]);
 
     return (
-        <Card className="p-12 max-w-lg">
-            <CardHeader className="text-center">
+        <Card class名称="p-12 max-w-lg">
+            <CardHeader class名称="text-center">
                 <SourcebotLogo
-                    className="h-16 w-auto mx-auto mb-2"
+                    class名称="h-16 w-auto mx-auto mb-2"
                     size="large"
                 />
-                <CardTitle className="font-medium text-2xl">
-                    Join <strong>{orgName}</strong>
+                <CardTitle class名称="font-medium text-2xl">
+                    Join <strong>{org名称}</strong>
                 </CardTitle>
             </CardHeader>
-            <CardContent className="mt-3">
+            <CardContent class名称="mt-3">
                 <p>
                     Hello {recipient.name?.split(' ')[0] ?? recipient.email},
                 </p>
-                <p className="mt-5">
-                    <InvitedByText email={host.email} name={host.name} /> invited you to join the <strong>{orgName}</strong> organization.
+                <p class名称="mt-5">
+                    <InvitedByText email={host.email} name={host.name} /> invited you to join the <strong>{org名称}</strong> organization.
                 </p>
-                <div className="flex fex-row items-center justify-center gap-2 mt-12">
+                <div class名称="flex fex-row items-center justify-center gap-2 mt-12">
                     <UserAvatar
                         email={host.email}
                         imageUrl={host.avatarUrl}
-                        className="w-14 h-14"
+                        class名称="w-14 h-14"
                     />
-                    <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                    <Avatar className="w-14 h-14">
+                    <ArrowRight class名称="w-4 h-4 text-muted-foreground" />
+                    <Avatar class名称="w-14 h-14">
                         <AvatarImage src={orgImageUrl ?? placeholderAvatar.src} />
                     </Avatar>
                 </div>
                 <Button
-                    className="mt-12 mx-auto w-full"
+                    class名称="mt-12 mx-auto w-full"
                     disabled={isLoading}
                     onClick={onRedeemInvite}
                 >
-                    {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                    {isLoading && <Loader2 class名称="w-4 h-4 mr-2 animate-spin" />}
                     Accept Invite
                 </Button>
             </CardContent>
@@ -98,13 +98,13 @@ export const AcceptInviteCard = ({ inviteId, orgName, orgImageUrl, host, recipie
 }
 
 const InvitedByText = ({ email, name }: { email: string, name?: string }) => {
-    const emailElement = <Link href={`mailto:${email}`} className="text-blue-500 hover:text-blue-600">
+    const emailElement = <Link href={`mailto:${email}`} class名称="text-blue-500 hover:text-blue-600">
         {email}
     </Link>;
 
     if (name) {
-        const firstName = name.split(' ')[0];
-        return <span><strong>{firstName}</strong> ({emailElement})</span>;
+        const first名称 = name.split(' ')[0];
+        return <span><strong>{first名称}</strong> ({emailElement})</span>;
     }
 
     return emailElement;

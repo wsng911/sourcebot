@@ -5,7 +5,7 @@ import { notFound, queryParamsSchemaValidationError, serviceErrorResponse } from
 import { isServiceError } from "@/lib/utils";
 import { withAuth } from "@/middleware/withAuth";
 import { env, hasEntitlement } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -13,9 +13,9 @@ const searchMembersQueryParamsSchema = z.object({
     query: z.string().default(''),
 });
 
-export type SearchChatShareableMembersQueryParams = z.infer<typeof searchMembersQueryParamsSchema>;
+export type 搜索Chat分享ableMembersQueryParams = z.infer<typeof searchMembersQueryParamsSchema>;
 
-export type SearchChatShareableMembersResponse = {
+export type 搜索Chat分享ableMembersResponse = {
     id: string;
     email?: string;
     name?: string;
@@ -35,7 +35,7 @@ export const GET = apiHandler(async (
     // don't want to allow users to search other members.
     if (env.EXPERIMENT_ASK_GH_ENABLED === 'true') {
         return serviceErrorResponse({
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.UNEXPECTED_ERROR,
             message: "This API is not enabled with this experiment.",
         })
@@ -43,7 +43,7 @@ export const GET = apiHandler(async (
 
     if (!hasEntitlement('chat-sharing')) {
         return serviceErrorResponse({
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.UNEXPECTED_ERROR,
             message: "Chat sharing is not enabled for your license",
         })
@@ -100,7 +100,7 @@ export const GET = apiHandler(async (
             ...sharedWithUsers.map((s) => s.userId),
         ]);
 
-        // Search org members
+        // 搜索 org members
         const members = await prisma.userToOrg.findMany({
             where: {
                 orgId: org.id,

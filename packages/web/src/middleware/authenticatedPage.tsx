@@ -59,13 +59,13 @@ const ROLE_PRECEDENCE: Record<OrgRole, number> = {
  * @example
  * // With role gating
  * export default authenticatedPage(async ({ org }) => {
- *     return <SettingsPage org={org} />;
+ *     return <设置Page org={org} />;
  * }, { minRole: OrgRole.OWNER, redirectTo: '/settings' });
  *
  * @example
  * // Anonymous access allowed (user may be undefined)
  * export default authenticatedPage(async ({ user, prisma }) => {
- *     return <PublicPage />;
+ *     return <公开Page />;
  * }, { allowAnonymous: true });
  */
 export function authenticatedPage<

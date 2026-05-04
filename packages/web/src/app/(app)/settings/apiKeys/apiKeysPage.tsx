@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { isServiceError } from "@/lib/utils";
-import { Copy, Check, AlertTriangle, Loader2, Plus } from "lucide-react";
+import { 复制, Check, AlertTriangle, Loader2, Plus } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useToast } from "@/components/hooks/use-toast";
 import useCaptureEvent from "@/hooks/useCaptureEvent";
@@ -14,17 +14,17 @@ import { columns, ApiKeyColumnInfo } from "./columns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
+export function ApiKeysPage({ can创建ApiKey }: { can创建ApiKey: boolean }) {
     const { toast } = useToast();
     const captureEvent = useCaptureEvent();
 
     const [apiKeys, setApiKeys] = useState<{ name: string; createdAt: Date; lastUsedAt: Date | null }[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-    const [newKeyName, setNewKeyName] = useState("");
+    const [is创建DialogOpen, setIs创建DialogOpen] = useState(false);
+    const [newKey名称, setNewKey名称] = useState("");
     const [isCreatingKey, setIsCreatingKey] = useState(false);
-    const [newlyCreatedKey, setNewlyCreatedKey] = useState<string | null>(null);
-    const [copySuccess, setCopySuccess] = useState(false);
+    const [newly创建dKey, setNewly创建dKey] = useState<string | null>(null);
+    const [copySuccess, set复制Success] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const loadApiKeys = useCallback(async () => {
@@ -59,8 +59,8 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
         loadApiKeys();
     }, [loadApiKeys]);
 
-    const handleCreateApiKey = async () => {
-        if (!newKeyName.trim()) {
+    const handle创建ApiKey = async () => {
+        if (!newKey名称.trim()) {
             toast({
                 title: "Error",
                 description: "API key name cannot be empty",
@@ -71,7 +71,7 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
 
         setIsCreatingKey(true);
         try {
-            const result = await createApiKey(newKeyName.trim());
+            const result = await createApiKey(newKey名称.trim());
             if (isServiceError(result)) {
                 toast({
                     title: "Error",
@@ -83,7 +83,7 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
                 return;
             }
 
-            setNewlyCreatedKey(result.key);
+            setNewly创建dKey(result.key);
             await loadApiKeys();
             captureEvent('wa_api_key_created', {});
         } catch (error) {
@@ -99,13 +99,13 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
         }
     };
 
-    const handleCopyApiKey = () => {
-        if (!newlyCreatedKey) return;
+    const handle复制ApiKey = () => {
+        if (!newly创建dKey) return;
 
-        navigator.clipboard.writeText(newlyCreatedKey)
+        navigator.clipboard.writeText(newly创建dKey)
             .then(() => {
-                setCopySuccess(true);
-                setTimeout(() => setCopySuccess(false), 2000);
+                set复制Success(true);
+                setTimeout(() => set复制Success(false), 2000);
             })
             .catch(() => {
                 toast({
@@ -116,11 +116,11 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
             });
     };
 
-    const handleCloseDialog = () => {
-        setIsCreateDialogOpen(false);
-        setNewKeyName("");
-        setNewlyCreatedKey(null);
-        setCopySuccess(false);
+    const handle关闭Dialog = () => {
+        setIs创建DialogOpen(false);
+        setNewKey名称("");
+        setNewly创建dKey(null);
+        set复制Success(false);
     };
 
     const tableData = useMemo(() => {
@@ -148,9 +148,9 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
                     return {
                         ...column,
                         cell: () => (
-                            <div className="flex items-center gap-2">
-                                <Skeleton className="h-4 w-4 rounded-md" /> {/* Icon skeleton */}
-                                <Skeleton className="h-4 w-48" /> {/* Name skeleton */}
+                            <div class名称="flex items-center gap-2">
+                                <Skeleton class名称="h-4 w-4 rounded-md" /> {/* Icon skeleton */}
+                                <Skeleton class名称="h-4 w-48" /> {/* 名称 skeleton */}
                             </div>
                         ),
                     }
@@ -158,7 +158,7 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
 
                 return {
                     ...column,
-                    cell: () => <Skeleton className="h-4 w-24" />,
+                    cell: () => <Skeleton class名称="h-4 w-24" />,
                 }
             })
         }
@@ -171,97 +171,97 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
     }
 
     return (
-        <div className="flex flex-col gap-6">
-            <div className="flex flex-row items-center justify-between">
+        <div class名称="flex flex-col gap-6">
+            <div class名称="flex flex-row items-center justify-between">
                 <div>
-                    <h3 className="text-lg font-medium">API Keys</h3>
-                    <p className="text-sm text-muted-foreground max-w-lg">
-                        Create and manage API keys for programmatic access to Sourcebot. All API keys are scoped to the user who created them.
+                    <h3 class名称="text-lg font-medium">API Keys</h3>
+                    <p class名称="text-sm text-muted-foreground max-w-lg">
+                        创建 and manage API keys for programmatic access to Sourcebot. All API keys are scoped to the user who created them.
                     </p>
                 </div>
 
                 <TooltipProvider>
                     <Tooltip>
-                        {!canCreateApiKey && (
+                        {!can创建ApiKey && (
                             <TooltipContent>
                                 API key creation is restricted.
                             </TooltipContent>
                         )}
                         <TooltipTrigger asChild>
-                            <span className={!canCreateApiKey ? "cursor-not-allowed" : undefined}>
-                                <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+                            <span class名称={!can创建ApiKey ? "cursor-not-allowed" : undefined}>
+                                <Dialog open={is创建DialogOpen} onOpenChange={setIs创建DialogOpen}>
                                     <DialogTrigger asChild>
                                         <Button
-                                            disabled={!canCreateApiKey}
-                                            className={!canCreateApiKey ? "pointer-events-none" : undefined}
+                                            disabled={!can创建ApiKey}
+                                            class名称={!can创建ApiKey ? "pointer-events-none" : undefined}
                                             onClick={() => {
-                                                setNewlyCreatedKey(null);
-                                                setNewKeyName("");
-                                                setIsCreateDialogOpen(true);
+                                                setNewly创建dKey(null);
+                                                setNewKey名称("");
+                                                setIs创建DialogOpen(true);
                                             }}
                                         >
-                                            <Plus className="h-4 w-4 mr-2" />
-                                            Create API Key
+                                            <Plus class名称="h-4 w-4 mr-2" />
+                                            创建 API Key
                                         </Button>
                                     </DialogTrigger>
-                                    <DialogContent className="sm:max-w-md">
+                                    <DialogContent class名称="sm:max-w-md">
                                         <DialogHeader>
-                                            <DialogTitle>{newlyCreatedKey ? 'Your New API Key' : 'Create API Key'}</DialogTitle>
+                                            <DialogTitle>{newly创建dKey ? 'Your New API Key' : '创建 API Key'}</DialogTitle>
                                         </DialogHeader>
 
-                                        {newlyCreatedKey ? (
-                                            <div className="space-y-4">
-                                                <div className="flex items-center gap-2 p-3 border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 rounded-md text-yellow-700 dark:text-yellow-400">
-                                                    <AlertTriangle className="h-5 w-5 flex-shrink-0" />
-                                                    <p className="text-sm">
+                                        {newly创建dKey ? (
+                                            <div class名称="space-y-4">
+                                                <div class名称="flex items-center gap-2 p-3 border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 rounded-md text-yellow-700 dark:text-yellow-400">
+                                                    <AlertTriangle class名称="h-5 w-5 flex-shrink-0" />
+                                                    <p class名称="text-sm">
                                                         This is the only time you&apos;ll see this API key. Make sure to copy it now.
                                                     </p>
                                                 </div>
 
-                                                <div className="flex items-center space-x-2">
-                                                    <div className="bg-muted p-2 rounded-md text-sm flex-1 break-all font-mono">
-                                                        {newlyCreatedKey}
+                                                <div class名称="flex items-center space-x-2">
+                                                    <div class名称="bg-muted p-2 rounded-md text-sm flex-1 break-all font-mono">
+                                                        {newly创建dKey}
                                                     </div>
                                                     <Button
                                                         size="icon"
                                                         variant="outline"
-                                                        onClick={handleCopyApiKey}
+                                                        onClick={handle复制ApiKey}
                                                     >
                                                         {copySuccess ? (
-                                                            <Check className="h-4 w-4 text-green-500" />
+                                                            <Check class名称="h-4 w-4 text-green-500" />
                                                         ) : (
-                                                            <Copy className="h-4 w-4" />
+                                                            <复制 class名称="h-4 w-4" />
                                                         )}
                                                     </Button>
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="py-4">
+                                            <div class名称="py-4">
                                                 <Input
-                                                    value={newKeyName}
-                                                    onChange={(e) => setNewKeyName(e.target.value)}
+                                                    value={newKey名称}
+                                                    onChange={(e) => setNewKey名称(e.target.value)}
                                                     placeholder="Enter a name for your API key"
-                                                    className="mb-2"
+                                                    class名称="mb-2"
                                                 />
                                             </div>
                                         )}
 
-                                        <DialogFooter className="sm:justify-between">
-                                            {newlyCreatedKey ? (
-                                                <Button onClick={handleCloseDialog}>
+                                        <DialogFooter class名称="sm:justify-between">
+                                            {newly创建dKey ? (
+                                                <Button onClick={handle关闭Dialog}>
                                                     Done
                                                 </Button>
                                             ) : (
                                                 <>
-                                                    <Button variant="outline" onClick={handleCloseDialog}>
-                                                        Cancel
+                                                    <Button variant="outline" onClick={handle关闭Dialog}>
+                                                        取消
                                                     </Button>
                                                     <Button
-                                                        onClick={handleCreateApiKey}
-                                                        disabled={isCreatingKey || !newKeyName.trim()}
+                                                        onClick={handle创建ApiKey}
+                                                        disabled={isCreatingKey || !newKey名称.trim()}
                                                     >
-                                                        {isCreatingKey && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                                                        Create
+                                                        {isCreatingKey && <Loader2 class名称="h-4 w-4 mr-2 animate-spin" />}
+                                                        创建
                                                     </Button>
                                                 </>
                                             )}
@@ -278,7 +278,7 @@ export function ApiKeysPage({ canCreateApiKey }: { canCreateApiKey: boolean }) {
                 columns={tableColumns}
                 data={tableData}
                 searchKey="name"
-                searchPlaceholder="Search API keys..."
+                searchPlaceholder="搜索 API keys..."
             />
         </div>
     );

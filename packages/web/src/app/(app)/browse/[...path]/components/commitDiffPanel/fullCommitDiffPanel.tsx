@@ -14,7 +14,7 @@ import { computeTotalChangeCounts, DiffStat } from "./diffStat";
 import { FileDiffList } from "./fileDiffList";
 
 interface FullCommitDiffPanelProps {
-    repoName: string;
+    repo名称: string;
     commitSha: string;
 }
 
@@ -22,14 +22,14 @@ interface FullCommitDiffPanelProps {
 // no parent (i.e. the initial commit), since `<sha>^` doesn't resolve there.
 const EMPTY_TREE_SHA = '4b825dc642cb6eb9a060e54bf8d69288fbee4904';
 
-export const FullCommitDiffPanel = async ({ repoName, commitSha }: FullCommitDiffPanelProps) => {
+export const FullCommitDiffPanel = async ({ repo名称, commitSha }: FullCommitDiffPanelProps) => {
     const [commitResponse, initialDiffResponse] = await Promise.all([
         getCommit({
-            repo: repoName,
+            repo: repo名称,
             ref: commitSha,
         }),
         getDiff({
-            repo: repoName,
+            repo: repo名称,
             base: `${commitSha}^`,
             head: commitSha,
         }),
@@ -37,7 +37,7 @@ export const FullCommitDiffPanel = async ({ repoName, commitSha }: FullCommitDif
 
     if (isServiceError(commitResponse)) {
         return (
-            <div className="p-6 text-sm text-destructive">
+            <div class名称="p-6 text-sm text-destructive">
                 Error loading commit: {commitResponse.message}
             </div>
         );
@@ -48,7 +48,7 @@ export const FullCommitDiffPanel = async ({ repoName, commitSha }: FullCommitDif
     let diffResponse = initialDiffResponse;
     if (isServiceError(initialDiffResponse) && commitResponse.parents.length === 0) {
         diffResponse = await getDiff({
-            repo: repoName,
+            repo: repo名称,
             base: EMPTY_TREE_SHA,
             head: commitSha,
         });
@@ -56,7 +56,7 @@ export const FullCommitDiffPanel = async ({ repoName, commitSha }: FullCommitDif
 
     if (isServiceError(diffResponse)) {
         return (
-            <div className="p-6 text-sm text-destructive">
+            <div class名称="p-6 text-sm text-destructive">
                 Error loading diff: {diffResponse.message}
             </div>
         );
@@ -69,24 +69,24 @@ export const FullCommitDiffPanel = async ({ repoName, commitSha }: FullCommitDif
     const authors = getCommitAuthors(commitResponse);
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex flex-col gap-2 p-3 border-b shrink-0">
-                <div className="flex flex-row items-start gap-2">
-                    <div className="flex-1 min-w-0">
+        <div class名称="flex flex-col h-full">
+            <div class名称="flex flex-col gap-2 p-3 border-b shrink-0">
+                <div class名称="flex flex-row items-start gap-2">
+                    <div class名称="flex-1 min-w-0">
                         <CommitMessage subject={subject} body={commitResponse.body} />
                     </div>
                     <Tooltip key={commitSha}>
                         <TooltipTrigger>
-                            <Button asChild variant="outline" size="sm" className="flex-shrink-0">
+                            <Button asChild variant="outline" size="sm" class名称="flex-shrink-0">
                                 <Link
                                     href={getBrowsePath({
-                                        repoName,
-                                        revisionName: commitResponse.hash,
+                                        repo名称,
+                                        revision名称: commitResponse.hash,
                                         path: '',
                                         pathType: 'tree',
                                     })}
                                 >
-                                    <FileCode className="h-4 w-4 mr-1" />
+                                    <FileCode class名称="h-4 w-4 mr-1" />
                                     Browse files
                                 </Link>
                             </Button>
@@ -94,10 +94,10 @@ export const FullCommitDiffPanel = async ({ repoName, commitSha }: FullCommitDif
                         <TooltipContent>View code at this commit</TooltipContent>
                     </Tooltip>
                 </div>
-                <div className="flex flex-row items-center gap-2 text-sm text-muted-foreground">
+                <div class名称="flex flex-row items-center gap-2 text-sm text-muted-foreground">
                     <AuthorsAvatarGroup authors={authors} />
                     <span
-                        className="font-medium text-foreground"
+                        class名称="font-medium text-foreground"
                         title={authors.map((a) => a.name).join(", ")}
                     >
                         {formatAuthorsText(authors)}
@@ -105,23 +105,23 @@ export const FullCommitDiffPanel = async ({ repoName, commitSha }: FullCommitDif
                     <span>committed on {formattedDate}</span>
                 </div>
                 <CommitHashLine
-                    repoName={repoName}
+                    repo名称={repo名称}
                     commitHash={commitResponse.hash}
                     parents={commitResponse.parents}
                 />
             </div>
-            <div className="flex flex-row items-center justify-between gap-2 px-4 py-2 border-b shrink-0">
-                <h2 className="text-sm font-medium">
+            <div class名称="flex flex-row items-center justify-between gap-2 px-4 py-2 border-b shrink-0">
+                <h2 class名称="text-sm font-medium">
                     {diffResponse.files.length} file{diffResponse.files.length > 1 ? 's' : ''} changed
                 </h2>
                 <DiffStat {...totalChangeCounts} />
             </div>
             {diffResponse.files.length === 0 ? (
-                <div className="p-4 text-sm text-muted-foreground">No files changed.</div>
+                <div class名称="p-4 text-sm text-muted-foreground">No files changed.</div>
             ) : (
                 <FileDiffList
                     files={diffResponse.files}
-                    repoName={repoName}
+                    repo名称={repo名称}
                     commitSha={commitSha}
                     parentSha={baseSha}
                 />

@@ -1,24 +1,24 @@
 import { auth } from "@/auth";
-import { LoginForm } from "../login/components/loginForm";
+import { 登录Form } from "../login/components/loginForm";
 import { redirect } from "next/navigation";
 import { Footer } from "@/app/components/footer";
 import { getIdentityProviderMetadata } from "@/lib/identityProviders";
 import { createLogger, env } from "@sourcebot/shared";
 import { SINGLE_TENANT_ORG_ID } from "@/lib/constants";
 import { __unsafePrisma } from "@/prisma";
-import { getAnonymousAccessStatus } from "@/actions";
+import { getAnonymousAccess状态 } from "@/actions";
 import { isServiceError } from "@/lib/utils";
 
 const logger = createLogger('signup-page');
 
-interface LoginProps {
+interface 登录Props {
     searchParams: Promise<{
         callbackUrl?: string;
         error?: string;
     }>
 }
 
-export default async function Signup(props: LoginProps) {
+export default async function Signup(props: 登录Props) {
     const searchParams = await props.searchParams;
     const session = await auth();
     if (session) {
@@ -32,13 +32,13 @@ export default async function Signup(props: LoginProps) {
     }
 
     const providers = getIdentityProviderMetadata();
-    const anonymousAccessStatus = await getAnonymousAccessStatus();
-    const isAnonymousAccessEnabled = !isServiceError(anonymousAccessStatus) && anonymousAccessStatus;
+    const anonymousAccess状态 = await getAnonymousAccess状态();
+    const isAnonymousAccessEnabled = !isServiceError(anonymousAccess状态) && anonymousAccess状态;
 
     return (
-        <div className="flex flex-col min-h-screen bg-backgroundSecondary">
-            <div className="flex-1 flex flex-col items-center p-4 sm:p-12 w-full">
-                <LoginForm
+        <div class名称="flex flex-col min-h-screen bg-backgroundSecondary">
+            <div class名称="flex-1 flex flex-col items-center p-4 sm:p-12 w-full">
+                <登录Form
                     callbackUrl={searchParams.callbackUrl}
                     error={searchParams.error}
                     providers={providers}

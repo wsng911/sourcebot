@@ -6,24 +6,24 @@ import useCaptureEvent from "@/hooks/useCaptureEvent";
 import { createPathWithQueryParams } from "@/lib/utils";
 import { autoPlacement, computePosition, offset, shift, VirtualElement } from "@floating-ui/react";
 import { Link2Icon } from "@radix-ui/react-icons";
-import { EditorView, SelectionRange } from "@uiw/react-codemirror";
+import { 编辑orView, SelectionRange } from "@uiw/react-codemirror";
 import { useCallback, useEffect, useRef } from "react";
 import { HIGHLIGHT_RANGE_QUERY_PARAM } from "../browse/hooks/utils";
 
 interface ContextMenuProps {
-    view: EditorView;
+    view: 编辑orView;
     selection: SelectionRange;
-    repoName: string;
+    repo名称: string;
     path: string;
-    revisionName: string;
+    revision名称: string;
 }
 
-export const EditorContextMenu = ({
+export const 编辑orContextMenu = ({
     view,
     selection,
-    repoName,
+    repo名称,
     path,
-    revisionName,
+    revision名称,
 }: ContextMenuProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const { toast } = useToast();
@@ -91,7 +91,7 @@ export const EditorContextMenu = ({
 
     }, [selection, view]);
 
-    const onCopyLinkToSelection = useCallback(() => {
+    const on复制LinkToSelection = useCallback(() => {
         const toLineAndColumn = (pos: number) => {
             const lineInfo = view.state.doc.lineAt(pos);
             return {
@@ -104,7 +104,7 @@ export const EditorContextMenu = ({
         const to = toLineAndColumn(selection.to);
 
         const basePath = `${window.location.origin}/browse`;
-        const url = createPathWithQueryParams(`${basePath}/${repoName}@${revisionName}/-/blob/${path}`,
+        const url = createPathWithQueryParams(`${basePath}/${repo名称}@${revision名称}/-/blob/${path}`,
             [HIGHLIGHT_RANGE_QUERY_PARAM, `${from?.line}:${from?.column},${to?.line}:${to?.column}`],
         );
 
@@ -124,20 +124,20 @@ export const EditorContextMenu = ({
                 }     
             }
         )
-    }, [selection.from, selection.to, repoName, revisionName, path, toast, captureEvent, view]);
+    }, [selection.from, selection.to, repo名称, revision名称, path, toast, captureEvent, view]);
 
     return (
         <div
             ref={ref}
-            className="absolute z-10 flex flex-col gap-2 bg-background border border-gray-300 dark:border-gray-700 rounded-md shadow-lg p-2"
+            class名称="absolute z-10 flex flex-col gap-2 bg-background border border-gray-300 dark:border-gray-700 rounded-md shadow-lg p-2"
         >
             <Button
                 variant="ghost"
                 size="sm"
-                onClick={onCopyLinkToSelection}
+                onClick={on复制LinkToSelection}
             >
-                <Link2Icon className="h-4 w-4 mr-1" />
-                Share selection
+                <Link2Icon class名称="h-4 w-4 mr-1" />
+                分享 selection
             </Button>
         </div>
     )

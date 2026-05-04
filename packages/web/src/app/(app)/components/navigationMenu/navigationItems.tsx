@@ -3,14 +3,14 @@
 import { NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { Badge } from "@/components/ui/badge";
 import { cn, getShortenedNumberDisplayString } from "@/lib/utils";
-import { SearchIcon, MessageCircleIcon, BookMarkedIcon, SettingsIcon, BotIcon } from "lucide-react";
+import { 搜索Icon, MessageCircleIcon, BookMarkedIcon, 设置Icon, BotIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { NotificationDot } from "../notificationDot";
 
 interface NavigationItemsProps {
     numberOfRepos: number;
     isReposButtonNotificationDotVisible: boolean;
-    isSettingsButtonNotificationDotVisible: boolean;
+    is设置ButtonNotificationDotVisible: boolean;
     isAuthenticated: boolean;
     isAgentsVisible: boolean;
 }
@@ -18,7 +18,7 @@ interface NavigationItemsProps {
 export const NavigationItems = ({
     numberOfRepos,
     isReposButtonNotificationDotVisible,
-    isSettingsButtonNotificationDotVisible,
+    is设置ButtonNotificationDotVisible,
     isAuthenticated,
     isAgentsVisible,
 }: NavigationItemsProps) => {
@@ -32,62 +32,62 @@ export const NavigationItems = ({
     };
 
     return (
-        <NavigationMenuList className="gap-2">
-            <NavigationMenuItem className="relative">
+        <NavigationMenuList class名称="gap-2">
+            <NavigationMenuItem class名称="relative">
                 <NavigationMenuLink
                     href="/search"
-                    className={cn(navigationMenuTriggerStyle(), "gap-2")}
+                    class名称={cn(navigationMenuTriggerStyle(), "gap-2")}
                 >
-                    <SearchIcon className="w-4 h-4 mr-1" />
-                    Search
+                    <搜索Icon class名称="w-4 h-4 mr-1" />
+                    搜索
                 </NavigationMenuLink>
                 {((isActive('/') || isActive('/search')) && <ActiveIndicator />)}
             </NavigationMenuItem>
-            <NavigationMenuItem className="relative">
+            <NavigationMenuItem class名称="relative">
                 <NavigationMenuLink
                     href="/chat"
-                    className={navigationMenuTriggerStyle()}
+                    class名称={navigationMenuTriggerStyle()}
                 >
-                    <MessageCircleIcon className="w-4 h-4 mr-1" />
+                    <MessageCircleIcon class名称="w-4 h-4 mr-1" />
                     Ask
                 </NavigationMenuLink>
                 {isActive('/chat') && <ActiveIndicator />}
             </NavigationMenuItem>
-            <NavigationMenuItem className="relative">
+            <NavigationMenuItem class名称="relative">
                 <NavigationMenuLink
                     href="/repos"
-                    className={navigationMenuTriggerStyle()}
+                    class名称={navigationMenuTriggerStyle()}
                 >
-                    <BookMarkedIcon className="w-4 h-4 mr-1" />
-                    <span className="mr-2">Repositories</span>
-                    <Badge variant="secondary" className="px-1.5 relative">
+                    <BookMarkedIcon class名称="w-4 h-4 mr-1" />
+                    <span class名称="mr-2">仓库列表</span>
+                    <Badge variant="secondary" class名称="px-1.5 relative">
                         {getShortenedNumberDisplayString(numberOfRepos)}
-                        {isReposButtonNotificationDotVisible && <NotificationDot className="absolute -right-0.5 -top-0.5" />}
+                        {isReposButtonNotificationDotVisible && <NotificationDot class名称="absolute -right-0.5 -top-0.5" />}
                     </Badge>
                 </NavigationMenuLink>
                 {isActive('/repos') && <ActiveIndicator />}
             </NavigationMenuItem>
             {isAgentsVisible && (
-                <NavigationMenuItem className="relative">
+                <NavigationMenuItem class名称="relative">
                     <NavigationMenuLink
                         href="/agents"
-                        className={navigationMenuTriggerStyle()}
+                        class名称={navigationMenuTriggerStyle()}
                     >
-                        <BotIcon className="w-4 h-4 mr-1" />
+                        <BotIcon class名称="w-4 h-4 mr-1" />
                         Agents
                     </NavigationMenuLink>
                     {isActive('/agents') && <ActiveIndicator />}
                 </NavigationMenuItem>
             )}
             {isAuthenticated && (
-                <NavigationMenuItem className="relative">
+                <NavigationMenuItem class名称="relative">
                     <NavigationMenuLink
                         href="/settings"
-                        className={navigationMenuTriggerStyle()}
+                        class名称={navigationMenuTriggerStyle()}
                     >
-                        <SettingsIcon className="w-4 h-4 mr-1" />
-                        Settings
-                        {isSettingsButtonNotificationDotVisible && <NotificationDot className="absolute -right-0.5 -top-0.5" />}
+                        <设置Icon class名称="w-4 h-4 mr-1" />
+                        设置
+                        {is设置ButtonNotificationDotVisible && <NotificationDot class名称="absolute -right-0.5 -top-0.5" />}
                     </NavigationMenuLink>
                     {isActive('/settings') && <ActiveIndicator />}
                 </NavigationMenuItem>
@@ -98,6 +98,6 @@ export const NavigationItems = ({
 
 const ActiveIndicator = () => {
     return (
-        <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-foreground" />
+        <div class名称="absolute -bottom-2 left-0 right-0 h-0.5 bg-foreground" />
     );
 };

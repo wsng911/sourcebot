@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, Card描述, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { skipOptionalProvidersLink } from "@/ee/features/sso/actions";
 import { useRouter } from "next/navigation";
@@ -36,15 +36,15 @@ export const ConnectAccountsCard = ({ linkedAccounts, callbackUrl }: ConnectAcco
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-base">Connect Your Accounts</CardTitle>
-                <CardDescription>
+                <CardTitle class名称="text-base">Connect Your Accounts</CardTitle>
+                <Card描述>
                     Link the following accounts to enable permission syncing and access all features.
                     <br />
-                    You can manage your linked accounts later in <strong>Settings → Linked Accounts.</strong>
-                </CardDescription>
+                    You can manage your linked accounts later in <strong>设置 → Linked Accounts.</strong>
+                </Card描述>
             </CardHeader>
-            <CardContent className="space-y-4">
-                <div className="space-y-2">
+            <CardContent class名称="space-y-4">
+                <div class名称="space-y-2">
                     {accountLinkingProviders
                         .sort((a, b) => (b.required ? 1 : 0) - (a.required ? 1 : 0))
                         .map(account => (
@@ -58,7 +58,7 @@ export const ConnectAccountsCard = ({ linkedAccounts, callbackUrl }: ConnectAcco
                 {canSkip && (
                     <Button
                         variant="outline"
-                        className="w-full"
+                        class名称="w-full"
                         onClick={handleSkip}
                         disabled={isSkipping}
                     >

@@ -33,36 +33,36 @@ if (!hasExtendedZod) {
     hasExtendedZod = true;
 }
 
-export const publicServiceErrorSchema = serviceErrorSchema.openapi('PublicApiServiceError', {
+export const publicServiceErrorSchema = serviceErrorSchema.openapi('公开ApiServiceError', {
     description: 'Structured error response returned by Sourcebot public API endpoints.',
 });
 
-export const publicSearchRequestSchema = searchRequestSchema.openapi('PublicSearchRequest');
-export const publicSearchResponseSchema = searchResponseSchema.openapi('PublicSearchResponse');
-export const publicGetTreeRequestSchema = getTreeRequestSchema.openapi('PublicGetTreeRequest');
-export const publicFileSourceRequestSchema = fileSourceRequestSchema.openapi('PublicFileSourceRequest');
-export const publicFileSourceResponseSchema = fileSourceResponseSchema.openapi('PublicFileSourceResponse');
-export const publicFileBlameRequestSchema = fileBlameRequestSchema.openapi('PublicFileBlameRequest');
-export const publicFileBlameResponseSchema = fileBlameResponseSchema.openapi('PublicFileBlameResponse');
-export const publicVersionResponseSchema = getVersionResponseSchema.openapi('PublicVersionResponse');
-export const publicListReposQueryParamsSchema = listReposQueryParamsSchema.openapi('PublicListReposQuery');
-export const publicListReposResponseSchema = listReposResponseSchema.openapi('PublicListReposResponse');
-export const publicGetDiffRequestSchema = getDiffRequestSchema.openapi('PublicGetDiffRequest');
-export const publicGetDiffResponseSchema = getDiffResponseSchema.openapi('PublicGetDiffResponse');
-export const publicFindSymbolsRequestSchema = findRelatedSymbolsRequestSchema.openapi('PublicFindSymbolsRequest');
-export const publicFindSymbolsResponseSchema = findRelatedSymbolsResponseSchema.openapi('PublicFindSymbolsResponse');
-export const publicListCommitsQuerySchema = listCommitsQueryParamsSchema.openapi('PublicListCommitsQuery');
-export const publicCommitSchema = commitSchema.openapi('PublicCommit');
-export const publicListCommitsResponseSchema = z.array(publicCommitSchema).openapi('PublicListCommitsResponse');
-export const publicGetCommitQuerySchema = getCommitQueryParamsSchema.openapi('PublicGetCommitQuery');
-export const publicCommitDetailSchema = commitDetailSchema.openapi('PublicCommitDetail');
-export const publicListCommitAuthorsQuerySchema = listCommitAuthorsQueryParamsSchema.openapi('PublicListCommitAuthorsQuery');
-export const publicCommitAuthorSchema = commitAuthorSchema.openapi('PublicCommitAuthor');
-export const publicListCommitAuthorsResponseSchema = z.array(publicCommitAuthorSchema).openapi('PublicListCommitAuthorsResponse');
+export const public搜索RequestSchema = searchRequestSchema.openapi('公开搜索Request');
+export const public搜索ResponseSchema = searchResponseSchema.openapi('公开搜索Response');
+export const publicGetTreeRequestSchema = getTreeRequestSchema.openapi('公开GetTreeRequest');
+export const publicFileSourceRequestSchema = fileSourceRequestSchema.openapi('公开FileSourceRequest');
+export const publicFileSourceResponseSchema = fileSourceResponseSchema.openapi('公开FileSourceResponse');
+export const publicFileBlameRequestSchema = fileBlameRequestSchema.openapi('公开FileBlameRequest');
+export const publicFileBlameResponseSchema = fileBlameResponseSchema.openapi('公开FileBlameResponse');
+export const publicVersionResponseSchema = getVersionResponseSchema.openapi('公开VersionResponse');
+export const publicListReposQueryParamsSchema = listReposQueryParamsSchema.openapi('公开ListReposQuery');
+export const publicListReposResponseSchema = listReposResponseSchema.openapi('公开ListReposResponse');
+export const publicGetDiffRequestSchema = getDiffRequestSchema.openapi('公开GetDiffRequest');
+export const publicGetDiffResponseSchema = getDiffResponseSchema.openapi('公开GetDiffResponse');
+export const publicFindSymbolsRequestSchema = findRelatedSymbolsRequestSchema.openapi('公开FindSymbolsRequest');
+export const publicFindSymbolsResponseSchema = findRelatedSymbolsResponseSchema.openapi('公开FindSymbolsResponse');
+export const publicListCommitsQuerySchema = listCommitsQueryParamsSchema.openapi('公开ListCommitsQuery');
+export const publicCommitSchema = commitSchema.openapi('公开Commit');
+export const publicListCommitsResponseSchema = z.array(publicCommitSchema).openapi('公开ListCommitsResponse');
+export const publicGetCommitQuerySchema = getCommitQueryParamsSchema.openapi('公开GetCommitQuery');
+export const publicCommitDetailSchema = commitDetailSchema.openapi('公开CommitDetail');
+export const publicListCommitAuthorsQuerySchema = listCommitAuthorsQueryParamsSchema.openapi('公开ListCommitAuthorsQuery');
+export const publicCommitAuthorSchema = commitAuthorSchema.openapi('公开CommitAuthor');
+export const publicListCommitAuthorsResponseSchema = z.array(publicCommitAuthorSchema).openapi('公开ListCommitAuthorsResponse');
 
 export const publicHealthResponseSchema = z.object({
     status: z.enum(['ok']),
-}).openapi('PublicHealthResponse');
+}).openapi('公开HealthResponse');
 
 // EE: User Management
 export const publicEeUserSchema = z.object({
@@ -70,7 +70,7 @@ export const publicEeUserSchema = z.object({
     email: z.string().nullable(),
     createdAt: z.string().datetime(),
     updatedAt: z.string().datetime(),
-}).openapi('PublicEeUser');
+}).openapi('公开EeUser');
 
 export const publicEeUserListItemSchema = z.object({
     id: z.string(),
@@ -79,14 +79,14 @@ export const publicEeUserListItemSchema = z.object({
     role: z.enum(['OWNER', 'MEMBER', 'GUEST']),
     createdAt: z.string().datetime(),
     lastActivityAt: z.string().datetime().nullable(),
-}).openapi('PublicEeUserListItem');
+}).openapi('公开EeUserListItem');
 
-export const publicEeUsersResponseSchema = z.array(publicEeUserListItemSchema).openapi('PublicEeUsersResponse');
+export const publicEeUsersResponseSchema = z.array(publicEeUserListItemSchema).openapi('公开EeUsersResponse');
 
-export const publicEeDeleteUserResponseSchema = z.object({
+export const publicEe删除UserResponseSchema = z.object({
     success: z.boolean(),
     message: z.string(),
-}).openapi('PublicEeDeleteUserResponse');
+}).openapi('公开Ee删除UserResponse');
 
 // EE: Audit
 export const publicEeAuditQuerySchema = z.object({
@@ -94,7 +94,7 @@ export const publicEeAuditQuerySchema = z.object({
     until: z.string().datetime().optional().describe('Return records at or before this timestamp (ISO 8601).'),
     page: z.coerce.number().int().positive().default(1),
     perPage: z.coerce.number().int().positive().max(100).default(50),
-}).openapi('PublicEeAuditQuery');
+}).openapi('公开EeAuditQuery');
 
 export const publicEeAuditRecordSchema = z.object({
     id: z.string(),
@@ -107,7 +107,7 @@ export const publicEeAuditRecordSchema = z.object({
     sourcebotVersion: z.string(),
     metadata: z.record(z.unknown()).nullable(),
     orgId: z.number(),
-}).openapi('PublicEeAuditRecord');
+}).openapi('公开EeAuditRecord');
 
-export const publicEeAuditResponseSchema = z.array(publicEeAuditRecordSchema).openapi('PublicEeAuditResponse');
+export const publicEeAuditResponseSchema = z.array(publicEeAuditRecordSchema).openapi('公开EeAuditResponse');
 

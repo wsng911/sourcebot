@@ -1,23 +1,23 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, Dialog描述, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { useCallback, useState } from "react";
 
-interface DeleteChatDialogProps {
+interface 删除ChatDialogProps {
     isOpen: boolean;
     onOpenChange: (open: boolean) => void;
-    onDelete: () => Promise<boolean>;
+    on删除: () => Promise<boolean>;
 }
 
-export const DeleteChatDialog = ({ isOpen, onOpenChange, onDelete }: DeleteChatDialogProps) => {
+export const 删除ChatDialog = ({ isOpen, onOpenChange, on删除 }: 删除ChatDialogProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleDelete = useCallback(async () => {
+    const handle删除 = useCallback(async () => {
         setIsLoading(true);
         try {
-            const success = await onDelete();
+            const success = await on删除();
             if (success) {
                 onOpenChange(false);
             }
@@ -26,7 +26,7 @@ export const DeleteChatDialog = ({ isOpen, onOpenChange, onDelete }: DeleteChatD
         } finally {
             setIsLoading(false);
         }
-    }, [onDelete, onOpenChange]);
+    }, [on删除, onOpenChange]);
 
     return (
         <Dialog
@@ -39,10 +39,10 @@ export const DeleteChatDialog = ({ isOpen, onOpenChange, onDelete }: DeleteChatD
         >
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Delete chat?</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle>删除 chat?</DialogTitle>
+                    <Dialog描述>
                         The chat will be deleted and removed from your chat history. This action cannot be undone.
-                    </DialogDescription>
+                    </Dialog描述>
                 </DialogHeader>
                 <DialogFooter>
                     <Button
@@ -53,14 +53,14 @@ export const DeleteChatDialog = ({ isOpen, onOpenChange, onDelete }: DeleteChatD
                             onOpenChange(false);
                         }}
                     >
-                        Cancel
+                        取消
                     </Button>
                     <LoadingButton
                         variant="destructive"
                         loading={isLoading}
-                        onClick={handleDelete}
+                        onClick={handle删除}
                     >
-                        Delete
+                        删除
                     </LoadingButton>
                 </DialogFooter>
             </DialogContent>

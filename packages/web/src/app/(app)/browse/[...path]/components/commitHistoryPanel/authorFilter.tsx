@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, use搜索Params } from "next/navigation";
 import { Check, ChevronDown, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,10 +28,10 @@ interface AuthorFilterProps {
 export const AuthorFilter = ({ authors, selectedAuthor }: AuthorFilterProps) => {
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
+    const searchParams = use搜索Params();
 
     const [isOpen, setIsOpen] = useState(false);
-    const [search, setSearch] = useState('');
+    const [search, set搜索] = useState('');
 
     // Reset the search input when the popover (re)opens, so stale text from a
     // prior session doesn't appear. Intentionally does NOT fire on close —
@@ -39,7 +39,7 @@ export const AuthorFilter = ({ authors, selectedAuthor }: AuthorFilterProps) => 
     // flash-open-then-close behavior.
     useEffect(() => {
         if (isOpen) {
-            setSearch('');
+            set搜索('');
         }
     }, [isOpen]);
 
@@ -64,7 +64,7 @@ export const AuthorFilter = ({ authors, selectedAuthor }: AuthorFilterProps) => 
     }, [authors, search]);
 
     const navigateWithAuthor = useCallback((author: string | null) => {
-        const params = new URLSearchParams(searchParams);
+        const params = new URL搜索Params(searchParams);
         if (author === null) {
             params.delete('author');
         } else {
@@ -72,7 +72,7 @@ export const AuthorFilter = ({ authors, selectedAuthor }: AuthorFilterProps) => 
         }
         params.delete('page');
         const query = params.toString();
-        // Close the popover before kicking off navigation so the close render
+        // 关闭 the popover before kicking off navigation so the close render
         // commits cleanly; the search reset is deferred to the next open.
         setIsOpen(false);
         router.push(`${pathname}${query ? `?${query}` : ''}`);
@@ -88,34 +88,34 @@ export const AuthorFilter = ({ authors, selectedAuthor }: AuthorFilterProps) => 
                 <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-2 flex-shrink-0"
+                    class名称="h-8 gap-2 flex-shrink-0"
                     aria-label="Filter by author"
                 >
                     {selectedAuthorDisplay ? (
                         <UserAvatar
                             email={selectedAuthorDisplay.email}
-                            className="h-5 w-5 flex-shrink-0"
+                            class名称="h-5 w-5 flex-shrink-0"
                         />
                     ) : (
-                        <Users className="h-4 w-4 flex-shrink-0" />
+                        <Users class名称="h-4 w-4 flex-shrink-0" />
                     )}
-                    <span className="text-sm truncate max-w-[160px]">{buttonLabel}</span>
-                    <ChevronDown className="h-3 w-3 flex-shrink-0 text-muted-foreground" />
+                    <span class名称="text-sm truncate max-w-[160px]">{buttonLabel}</span>
+                    <ChevronDown class名称="h-3 w-3 flex-shrink-0 text-muted-foreground" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[320px] p-0" align="start">
+            <PopoverContent class名称="w-[320px] p-0" align="start">
                 <Command shouldFilter={false}>
                     <CommandInput
                         placeholder="Find a user..."
                         value={search}
-                        onValueChange={setSearch}
+                        onValueChange={set搜索}
                     />
                     <CommandList>
                         {search.trim().length > 0 && (
                             <CommandItem
                                 value={`__filter_${search}`}
                                 onSelect={() => navigateWithAuthor(search.trim())}
-                                className="cursor-pointer"
+                                class名称="cursor-pointer"
                             >
                                 <span>
                                     Filter on author <strong>{search.trim()}</strong>
@@ -131,19 +131,19 @@ export const AuthorFilter = ({ authors, selectedAuthor }: AuthorFilterProps) => 
                                     key={a.email}
                                     value={a.email}
                                     onSelect={() => navigateWithAuthor(a.email)}
-                                    className="cursor-pointer"
+                                    class名称="cursor-pointer"
                                 >
                                     <Check
-                                        className={cn(
+                                        class名称={cn(
                                             "h-4 w-4 flex-shrink-0",
                                             isSelected ? "opacity-100" : "opacity-0",
                                         )}
                                     />
                                     <UserAvatar
                                         email={a.email}
-                                        className="h-5 w-5 flex-shrink-0"
+                                        class名称="h-5 w-5 flex-shrink-0"
                                     />
-                                    <span className="truncate font-medium">{a.name}</span>
+                                    <span class名称="truncate font-medium">{a.name}</span>
                                 </CommandItem>
                             );
                         })}
@@ -151,11 +151,11 @@ export const AuthorFilter = ({ authors, selectedAuthor }: AuthorFilterProps) => 
                     {selectedAuthor && (
                         <>
                             <CommandSeparator />
-                            <div className="p-1">
+                            <div class名称="p-1">
                                 <CommandItem
                                     value="__clear"
                                     onSelect={() => navigateWithAuthor(null)}
-                                    className="cursor-pointer justify-center text-primary"
+                                    class名称="cursor-pointer justify-center text-primary"
                                 >
                                     View commits for all users
                                 </CommandItem>

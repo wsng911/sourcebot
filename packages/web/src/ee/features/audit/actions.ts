@@ -7,7 +7,7 @@ import { ServiceError } from "@/lib/serviceError";
 import { withAuth } from "@/middleware/withAuth";
 import { withMinimumOrgRole } from "@/middleware/withMinimumOrgRole";
 import { createLogger } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { AuditEvent } from "./types";
 import { OrgRole } from "@sourcebot/db";
 
@@ -76,7 +76,7 @@ export const fetchAuditRecords = async (params: FetchAuditRecordsParams) => sew(
             } catch (error) {
                 logger.error('Error fetching audit logs', { error });
                 return {
-                    statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                    statusCode: 状态Codes.INTERNAL_SERVER_ERROR,
                     errorCode: ErrorCode.UNEXPECTED_ERROR,
                     message: "Failed to fetch audit logs",
                 } satisfies ServiceError;

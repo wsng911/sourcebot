@@ -1,7 +1,7 @@
 import { StateField, Range } from "@codemirror/state";
-import { Decoration, DecorationSet, EditorView } from "@codemirror/view";
+import { Decoration, DecorationSet, 编辑orView } from "@codemirror/view";
 import { ensureSyntaxTree } from "@codemirror/language";
-import { measureSync } from "@/lib/utils";
+import { measure同步 } from "@/lib/utils";
 
 export const SYMBOL_HOVER_TARGET_DATA_ATTRIBUTE = "data-symbol-hover-target";
 
@@ -12,43 +12,43 @@ const decoration = Decoration.mark({
 
 const NODE_TYPES = [
     // Typescript + Python
-    "VariableName",
+    "Variable名称",
     "VariableDefinition",
     "TypeDefinition",
-    "TypeName",
-    "PropertyName",
+    "Type名称",
+    "Property名称",
     "PropertyDefinition",
     "JSXIdentifier",
     "Identifier",
     // C#
-    "VarName",
+    "Var名称",
     "TypeIdentifier",
-    "PropertyName",
-    "MethodName",
+    "Property名称",
+    "Method名称",
     "Ident",
-    "ParamName",
-    "AttrsNamedArg",
+    "Param名称",
+    "Attrs名称dArg",
     // C/C++
     "Identifier",
-    "NamespaceIdentifier",
+    "名称spaceIdentifier",
     "FieldIdentifier",
     // Objective-C
-    "variableName",
-    "variableName.definition",
+    "variable名称",
+    "variable名称.definition",
     // Java
     "Definition",
     // Rust
     "BoundIdentifier",
     // Go
-    "DefName",
-    "FieldName",
+    "Def名称",
+    "Field名称",
     // PHP
-    "ClassMemberName",
-    "Name",
+    "ClassMember名称",
+    "名称",
     // Tcl
-    "ProcName",
+    "Proc名称",
     "ProcInvocation",
-    "PackageName",
+    "Package名称",
     "Variable"
 ]
 
@@ -57,7 +57,7 @@ export const symbolHoverTargetsExtension = StateField.define<DecorationSet>({
         // @note: we need to use `ensureSyntaxTree` here (as opposed to `syntaxTree`)
         // because we want to parse the entire document, not just the text visible in
         // the current viewport.
-        const { data: tree } = measureSync(() => ensureSyntaxTree(state, state.doc.length, Infinity), "ensureSyntaxTree");
+        const { data: tree } = measure同步(() => ensureSyntaxTree(state, state.doc.length, Infinity), "ensureSyntaxTree");
         const decorations: Range<Decoration>[] = [];
 
         // @note: useful for debugging
@@ -79,5 +79,5 @@ export const symbolHoverTargetsExtension = StateField.define<DecorationSet>({
     update(deco, tr) {
         return deco.map(tr.changes);
     },
-    provide: field => EditorView.decorations.from(field),
+    provide: field => 编辑orView.decorations.from(field),
 });

@@ -3,7 +3,7 @@
 import { VscodeFileIcon } from "@/app/components/vscodeFileIcon";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { CustomEditor, LanguageModelInfo, MentionElement, RenderElementPropsFor, SearchScope } from "@/features/chat/types";
+import { Custom编辑or, LanguageModelInfo, MentionElement, RenderElementPropsFor, 搜索Scope } from "@/features/chat/types";
 import { insertMention, slateContentToString } from "@/features/chat/utils";
 import { cn } from "@/lib/utils";
 import { useIsMac } from "@/hooks/useIsMac";
@@ -12,39 +12,39 @@ import { ArrowUp, Loader2, StopCircleIcon } from "lucide-react";
 import { Fragment, KeyboardEvent, memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Descendant, insertText } from "slate";
-import { Editable, ReactEditor, RenderElementProps, RenderLeafProps, useFocused, useSelected, useSlate } from "slate-react";
+import { 编辑able, React编辑or, RenderElementProps, RenderLeafProps, useFocused, useSelected, useSlate } from "slate-react";
 import { useSelectedLanguageModel } from "../../useSelectedLanguageModel";
 import { SuggestionBox } from "./suggestionsBox";
 import { Suggestion } from "./types";
 import { useSuggestionModeAndQuery } from "./useSuggestionModeAndQuery";
 import { useSuggestionsData } from "./useSuggestionsData";
 import { useToast } from "@/components/hooks/use-toast";
-import { SearchContextQuery } from "@/lib/types";
+import { 搜索ContextQuery } from "@/lib/types";
 import isEqual from "fast-deep-equal/react";
 
 interface ChatBoxProps {
-    onSubmit: (children: Descendant[], editor: CustomEditor) => void;
+    on提交: (children: Descendant[], editor: Custom编辑or) => void;
     onStop?: () => void;
     preferredSuggestionsBoxPlacement?: "top-start" | "bottom-start";
-    className?: string;
+    class名称?: string;
     isRedirecting?: boolean;
     isGenerating?: boolean;
     isDisabled?: boolean;
     languageModels: LanguageModelInfo[];
-    selectedSearchScopes: SearchScope[];
-    searchContexts: SearchContextQuery[];
+    selected搜索Scopes: 搜索Scope[];
+    searchContexts: 搜索ContextQuery[];
 }
 
 const ChatBoxComponent = ({
-    onSubmit: _onSubmit,
+    on提交: _on提交,
     onStop,
     preferredSuggestionsBoxPlacement = "bottom-start",
-    className,
+    class名称,
     isRedirecting,
     isGenerating,
     isDisabled,
     languageModels,
-    selectedSearchScopes,
+    selected搜索Scopes,
     searchContexts,
 }: ChatBoxProps) => {
     const suggestionsBoxRef = useRef<HTMLDivElement>(null);
@@ -54,7 +54,7 @@ const ChatBoxComponent = ({
     const { suggestions, isLoading } = useSuggestionsData({
         suggestionMode,
         suggestionQuery,
-        selectedRepos: selectedSearchScopes.map((item) => {
+        selectedRepos: selected搜索Scopes.map((item) => {
             if (item.type === 'repo') {
                 return [item.value];
             }
@@ -62,7 +62,7 @@ const ChatBoxComponent = ({
             if (item.type === 'reposet') {
                 const reposet = searchContexts.find((reposet) => reposet.name === item.value);
                 if (reposet) {
-                    return reposet.repoNames;
+                    return reposet.repo名称s;
                 }
             }
 
@@ -82,12 +82,12 @@ const ChatBoxComponent = ({
     // Hotkey to focus the chat box.
     useHotkeys("/", (e) => {
         e.preventDefault();
-        ReactEditor.focus(editor);
+        React编辑or.focus(editor);
     });
 
     // Auto-focus chat box when the component mounts.
     useEffect(() => {
-        ReactEditor.focus(editor);
+        React编辑or.focus(editor);
     }, [editor]);
 
     const renderElement = useCallback((props: RenderElementProps) => {
@@ -103,52 +103,52 @@ const ChatBoxComponent = ({
         return <Leaf {...props} />
     }, []);
 
-    const { isSubmitDisabled, isSubmitDisabledReason } = useMemo((): {
-        isSubmitDisabled: true,
-        isSubmitDisabledReason: "empty" | "redirecting" | "generating" | "no-language-model-selected"
+    const { is提交Disabled, is提交DisabledReason } = useMemo((): {
+        is提交Disabled: true,
+        is提交DisabledReason: "empty" | "redirecting" | "generating" | "no-language-model-selected"
     } | {
-        isSubmitDisabled: false,
-        isSubmitDisabledReason: undefined,
+        is提交Disabled: false,
+        is提交DisabledReason: undefined,
     } => {
         if (slateContentToString(editor.children).trim().length === 0) {
             return {
-                isSubmitDisabled: true,
-                isSubmitDisabledReason: "empty",
+                is提交Disabled: true,
+                is提交DisabledReason: "empty",
             }
         }
 
         if (isRedirecting) {
             return {
-                isSubmitDisabled: true,
-                isSubmitDisabledReason: "redirecting",
+                is提交Disabled: true,
+                is提交DisabledReason: "redirecting",
             }
         }
 
         if (isGenerating) {
             return {
-                isSubmitDisabled: true,
-                isSubmitDisabledReason: "generating",
+                is提交Disabled: true,
+                is提交DisabledReason: "generating",
             }
         }
 
         if (selectedLanguageModel === undefined) {
 
             return {
-                isSubmitDisabled: true,
-                isSubmitDisabledReason: "no-language-model-selected",
+                is提交Disabled: true,
+                is提交DisabledReason: "no-language-model-selected",
             }
         }
 
         return {
-            isSubmitDisabled: false,
-            isSubmitDisabledReason: undefined,
+            is提交Disabled: false,
+            is提交DisabledReason: undefined,
         }
 
     }, [editor.children, isRedirecting, isGenerating, selectedLanguageModel])
 
-    const onSubmit = useCallback(() => {
-        if (isSubmitDisabled) {
-            if (isSubmitDisabledReason === "no-language-model-selected") {
+    const on提交 = useCallback(() => {
+        if (is提交Disabled) {
+            if (is提交DisabledReason === "no-language-model-selected") {
                 toast({
                     description: "⚠️ You must select a language model",
                     variant: "destructive",
@@ -158,8 +158,8 @@ const ChatBoxComponent = ({
             return;
         }
 
-        _onSubmit(editor.children, editor);
-    }, [_onSubmit, editor, isSubmitDisabled, isSubmitDisabledReason, toast]);
+        _on提交(editor.children, editor);
+    }, [_on提交, editor, is提交Disabled, is提交DisabledReason, toast]);
 
     const onInsertSuggestion = useCallback((suggestion: Suggestion) => {
         switch (suggestion.type) {
@@ -182,7 +182,7 @@ const ChatBoxComponent = ({
                 break;
             }
         }
-        ReactEditor.focus(editor);
+        React编辑or.focus(editor);
     }, [editor, range]);
 
     const onKeyDown = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
@@ -200,7 +200,7 @@ const ChatBoxComponent = ({
                     }
 
                     event.preventDefault();
-                    onSubmit();
+                    on提交();
                     break;
                 }
             }
@@ -232,7 +232,7 @@ const ChatBoxComponent = ({
                 }
             }
         }
-    }, [suggestionMode, suggestions, onSubmit, editor, index, onInsertSuggestion]);
+    }, [suggestionMode, suggestions, on提交, editor, index, onInsertSuggestion]);
 
     useEffect(() => {
         if (!range || !suggestionsBoxRef.current) {
@@ -245,7 +245,7 @@ const ChatBoxComponent = ({
                     return new DOMRect();
                 }
 
-                return ReactEditor.toDOMRange(editor, range).getBoundingClientRect();
+                return React编辑or.toDOMRange(editor, range).getBoundingClientRect();
             }
         }
 
@@ -273,35 +273,35 @@ const ChatBoxComponent = ({
 
     return (
         <div
-            className={cn("flex flex-col justify-between gap-0.5 w-full px-3 py-2", className)}
+            class名称={cn("flex flex-col justify-between gap-0.5 w-full px-3 py-2", class名称)}
         >
-            <Editable
-                className="w-full focus-visible:outline-none focus-visible:ring-0 bg-background text-base disabled:cursor-not-allowed disabled:opacity-50 md:text-sm max-h-64 overflow-y-auto"
+            <编辑able
+                class名称="w-full focus-visible:outline-none focus-visible:ring-0 bg-background text-base disabled:cursor-not-allowed disabled:opacity-50 md:text-sm max-h-64 overflow-y-auto"
                 placeholder="Ask a question about your code. @mention files or select search scopes to refine your query."
                 renderElement={renderElement}
                 renderLeaf={renderLeaf}
                 onKeyDown={onKeyDown}
                 readOnly={isDisabled}
             />
-            <div className="ml-auto z-10">
+            <div class名称="ml-auto z-10">
                 {isRedirecting ? (
                     <Button
                         variant="default"
                         disabled={true}
                         size="icon"
-                        className="w-6 h-6"
+                        class名称="w-6 h-6"
                     >
-                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <Loader2 class名称="w-4 h-4 animate-spin" />
                     </Button>
                 ) :
                     isGenerating ? (
                         <Button
                             variant="default"
                             size="sm"
-                            className="h-8"
+                            class名称="h-8"
                             onClick={onStop}
                         >
-                            <StopCircleIcon className="w-4 h-4" />
+                            <StopCircleIcon class名称="w-4 h-4" />
                             Stop
                         </Button>
                     ) : (
@@ -311,21 +311,21 @@ const ChatBoxComponent = ({
                                     onClick={() => {
                                         // @hack: When submission is disabled, we still want to issue
                                         // a warning to the user as to why the submission is disabled.
-                                        // onSubmit on the Button will not be called because of the
+                                        // on提交 on the Button will not be called because of the
                                         // disabled prop, hence the call here.
-                                        if (isSubmitDisabled) {
-                                            onSubmit();
+                                        if (is提交Disabled) {
+                                            on提交();
                                         }
                                     }}
                                 >
                                     <Button
-                                        variant={isSubmitDisabled ? "outline" : "default"}
+                                        variant={is提交Disabled ? "outline" : "default"}
                                         size="sm"
-                                        className="w-6 h-6"
-                                        onClick={onSubmit}
-                                        disabled={isSubmitDisabled}
+                                        class名称="w-6 h-6"
+                                        onClick={on提交}
+                                        disabled={is提交Disabled}
                                     >
-                                        <ArrowUp className="w-4 h-4" />
+                                        <ArrowUp class名称="w-4 h-4" />
                                     </Button>
                                 </div>
                             </TooltipTrigger>
@@ -376,25 +376,25 @@ const MentionComponent = ({
                 <TooltipTrigger asChild>
                     <span
                         {...attributes}
-                        contentEditable={false}
-                        className={cn(
+                        content编辑able={false}
+                        class名称={cn(
                             "px-1.5 py-0.5 mr-1.5 mb-1 align-baseline inline-block rounded bg-muted text-xs font-mono",
                             {
                                 "ring-2 ring-blue-300": selected && focused
                             }
                         )}
                     >
-                        <span contentEditable={false} className="flex flex-row items-center select-none">
+                        <span content编辑able={false} class名称="flex flex-row items-center select-none">
                             {/* @see: https://github.com/ianstormtaylor/slate/issues/3490 */}
                             {isMac ? (
                                 <Fragment>
                                     {children}
-                                    <VscodeFileIcon fileName={data.name} className="w-3 h-3 mr-1" />
+                                    <VscodeFileIcon file名称={data.name} class名称="w-3 h-3 mr-1" />
                                     {data.name}
                                 </Fragment>
                             ) : (
                                 <Fragment>
-                                    <VscodeFileIcon fileName={data.name} className="w-3 h-3 mr-1" />
+                                    <VscodeFileIcon file名称={data.name} class名称="w-3 h-3 mr-1" />
                                     {data.name}
                                     {children}
                                 </Fragment>
@@ -403,8 +403,8 @@ const MentionComponent = ({
                     </span>
                 </TooltipTrigger>
                 <TooltipContent>
-                    <span className="text-xs font-mono">
-                        <span className="font-medium">{data.repo.split('/').pop()}</span>/{data.path}
+                    <span class名称="text-xs font-mono">
+                        <span class名称="font-medium">{data.repo.split('/').pop()}</span>/{data.path}
                     </span>
                 </TooltipContent>
             </Tooltip>

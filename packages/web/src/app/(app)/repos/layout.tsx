@@ -23,17 +23,17 @@ export default async function Layout(
     const userRoleInOrg = await getCurrentUserRole();
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div class名称="min-h-screen flex flex-col">
             <NavigationMenu />
             {(repoStats.numberOfRepos === 0 && userRoleInOrg === OrgRole.OWNER) && (
-                <div className="w-full flex flex-row justify-center items-center bg-accent py-0.5">
-                    <InfoIcon className="w-4 h-4 mr-1" />
-                    <span><span className="font-medium">No repositories configured.</span> Create a <Link href="/settings/connections" className="text-link hover:underline">connection</Link> to get started.</span>
+                <div class名称="w-full flex flex-row justify-center items-center bg-accent py-0.5">
+                    <InfoIcon class名称="w-4 h-4 mr-1" />
+                    <span><span class名称="font-medium">No repositories configured.</span> 创建 a <Link href="/settings/connections" class名称="text-link hover:underline">connection</Link> to get started.</span>
                 </div>
             )}
-            <main className="flex-grow flex justify-center p-4 bg-backgroundSecondary relative">
-                <div className="w-full max-w-6xl rounded-lg p-6">
-                    <div className="container mx-auto">
+            <main class名称="flex-grow flex justify-center p-4 bg-backgroundSecondary relative">
+                <div class名称="w-full max-w-6xl rounded-lg p-6">
+                    <div class名称="container mx-auto">
                         {children}
                     </div>
                 </div>

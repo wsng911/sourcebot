@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Switch } from "@/components/ui/switch"
-import { setAnonymousAccessStatus } from "@/actions"
+import { setAnonymousAccess状态 } from "@/actions"
 import { isServiceError } from "@/lib/utils"
 import { useToast } from "@/components/hooks/use-toast"
 
@@ -21,7 +21,7 @@ export function AnonymousAccessToggle({ hasAnonymousAccessEntitlement, anonymous
     const handleToggle = async (checked: boolean) => {
         setIsLoading(true)
         try {
-            const result = await setAnonymousAccessStatus(checked)
+            const result = await setAnonymousAccess状态(checked)
             
             if (isServiceError(result)) {
                 toast({
@@ -50,21 +50,21 @@ export function AnonymousAccessToggle({ hasAnonymousAccessEntitlement, anonymous
     const showForceEnableMessage = !showPlanMessage && forceEnableAnonymousAccess;
 
     return (
-        <div className={`p-4 rounded-lg border border-[var(--border)] bg-[var(--card)] ${(!hasAnonymousAccessEntitlement || forceEnableAnonymousAccess) ? 'opacity-60' : ''}`}>
-            <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-[var(--foreground)] mb-2">
+        <div class名称={`p-4 rounded-lg border border-[var(--border)] bg-[var(--card)] ${(!hasAnonymousAccessEntitlement || forceEnableAnonymousAccess) ? 'opacity-60' : ''}`}>
+            <div class名称="flex items-start justify-between gap-4">
+                <div class名称="flex-1 min-w-0">
+                    <h3 class名称="font-medium text-[var(--foreground)] mb-2">
                         Enable anonymous access
                     </h3>
-                    <div className="max-w-2xl">
-                        <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
+                    <div class名称="max-w-2xl">
+                        <p class名称="text-sm text-[var(--muted-foreground)] leading-relaxed">
                             When enabled, users can access your deployment without logging in.
                         </p>
                         {showPlanMessage && (
-                            <div className="mt-3 p-3 rounded-md bg-[var(--muted)] border border-[var(--border)]">
-                                <p className="text-sm text-[var(--foreground)] leading-relaxed flex items-center gap-2">
+                            <div class名称="mt-3 p-3 rounded-md bg-[var(--muted)] border border-[var(--border)]">
+                                <p class名称="text-sm text-[var(--foreground)] leading-relaxed flex items-center gap-2">
                                     <svg 
-                                        className="w-4 h-4 flex-shrink-0 text-[var(--muted-foreground)]" 
+                                        class名称="w-4 h-4 flex-shrink-0 text-[var(--muted-foreground)]" 
                                         fill="none" 
                                         viewBox="0 0 24 24" 
                                         stroke="currentColor"
@@ -82,7 +82,7 @@ export function AnonymousAccessToggle({ hasAnonymousAccessEntitlement, anonymous
                                             href="https://www.sourcebot.dev/contact"
                                             target="_blank"
                                             rel="noopener"
-                                            className="font-medium text-primary hover:text-primary/80 underline underline-offset-2 transition-colors"
+                                            class名称="font-medium text-primary hover:text-primary/80 underline underline-offset-2 transition-colors"
                                         >
                                             reach out
                                         </a>
@@ -92,10 +92,10 @@ export function AnonymousAccessToggle({ hasAnonymousAccessEntitlement, anonymous
                             </div>
                         )}
                         {showForceEnableMessage && (
-                            <div className="mt-3 p-3 rounded-md bg-[var(--muted)] border border-[var(--border)]">
-                                <p className="text-sm text-[var(--foreground)] leading-relaxed flex items-center gap-2">
+                            <div class名称="mt-3 p-3 rounded-md bg-[var(--muted)] border border-[var(--border)]">
+                                <p class名称="text-sm text-[var(--foreground)] leading-relaxed flex items-center gap-2">
                                     <svg 
-                                        className="w-4 h-4 flex-shrink-0 text-[var(--muted-foreground)]" 
+                                        class名称="w-4 h-4 flex-shrink-0 text-[var(--muted-foreground)]" 
                                         fill="none" 
                                         viewBox="0 0 24 24" 
                                         stroke="currentColor"
@@ -108,14 +108,14 @@ export function AnonymousAccessToggle({ hasAnonymousAccessEntitlement, anonymous
                                         />
                                     </svg>
                                     <span>
-                                        The <code className="bg-[var(--secondary)] px-1 py-0.5 rounded text-xs font-mono">forceEnableAnonymousAccess</code> is set, so this cannot be changed from the UI.
+                                        The <code class名称="bg-[var(--secondary)] px-1 py-0.5 rounded text-xs font-mono">forceEnableAnonymousAccess</code> is set, so this cannot be changed from the UI.
                                     </span>
                                 </p>
                             </div>
                         )}
                     </div>
                 </div>
-                <div className="flex-shrink-0">
+                <div class名称="flex-shrink-0">
                     <Switch
                         checked={enabled}
                         onCheckedChange={handleToggle}

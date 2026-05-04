@@ -21,7 +21,7 @@ export function RepoIndexedGuard({ initialRepoInfo, children }: Props) {
 
     const { data: repoInfo, isError } = useQuery({
         queryKey: ['repo-status', initialRepoInfo.id],
-        queryFn: () => unwrapServiceError(getRepoStatus(initialRepoInfo.id)),
+        queryFn: () => unwrapServiceError(getRepo状态(initialRepoInfo.id)),
         initialData: initialRepoInfo,
         refetchInterval: (query) => {
             const repo = query.state.data;
@@ -33,7 +33,7 @@ export function RepoIndexedGuard({ initialRepoInfo, children }: Props) {
 
             return REINDEX_INTERVAL_MS;
         },
-        refetchIntervalInBackground: true,
+        refetchIntervalIn返回ground: true,
     });
 
     const previousIsIndexed = usePrevious(repoInfo.isIndexed);
@@ -48,17 +48,17 @@ export function RepoIndexedGuard({ initialRepoInfo, children }: Props) {
     // Show notification when indexing completes
     useEffect(() => {
         if (previousIsIndexed === false && repoInfo.isIndexed === true) {
-            const displayName = repoInfo.displayName ?? repoInfo.name;
+            const display名称 = repoInfo.display名称 ?? repoInfo.name;
             showNotification({
-                title: "Repository Ready",
-                body: `${displayName} is ready to chat with.`,
+                title: "仓库 Ready",
+                body: `${display名称} is ready to chat with.`,
                 icon: repoInfo.imageUrl ?? undefined,
                 onClick: () => {
                     window.focus();
                 },
             });
         }
-    }, [previousIsIndexed, repoInfo.isIndexed, repoInfo.displayName, repoInfo.name, repoInfo.imageUrl, showNotification]);
+    }, [previousIsIndexed, repoInfo.isIndexed, repoInfo.display名称, repoInfo.name, repoInfo.imageUrl, showNotification]);
 
     if (isError) {
         // todo
@@ -68,12 +68,12 @@ export function RepoIndexedGuard({ initialRepoInfo, children }: Props) {
     if (!repoInfo.isIndexed) {
         // Loading spinner only for first-time indexing (indexedAt is null)
         return (
-            <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
-                <Loader2 className="w-12 h-12 animate-spin text-primary mb-4" />
-                <h2 className="text-2xl font-semibold mb-2">
+            <div class名称="flex flex-col items-center justify-center min-h-[400px] p-4">
+                <Loader2 class名称="w-12 h-12 animate-spin text-primary mb-4" />
+                <h2 class名称="text-2xl font-semibold mb-2">
                     Indexing in progress...
                 </h2>
-                <p className="text-muted-foreground text-center">
+                <p class名称="text-muted-foreground text-center">
                     This may take a few minutes. The page will update automatically.
                 </p>
             </div>
@@ -85,7 +85,7 @@ export function RepoIndexedGuard({ initialRepoInfo, children }: Props) {
     );
 }
 
-const getRepoStatus = async (repoId: number): Promise<RepoInfo | ServiceError> => {
+const getRepo状态 = async (repoId: number): Promise<RepoInfo | ServiceError> => {
     const result = await fetch(
         `/api/repo-status/${repoId}`,
         {

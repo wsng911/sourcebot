@@ -2,18 +2,18 @@ import { z } from "zod";
 import { rangeSchema, repositoryInfoSchema } from "../search/types";
 
 export const findRelatedSymbolsRequestSchema = z.object({
-    symbolName: z.string(),
+    symbol名称: z.string(),
     language: z.string().optional(),
     /**
      * Optional revision name to scope search to.
      * If not provided, the search will be scoped to HEAD.
      */
-    revisionName: z.string().optional(),
+    revision名称: z.string().optional(),
     /**
      * Optional repository name to scope search to.
      * If not provided, the search will be across all repositories.
      */
-    repoName: z.string().optional(),
+    repo名称: z.string().optional(),
 });
 export type FindRelatedSymbolsRequest = z.infer<typeof findRelatedSymbolsRequestSchema>;
 
@@ -22,7 +22,7 @@ export const findRelatedSymbolsResponseSchema = z.object({
         matchCount: z.number(),
     }),
     files: z.array(z.object({
-        fileName: z.string(),
+        file名称: z.string(),
         repository: z.string(),
         repositoryId: z.number(),
         webUrl: z.string(),

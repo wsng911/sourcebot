@@ -1,11 +1,11 @@
 'use client';
 
 import { useMemo } from "react";
-import { SearchPrefix } from "./constants";
+import { 搜索Prefix } from "./constants";
 import { SuggestionMode } from "./searchSuggestionsBox";
 import { useHasEntitlement } from "@/features/entitlements/useHasEntitlement";
 
-const negate = (prefix: SearchPrefix) => {
+const negate = (prefix: 搜索Prefix) => {
     return `-${prefix}`;
 }
 
@@ -20,79 +20,79 @@ type SuggestionModeMapping = {
  * @see [searchSuggestionsBox.tsx](./searchSuggestionsBox.tsx)
  */
 export const useSuggestionModeMappings = () => {
-    const isSearchContextsEnabled = useHasEntitlement('search-contexts');
+    const is搜索ContextsEnabled = useHasEntitlement('search-contexts');
 
     const mappings = useMemo((): SuggestionModeMapping[] => {
         return [
             {
                 suggestionMode: "repo",
                 prefixes: [
-                    SearchPrefix.repo, negate(SearchPrefix.repo),
-                    SearchPrefix.r, negate(SearchPrefix.r),
+                    搜索Prefix.repo, negate(搜索Prefix.repo),
+                    搜索Prefix.r, negate(搜索Prefix.r),
                 ]
             },
             {
                 suggestionMode: "language",
                 prefixes: [
-                    SearchPrefix.lang, negate(SearchPrefix.lang),
+                    搜索Prefix.lang, negate(搜索Prefix.lang),
                 ]
             },
             {
                 suggestionMode: "file",
                 prefixes: [
-                    SearchPrefix.file, negate(SearchPrefix.file),
+                    搜索Prefix.file, negate(搜索Prefix.file),
                 ]
             },
             {
                 suggestionMode: "content",
                 prefixes: [
-                    SearchPrefix.content, negate(SearchPrefix.content),
+                    搜索Prefix.content, negate(搜索Prefix.content),
                 ]
             },
             {
                 suggestionMode: "revision",
                 prefixes: [
-                    SearchPrefix.rev, negate(SearchPrefix.rev),
-                    SearchPrefix.revision, negate(SearchPrefix.revision),
-                    SearchPrefix.branch, negate(SearchPrefix.branch),
-                    SearchPrefix.b, negate(SearchPrefix.b),
+                    搜索Prefix.rev, negate(搜索Prefix.rev),
+                    搜索Prefix.revision, negate(搜索Prefix.revision),
+                    搜索Prefix.branch, negate(搜索Prefix.branch),
+                    搜索Prefix.b, negate(搜索Prefix.b),
                 ]
             },
             {
                 suggestionMode: "symbol",
                 prefixes: [
-                    SearchPrefix.sym, negate(SearchPrefix.sym),
+                    搜索Prefix.sym, negate(搜索Prefix.sym),
                 ]
             },
             {
                 suggestionMode: "archived",
                 prefixes: [
-                    SearchPrefix.archived
+                    搜索Prefix.archived
                 ]
             },
             {
                 suggestionMode: "fork",
                 prefixes: [
-                    SearchPrefix.fork
+                    搜索Prefix.fork
                 ]
             },
             {
                 suggestionMode: "visibility",
                 prefixes: [
-                    SearchPrefix.visibility
+                    搜索Prefix.visibility
                 ]
             },
-            ...(isSearchContextsEnabled ? [
+            ...(is搜索ContextsEnabled ? [
                 {
                     suggestionMode: "context",
                     prefixes: [
-                        SearchPrefix.context,
-                        negate(SearchPrefix.context),
+                        搜索Prefix.context,
+                        negate(搜索Prefix.context),
                     ]
                 } satisfies SuggestionModeMapping,
             ] : []),
         ]
-    }, [isSearchContextsEnabled]);
+    }, [is搜索ContextsEnabled]);
 
     return mappings;
 }

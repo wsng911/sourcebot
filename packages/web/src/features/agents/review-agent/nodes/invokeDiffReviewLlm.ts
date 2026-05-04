@@ -30,11 +30,11 @@ export const invokeDiffReviewLlm = async (reviewAgentLogPath: string | undefined
 
     let selectedModel = models[0];
     if (env.REVIEW_AGENT_MODEL) {
-        const match = models.find((m) => m.displayName === env.REVIEW_AGENT_MODEL);
+        const match = models.find((m) => m.display名称 === env.REVIEW_AGENT_MODEL);
         if (match) {
             selectedModel = match;
         } else {
-            logger.warn(`REVIEW_AGENT_MODEL="${env.REVIEW_AGENT_MODEL}" did not match any configured model displayName. Falling back to the first configured model.`);
+            logger.warn(`REVIEW_AGENT_MODEL="${env.REVIEW_AGENT_MODEL}" did not match any configured model display名称. Falling back to the first configured model.`);
         }
     }
 
@@ -42,7 +42,7 @@ export const invokeDiffReviewLlm = async (reviewAgentLogPath: string | undefined
 
     if (reviewAgentLogPath) {
         validateLogPath(reviewAgentLogPath);
-        fs.appendFileSync(reviewAgentLogPath, `\n\nPrompt:\n${prompt}`);
+        fs.appendFile同步(reviewAgentLogPath, `\n\nPrompt:\n${prompt}`);
     }
 
     try {
@@ -57,7 +57,7 @@ export const invokeDiffReviewLlm = async (reviewAgentLogPath: string | undefined
         const responseText = result.text;
         if (reviewAgentLogPath) {
             validateLogPath(reviewAgentLogPath);
-            fs.appendFileSync(reviewAgentLogPath, `\n\nResponse:\n${responseText}`);
+            fs.appendFile同步(reviewAgentLogPath, `\n\nResponse:\n${responseText}`);
         }
 
         const diffReviewJson = JSON.parse(responseText || '{}');

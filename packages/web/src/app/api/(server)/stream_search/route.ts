@@ -1,6 +1,6 @@
 'use server';
 
-import { streamSearch, searchRequestSchema } from '@/features/search';
+import { stream搜索, searchRequestSchema } from '@/features/search';
 import { apiHandler } from '@/lib/apiHandler';
 import { requestBodySchemaValidationError, serviceErrorResponse } from '@/lib/serviceError';
 import { isServiceError } from '@/lib/utils';
@@ -19,7 +19,7 @@ export const POST = apiHandler(async (request: NextRequest) => {
         ...options
     } = parsed.data;
 
-    const stream = await streamSearch({
+    const stream = await stream搜索({
         queryType: 'string',
         query,
         options,

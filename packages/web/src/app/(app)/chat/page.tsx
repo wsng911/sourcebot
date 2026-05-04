@@ -1,12 +1,12 @@
-import { getRepos, getReposStats, getSearchContexts } from "@/actions";
+import { getRepos, getReposStats, get搜索Contexts } from "@/actions";
 import { SourcebotLogo } from "@/app/components/sourcebotLogo";
 import { getUserChatHistory } from "@/features/chat/actions";
 import { getConfiguredLanguageModelsInfo } from "@/features/chat/utils.server";
-import { CustomSlateEditor } from "@/features/chat/customSlateEditor";
+import { CustomSlate编辑or } from "@/features/chat/customSlate编辑or";
 import { ServiceErrorException } from "@/lib/serviceError";
 import { isServiceError, measure } from "@/lib/utils";
 import { LandingPageChatBox } from "./components/landingPageChatBox";
-import { RepositoryCarousel } from "../components/repositoryCarousel";
+import { 仓库Carousel } from "../components/repositoryCarousel";
 import { NavigationMenu } from "../components/navigationMenu";
 import { Separator } from "@/components/ui/separator";
 import { DemoCards } from "./components/demoCards";
@@ -20,7 +20,7 @@ import { AnimatedResizableHandle } from "@/components/ui/animatedResizableHandle
 
 export default async function Page() {
     const languageModels = await getConfiguredLanguageModelsInfo();
-    const searchContexts = await getSearchContexts();
+    const searchContexts = await get搜索Contexts();
     const allRepos = await getRepos();
     const session = await auth();
     const chatHistory = session ? await getUserChatHistory() : [];
@@ -66,11 +66,11 @@ export default async function Page() {
     })() : undefined;
 
     return (
-        <div className="flex flex-col items-center h-screen overflow-hidden">
+        <div class名称="flex flex-col items-center h-screen overflow-hidden">
             <NavigationMenu />
             <ResizablePanelGroup
                 direction="horizontal"
-                className="flex-1"
+                class名称="flex-1"
             >
                 <ChatSidePanel
                     order={1}
@@ -83,25 +83,25 @@ export default async function Page() {
                     order={2}
                     id="chat-home-panel"
                     defaultSize={85}
-                    className="overflow-hidden"
+                    class名称="overflow-hidden"
                 >
-                <div className="flex flex-col items-center h-full overflow-y-auto pt-8 pb-8 md:pt-16 w-full px-5">
-                    <div className="max-h-44 w-auto">
+                <div class名称="flex flex-col items-center h-full overflow-y-auto pt-8 pb-8 md:pt-16 w-full px-5">
+                    <div class名称="max-h-44 w-auto">
                         <SourcebotLogo
-                            className="h-18 md:h-40 w-auto"
+                            class名称="h-18 md:h-40 w-auto"
                         />
                     </div>
-                    <CustomSlateEditor>
+                    <CustomSlate编辑or>
                         <LandingPageChatBox
                             languageModels={languageModels}
                             repos={allRepos}
                             searchContexts={searchContexts}
                             isAuthenticated={!!session}
                         />
-                    </CustomSlateEditor>
+                    </CustomSlate编辑or>
 
-                    <div className="mt-8">
-                        <RepositoryCarousel
+                    <div class名称="mt-8">
+                        <仓库Carousel
                             numberOfReposWithIndex={repoStats.numberOfReposWithIndex}
                             displayRepos={carouselRepos}
                         />
@@ -109,8 +109,8 @@ export default async function Page() {
 
                     {demoExamples && (
                         <>
-                            <div className="flex flex-col items-center w-fit gap-6">
-                                <Separator className="mt-5 w-[700px]" />
+                            <div class名称="flex flex-col items-center w-fit gap-6">
+                                <Separator class名称="mt-5 w-[700px]" />
                             </div>
 
                             <DemoCards

@@ -1,5 +1,5 @@
-import { Decoration, DecorationSet, EditorView, gutter, gutterLineClass, GutterMarker } from "@codemirror/view";
-import { EditorState, Extension, Prec, Range as CMRange, RangeSet, StateField } from "@codemirror/state";
+import { Decoration, DecorationSet, 编辑orView, gutter, gutterLineClass, GutterMarker } from "@codemirror/view";
+import { 编辑orState, Extension, Prec, Range as CMRange, RangeSet, StateField } from "@codemirror/state";
 import { formatDistanceToNowStrict } from "date-fns";
 import type { FileBlameResponse } from "@/features/git";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ type LineEntry = {
     // lines so they render as empty filler cells.
     message: string | null;
     date: string | null;
-    authorEmail: string | null;
+    author邮箱: string | null;
     // Pointer to the prior commit in the blame walk, used by the reblame
     // button. Absent when the commit introduced the lines.
     previous: { hash: string; path: string } | null;
@@ -38,13 +38,13 @@ const buildCellDom = (
     // border-left because tailwind-merge collapses any same-group border-color
     // class (e.g. `border-border` on the region divider) with the per-side
     // amber color, dropping the stripe on first-line cells.
-    cell.className = cn(
+    cell.class名称 = cn(
         'relative flex items-start h-full pl-2 pr-2 overflow-hidden text-xs text-muted-foreground',
         entry.showStartBorder && 'border-t border-border',
     );
 
     const stripe = document.createElement('div');
-    stripe.className = cn(
+    stripe.class名称 = cn(
         'absolute inset-y-0 left-0 w-0.5',
         BLAME_AGE_BG_CLASSES[entry.ageBucket],
     );
@@ -58,7 +58,7 @@ const buildCellDom = (
     }
 
     const dateEl = document.createElement('span');
-    dateEl.className = 'flex-shrink-0 w-24 truncate opacity-70 mr-1';
+    dateEl.class名称 = 'flex-shrink-0 w-24 truncate opacity-70 mr-1';
     dateEl.textContent = formatDistanceToNowStrict(new Date(entry.date), { addSuffix: true });
     cell.appendChild(dateEl);
 
@@ -66,11 +66,11 @@ const buildCellDom = (
     // /api/avatar resolver so profile pictures and identicons share the same
     // browser cache as the rest of the app.
     const avatarWrap = document.createElement('span');
-    avatarWrap.className = 'relative flex h-4 w-4 shrink-0 overflow-hidden rounded-full bg-muted mr-2';
-    if (entry.authorEmail) {
+    avatarWrap.class名称 = 'relative flex h-4 w-4 shrink-0 overflow-hidden rounded-full bg-muted mr-2';
+    if (entry.author邮箱) {
         const avatarImg = document.createElement('img');
-        avatarImg.className = 'aspect-square h-full w-full';
-        avatarImg.src = `/api/avatar?email=${encodeURIComponent(entry.authorEmail)}`;
+        avatarImg.class名称 = 'aspect-square h-full w-full';
+        avatarImg.src = `/api/avatar?email=${encodeURIComponent(entry.author邮箱)}`;
         avatarImg.alt = '';
         avatarWrap.appendChild(avatarImg);
     }
@@ -78,7 +78,7 @@ const buildCellDom = (
 
     const messageEl = document.createElement('button');
     messageEl.type = 'button';
-    messageEl.className = 'flex-1 min-w-0 truncate text-left bg-transparent border-0 p-0 m-0 font-[inherit] text-inherit cursor-pointer hover:text-foreground hover:underline';
+    messageEl.class名称 = 'flex-1 min-w-0 truncate text-left bg-transparent border-0 p-0 m-0 font-[inherit] text-inherit cursor-pointer hover:text-foreground hover:underline';
     messageEl.textContent = entry.message;
     messageEl.addEventListener('click', () => onCommitClick(entry.hash));
     cell.appendChild(messageEl);
@@ -88,7 +88,7 @@ const buildCellDom = (
         const reblameBtn = document.createElement('button');
         reblameBtn.type = 'button';
         reblameBtn.title = `Blame prior to ${previous.hash.slice(0, 7)}`;
-        reblameBtn.className = 'flex-shrink-0 ml-1 p-0.5 bg-transparent border-0 cursor-pointer text-muted-foreground hover:text-foreground';
+        reblameBtn.class名称 = 'flex-shrink-0 ml-1 p-0.5 bg-transparent border-0 cursor-pointer text-muted-foreground hover:text-foreground';
         reblameBtn.innerHTML = FILE_STACK_SVG;
         reblameBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -119,7 +119,7 @@ class BlameMarker extends GutterMarker {
             a.hash === b.hash &&
             a.message === b.message &&
             a.date === b.date &&
-            a.authorEmail === b.authorEmail &&
+            a.author邮箱 === b.author邮箱 &&
             a.showStartBorder === b.showStartBorder &&
             a.ageBucket === b.ageBucket &&
             a.previous?.hash === b.previous?.hash &&
@@ -142,7 +142,7 @@ const activeGutterMarker = new (class extends GutterMarker {
 })();
 
 const computeActive = (
-    state: EditorState,
+    state: 编辑orState,
     lineIndex: Map<number, LineEntry>,
     commitToLines: Map<string, number[]>,
 ): { decorations: DecorationSet; gutterMarkers: RangeSet<GutterMarker> } => {
@@ -201,7 +201,7 @@ const buildLineIndex = (blame: FileBlameResponse): Map<number, LineEntry> => {
                     hash: range.hash,
                     message: commit.message,
                     date: commit.date,
-                    authorEmail: commit.authorEmail,
+                    author邮箱: commit.author邮箱,
                     previous: commit.previous ?? null,
                     showStartBorder,
                     ageBucket,
@@ -211,7 +211,7 @@ const buildLineIndex = (blame: FileBlameResponse): Map<number, LineEntry> => {
                     hash: range.hash,
                     message: null,
                     date: null,
-                    authorEmail: null,
+                    author邮箱: null,
                     previous: null,
                     showStartBorder,
                     ageBucket,
@@ -222,7 +222,7 @@ const buildLineIndex = (blame: FileBlameResponse): Map<number, LineEntry> => {
     return index;
 };
 
-const blameTheme = EditorView.theme({
+const blameTheme = 编辑orView.theme({
     '.cm-blame-gutter': {
         width: '400px',
         backgroundColor: 'var(--background)',
@@ -267,7 +267,7 @@ export const blameGutterExtension = (
             return value;
         },
         provide: f => [
-            EditorView.decorations.from(f, v => v.decorations),
+            编辑orView.decorations.from(f, v => v.decorations),
             gutterLineClass.from(f, v => v.gutterMarkers),
         ],
     });

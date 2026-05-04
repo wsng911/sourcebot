@@ -9,41 +9,41 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { RepositoryQuery, SearchContextQuery } from "@/lib/types";
+import { 仓库Query, 搜索ContextQuery } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import {
     CheckIcon,
     ChevronDown,
-    ScanSearchIcon,
+    Scan搜索Icon,
 } from "lucide-react";
 import { ButtonHTMLAttributes, forwardRef, KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { RepoSearchScope, RepoSetSearchScope, SearchScope } from "../../types";
-import { SearchScopeIcon } from "../searchScopeIcon";
+import { Repo搜索Scope, RepoSet搜索Scope, 搜索Scope } from "../../types";
+import { 搜索ScopeIcon } from "../searchScopeIcon";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { SearchScopeInfoCard } from "./searchScopeInfoCard";
+import { 搜索ScopeInfoCard } from "./searchScopeInfoCard";
 
-interface SearchScopeSelectorProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    repos: RepositoryQuery[];
-    searchContexts: SearchContextQuery[];
-    selectedSearchScopes: SearchScope[];
-    onSelectedSearchScopesChange: (items: SearchScope[]) => void;
-    className?: string;
+interface 搜索ScopeSelectorProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    repos: 仓库Query[];
+    searchContexts: 搜索ContextQuery[];
+    selected搜索Scopes: 搜索Scope[];
+    onSelected搜索ScopesChange: (items: 搜索Scope[]) => void;
+    class名称?: string;
     isOpen: boolean;
     onOpenChanged: (isOpen: boolean) => void;
 }
 
-export const SearchScopeSelector = forwardRef<
+export const 搜索ScopeSelector = forwardRef<
     HTMLButtonElement,
-    SearchScopeSelectorProps
+    搜索ScopeSelectorProps
 >(
     (
         {
             repos,
             searchContexts,
-            className,
-            selectedSearchScopes,
-            onSelectedSearchScopesChange,
+            class名称,
+            selected搜索Scopes,
+            onSelected搜索ScopesChange,
             isOpen,
             onOpenChanged,
             ...props
@@ -52,65 +52,65 @@ export const SearchScopeSelector = forwardRef<
     ) => {
         const scrollContainerRef = useRef<HTMLDivElement>(null);
         const scrollPosition = useRef<number>(0);
-        const [searchQuery, setSearchQuery] = useState("");
+        const [searchQuery, set搜索Query] = useState("");
         const [isMounted, setIsMounted] = useState(false);
         const [highlightedIndex, setHighlightedIndex] = useState<number>(0);
 
-        const toggleItem = useCallback((item: SearchScope) => {
+        const toggleItem = useCallback((item: 搜索Scope) => {
             // Store current scroll position before state update
             if (scrollContainerRef.current) {
                 scrollPosition.current = scrollContainerRef.current.scrollTop;
             }
 
-            const isSelected = selectedSearchScopes.some(
+            const isSelected = selected搜索Scopes.some(
                 (selected) => selected.type === item.type && selected.value === item.value
             );
 
             const newSelectedItems = isSelected ?
-                selectedSearchScopes.filter(
+                selected搜索Scopes.filter(
                     (selected) => !(selected.type === item.type && selected.value === item.value)
                 ) :
-                [...selectedSearchScopes, item];
+                [...selected搜索Scopes, item];
 
-            onSelectedSearchScopesChange(newSelectedItems);
-        }, [selectedSearchScopes, onSelectedSearchScopesChange]);
+            onSelected搜索ScopesChange(newSelectedItems);
+        }, [selected搜索Scopes, onSelected搜索ScopesChange]);
 
-        const allSearchScopeItems = useMemo(() => {
-            const repoSetSearchScopeItems: RepoSetSearchScope[] = searchContexts.map(context => ({
+        const all搜索ScopeItems = useMemo(() => {
+            const repoSet搜索ScopeItems: RepoSet搜索Scope[] = searchContexts.map(context => ({
                 type: 'reposet' as const,
                 value: context.name,
                 name: context.name,
-                repoCount: context.repoNames.length
+                repoCount: context.repo名称s.length
             }));
 
-            const repoSearchScopeItems: RepoSearchScope[] = repos.map(repo => ({
+            const repo搜索ScopeItems: Repo搜索Scope[] = repos.map(repo => ({
                 type: 'repo' as const,
-                value: repo.repoName,
-                name: repo.repoDisplayName || repo.repoName.split('/').pop() || repo.repoName,
+                value: repo.repo名称,
+                name: repo.repoDisplay名称 || repo.repo名称.split('/').pop() || repo.repo名称,
                 codeHostType: repo.codeHostType,
             }));
 
-            return [...repoSetSearchScopeItems, ...repoSearchScopeItems];
+            return [...repoSet搜索ScopeItems, ...repo搜索ScopeItems];
         }, [repos, searchContexts]);
 
         const handleClear = useCallback(() => {
-            onSelectedSearchScopesChange([]);
-            setSearchQuery("");
+            onSelected搜索ScopesChange([]);
+            set搜索Query("");
             requestAnimationFrame(() => {
                 if (scrollContainerRef.current) {
                     scrollContainerRef.current.scrollTop = 0;
                 }
             })
-        }, [onSelectedSearchScopesChange]);
+        }, [onSelected搜索ScopesChange]);
 
         const handleTogglePopover = useCallback(() => {
             onOpenChanged(!isOpen);
         }, [onOpenChanged, isOpen]);
 
-        const sortedSearchScopeItems = useMemo(() => {
+        const sorted搜索ScopeItems = useMemo(() => {
             const query = searchQuery.toLowerCase();
 
-            return allSearchScopeItems
+            return all搜索ScopeItems
                 .filter((item) => {
                     // Filter by search query
                     if (query && !item.name.toLowerCase().includes(query) && !item.value.toLowerCase().includes(query)) {
@@ -120,7 +120,7 @@ export const SearchScopeSelector = forwardRef<
                 })
                 .map((item) => ({
                     item,
-                    isSelected: selectedSearchScopes.some(
+                    isSelected: selected搜索Scopes.some(
                         (selected) => selected.type === item.type && selected.value === item.value
                     )
                 }))
@@ -133,32 +133,32 @@ export const SearchScopeSelector = forwardRef<
                     if (a.item.type === 'repo' && b.item.type === 'reposet') return 1;
                     return 0;
                 })
-        }, [allSearchScopeItems, selectedSearchScopes, searchQuery]);
+        }, [all搜索ScopeItems, selected搜索Scopes, searchQuery]);
 
         const handleInputKeyDown = useCallback(
             (event: KeyboardEvent<HTMLInputElement>) => {
                 if (event.key === "ArrowDown") {
                     event.preventDefault();
                     setHighlightedIndex((prev) =>
-                        prev < sortedSearchScopeItems.length - 1 ? prev + 1 : prev
+                        prev < sorted搜索ScopeItems.length - 1 ? prev + 1 : prev
                     );
                 } else if (event.key === "ArrowUp") {
                     event.preventDefault();
                     setHighlightedIndex((prev) => prev > 0 ? prev - 1 : 0);
                 } else if (event.key === "Enter") {
                     event.preventDefault();
-                    if (sortedSearchScopeItems.length > 0 && highlightedIndex >= 0) {
-                        toggleItem(sortedSearchScopeItems[highlightedIndex].item);
+                    if (sorted搜索ScopeItems.length > 0 && highlightedIndex >= 0) {
+                        toggleItem(sorted搜索ScopeItems[highlightedIndex].item);
                     }
-                } else if (event.key === "Backspace" && !event.currentTarget.value) {
-                    const newSelectedItems = [...selectedSearchScopes];
+                } else if (event.key === "返回space" && !event.currentTarget.value) {
+                    const newSelectedItems = [...selected搜索Scopes];
                     newSelectedItems.pop();
-                    onSelectedSearchScopesChange(newSelectedItems);
+                    onSelected搜索ScopesChange(newSelectedItems);
                 }
-            }, [highlightedIndex, onSelectedSearchScopesChange, selectedSearchScopes, sortedSearchScopeItems, toggleItem]);
+            }, [highlightedIndex, onSelected搜索ScopesChange, selected搜索Scopes, sorted搜索ScopeItems, toggleItem]);
 
         const virtualizer = useVirtualizer({
-            count: sortedSearchScopeItems.length,
+            count: sorted搜索ScopeItems.length,
             getScrollElement: () => scrollContainerRef.current,
             estimateSize: () => 36,
             overscan: 5,
@@ -175,7 +175,7 @@ export const SearchScopeSelector = forwardRef<
         // Reset highlighted index when items change (but don't scroll)
         useEffect(() => {
             setHighlightedIndex(0);
-        }, [sortedSearchScopeItems.length]);
+        }, [sorted搜索ScopeItems.length]);
 
         // Measure virtualizer when popover opens and container is mounted
         useEffect(() => {
@@ -207,7 +207,7 @@ export const SearchScopeSelector = forwardRef<
             if (scrollContainerRef.current && scrollPosition.current > 0) {
                 scrollContainerRef.current.scrollTop = scrollPosition.current;
             }
-        }, [sortedSearchScopeItems]);
+        }, [sorted搜索ScopeItems]);
 
         return (
             <Popover
@@ -221,55 +221,55 @@ export const SearchScopeSelector = forwardRef<
                                 ref={ref}
                                 {...props}
                                 onClick={handleTogglePopover}
-                                className={cn(
+                                class名称={cn(
                                     "flex p-1 rounded-md items-center justify-between bg-inherit h-6",
-                                    className
+                                    class名称
                                 )}
                             >
-                                <div className="flex items-center justify-between w-full mx-auto">
-                                    <ScanSearchIcon className="h-4 w-4 text-muted-foreground mr-1" />
+                                <div class名称="flex items-center justify-between w-full mx-auto">
+                                    <Scan搜索Icon class名称="h-4 w-4 text-muted-foreground mr-1" />
                                     <span
-                                        className={cn("text-sm text-muted-foreground mx-1 font-medium")}
+                                        class名称={cn("text-sm text-muted-foreground mx-1 font-medium")}
                                     >
                                         {
-                                            selectedSearchScopes.length === 0 ? `All repositories` :
-                                                selectedSearchScopes.length === 1 ? selectedSearchScopes[0].name :
-                                                    `${selectedSearchScopes.length} selected`
+                                            selected搜索Scopes.length === 0 ? `All repositories` :
+                                                selected搜索Scopes.length === 1 ? selected搜索Scopes[0].name :
+                                                    `${selected搜索Scopes.length} selected`
                                         }
                                     </span>
-                                    <ChevronDown className="h-4 cursor-pointer text-muted-foreground" />
+                                    <ChevronDown class名称="h-4 cursor-pointer text-muted-foreground" />
                                 </div>
                             </Button>
                         </TooltipTrigger>
                     </PopoverTrigger>
-                    <TooltipContent side="bottom" className="p-0 border-0 bg-transparent shadow-none">
-                        <SearchScopeInfoCard />
+                    <TooltipContent side="bottom" class名称="p-0 border-0 bg-transparent shadow-none">
+                        <搜索ScopeInfoCard />
                     </TooltipContent>
                     <PopoverContent
-                        className="w-[400px] p-0"
+                        class名称="w-[400px] p-0"
                         align="start"
                         onEscapeKeyDown={() => onOpenChanged(false)}
                     >
-                        <div className="flex flex-col">
-                            <div className="flex items-center border-b px-3">
+                        <div class名称="flex flex-col">
+                            <div class名称="flex items-center border-b px-3">
                                 <Input
-                                    placeholder="Search scopes..."
+                                    placeholder="搜索 scopes..."
                                     value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onChange={(e) => set搜索Query(e.target.value)}
                                     onKeyDown={handleInputKeyDown}
-                                    className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-11"
+                                    class名称="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-11"
                                 />
                             </div>
                             <div
                                 ref={scrollContainerRef}
-                                className="max-h-[300px] overflow-auto"
+                                class名称="max-h-[300px] overflow-auto"
                             >
-                                {sortedSearchScopeItems.length === 0 ? (
-                                    <div className="py-6 text-center text-sm text-muted-foreground">
+                                {sorted搜索ScopeItems.length === 0 ? (
+                                    <div class名称="py-6 text-center text-sm text-muted-foreground">
                                         No results found.
                                     </div>
                                 ) : (
-                                    <div className="p-1">
+                                    <div class名称="p-1">
                                         <div
                                             style={{
                                                 height: `${virtualizer.getTotalSize()}px`,
@@ -278,14 +278,14 @@ export const SearchScopeSelector = forwardRef<
                                             }}
                                         >
                                             {isMounted && virtualizer.getVirtualItems().map((virtualItem) => {
-                                                const { item, isSelected } = sortedSearchScopeItems[virtualItem.index];
+                                                const { item, isSelected } = sorted搜索ScopeItems[virtualItem.index];
                                                 const isHighlighted = virtualItem.index === highlightedIndex;
                                                 return (
                                                     <div
                                                         key={`${item.type}-${item.value}`}
                                                         onClick={() => toggleItem(item)}
                                                         onMouseEnter={() => setHighlightedIndex(virtualItem.index)}
-                                                        className={cn(
+                                                        class名称={cn(
                                                             "cursor-pointer absolute top-0 left-0 w-full flex items-center px-2 py-1.5 text-sm rounded-sm",
                                                             isHighlighted ? "bg-accent text-accent-foreground" : "hover:bg-accent hover:text-accent-foreground"
                                                         )}
@@ -294,22 +294,22 @@ export const SearchScopeSelector = forwardRef<
                                                         }}
                                                     >
                                                         <div
-                                                            className={cn(
+                                                            class名称={cn(
                                                                 "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                                                                 isSelected
                                                                     ? "bg-primary text-primary-foreground"
                                                                     : "opacity-50 [&_svg]:invisible"
                                                             )}
                                                         >
-                                                            <CheckIcon className="h-4 w-4" />
+                                                            <CheckIcon class名称="h-4 w-4" />
                                                         </div>
-                                                        <div className="flex flex-row items-center gap-2 w-full overflow-hidden">
-                                                            <SearchScopeIcon searchScope={item} />
-                                                            <p className="font-medium truncate-start">{item.name}</p>
+                                                        <div class名称="flex flex-row items-center gap-2 w-full overflow-hidden">
+                                                            <搜索ScopeIcon searchScope={item} />
+                                                            <p class名称="font-medium truncate-start">{item.name}</p>
                                                             {item.type === 'reposet' && (
                                                                 <Badge
                                                                     variant="default"
-                                                                    className="text-[10px] px-1.5 py-0 h-4 bg-primary text-primary-foreground"
+                                                                    class名称="text-[10px] px-1.5 py-0 h-4 bg-primary text-primary-foreground"
                                                                 >
                                                                     {item.repoCount} repo{item.repoCount === 1 ? '' : 's'}
                                                                 </Badge>
@@ -322,12 +322,12 @@ export const SearchScopeSelector = forwardRef<
                                     </div>
                                 )}
                             </div>
-                            {selectedSearchScopes.length > 0 && (
+                            {selected搜索Scopes.length > 0 && (
                                 <>
                                     <Separator />
                                     <div
                                         onClick={handleClear}
-                                        className="flex items-center justify-center px-2 py-2 text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground"
+                                        class名称="flex items-center justify-center px-2 py-2 text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground"
                                     >
                                         Clear
                                     </div>
@@ -341,4 +341,4 @@ export const SearchScopeSelector = forwardRef<
     }
 );
 
-SearchScopeSelector.displayName = "SearchScopeSelector";
+搜索ScopeSelector.display名称 = "搜索ScopeSelector";

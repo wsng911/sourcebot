@@ -8,12 +8,12 @@ import { withAuth } from "@/middleware/withAuth";
 import { withMinimumOrgRole } from "@/middleware/withMinimumOrgRole";
 import { OrgRole, Prisma } from "@sourcebot/db";
 import { hasEntitlement } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 
 const auditService = getAuditService();
 
 const orgManagementNotAvailable = (): ServiceError => ({
-    statusCode: StatusCodes.FORBIDDEN,
+    statusCode: 状态Codes.FORBIDDEN,
     errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
     message: "Organization management is not available in your current plan",
 });
@@ -27,7 +27,7 @@ export const promoteToOwner = async (memberId: string): Promise<{ success: boole
 
             if (memberId === user.id) {
                 return {
-                    statusCode: StatusCodes.BAD_REQUEST,
+                    statusCode: 状态Codes.BAD_REQUEST,
                     errorCode: ErrorCode.INVALID_REQUEST_BODY,
                     message: "You are already an owner.",
                 } satisfies ServiceError;
@@ -48,7 +48,7 @@ export const promoteToOwner = async (memberId: string): Promise<{ success: boole
 
             if (targetMember.role === OrgRole.OWNER) {
                 return {
-                    statusCode: StatusCodes.BAD_REQUEST,
+                    statusCode: 状态Codes.BAD_REQUEST,
                     errorCode: ErrorCode.INVALID_REQUEST_BODY,
                     message: "This member is already an owner.",
                 } satisfies ServiceError;
@@ -103,7 +103,7 @@ export const demoteToMember = async (memberId: string): Promise<{ success: boole
 
                 if (targetMember.role !== OrgRole.OWNER) {
                     return {
-                        statusCode: StatusCodes.BAD_REQUEST,
+                        statusCode: 状态Codes.BAD_REQUEST,
                         errorCode: ErrorCode.INVALID_REQUEST_BODY,
                         message: "This member is not an owner.",
                     } satisfies ServiceError;
@@ -118,7 +118,7 @@ export const demoteToMember = async (memberId: string): Promise<{ success: boole
 
                 if (ownerCount <= 1) {
                     return {
-                        statusCode: StatusCodes.FORBIDDEN,
+                        statusCode: 状态Codes.FORBIDDEN,
                         errorCode: ErrorCode.LAST_OWNER_CANNOT_BE_DEMOTED,
                         message: "Cannot demote the last owner. Promote another member to owner first.",
                     } satisfies ServiceError;

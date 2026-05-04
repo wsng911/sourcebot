@@ -22,28 +22,28 @@ const agents = [
 
 export default async function AgentsPage() {
   return (
-    <div className="flex flex-col items-center overflow-hidden min-h-screen">
+    <div class名称="flex flex-col items-center overflow-hidden min-h-screen">
       <NavigationMenu />
-      <div className="w-full max-w-6xl px-4 mt-12 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div class名称="w-full max-w-6xl px-4 mt-12 mb-24">
+        <div class名称="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {agents.map((agent) => (
             <div
               key={agent.id}
-              className="relative flex flex-col items-center border border-border rounded-2xl p-8 bg-card shadow-xl"
+              class名称="relative flex flex-col items-center border border-border rounded-2xl p-8 bg-card shadow-xl"
             >
-              {/* Name and description */}
-              <div className="flex flex-col items-center w-full">
-                <h2 className="font-bold text-2xl mb-4 mt-2 text-center text-foreground drop-shadow-sm">
+              {/* 名称 and description */}
+              <div class名称="flex flex-col items-center w-full">
+                <h2 class名称="font-bold text-2xl mb-4 mt-2 text-center text-foreground drop-shadow-sm">
                   {agent.name}
                 </h2>
-                <p className="text-base text-muted-foreground text-center mb-4 min-h-[56px]">
+                <p class名称="text-base text-muted-foreground text-center mb-4 min-h-[56px]">
                   {agent.description}
                 </p>
               </div>
-              {/* Actions */}
-              <div className="flex flex-col items-center w-full mt-2">
+              {/* 操作 */}
+              <div class名称="flex flex-col items-center w-full mt-2">
                 {agent.requiredEnvVars.every(envVar => envVar in env && env[envVar as keyof typeof env] !== undefined) ? (
-                  <div className="text-green-500 font-semibold">
+                  <div class名称="text-green-500 font-semibold">
                     Agent is configured and accepting requests on /api/webhook 
                   </div>
                 ) : (
@@ -51,9 +51,9 @@ export default async function AgentsPage() {
                     href={agent.configureUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground font-mono font-semibold text-base border border-primary shadow-sm hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/60 transition w-1/2"
+                    class名称="flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground font-mono font-semibold text-base border border-primary shadow-sm hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/60 transition w-1/2"
                   >
-                    <FaCogs className="text-lg" /> Configure
+                    <FaCogs class名称="text-lg" /> Configure
                   </Link>
                 )}
               </div>

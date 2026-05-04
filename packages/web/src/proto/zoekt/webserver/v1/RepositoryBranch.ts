@@ -2,19 +2,19 @@
 
 
 /**
- * RepositoryBranch describes an indexed branch, which is a name
+ * 仓库Branch describes an indexed branch, which is a name
  * combined with a version.
  */
-export interface RepositoryBranch {
+export interface 仓库Branch {
   'name'?: (string);
   'version'?: (string);
 }
 
 /**
- * RepositoryBranch describes an indexed branch, which is a name
+ * 仓库Branch describes an indexed branch, which is a name
  * combined with a version.
  */
-export interface RepositoryBranch__Output {
+export interface 仓库Branch__Output {
   'name': (string);
   'version': (string);
 }

@@ -4,19 +4,19 @@ import { useState } from "react"
 import { MemberApprovalRequiredToggle } from "./memberApprovalRequiredToggle"
 import { InviteLinkToggle } from "./inviteLinkToggle"
 
-interface OrganizationAccessSettingsWrapperProps {
+interface OrganizationAccess设置WrapperProps {
     memberApprovalRequired: boolean
     inviteLinkEnabled: boolean
     inviteLink: string | null
     memberApprovalEnvVarSet: boolean
 }
 
-export function OrganizationAccessSettingsWrapper({ 
+export function OrganizationAccess设置Wrapper({ 
     memberApprovalRequired, 
     inviteLinkEnabled, 
     inviteLink,
     memberApprovalEnvVarSet
-}: OrganizationAccessSettingsWrapperProps) {
+}: OrganizationAccess设置WrapperProps) {
     const [showInviteLink, setShowInviteLink] = useState(memberApprovalRequired)
     
     const handleMemberApprovalToggle = (checked: boolean) => {
@@ -25,7 +25,7 @@ export function OrganizationAccessSettingsWrapper({
 
     return (
         <>
-            <div className={`transition-all duration-300 ease-in-out overflow-hidden max-h-96 opacity-100`}>
+            <div class名称={`transition-all duration-300 ease-in-out overflow-hidden max-h-96 opacity-100`}>
                 <MemberApprovalRequiredToggle 
                     memberApprovalRequired={memberApprovalRequired}
                     onToggleChange={handleMemberApprovalToggle}
@@ -33,7 +33,7 @@ export function OrganizationAccessSettingsWrapper({
                 />
             </div>
             
-            <div className={`transition-all duration-300 ease-in-out overflow-hidden ${
+            <div class名称={`transition-all duration-300 ease-in-out overflow-hidden ${
                 showInviteLink 
                     ? 'max-h-96 opacity-100' 
                     : 'max-h-0 opacity-0 pointer-events-none'

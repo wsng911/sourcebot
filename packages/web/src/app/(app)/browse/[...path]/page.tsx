@@ -13,7 +13,7 @@ import { Metadata } from "next";
  * It handles three cases:
  * 1. File view (`blob`): "filename.ts - owner/repo"
  * 2. Directory view (`tree`): "directory/ - owner/repo"
- * 3. Repository root: "owner/repo"
+ * 3. 仓库 root: "owner/repo"
  *
  * @param path The array of path segments from Next.js params.
  * @returns A formatted title string.
@@ -22,17 +22,17 @@ const parsePathForTitle = (path: string[]): string => {
     const pathParam = path.join('/');
 
     const browseProps = getBrowseParamsFromPathParam(pathParam);
-    const { repoName, revisionName, path: filePath } = browseProps;
+    const { repo名称, revision名称, path: filePath } = browseProps;
 
     // Build the base repository and revision string.
-    const cleanRepoName = repoName.split('/').slice(1).join('/'); // Remove the version control system prefix
-    const repoAndRevision = `${cleanRepoName}${revisionName ? ` @ ${revisionName}` : ''}`;
+    const cleanRepo名称 = repo名称.split('/').slice(1).join('/'); // 移除 the version control system prefix
+    const repoAndRevision = `${cleanRepo名称}${revision名称 ? ` @ ${revision名称}` : ''}`;
 
     switch (browseProps.pathType) {
         case 'blob': {
             // For blobs, get the filename from the end of the path.
-            const fileName = filePath.split('/').pop() || filePath;
-            return `${fileName} - ${repoAndRevision}`;
+            const file名称 = filePath.split('/').pop() || filePath;
+            return `${file名称} - ${repoAndRevision}`;
         }
         case 'tree': {
             // If the path is empty, it's the repo root.
@@ -102,7 +102,7 @@ export default async function BrowsePage(props: BrowsePageProps) {
 
     const rawPath = _rawPath.join('/');
     const browseProps = getBrowseParamsFromPathParam(rawPath);
-    const { repoName, revisionName, path } = browseProps;
+    const { repo名称, revision名称, path } = browseProps;
 
     const page = Math.max(1, parseInt(searchParams.page ?? '1', 10) || 1);
     const author = searchParams.author || undefined;
@@ -113,26 +113,26 @@ export default async function BrowsePage(props: BrowsePageProps) {
     const isBlameMode = searchParams.blame === 'true';
 
     return (
-        <div className="flex flex-col h-full">
+        <div class名称="flex flex-col h-full">
             <Suspense fallback={
-                <div className="flex flex-col w-full min-h-full items-center justify-center">
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Loading...
+                <div class名称="flex flex-col w-full min-h-full items-center justify-center">
+                    <Loader2 class名称="w-4 h-4 animate-spin" />
+                    加载中...
                 </div>
             }>
                 {browseProps.pathType === 'blob' ? (
                     isDiffMode && previewRef ? (
                         <FocusedCommitDiffPanel
-                            repoName={repoName}
-                            revisionName={revisionName}
+                            repo名称={repo名称}
+                            revision名称={revision名称}
                             commitSha={previewRef}
                             path={path}
                         />
                     ) : (
                         <CodePreviewPanel
                             path={path}
-                            repoName={repoName}
-                            revisionName={revisionName}
+                            repo名称={repo名称}
+                            revision名称={revision名称}
                             previewRef={previewRef}
                             blame={isBlameMode}
                         />
@@ -140,8 +140,8 @@ export default async function BrowsePage(props: BrowsePageProps) {
                 ) : browseProps.pathType === 'commits' ? (
                     <CommitsPanel
                         path={path}
-                        repoName={repoName}
-                        revisionName={revisionName}
+                        repo名称={repo名称}
+                        revision名称={revision名称}
                         page={page}
                         author={author}
                         since={since}
@@ -149,14 +149,14 @@ export default async function BrowsePage(props: BrowsePageProps) {
                     />
                 ) : browseProps.pathType === 'commit' ? (
                     <FullCommitDiffPanel
-                        repoName={repoName}
+                        repo名称={repo名称}
                         commitSha={browseProps.commitSha}
                     />
                 ) : (
                     <TreePreviewPanel
                         path={path}
-                        repoName={repoName}
-                        revisionName={revisionName}
+                        repo名称={repo名称}
+                        revision名称={revision名称}
                     />
                 )}
             </Suspense>

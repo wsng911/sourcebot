@@ -4,8 +4,8 @@ import { z } from "zod";
 import { captureEvent } from "@/lib/posthog";
 import { ToolContext, ToolDefinition } from "./types";
 
-export function toVercelAITool<TName extends string, TShape extends z.ZodRawShape, TMetadata>(
-    def: ToolDefinition<TName, TShape, TMetadata>,
+export function toVercelAITool<T名称 extends string, TShape extends z.ZodRawShape, TMetadata>(
+    def: ToolDefinition<T名称, TShape, TMetadata>,
     context: ToolContext,
 ) {
     return tool({
@@ -21,7 +21,7 @@ export function toVercelAITool<TName extends string, TShape extends z.ZodRawShap
                 throw error;
             } finally {
                 captureEvent('tool_used', {
-                    toolName: def.name,
+                    tool名称: def.name,
                     source: context.source ?? 'unknown',
                     success,
                 });
@@ -34,9 +34,9 @@ export function toVercelAITool<TName extends string, TShape extends z.ZodRawShap
     });
 }
 
-export function registerMcpTool<TName extends string, TShape extends z.ZodRawShape, TMetadata>(
+export function registerMcpTool<T名称 extends string, TShape extends z.ZodRawShape, TMetadata>(
     server: McpServer,
-    def: ToolDefinition<TName, TShape, TMetadata>,
+    def: ToolDefinition<T名称, TShape, TMetadata>,
     context: ToolContext,
 ) {
     // Widening .shape to z.ZodRawShape (its base constraint) gives TypeScript a
@@ -64,7 +64,7 @@ export function registerMcpTool<TName extends string, TShape extends z.ZodRawSha
                 return { content: [{ type: "text" as const, text: `Tool "${def.name}" failed: ${message}` }], isError: true };
             } finally {
                 captureEvent('tool_used', {
-                    toolName: def.name,
+                    tool名称: def.name,
                     source: context.source ?? 'unknown',
                     success,
                 });

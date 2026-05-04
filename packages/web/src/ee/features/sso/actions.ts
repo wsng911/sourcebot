@@ -21,7 +21,7 @@ export type LinkedAccount = {
     isAccountLinkingProvider: boolean;
     required: boolean;
     // Permission sync
-    supportsPermissionSync: boolean;
+    supportsPermission同步: boolean;
 };
 
 export const getLinkedAccounts = async () => sew(() =>
@@ -40,7 +40,7 @@ export const getLinkedAccounts = async () => sew(() =>
             const config = await loadConfig(env.CONFIG_PATH);
             const identityProviderConfigs = config.identityProviders ?? [];
 
-            const permissionSyncEnabled =
+            const permission同步Enabled =
                 env.PERMISSION_SYNC_ENABLED === 'true' &&
                 hasEntitlement('permission-syncing');
 
@@ -60,7 +60,7 @@ export const getLinkedAccounts = async () => sew(() =>
                     error: account.tokenRefreshErrorMessage ?? undefined,
                     isAccountLinkingProvider: isAccountLinking,
                     required: isAccountLinking ? (providerConfig?.accountLinkingRequired ?? false) : false,
-                    supportsPermissionSync: permissionSyncEnabled && PERMISSION_SYNC_SUPPORTED_IDENTITY_PROVIDERS.includes(account.provider as IdentityProviderType),
+                    supportsPermission同步: permission同步Enabled && PERMISSION_SYNC_SUPPORTED_IDENTITY_PROVIDERS.includes(account.provider as IdentityProviderType),
                 });
             }
 
@@ -72,7 +72,7 @@ export const getLinkedAccounts = async () => sew(() =>
                         isLinked: false,
                         isAccountLinkingProvider: providerConfig.purpose === 'account_linking',
                         required: providerConfig.purpose === 'account_linking' ? (providerConfig.accountLinkingRequired ?? false) : false,
-                        supportsPermissionSync: permissionSyncEnabled && PERMISSION_SYNC_SUPPORTED_IDENTITY_PROVIDERS.includes(providerConfig.provider),
+                        supportsPermission同步: permission同步Enabled && PERMISSION_SYNC_SUPPORTED_IDENTITY_PROVIDERS.includes(providerConfig.provider),
                     });
                 }
             }
@@ -93,7 +93,7 @@ export const unlinkLinkedAccountProvider = async (provider: string) => sew(() =>
                 },
             });
 
-            logger.info(`Unlinked account provider ${provider} for user ${user.id}. Deleted ${result.count} account(s).`);
+            logger.info(`Unlinked account provider ${provider} for user ${user.id}. 删除d ${result.count} account(s).`);
 
             return { success: true, count: result.count };
         })

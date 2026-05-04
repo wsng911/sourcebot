@@ -3,8 +3,8 @@ import z from 'zod';
 import { fileTreeItemSchema, fileTreeNodeSchema } from './types';
 
 export const getTreeRequestSchema = z.object({
-    repoName: z.string(),
-    revisionName: z.string(),
+    repo名称: z.string(),
+    revision名称: z.string(),
     paths: z.array(z.string()),
 });
 
@@ -13,8 +13,8 @@ export const getTreeResponseSchema = z.object({
 });
 
 export const getFilesRequestSchema = z.object({
-    repoName: z.string(),
-    revisionName: z.string(),
+    repo名称: z.string(),
+    revision名称: z.string(),
 });
 
 export const getFilesResponseSchema = z.array(fileTreeItemSchema);
@@ -31,7 +31,7 @@ export const fileSourceResponseSchema = z.object({
     path: z.string(),
     repo: z.string(),
     repoCodeHostType: z.nativeEnum(CodeHostType),
-    repoDisplayName: z.string().optional(),
+    repoDisplay名称: z.string().optional(),
     repoExternalWebUrl: z.string().optional(),
     webUrl: z.string(),
     externalWebUrl: z.string().optional(),
@@ -84,8 +84,8 @@ export const commitSchema = z.object({
     message: z.string().describe('The commit subject line.'),
     refs: z.string().describe('Refs pointing to this commit (e.g. branch or tag names).'),
     body: z.string().describe('The commit body (everything after the subject line).'),
-    authorName: z.string(),
-    authorEmail: z.string(),
+    author名称: z.string(),
+    author邮箱: z.string(),
 });
 
 export const getCommitQueryParamsSchema = z.object({
@@ -132,8 +132,8 @@ export const blameCommitSchema = z.object({
     hash: z.string().describe('The full commit SHA.'),
     date: z.string().describe('The commit date in ISO 8601 format.'),
     message: z.string().describe('The commit subject line.'),
-    authorName: z.string(),
-    authorEmail: z.string(),
+    author名称: z.string(),
+    author邮箱: z.string(),
     previous: blamePreviousSchema.optional().describe('Pointer to the previous commit that affected these lines, with the file path as it existed there. Absent when the commit introduced the lines (no earlier history to walk to).'),
 });
 

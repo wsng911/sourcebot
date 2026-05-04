@@ -38,7 +38,7 @@ export const MOCK_USER_WITH_ACCOUNTS: User & { accounts: Account[] } = {
     email: 'test@test.com',
     createdAt: new Date(),
     updatedAt: new Date(),
-    hashedPassword: null,
+    hashed密码: null,
     emailVerified: null,
     image: null,
     accounts: [],

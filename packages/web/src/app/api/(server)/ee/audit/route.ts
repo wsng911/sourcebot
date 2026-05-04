@@ -7,7 +7,7 @@ import { buildLinkHeader } from "@/lib/pagination";
 import { serviceErrorResponse, queryParamsSchemaValidationError } from "@/lib/serviceError";
 import { isServiceError } from "@/lib/utils";
 import { getEntitlements } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -27,7 +27,7 @@ export const GET = apiHandler(async (request: NextRequest) => {
     const entitlements = getEntitlements();
     if (!entitlements.includes('audit')) {
         return serviceErrorResponse({
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.NOT_FOUND,
             message: "Audit logging is not enabled for your license",
         });

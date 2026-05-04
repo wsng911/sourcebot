@@ -10,7 +10,7 @@ export const useBrowseNavigation = () => {
     const navigateToPath = useCallback((props: BrowseProps) => {
         const browsePath = getBrowsePath({
             ...props,
-            revisionName: props.revisionName ?? 'HEAD',
+            revision名称: props.revision名称 ?? 'HEAD',
         });
 
         router.push(browsePath);

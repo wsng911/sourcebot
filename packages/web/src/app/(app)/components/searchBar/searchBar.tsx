@@ -1,20 +1,20 @@
 'use client';
 
 import { useClickListener } from "@/hooks/useClickListener";
-import { SearchQueryParams } from "@/lib/types";
+import { 搜索QueryParams } from "@/lib/types";
 import { cn, createPathWithQueryParams } from "@/lib/utils";
 import {
     cursorCharLeft,
     cursorCharRight,
     cursorDocEnd,
     cursorDocStart,
-    cursorLineBoundaryBackward,
+    cursorLineBoundary返回ward,
     cursorLineBoundaryForward,
-    deleteCharBackward,
+    deleteChar返回ward,
     deleteCharForward,
-    deleteGroupBackward,
+    deleteGroup返回ward,
     deleteGroupForward,
-    deleteLineBoundaryBackward,
+    deleteLineBoundary返回ward,
     deleteLineBoundaryForward,
     history,
     historyKeymap,
@@ -23,17 +23,17 @@ import {
     selectCharRight,
     selectDocEnd,
     selectDocStart,
-    selectLineBoundaryBackward,
+    selectLineBoundary返回ward,
     selectLineBoundaryForward
 } from "@codemirror/commands";
 import { tags as t } from '@lezer/highlight';
 import { createTheme } from '@uiw/codemirror-themes';
-import CodeMirror, { Annotation, EditorView, KeyBinding, keymap, ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import Code镜像, { Annotation, 编辑orView, KeyBinding, keymap, ReactCode镜像Ref } from "@uiw/react-codemirror";
 import { cva } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHotkeys } from 'react-hotkeys-hook';
-import { SearchSuggestionsBox } from "./searchSuggestionsBox";
+import { 搜索SuggestionsBox } from "./searchSuggestionsBox";
 import { useSuggestionsData } from "./useSuggestionsData";
 import { zoekt } from "./zoektLanguageExtension";
 import { CounterClockwiseClockIcon } from "@radix-ui/react-icons";
@@ -45,13 +45,13 @@ import tailwind from "@/tailwind";
 import React from "react";
 import Link from "next/link";
 import { CaseSensitiveIcon, RegexIcon, Wand2Icon } from "lucide-react";
-import { SearchAssistBox } from "./searchAssistBox";
+import { 搜索AssistBox } from "./searchAssistBox";
 import useCaptureEvent from "@/hooks/useCaptureEvent";
 
 const LANGUAGE_MODEL_DOCS_URL = "https://docs.sourcebot.dev/docs/configuration/language-model-providers"; 
 
-interface SearchBarProps {
-    className?: string;
+interface 搜索BarProps {
+    class名称?: string;
     size?: "default" | "sm";
     defaults?: {
         isRegexEnabled?: boolean;
@@ -59,14 +59,14 @@ interface SearchBarProps {
         query?: string;
     }
     autoFocus?: boolean;
-    isSearchAssistSupported: boolean;
+    is搜索AssistSupported: boolean;
 }
 
 const searchBarKeymap: readonly KeyBinding[] = ([
     { key: "ArrowLeft", run: cursorCharLeft, shift: selectCharLeft, preventDefault: true },
     { key: "ArrowRight", run: cursorCharRight, shift: selectCharRight, preventDefault: true },
 
-    { key: "Home", run: cursorLineBoundaryBackward, shift: selectLineBoundaryBackward, preventDefault: true },
+    { key: "Home", run: cursorLineBoundary返回ward, shift: selectLineBoundary返回ward, preventDefault: true },
     { key: "Mod-Home", run: cursorDocStart, shift: selectDocStart },
 
     { key: "End", run: cursorLineBoundaryForward, shift: selectLineBoundaryForward, preventDefault: true },
@@ -74,12 +74,12 @@ const searchBarKeymap: readonly KeyBinding[] = ([
 
     { key: "Mod-a", run: selectAll },
 
-    { key: "Backspace", run: deleteCharBackward, shift: deleteCharBackward },
-    { key: "Delete", run: deleteCharForward },
-    { key: "Mod-Backspace", mac: "Alt-Backspace", run: deleteGroupBackward },
-    { key: "Mod-Delete", mac: "Alt-Delete", run: deleteGroupForward },
-    { mac: "Mod-Backspace", run: deleteLineBoundaryBackward },
-    { mac: "Mod-Delete", run: deleteLineBoundaryForward }
+    { key: "返回space", run: deleteChar返回ward, shift: deleteChar返回ward },
+    { key: "删除", run: deleteCharForward },
+    { key: "Mod-返回space", mac: "Alt-返回space", run: deleteGroup返回ward },
+    { key: "Mod-删除", mac: "Alt-删除", run: deleteGroupForward },
+    { mac: "Mod-返回space", run: deleteLineBoundary返回ward },
+    { mac: "Mod-删除", run: deleteLineBoundaryForward }
 ] as KeyBinding[]).concat(historyKeymap);
 
 const searchBarContainerVariants = cva(
@@ -97,8 +97,8 @@ const searchBarContainerVariants = cva(
     }
 );
 
-export const SearchBar = ({
-    className,
+export const 搜索Bar = ({
+    class名称,
     size,
     autoFocus,
     defaults: {
@@ -106,22 +106,22 @@ export const SearchBar = ({
         isCaseSensitivityEnabled: defaultIsCaseSensitivityEnabled = false,
         query: defaultQuery = "",
     } = {},
-    isSearchAssistSupported,
-}: SearchBarProps) => {
+    is搜索AssistSupported,
+}: 搜索BarProps) => {
     const router = useRouter();
     const captureEvent = useCaptureEvent();
     const suggestionBoxRef = useRef<HTMLDivElement>(null);
-    const editorRef = useRef<ReactCodeMirrorRef>(null);
+    const editorRef = useRef<ReactCode镜像Ref>(null);
     const [cursorPosition, setCursorPosition] = useState(0);
     const [activePanel, setActivePanel] = useState<'suggestions' | 'searchAssist'>();
     const isSuggestionsEnabled = activePanel === 'suggestions';
-    const isSearchAssistEnabled = activePanel === 'searchAssist';
+    const is搜索AssistEnabled = activePanel === 'searchAssist';
     const [isSuggestionsBoxFocused, setIsSuggestionsBoxFocused] = useState(false);
-    const [isHistorySearchEnabled, setIsHistorySearchEnabled] = useState(false);
+    const [isHistory搜索Enabled, setIsHistory搜索Enabled] = useState(false);
     const [isRegexEnabled, setIsRegexEnabled] = useState(defaultIsRegexEnabled);
     const [isCaseSensitivityEnabled, setIsCaseSensitivityEnabled] = useState(defaultIsCaseSensitivityEnabled);
 
-    const focusEditor = useCallback(() => editorRef.current?.view?.focus(), []);
+    const focus编辑or = useCallback(() => editorRef.current?.view?.focus(), []);
     const focusSuggestionsBox = useCallback(() => suggestionBoxRef.current?.focus(), []);
 
     const [_query, setQuery] = useState(defaultQuery);
@@ -143,7 +143,7 @@ export const SearchBar = ({
 
     const { suggestionMode, suggestionQuery } = useSuggestionModeAndQuery({
         isSuggestionsEnabled,
-        isHistorySearchEnabled,
+        isHistory搜索Enabled,
         cursorPosition,
         query,
     });
@@ -187,8 +187,8 @@ export const SearchBar = ({
             keymap.of(searchBarKeymap),
             history(),
             zoekt(),
-            EditorView.lineWrapping,
-            EditorView.updateListener.of(update => {
+            编辑orView.lineWrapping,
+            编辑orView.updateListener.of(update => {
                 if (update.selectionSet) {
                     const selection = update.state.selection.main;
                     if (selection.empty) {
@@ -202,7 +202,7 @@ export const SearchBar = ({
     // Hotkey to focus the search bar.
     useHotkeys('/', (event) => {
         event.preventDefault();
-        focusEditor();
+        focus编辑or();
         setActivePanel('suggestions');
         if (editorRef.current?.view) {
             cursorDocEnd({
@@ -221,27 +221,27 @@ export const SearchBar = ({
         }
     });
 
-    const onSubmit = useCallback((query: string) => {
+    const on提交 = useCallback((query: string) => {
         setActivePanel(undefined);
-        setIsHistorySearchEnabled(false);
+        setIsHistory搜索Enabled(false);
 
         const url = createPathWithQueryParams(`/search`,
-            [SearchQueryParams.query, query],
-            [SearchQueryParams.isRegexEnabled, isRegexEnabled ? "true" : null],
-            [SearchQueryParams.isCaseSensitivityEnabled, isCaseSensitivityEnabled ? "true" : null],
+            [搜索QueryParams.query, query],
+            [搜索QueryParams.isRegexEnabled, isRegexEnabled ? "true" : null],
+            [搜索QueryParams.isCaseSensitivityEnabled, isCaseSensitivityEnabled ? "true" : null],
         );
         router.push(url);
     }, [router, isRegexEnabled, isCaseSensitivityEnabled]);
 
     return (
         <div
-            className={cn(searchBarContainerVariants({ size, className }))}
+            class名称={cn(searchBarContainerVariants({ size, class名称 }))}
             onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     if (activePanel !== 'searchAssist') {
                         setActivePanel(undefined);
-                        onSubmit(query);
+                        on提交(query);
                     }
                 }
 
@@ -250,7 +250,7 @@ export const SearchBar = ({
                     setActivePanel(undefined);
                 }
 
-                if (e.key === 'ArrowDown' && !isSearchAssistEnabled) {
+                if (e.key === 'ArrowDown' && !is搜索AssistEnabled) {
                     e.preventDefault();
                     setActivePanel('suggestions');
                     focusSuggestionsBox();
@@ -261,23 +261,23 @@ export const SearchBar = ({
                 }
             }}
         >
-            <div className="flex flex-row items-center gap-1">
-                <SearchBarButton
-                    isToggled={isHistorySearchEnabled}
+            <div class名称="flex flex-row items-center gap-1">
+                <搜索BarButton
+                    isToggled={isHistory搜索Enabled}
                     onClick={() => {
                         setQuery("");
-                        setIsHistorySearchEnabled(!isHistorySearchEnabled);
+                        setIsHistory搜索Enabled(!isHistory搜索Enabled);
                         setActivePanel('suggestions');
-                        focusEditor();
+                        focus编辑or();
                     }}
-                    tooltip="Search history"
+                    tooltip="搜索 history"
                     icon={CounterClockwiseClockIcon}
                 />
-                <SearchBarButton
-                    isToggled={isSearchAssistEnabled}
+                <搜索BarButton
+                    isToggled={is搜索AssistEnabled}
                     onClick={() => {
                         setQuery("");
-                        setIsHistorySearchEnabled(false);
+                        setIsHistory搜索Enabled(false);
                         setActivePanel(prev => {
                             const next = prev === 'searchAssist' ? undefined : 'searchAssist';
                             if (next === 'searchAssist') {
@@ -285,16 +285,16 @@ export const SearchBar = ({
                             }
                             return next;
                         });
-                        focusEditor();
+                        focus编辑or();
                     }}
                     tooltip="AI search assist"
                     icon={Wand2Icon}
                     preventBlurOnClick
-                    disabled={!isSearchAssistSupported}
+                    disabled={!is搜索AssistSupported}
                     disabledTooltip={
                         <span>
                             AI search assist requires a language model to be configured.{" "}
-                            <Link href={LANGUAGE_MODEL_DOCS_URL} target="_blank" className="underline">
+                            <Link href={LANGUAGE_MODEL_DOCS_URL} target="_blank" class名称="underline">
                                 Learn more
                             </Link>.
                         </span>
@@ -302,13 +302,13 @@ export const SearchBar = ({
                 />
             </div>
             <Separator
-                className="mx-1 h-6"
+                class名称="mx-1 h-6"
                 orientation="vertical"
             />
-            <CodeMirror
+            <Code镜像
                 ref={editorRef}
-                className="w-full"
-                placeholder={isHistorySearchEnabled ? "Filter history..." : "Search (/) through repos..."}
+                class名称="w-full"
+                placeholder={isHistory搜索Enabled ? "Filter history..." : "搜索 (/) through repos..."}
                 value={query}
                 onChange={(value) => {
                     setQuery(value);
@@ -322,15 +322,15 @@ export const SearchBar = ({
                 indentWithTab={false}
                 autoFocus={autoFocus ?? false}
             />
-            <div className="flex flex-row items-center gap-1 ml-1">
-                <SearchBarButton
+            <div class名称="flex flex-row items-center gap-1 ml-1">
+                <搜索BarButton
                     isToggled={isCaseSensitivityEnabled}
                     onClick={() => setIsCaseSensitivityEnabled(!isCaseSensitivityEnabled)}
                     tooltip={`${isCaseSensitivityEnabled ? "Disable" : "Enable"} case sensitivity`}
                     icon={CaseSensitiveIcon}
 
                 />
-                <SearchBarButton
+                <搜索BarButton
                     isToggled={isRegexEnabled}
                     onClick={() => setIsRegexEnabled(!isRegexEnabled)}
                     tooltip={`${isRegexEnabled ? "Disable" : "Enable"} regular expressions`}
@@ -338,9 +338,9 @@ export const SearchBar = ({
 
                 />
             </div>
-            <SearchAssistBox
-                className={size === "sm" ? "top-7" : "top-9"}
-                isEnabled={isSearchAssistEnabled}
+            <搜索AssistBox
+                class名称={size === "sm" ? "top-7" : "top-9"}
+                isEnabled={is搜索AssistEnabled}
                 onBlur={() => {
                     setActivePanel(undefined);
                 }}
@@ -351,19 +351,19 @@ export const SearchBar = ({
                         selection: { anchor: translatedQuery.length },
                     });
                     setActivePanel(undefined);
-                    focusEditor();
+                    focus编辑or();
                     // Always enable regex and case sensitivity when using search assist.
                     setIsRegexEnabled(true);
                     setIsCaseSensitivityEnabled(true);
                 }}
             />
-            <SearchSuggestionsBox
+            <搜索SuggestionsBox
                 ref={suggestionBoxRef}
-                className={size === "sm" ? "top-9" : "top-12"}
+                class名称={size === "sm" ? "top-9" : "top-12"}
                 query={query}
                 suggestionQuery={suggestionQuery}
                 suggestionMode={suggestionMode}
-                onCompletion={(newQuery: string, newCursorPosition: number, autoSubmit = false) => {
+                onCompletion={(newQuery: string, newCursorPosition: number, auto提交 = false) => {
                     setQuery(newQuery);
 
                     // Move the cursor to it's new position.
@@ -383,13 +383,13 @@ export const SearchBar = ({
                     // Re-focus the editor since suggestions cause focus to be lost (both click & keyboard)
                     editorRef.current?.view?.focus();
 
-                    if (autoSubmit) {
-                        onSubmit(newQuery);
+                    if (auto提交) {
+                        on提交(newQuery);
                     }
                 }}
                 isEnabled={isSuggestionsEnabled}
                 onReturnFocus={() => {
-                    focusEditor();
+                    focus编辑or();
                 }}
                 isFocused={isSuggestionsBoxFocused}
                 onFocus={() => {
@@ -405,7 +405,7 @@ export const SearchBar = ({
     )
 }
 
-const SearchBarButton = ({
+const 搜索BarButton = ({
     isToggled,
     onClick,
     tooltip,
@@ -429,12 +429,12 @@ const SearchBarButton = ({
                 <div>
                     <Toggle
                         pressed={isToggled}
-                        className="h-6 w-6 min-w-6 px-0 p-1 cursor-pointer"
+                        class名称="h-6 w-6 min-w-6 px-0 p-1 cursor-pointer"
                         onClick={onClick}
                         onMouseDown={preventBlurOnClick ? (e) => e.preventDefault() : undefined}
                         disabled={disabled}
                     >
-                        <Icon className="w-4 h-4" />
+                        <Icon class名称="w-4 h-4" />
                     </Toggle>
                 </div>
             </TooltipTrigger>

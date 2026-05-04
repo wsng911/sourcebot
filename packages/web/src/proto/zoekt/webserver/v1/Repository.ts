@@ -1,11 +1,11 @@
 // Original file: ../../vendor/zoekt/grpc/protos/zoekt/webserver/v1/webserver.proto
 
-import type { RepositoryBranch as _zoekt_webserver_v1_RepositoryBranch, RepositoryBranch__Output as _zoekt_webserver_v1_RepositoryBranch__Output } from '../../../zoekt/webserver/v1/RepositoryBranch';
-import type { Repository as _zoekt_webserver_v1_Repository, Repository__Output as _zoekt_webserver_v1_Repository__Output } from '../../../zoekt/webserver/v1/Repository';
+import type { 仓库Branch as _zoekt_webserver_v1_仓库Branch, 仓库Branch__Output as _zoekt_webserver_v1_仓库Branch__Output } from '../../../zoekt/webserver/v1/仓库Branch';
+import type { 仓库 as _zoekt_webserver_v1_仓库, 仓库__Output as _zoekt_webserver_v1_仓库__Output } from '../../../zoekt/webserver/v1/仓库';
 import type { Timestamp as _google_protobuf_Timestamp, Timestamp__Output as _google_protobuf_Timestamp__Output } from '../../../google/protobuf/Timestamp';
 import type { Long } from '@grpc/proto-loader';
 
-export interface Repository {
+export interface 仓库 {
   /**
    * Sourcegraph's repository ID
    */
@@ -28,11 +28,11 @@ export interface Repository {
   /**
    * The branches indexed in this repo.
    */
-  'branches'?: (_zoekt_webserver_v1_RepositoryBranch)[];
+  'branches'?: (_zoekt_webserver_v1_仓库Branch)[];
   /**
    * Nil if this is not the super project.
    */
-  'sub_repo_map'?: ({[key: string]: _zoekt_webserver_v1_Repository});
+  'sub_repo_map'?: ({[key: string]: _zoekt_webserver_v1_仓库});
   /**
    * URL template to link to the commit of a branch
    */
@@ -93,12 +93,12 @@ export interface Repository {
    */
   'tenant_id'?: (number | string | Long);
   /**
-   * Additional metadata about the repository.
+   * 添加itional metadata about the repository.
    */
   'metadata'?: ({[key: string]: string});
 }
 
-export interface Repository__Output {
+export interface 仓库__Output {
   /**
    * Sourcegraph's repository ID
    */
@@ -121,11 +121,11 @@ export interface Repository__Output {
   /**
    * The branches indexed in this repo.
    */
-  'branches': (_zoekt_webserver_v1_RepositoryBranch__Output)[];
+  'branches': (_zoekt_webserver_v1_仓库Branch__Output)[];
   /**
    * Nil if this is not the super project.
    */
-  'sub_repo_map': ({[key: string]: _zoekt_webserver_v1_Repository__Output});
+  'sub_repo_map': ({[key: string]: _zoekt_webserver_v1_仓库__Output});
   /**
    * URL template to link to the commit of a branch
    */
@@ -186,7 +186,7 @@ export interface Repository__Output {
    */
   'tenant_id': (number);
   /**
-   * Additional metadata about the repository.
+   * 添加itional metadata about the repository.
    */
   'metadata': ({[key: string]: string});
 }

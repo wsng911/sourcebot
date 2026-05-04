@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import { auth } from "../auth";
 import { notAuthenticated, notFound, ServiceError } from "../lib/serviceError";
 import { SINGLE_TENANT_ORG_ID } from "../lib/constants";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { ErrorCode } from "../lib/errorCodes";
 import { getOrgMetadata, isServiceError } from "../lib/utils";
 import { hasEntitlement } from "@sourcebot/shared";
@@ -98,7 +98,7 @@ export const getAuthContext = async (): Promise<OptionalAuthContext | ServiceErr
         role !== OrgRole.OWNER
     ) {
         return {
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.API_KEY_USAGE_DISABLED,
             message: "API key usage is disabled for non-admin users.",
         } satisfies ServiceError;

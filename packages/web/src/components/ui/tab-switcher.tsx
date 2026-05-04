@@ -8,10 +8,10 @@ import { ReactNode } from "react"
 interface TabSwitcherProps {
   tabs: { value: string; label: ReactNode }[]
   currentTab: string
-  className?: string
+  class名称?: string
 }
 
-export function TabSwitcher({ tabs, currentTab, className }: TabSwitcherProps) {
+export function TabSwitcher({ tabs, currentTab, class名称 }: TabSwitcherProps) {
   const router = useRouter()
 
   const handleTabChange = (value: string) => {
@@ -19,7 +19,7 @@ export function TabSwitcher({ tabs, currentTab, className }: TabSwitcherProps) {
   }
 
   return (
-    <TabsList className={className}>
+    <TabsList class名称={class名称}>
       {tabs.map((tab) => (
         <LowProfileTabsTrigger
           key={tab.value}
@@ -38,17 +38,17 @@ interface LowProfileTabsTrigger {
     value: string
     children: React.ReactNode
     onClick?: () => void
-    className?: string
+    class名称?: string
   }
 
-  export function LowProfileTabsTrigger({ value, children, onClick, className }: LowProfileTabsTrigger) {
+  export function LowProfileTabsTrigger({ value, children, onClick, class名称 }: LowProfileTabsTrigger) {
     return (
       <TabsTrigger
         value={value}
         onClick={onClick}
-        className={cn(
+        class名称={cn(
           "relative h-9 rounded-none border-b-2 border-transparent px-4 pb-3 pt-2 font-normal text-muted-foreground transition-none data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:shadow-none data-[state=active]:bg-transparent",
-          className,
+          class名称,
         )}
       >
         {children}

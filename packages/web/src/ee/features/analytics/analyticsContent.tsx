@@ -2,7 +2,7 @@
 
 import { ChartTooltip } from "@/components/ui/chart"
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-import { Users, LucideIcon, Search, ArrowRight, Activity, Calendar, MessageCircle, Wrench, Key, Info } from "lucide-react"
+import { Users, LucideIcon, 搜索, ArrowRight, Activity, Calendar, MessageCircle, Wrench, Key, Info } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer } from "@/components/ui/chart"
 import { useQuery } from "@tanstack/react-query"
@@ -58,22 +58,22 @@ function AnalyticsChart({ data, title, icon: Icon, period, dataKey, color, gradi
     }
 
     return (
-        <Card className="bg-card border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-border/80">
-            <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
+        <Card class名称="bg-card border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-border/80">
+            <CardHeader class名称="pb-4">
+                <div class名称="flex items-center justify-between">
+                    <div class名称="flex items-center space-x-3">
                         <div
-                            className={`p-2 rounded-lg bg-muted/50`}
+                            class名称={`p-2 rounded-lg bg-muted/50`}
                         >
-                            <Icon className="h-5 w-5" style={{ color }} />
+                            <Icon class名称="h-5 w-5" style={{ color }} />
                         </div>
-                        <div className="flex items-center gap-2">
-                            <CardTitle className="text-lg font-semibold text-card-foreground">{title}</CardTitle>
+                        <div class名称="flex items-center gap-2">
+                            <CardTitle class名称="text-lg font-semibold text-card-foreground">{title}</CardTitle>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent side="top" className="max-w-xs">
+                                <TooltipContent side="top" class名称="max-w-xs">
                                     {description}
                                 </TooltipContent>
                             </Tooltip>
@@ -81,8 +81,8 @@ function AnalyticsChart({ data, title, icon: Icon, period, dataKey, color, gradi
                     </div>
                 </div>
             </CardHeader>
-            <CardContent className="pt-0">
-                <ChartContainer config={chartConfig} className="h-[240px] w-full">
+            <CardContent class名称="pt-0">
+                <ChartContainer config={chartConfig} class名称="h-[240px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                             <defs>
@@ -122,8 +122,8 @@ function AnalyticsChart({ data, title, icon: Icon, period, dataKey, color, gradi
                                 content={({ active, payload, label }) => {
                                     if (active && payload && payload.length) {
                                         return (
-                                            <div className="bg-popover/95 backdrop-blur-sm border border-border rounded-xl p-4 shadow-2xl">
-                                                <p className="text-muted-foreground text-sm mb-2 font-medium">
+                                            <div class名称="bg-popover/95 backdrop-blur-sm border border-border rounded-xl p-4 shadow-2xl">
+                                                <p class名称="text-muted-foreground text-sm mb-2 font-medium">
                                                     {(() => {
                                                         const utcDate = new Date(label)
                                                         const displayDate = new Date(
@@ -140,12 +140,12 @@ function AnalyticsChart({ data, title, icon: Icon, period, dataKey, color, gradi
                                                     })()}
                                                 </p>
                                                 {payload.map((entry, index) => (
-                                                    <div key={index} className="flex items-center justify-between space-x-4">
-                                                        <div className="flex items-center space-x-2">
-                                                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
-                                                            <span className="text-popover-foreground text-sm">{title}</span>
+                                                    <div key={index} class名称="flex items-center justify-between space-x-4">
+                                                        <div class名称="flex items-center space-x-2">
+                                                            <div class名称="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
+                                                            <span class名称="text-popover-foreground text-sm">{title}</span>
                                                         </div>
-                                                        <span className="text-popover-foreground font-semibold">{entry.value?.toLocaleString()}</span>
+                                                        <span class名称="text-popover-foreground font-semibold">{entry.value?.toLocaleString()}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -202,37 +202,37 @@ function MultiLineAnalyticsChart({ data, title, icon: Icon, period, series, desc
     )
 
     return (
-        <Card className="bg-card border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-border/80">
-            <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                        <div className="p-2 rounded-lg bg-muted/50">
-                            <Icon className="h-5 w-5" style={{ color: series[0]?.color }} />
+        <Card class名称="bg-card border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-border/80">
+            <CardHeader class名称="pb-4">
+                <div class名称="flex items-center justify-between">
+                    <div class名称="flex items-center space-x-3">
+                        <div class名称="p-2 rounded-lg bg-muted/50">
+                            <Icon class名称="h-5 w-5" style={{ color: series[0]?.color }} />
                         </div>
-                        <div className="flex items-center gap-2">
-                            <CardTitle className="text-lg font-semibold text-card-foreground">{title}</CardTitle>
+                        <div class名称="flex items-center gap-2">
+                            <CardTitle class名称="text-lg font-semibold text-card-foreground">{title}</CardTitle>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent side="top" className="max-w-xs">
+                                <TooltipContent side="top" class名称="max-w-xs">
                                     {description}
                                 </TooltipContent>
                             </Tooltip>
                         </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div class名称="flex items-center gap-4">
                         {series.map((s) => (
-                            <div key={s.dataKey} className="flex items-center gap-1.5">
-                                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: s.color }} />
-                                <span className="text-xs text-muted-foreground">{s.label}</span>
+                            <div key={s.dataKey} class名称="flex items-center gap-1.5">
+                                <div class名称="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: s.color }} />
+                                <span class名称="text-xs text-muted-foreground">{s.label}</span>
                             </div>
                         ))}
                     </div>
                 </div>
             </CardHeader>
-            <CardContent className="pt-0">
-                <ChartContainer config={chartConfig} className="h-[240px] w-full">
+            <CardContent class名称="pt-0">
+                <ChartContainer config={chartConfig} class名称="h-[240px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                             <defs>
@@ -273,8 +273,8 @@ function MultiLineAnalyticsChart({ data, title, icon: Icon, period, series, desc
                                 content={({ active, payload, label }) => {
                                     if (active && payload && payload.length) {
                                         return (
-                                            <div className="bg-popover/95 backdrop-blur-sm border border-border rounded-xl p-4 shadow-2xl">
-                                                <p className="text-muted-foreground text-sm mb-2 font-medium">
+                                            <div class名称="bg-popover/95 backdrop-blur-sm border border-border rounded-xl p-4 shadow-2xl">
+                                                <p class名称="text-muted-foreground text-sm mb-2 font-medium">
                                                     {(() => {
                                                         const utcDate = new Date(label)
                                                         const displayDate = new Date(
@@ -290,14 +290,14 @@ function MultiLineAnalyticsChart({ data, title, icon: Icon, period, series, desc
                                                     })()}
                                                 </p>
                                                 {payload.map((entry, index) => (
-                                                    <div key={index} className="flex items-center justify-between space-x-4">
-                                                        <div className="flex items-center space-x-2">
-                                                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
-                                                            <span className="text-popover-foreground text-sm">
+                                                    <div key={index} class名称="flex items-center justify-between space-x-4">
+                                                        <div class名称="flex items-center space-x-2">
+                                                            <div class名称="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
+                                                            <span class名称="text-popover-foreground text-sm">
                                                                 {series.find((s) => s.dataKey === entry.dataKey)?.label ?? entry.dataKey}
                                                             </span>
                                                         </div>
-                                                        <span className="text-popover-foreground font-semibold">{entry.value?.toLocaleString()}</span>
+                                                        <span class名称="text-popover-foreground font-semibold">{entry.value?.toLocaleString()}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -336,15 +336,15 @@ function ChartSkeletonGroup({ count }: { count: number }) {
     return (
         <>
             {Array.from({ length: count }, (_, i) => (
-                <Card key={i} className="bg-card border-border shadow-lg">
-                    <CardHeader className="pb-4">
-                        <div className="flex items-center space-x-3">
-                            <Skeleton className="h-9 w-9 rounded-lg bg-muted" />
-                            <Skeleton className="h-5 w-32 bg-muted" />
+                <Card key={i} class名称="bg-card border-border shadow-lg">
+                    <CardHeader class名称="pb-4">
+                        <div class名称="flex items-center space-x-3">
+                            <Skeleton class名称="h-9 w-9 rounded-lg bg-muted" />
+                            <Skeleton class名称="h-5 w-32 bg-muted" />
                         </div>
                     </CardHeader>
-                    <CardContent className="pt-0">
-                        <Skeleton className="h-[240px] w-full bg-muted rounded-lg" />
+                    <CardContent class名称="pt-0">
+                        <Skeleton class名称="h-[240px] w-full bg-muted rounded-lg" />
                     </CardContent>
                 </Card>
             ))}
@@ -354,16 +354,16 @@ function ChartSkeletonGroup({ count }: { count: number }) {
 
 function LoadingSkeleton() {
     return (
-        <div className="space-y-6">
+        <div class名称="space-y-6">
             {/* Header skeleton */}
-            <div className="flex flex-row items-center justify-between">
-                <div className="space-y-2">
-                    <Skeleton className="h-6 w-24 bg-muted" />
-                    <Skeleton className="h-4 w-64 bg-muted" />
+            <div class名称="flex flex-row items-center justify-between">
+                <div class名称="space-y-2">
+                    <Skeleton class名称="h-6 w-24 bg-muted" />
+                    <Skeleton class名称="h-4 w-64 bg-muted" />
                 </div>
-                <div className="flex items-center gap-3">
-                    <Skeleton className="h-4 w-4 bg-muted" />
-                    <Skeleton className="h-10 w-40 bg-muted rounded-md" />
+                <div class名称="flex items-center gap-3">
+                    <Skeleton class名称="h-4 w-4 bg-muted" />
+                    <Skeleton class名称="h-10 w-40 bg-muted rounded-md" />
                 </div>
             </div>
 
@@ -371,11 +371,11 @@ function LoadingSkeleton() {
             <ChartSkeletonGroup count={1} />
 
             {/* Web App section skeleton */}
-            <Skeleton className="h-5 w-24 bg-muted" />
+            <Skeleton class名称="h-5 w-24 bg-muted" />
             <ChartSkeletonGroup count={4} />
 
             {/* API section skeleton */}
-            <Skeleton className="h-5 w-16 bg-muted" />
+            <Skeleton class名称="h-5 w-16 bg-muted" />
             <ChartSkeletonGroup count={4} />
         </div>
     )
@@ -406,7 +406,7 @@ export function AnalyticsContent() {
             light: "#3b82f6",
             dark: "#60a5fa",
         },
-        webSearches: {
+        web搜索es: {
             light: "#f59e0b",
             dark: "#fbbf24",
         },
@@ -442,7 +442,7 @@ export function AnalyticsContent() {
 
     if (isPending) {
         return (
-            <div className="min-h-screen bg-background p-6">
+            <div class名称="min-h-screen bg-background p-6">
                 <LoadingSkeleton />
             </div>
         )
@@ -450,14 +450,14 @@ export function AnalyticsContent() {
 
     if (isError) {
         return (
-            <div className="min-h-screen bg-background flex items-center justify-center">
-                <Card className="bg-destructive/10 border-destructive/20 p-8">
-                    <div className="text-center">
-                        <div className="p-3 rounded-full bg-destructive/20 w-fit mx-auto mb-4">
-                            <Activity className="h-8 w-8 text-destructive" />
+            <div class名称="min-h-screen bg-background flex items-center justify-center">
+                <Card class名称="bg-destructive/10 border-destructive/20 p-8">
+                    <div class名称="text-center">
+                        <div class名称="p-3 rounded-full bg-destructive/20 w-fit mx-auto mb-4">
+                            <Activity class名称="h-8 w-8 text-destructive" />
                         </div>
-                        <h3 className="text-xl font-semibold text-foreground mb-2">Analytics Unavailable</h3>
-                        <p className="text-destructive">Error loading analytics: {error.message}</p>
+                        <h3 class名称="text-xl font-semibold text-foreground mb-2">Analytics Unavailable</h3>
+                        <p class名称="text-destructive">Error loading analytics: {error.message}</p>
                     </div>
                 </Card>
             </div>
@@ -484,9 +484,9 @@ export function AnalyticsContent() {
         },
         {
             dataKey: "web_search_active_users",
-            label: "Search",
-            color: getColor("webSearches"),
-            gradientId: "webSearchActiveUsers",
+            label: "搜索",
+            color: getColor("web搜索es"),
+            gradientId: "web搜索ActiveUsers",
         },
         {
             dataKey: "web_ask_active_users",
@@ -499,9 +499,9 @@ export function AnalyticsContent() {
     const webActivitySeries: MultiLineSeriesDefinition[] = [
         {
             dataKey: "web_code_searches",
-            label: "Code Searches",
-            color: getColor("webSearches"),
-            gradientId: "webCodeSearches",
+            label: "Code 搜索es",
+            color: getColor("web搜索es"),
+            gradientId: "webCode搜索es",
         },
         {
             dataKey: "web_ask_chats",
@@ -554,20 +554,20 @@ export function AnalyticsContent() {
     ]
 
     return (
-        <div className="space-y-6">
+        <div class名称="space-y-6">
             {/* Page Header */}
-            <div className="flex flex-row items-center justify-between">
+            <div class名称="flex flex-row items-center justify-between">
                 <div>
-                    <h3 className="text-lg font-medium">Analytics</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <h3 class名称="text-lg font-medium">Analytics</h3>
+                    <p class名称="text-sm text-muted-foreground">
                         View usage metrics across your organization.
                     </p>
-                    <div className="flex gap-4 mt-1">
-                        <p className="text-xs text-muted-foreground/70">
+                    <div class名称="flex gap-4 mt-1">
+                        <p class名称="text-xs text-muted-foreground/70">
                             Retention period: {analyticsResponse.retentionDays > 0 ? `${analyticsResponse.retentionDays} days` : "Indefinite"}
                         </p>
                         {analyticsResponse.oldestRecordDate && (
-                            <p className="text-xs text-muted-foreground/70">
+                            <p class名称="text-xs text-muted-foreground/70">
                                 Data since: {new Date(analyticsResponse.oldestRecordDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}
                             </p>
                         )}
@@ -575,10 +575,10 @@ export function AnalyticsContent() {
                 </div>
 
                 {/* Time Period Selector */}
-                <div className="flex items-center gap-3">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                <div class名称="flex items-center gap-3">
+                    <Calendar class名称="h-4 w-4 text-muted-foreground" />
                     <Select value={selectedPeriod} onValueChange={(value: TimePeriod) => setSelectedPeriod(value)}>
-                        <SelectTrigger className="w-40">
+                        <SelectTrigger class名称="w-40">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -603,10 +603,10 @@ export function AnalyticsContent() {
             />
 
             {/* Web App Section */}
-            <div className="space-y-6">
+            <div class名称="space-y-6">
                 <div>
-                    <h3 className="text-xl font-semibold">Web App</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <h3 class名称="text-xl font-semibold">Web App</h3>
+                    <p class名称="text-sm text-muted-foreground">
                         Usage from the Sourcebot web interface.
                     </p>
                 </div>
@@ -616,7 +616,7 @@ export function AnalyticsContent() {
                     icon={Users}
                     period={selectedPeriod}
                     series={webActiveUsersSeries}
-                    description="Unique users who interacted with the Sourcebot web interface. All includes users who performed any web action (code searches, navigations, Ask chats, or file views), excluding repo listing. Search and Ask show the subset of users who performed those specific actions."
+                    description="Unique users who interacted with the Sourcebot web interface. All includes users who performed any web action (code searches, navigations, Ask chats, or file views), excluding repo listing. 搜索 and Ask show the subset of users who performed those specific actions."
                 />
                 <MultiLineAnalyticsChart
                     data={periodData}
@@ -624,15 +624,15 @@ export function AnalyticsContent() {
                     icon={Activity}
                     period={selectedPeriod}
                     series={webActivitySeries}
-                    description="Total event counts for web interface activity. Code Searches are searches performed in the web search bar. Ask Chats are conversations created through the web interface. Navigations are go-to-definition and find-references actions in the code viewer."
+                    description="Total event counts for web interface activity. Code 搜索es are searches performed in the web search bar. Ask Chats are conversations created through the web interface. Navigations are go-to-definition and find-references actions in the code viewer."
                 />
             </div>
 
             {/* API Section */}
-            <div className="space-y-6">
+            <div class名称="space-y-6">
                 <div>
-                    <h3 className="text-xl font-semibold">API</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <h3 class名称="text-xl font-semibold">API</h3>
+                    <p class名称="text-sm text-muted-foreground">
                         Usage from MCP integrations and direct API access.
                     </p>
                 </div>

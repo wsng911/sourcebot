@@ -16,10 +16,10 @@ interface LayoutProps {
 }
 
 export const metadata: Metadata = {
-    title: "Settings",
+    title: "设置",
 }
 
-export default async function SettingsLayout(
+export default async function 设置Layout(
     props: LayoutProps
 ) {
     const {
@@ -37,19 +37,19 @@ export default async function SettingsLayout(
     }
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div class名称="min-h-screen flex flex-col">
             <NavigationMenu />
-            <main className="flex-grow flex justify-center p-4 bg-backgroundSecondary relative">
-                <div className="w-full max-w-6xl rounded-lg p-6">
-                    <div className="container mx-auto">
-                        <div className="mb-16">
-                            <h1 className="text-3xl font-semibold">Settings</h1>
+            <main class名称="flex-grow flex justify-center p-4 bg-backgroundSecondary relative">
+                <div class名称="w-full max-w-6xl rounded-lg p-6">
+                    <div class名称="container mx-auto">
+                        <div class名称="mb-16">
+                            <h1 class名称="text-3xl font-semibold">设置</h1>
                         </div>
-                        <div className="flex flex-row gap-10">
-                            <aside className="lg:w-48">
+                        <div class名称="flex flex-row gap-10">
+                            <aside class名称="lg:w-48">
                                 <SidebarNav items={sidebarNavItems} />
                             </aside>
-                            <div className="w-full rounded-lg">{children}</div>
+                            <div class名称="w-full rounded-lg">{children}</div>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export const getSidebarNavItems = async () =>
                     title: "Connections",
                     href: `/settings/connections`,
                     hrefRegex: `/settings/connections(/[^/]+)?$`,
-                    isNotificationDotVisible: connectionStats.numberOfConnectionsWithFirstTimeSyncJobsInProgress > 0,
+                    isNotificationDotVisible: connectionStats.numberOfConnectionsWithFirstTime同步JobsInProgress > 0,
                 }
             ] : []),
             ...(env.DISABLE_API_KEY_USAGE_FOR_NON_OWNER_USERS === 'false' || role === OrgRole.OWNER ? [

@@ -61,7 +61,7 @@ export async function createMcpServer(): Promise<McpServer> {
         async () => {
             const models = await getConfiguredLanguageModelsInfo();
             captureEvent('tool_used', {
-                toolName: 'list_language_models',
+                tool名称: 'list_language_models',
                 source: 'sourcebot-mcp-server',
                 success: true,
             });
@@ -82,7 +82,7 @@ export async function createMcpServer(): Promise<McpServer> {
 
             The agent will:
             - Analyze your question and determine what context it needs
-            - Search the codebase using multiple strategies (code search, symbol lookup, file reading)
+            - 搜索 the codebase using multiple strategies (code search, symbol lookup, file reading)
             - Synthesize findings into a comprehensive answer with code references
 
             Returns a detailed answer in markdown format with code references, plus a link to view the full research session (including all tool calls and reasoning) in the Sourcebot web UI.
@@ -110,7 +110,7 @@ export async function createMcpServer(): Promise<McpServer> {
 
                 if (isServiceError(result)) {
                     captureEvent('tool_used', {
-                        toolName: 'ask_codebase',
+                        tool名称: 'ask_codebase',
                         source: 'sourcebot-mcp-server',
                         success: false,
                     });
@@ -120,7 +120,7 @@ export async function createMcpServer(): Promise<McpServer> {
                 }
 
                 captureEvent('tool_used', {
-                    toolName: 'ask_codebase',
+                    tool名称: 'ask_codebase',
                     source: 'sourcebot-mcp-server',
                     success: true,
                 });

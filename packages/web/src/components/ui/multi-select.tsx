@@ -69,7 +69,7 @@ interface MultiSelectProps
         /** The unique value associated with the option. */
         value: string;
         /** Optional icon component to display alongside the option. */
-        icon?: React.ComponentType<{ className?: string }>;
+        icon?: React.ComponentType<{ class名称?: string }>;
     }[];
 
     /**
@@ -113,10 +113,10 @@ interface MultiSelectProps
     asChild?: boolean;
 
     /**
-     * Additional class names to apply custom styles to the multi-select component.
+     * 添加itional class names to apply custom styles to the multi-select component.
      * Optional, can be used to add custom styles.
      */
-    className?: string;
+    class名称?: string;
 }
 
 export const MultiSelect = React.forwardRef<
@@ -134,7 +134,7 @@ export const MultiSelect = React.forwardRef<
             maxCount = 3,
             modalPopover = false,
             asChild = false,
-            className,
+            class名称,
             ...props
         },
         ref
@@ -149,7 +149,7 @@ export const MultiSelect = React.forwardRef<
         ) => {
             if (event.key === "Enter") {
                 setIsPopoverOpen(true);
-            } else if (event.key === "Backspace" && !event.currentTarget.value) {
+            } else if (event.key === "返回space" && !event.currentTarget.value) {
                 const newSelectedValues = [...selectedValues];
                 newSelectedValues.pop();
                 setSelectedValues(newSelectedValues);
@@ -201,32 +201,32 @@ export const MultiSelect = React.forwardRef<
                         ref={ref}
                         {...props}
                         onClick={handleTogglePopover}
-                        className={cn(
+                        class名称={cn(
                             "flex w-full p-1 rounded-md border min-h-10 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto",
-                            className
+                            class名称
                         )}
                     >
                         {selectedValues.length > 0 ? (
-                            <div className="flex justify-between items-center w-full">
-                                <div className="flex flex-wrap items-center">
+                            <div class名称="flex justify-between items-center w-full">
+                                <div class名称="flex flex-wrap items-center">
                                     {selectedValues.slice(0, maxCount).map((value) => {
                                         const option = options.find((o) => o.value === value);
                                         const IconComponent = option?.icon;
                                         return (
                                             <Badge
                                                 key={value}
-                                                className={cn(
+                                                class名称={cn(
                                                     isAnimating ? "animate-bounce" : "",
                                                     multiSelectVariants({ variant })
                                                 )}
                                                 style={{ animationDuration: `${animation}s` }}
                                             >
                                                 {IconComponent && (
-                                                    <IconComponent className="h-4 w-4 mr-2" />
+                                                    <IconComponent class名称="h-4 w-4 mr-2" />
                                                 )}
                                                 {option?.label}
                                                 <XCircle
-                                                    className="ml-2 h-4 w-4 cursor-pointer"
+                                                    class名称="ml-2 h-4 w-4 cursor-pointer"
                                                     onClick={(event) => {
                                                         event.stopPropagation();
                                                         toggleOption(value);
@@ -237,7 +237,7 @@ export const MultiSelect = React.forwardRef<
                                     })}
                                     {selectedValues.length > maxCount && (
                                         <Badge
-                                            className={cn(
+                                            class名称={cn(
                                                 "bg-transparent text-foreground border-foreground/1 hover:bg-transparent",
                                                 isAnimating ? "animate-bounce" : "",
                                                 multiSelectVariants({ variant })
@@ -246,7 +246,7 @@ export const MultiSelect = React.forwardRef<
                                         >
                                             {`+ ${selectedValues.length - maxCount} more`}
                                             <XCircle
-                                                className="ml-2 h-4 w-4 cursor-pointer"
+                                                class名称="ml-2 h-4 w-4 cursor-pointer"
                                                 onClick={(event) => {
                                                     event.stopPropagation();
                                                     clearExtraOptions();
@@ -255,9 +255,9 @@ export const MultiSelect = React.forwardRef<
                                         </Badge>
                                     )}
                                 </div>
-                                <div className="flex items-center justify-between">
+                                <div class名称="flex items-center justify-between">
                                     <XIcon
-                                        className="h-4 mx-2 cursor-pointer text-muted-foreground"
+                                        class名称="h-4 mx-2 cursor-pointer text-muted-foreground"
                                         onClick={(event) => {
                                             event.stopPropagation();
                                             handleClear();
@@ -265,34 +265,34 @@ export const MultiSelect = React.forwardRef<
                                     />
                                     <Separator
                                         orientation="vertical"
-                                        className="flex min-h-6 h-full"
+                                        class名称="flex min-h-6 h-full"
                                     />
-                                    <ChevronDown className="h-4 mx-2 cursor-pointer text-muted-foreground" />
+                                    <ChevronDown class名称="h-4 mx-2 cursor-pointer text-muted-foreground" />
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex items-center justify-between w-full mx-auto">
+                            <div class名称="flex items-center justify-between w-full mx-auto">
                                 <span
-                                    className="text-sm text-muted-foreground mx-3"
+                                    class名称="text-sm text-muted-foreground mx-3"
                                     style={{
                                         fontWeight: 400
                                     }}
                                 >
                                     {placeholder}
                                 </span>
-                                <ChevronDown className="h-4 cursor-pointer text-muted-foreground mx-2" />
+                                <ChevronDown class名称="h-4 cursor-pointer text-muted-foreground mx-2" />
                             </div>
                         )}
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                    className="w-auto p-0"
+                    class名称="w-auto p-0"
                     align="start"
                     onEscapeKeyDown={() => setIsPopoverOpen(false)}
                 >
                     <Command>
                         <CommandInput
-                            placeholder="Search..."
+                            placeholder="搜索..."
                             onKeyDown={handleInputKeyDown}
                         />
                         <CommandList>
@@ -305,20 +305,20 @@ export const MultiSelect = React.forwardRef<
                                         <CommandItem
                                             key={option.value}
                                             onSelect={() => toggleOption(option.value)}
-                                            className="cursor-pointer"
+                                            class名称="cursor-pointer"
                                         >
                                             <div
-                                                className={cn(
+                                                class名称={cn(
                                                     "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                                                     isSelected
                                                         ? "bg-primary text-primary-foreground"
                                                         : "opacity-50 [&_svg]:invisible"
                                                 )}
                                             >
-                                                <CheckIcon className="h-4 w-4" />
+                                                <CheckIcon class名称="h-4 w-4" />
                                             </div>
                                             {option.icon && (
-                                                <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                                                <option.icon class名称="mr-2 h-4 w-4 text-muted-foreground" />
                                             )}
                                             <span>{option.label}</span>
                                         </CommandItem>
@@ -327,26 +327,26 @@ export const MultiSelect = React.forwardRef<
                             </CommandGroup>
                             <CommandSeparator />
                             <CommandGroup>
-                                <div className="flex items-center justify-between">
+                                <div class名称="flex items-center justify-between">
                                     {selectedValues.length > 0 && (
                                         <>
                                             <CommandItem
                                                 onSelect={handleClear}
-                                                className="flex-1 justify-center cursor-pointer"
+                                                class名称="flex-1 justify-center cursor-pointer"
                                             >
                                                 Clear
                                             </CommandItem>
                                             <Separator
                                                 orientation="vertical"
-                                                className="flex min-h-6 h-full"
+                                                class名称="flex min-h-6 h-full"
                                             />
                                         </>
                                     )}
                                     <CommandItem
                                         onSelect={() => setIsPopoverOpen(false)}
-                                        className="flex-1 justify-center cursor-pointer max-w-full"
+                                        class名称="flex-1 justify-center cursor-pointer max-w-full"
                                     >
-                                        Close
+                                        关闭
                                     </CommandItem>
                                 </div>
                             </CommandGroup>
@@ -355,7 +355,7 @@ export const MultiSelect = React.forwardRef<
                 </PopoverContent>
                 {animation > 0 && selectedValues.length > 0 && (
                     <WandSparkles
-                        className={cn(
+                        class名称={cn(
                             "cursor-pointer my-2 text-foreground bg-background w-3 h-3",
                             isAnimating ? "" : "text-muted-foreground"
                         )}
@@ -367,4 +367,4 @@ export const MultiSelect = React.forwardRef<
     }
 );
 
-MultiSelect.displayName = "MultiSelect";
+MultiSelect.display名称 = "MultiSelect";

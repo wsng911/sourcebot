@@ -5,7 +5,7 @@ export type KeymapType = "default" | "vim";
 
 export type GetVersionResponse = z.infer<typeof getVersionResponseSchema>;
 
-export enum SearchQueryParams {
+export enum 搜索QueryParams {
     query = "query",
     matches = "matches",
     isRegexEnabled = "isRegexEnabled",
@@ -25,7 +25,7 @@ export type NewsItem = {
     read?: boolean;
 }
 
-export type RepositoryQuery = z.infer<typeof repositoryQuerySchema>;
-export type SearchContextQuery = z.infer<typeof searchContextQuerySchema>;
+export type 仓库Query = z.infer<typeof repositoryQuerySchema>;
+export type 搜索ContextQuery = z.infer<typeof searchContextQuerySchema>;
 export type ListReposResponse = z.infer<typeof listReposResponseSchema>;
 export type ListReposQueryParams = z.infer<typeof listReposQueryParamsSchema>;

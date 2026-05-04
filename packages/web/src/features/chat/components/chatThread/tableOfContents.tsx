@@ -13,10 +13,10 @@ interface TocItem {
 interface TableOfContentsProps {
     tocItems: TocItem[];
     activeId: string;
-    className?: string;
+    class名称?: string;
 }
 
-export const TableOfContents = ({ tocItems, activeId, className }: TableOfContentsProps) => {
+export const TableOfContents = ({ tocItems, activeId, class名称 }: TableOfContentsProps) => {
     const scrollToHeading = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
@@ -28,14 +28,14 @@ export const TableOfContents = ({ tocItems, activeId, className }: TableOfConten
     };
 
     return (
-        <nav className={cn('space-y-0.5', className)}>
+        <nav class名称={cn('space-y-0.5', class名称)}>
             {tocItems.map((item) => (
                 <Button
                     key={item.id}
                     variant="link"
                     size="sm"
                     onClick={() => scrollToHeading(item.id)}
-                    className={cn(
+                    class名称={cn(
                         'w-full justify-start text-left h-auto py-0.5 px-0 font-normal text-wrap hover:text-foreground underline-offset-2 text-xs',
                         {
                             'text-foreground': activeId === item.id,

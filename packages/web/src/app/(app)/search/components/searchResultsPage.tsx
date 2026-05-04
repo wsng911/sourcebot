@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/resizable";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { RepositoryInfo, SearchResultFile, SearchStats } from "@/features/search";
+import { 仓库Info, 搜索ResultFile, 搜索Stats } from "@/features/search";
 import useCaptureEvent from "@/hooks/useCaptureEvent";
 import { useNonEmptyQueryParam } from "@/hooks/useNonEmptyQueryParam";
-import { useSearchHistory } from "@/hooks/useSearchHistory";
-import { SearchQueryParams } from "@/lib/types";
+import { use搜索History } from "@/hooks/use搜索History";
+import { 搜索QueryParams } from "@/lib/types";
 import { createPathWithQueryParams } from "@/lib/utils";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -24,54 +24,54 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { ImperativePanelHandle } from "react-resizable-panels";
-import { CopyIconButton } from "../../components/copyIconButton";
-import { SearchBar } from "../../components/searchBar";
+import { 复制IconButton } from "../../components/copyIconButton";
+import { 搜索Bar } from "../../components/searchBar";
 import { TopBar } from "../../components/topBar";
-import { useStreamedSearch } from "../useStreamedSearch";
+import { useStreamed搜索 } from "../useStreamed搜索";
 import { CodePreviewPanel } from "./codePreviewPanel";
 import { FilterPanel } from "./filterPanel";
 import { useFilteredMatches } from "./filterPanel/useFilterMatches";
-import { SearchResultsPanel, SearchResultsPanelHandle } from "./searchResultsPanel";
+import { 搜索ResultsPanel, 搜索ResultsPanelHandle } from "./searchResultsPanel";
 import { ServiceErrorException } from "@/lib/serviceError";
 import { Session } from "next-auth";
 
-interface SearchResultsPageProps {
+interface 搜索ResultsPageProps {
     searchQuery: string;
     defaultMaxMatchCount: number;
     isRegexEnabled: boolean;
     isCaseSensitivityEnabled: boolean;
     session: Session | null;
-    isSearchAssistSupported: boolean;
+    is搜索AssistSupported: boolean;
 }
 
-export const SearchResultsPage = ({
+export const 搜索ResultsPage = ({
     searchQuery,
     defaultMaxMatchCount,
     isRegexEnabled,
     isCaseSensitivityEnabled,
     session,
-    isSearchAssistSupported,
-}: SearchResultsPageProps) => {
+    is搜索AssistSupported,
+}: 搜索ResultsPageProps) => {
     const router = useRouter();
-    const { setSearchHistory } = useSearchHistory();
+    const { set搜索History } = use搜索History();
     const { toast } = useToast();
     const captureEvent = useCaptureEvent();
 
     // Encodes the number of matches to return in the search response.
-    const _maxMatchCount = parseInt(useNonEmptyQueryParam(SearchQueryParams.matches) ?? `${defaultMaxMatchCount}`);
+    const _maxMatchCount = parseInt(useNonEmptyQueryParam(搜索QueryParams.matches) ?? `${defaultMaxMatchCount}`);
     const maxMatchCount = isNaN(_maxMatchCount) ? defaultMaxMatchCount : _maxMatchCount;
 
     const {
         error,
         files,
         repoInfo,
-        timeToSearchCompletionMs,
-        timeToFirstSearchResultMs,
+        timeTo搜索CompletionMs,
+        timeToFirst搜索ResultMs,
         isStreaming,
         numMatches,
         isExhaustive,
         stats,
-    } = useStreamedSearch({
+    } = useStreamed搜索({
         query: searchQuery,
         matches: maxMatchCount,
         contextLines: 3,
@@ -83,7 +83,7 @@ export const SearchResultsPage = ({
     useEffect(() => {
         if (error) {
             toast({
-                description: `❌ Search failed. Reason: ${error instanceof ServiceErrorException ? error.serviceError.message : error.message}`,
+                description: `❌ 搜索 failed. Reason: ${error instanceof ServiceErrorException ? error.serviceError.message : error.message}`,
             });
         }
     }, [error, toast]);
@@ -96,14 +96,14 @@ export const SearchResultsPage = ({
         }
 
         const now = new Date().toUTCString();
-        setSearchHistory((searchHistory) => [
+        set搜索History((searchHistory) => [
             {
                 query: searchQuery,
                 date: now,
             },
             ...searchHistory.filter(search => search.query !== searchQuery),
         ])
-    }, [searchQuery, setSearchHistory]);
+    }, [searchQuery, set搜索History]);
 
     // Look for any files that are not on the default branch.
     const isBranchFilteringEnabled = useMemo(() => {
@@ -117,13 +117,13 @@ export const SearchResultsPage = ({
 
         const fileLanguages = files.map(file => file.language) || [];
 
-        console.debug('timeToFirstSearchResultMs:', timeToFirstSearchResultMs);
-        console.debug('timeToSearchCompletionMs:', timeToSearchCompletionMs);
+        console.debug('timeToFirst搜索ResultMs:', timeToFirst搜索ResultMs);
+        console.debug('timeTo搜索CompletionMs:', timeTo搜索CompletionMs);
 
         captureEvent("search_finished", {
-            durationMs: timeToSearchCompletionMs,
-            timeToSearchCompletionMs,
-            timeToFirstSearchResultMs,
+            durationMs: timeTo搜索CompletionMs,
+            timeTo搜索CompletionMs,
+            timeToFirst搜索ResultMs,
             fileCount: stats.fileCount,
             matchCount: stats.totalMatchCount,
             actualMatchCount: stats.actualMatchCount,
@@ -141,11 +141,11 @@ export const SearchResultsPage = ({
             ngramLookups: stats.ngramLookups,
             wait: stats.wait,
             matchTreeConstruction: stats.matchTreeConstruction,
-            matchTreeSearch: stats.matchTreeSearch,
+            matchTree搜索: stats.matchTree搜索,
             regexpsConsidered: stats.regexpsConsidered,
             flushReason: stats.flushReason,
             fileLanguages,
-            isSearchExhaustive: isExhaustive,
+            is搜索Exhaustive: isExhaustive,
             isBranchFilteringEnabled,
         });
     }, [
@@ -154,45 +154,45 @@ export const SearchResultsPage = ({
         isStreaming,
         isExhaustive,
         stats,
-        timeToSearchCompletionMs,
-        timeToFirstSearchResultMs,
+        timeTo搜索CompletionMs,
+        timeToFirst搜索ResultMs,
         isBranchFilteringEnabled,
     ]);
 
     const onLoadMoreResults = useCallback(() => {
         const url = createPathWithQueryParams(`/search`,
-            [SearchQueryParams.query, searchQuery],
-            [SearchQueryParams.matches, `${maxMatchCount * 2}`],
-            [SearchQueryParams.isRegexEnabled, isRegexEnabled ? "true" : null],
-            [SearchQueryParams.isCaseSensitivityEnabled, isCaseSensitivityEnabled ? "true" : null],
+            [搜索QueryParams.query, searchQuery],
+            [搜索QueryParams.matches, `${maxMatchCount * 2}`],
+            [搜索QueryParams.isRegexEnabled, isRegexEnabled ? "true" : null],
+            [搜索QueryParams.isCaseSensitivityEnabled, isCaseSensitivityEnabled ? "true" : null],
         )
         router.push(url);
     }, [maxMatchCount, router, searchQuery, isRegexEnabled, isCaseSensitivityEnabled]);
 
     
     return (
-        <div className="flex flex-col h-screen overflow-clip">
+        <div class名称="flex flex-col h-screen overflow-clip">
             {/* TopBar */}
             <TopBar
                 session={session}
             >
-                <SearchBar
+                <搜索Bar
                     size="sm"
                     defaults={{
                         isRegexEnabled,
                         isCaseSensitivityEnabled,
                         query: searchQuery,
                     }}
-                    className="w-full"
-                    isSearchAssistSupported={isSearchAssistSupported}
+                    class名称="w-full"
+                    is搜索AssistSupported={is搜索AssistSupported}
                 />
             </TopBar>
 
             {error ? (
-                <div className="flex flex-col items-center justify-center h-full gap-2">
-                    <AlertTriangleIcon className="h-6 w-6" />
-                    <p className="font-semibold text-center">Failed to search</p>
-                    <p className="text-sm text-center">{error instanceof ServiceErrorException ? error.serviceError.message : error.message}</p>
+                <div class名称="flex flex-col items-center justify-center h-full gap-2">
+                    <AlertTriangleIcon class名称="h-6 w-6" />
+                    <p class名称="font-semibold text-center">Failed to search</p>
+                    <p class名称="text-sm text-center">{error instanceof ServiceErrorException ? error.serviceError.message : error.message}</p>
                 </div>
             ) : (
                 <PanelGroup
@@ -200,7 +200,7 @@ export const SearchResultsPage = ({
                     onLoadMoreResults={onLoadMoreResults}
                     numMatches={numMatches}
                     repoInfo={repoInfo}
-                    searchDurationMs={timeToSearchCompletionMs}
+                    searchDurationMs={timeTo搜索CompletionMs}
                     isStreaming={isStreaming}
                     searchStats={stats}
                     isMoreResultsButtonVisible={!isExhaustive}
@@ -212,15 +212,15 @@ export const SearchResultsPage = ({
 }
 
 interface PanelGroupProps {
-    fileMatches: SearchResultFile[];
+    fileMatches: 搜索ResultFile[];
     onLoadMoreResults: () => void;
     isStreaming: boolean;
     isMoreResultsButtonVisible?: boolean;
     isBranchFilteringEnabled: boolean;
-    repoInfo: Record<number, RepositoryInfo>;
+    repoInfo: Record<number, 仓库Info>;
     searchDurationMs: number;
     numMatches: number;
-    searchStats?: SearchStats;
+    searchStats?: 搜索Stats;
 }
 
 const PanelGroup = ({
@@ -234,10 +234,10 @@ const PanelGroup = ({
     numMatches,
     searchStats,
 }: PanelGroupProps) => {
-    const [previewedFile, setPreviewedFile] = useState<SearchResultFile | undefined>(undefined);
+    const [previewedFile, setPreviewedFile] = useState<搜索ResultFile | undefined>(undefined);
     const filteredFileMatches = useFilteredMatches(fileMatches);
     const filterPanelRef = useRef<ImperativePanelHandle>(null);
-    const searchResultsPanelRef = useRef<SearchResultsPanelHandle>(null);
+    const searchResultsPanelRef = useRef<搜索ResultsPanelHandle>(null);
     const [selectedMatchIndex, setSelectedMatchIndex] = useState(0);
 
     const [isFilterPanelCollapsed, setIsFilterPanelCollapsed] = useLocalStorage('isFilterPanelCollapsed', false);
@@ -250,7 +250,7 @@ const PanelGroup = ({
         }
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
+        enableOnContent编辑able: true,
         description: "Toggle filter panel",
     });
 
@@ -261,7 +261,7 @@ const PanelGroup = ({
     return (
         <ResizablePanelGroup
             direction="horizontal"
-            className="h-full"
+            class名称="h-full"
         >
             {/* ~~ Filter panel ~~ */}
             <ResizablePanel
@@ -285,7 +285,7 @@ const PanelGroup = ({
                 />
             </ResizablePanel>
             {isFilterPanelCollapsed && (
-                <div className="flex flex-col items-center h-full p-2">
+                <div class名称="flex flex-col items-center h-full p-2">
                     <Tooltip
                         delayDuration={100}
                     >
@@ -293,17 +293,17 @@ const PanelGroup = ({
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-8 w-8"
+                                class名称="h-8 w-8"
                                 onClick={() => {
                                     filterPanelRef.current?.expand();
                                 }}
                             >
-                                <FilterIcon className="w-4 h-4" />
+                                <FilterIcon class名称="w-4 h-4" />
                             </Button>
                         </TooltipTrigger>
-                        <TooltipContent side="right" className="flex flex-row items-center gap-2">
+                        <TooltipContent side="right" class名称="flex flex-row items-center gap-2">
                             <KeyboardShortcutHint shortcut="mod+b" />
-                            <Separator orientation="vertical" className="h-4" />
+                            <Separator orientation="vertical" class名称="h-4" />
                             <span>Open filter panel</span>
                         </TooltipContent>
                     </Tooltip>
@@ -311,38 +311,38 @@ const PanelGroup = ({
             )}
             <AnimatedResizableHandle />
 
-            {/* ~~ Search results ~~ */}
+            {/* ~~ 搜索 results ~~ */}
             <ResizablePanel
                 minSize={10}
                 id={'search-results-panel'}
                 order={2}
             >
-                <div className="flex h-full flex-col">
-                    <div className="py-1 px-2 flex flex-row items-center">
+                <div class名称="flex h-full flex-col">
+                    <div class名称="py-1 px-2 flex flex-row items-center">
                         {isStreaming ? (
                             <>
-                                <RefreshCwIcon className="h-4 w-4 animate-spin mr-2" />
-                                <p className="text-sm font-medium mr-1">Searching...</p>
+                                <RefreshCwIcon class名称="h-4 w-4 animate-spin mr-2" />
+                                <p class名称="text-sm font-medium mr-1">搜索ing...</p>
                                 {numMatches > 0 && (
-                                    <p className="text-sm font-medium">{`Found ${numMatches} matches in ${fileMatches.length} ${fileMatches.length > 1 ? 'files' : 'file'}`}</p>
+                                    <p class名称="text-sm font-medium">{`Found ${numMatches} matches in ${fileMatches.length} ${fileMatches.length > 1 ? 'files' : 'file'}`}</p>
                                 )}
                             </>
                         ) : (
                             <>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <InfoCircledIcon className="w-4 h-4 mr-2" />
+                                        <InfoCircledIcon class名称="w-4 h-4 mr-2" />
                                     </TooltipTrigger>
-                                    <TooltipContent side="right" className="flex flex-col items-start gap-2 p-4">
-                                        <div className="flex flex-row items-center w-full">
-                                            <BugIcon className="w-4 h-4 mr-1.5" />
-                                            <p className="text-md font-medium">Search stats for nerds</p>
-                                            <CopyIconButton
-                                                onCopy={() => {
+                                    <TooltipContent side="right" class名称="flex flex-col items-start gap-2 p-4">
+                                        <div class名称="flex flex-row items-center w-full">
+                                            <BugIcon class名称="w-4 h-4 mr-1.5" />
+                                            <p class名称="text-md font-medium">搜索 stats for nerds</p>
+                                            <复制IconButton
+                                                on复制={() => {
                                                     navigator.clipboard.writeText(JSON.stringify(searchStats, null, 2));
                                                     return true;
                                                 }}
-                                                className="ml-auto"
+                                                class名称="ml-auto"
                                             />
                                         </div>
                                         <CodeSnippet renderNewlines>
@@ -352,14 +352,14 @@ const PanelGroup = ({
                                 </Tooltip>
                                 {
                                     fileMatches.length > 0 ? (
-                                        <p className="text-sm font-medium">{`[${searchDurationMs} ms] Found ${numMatches} matches in ${fileMatches.length} ${fileMatches.length > 1 ? 'files' : 'file'}`}</p>
+                                        <p class名称="text-sm font-medium">{`[${searchDurationMs} ms] Found ${numMatches} matches in ${fileMatches.length} ${fileMatches.length > 1 ? 'files' : 'file'}`}</p>
                                     ) : (
-                                        <p className="text-sm font-medium">No results</p>
+                                        <p class名称="text-sm font-medium">No results</p>
                                     )
                                 }
                                 {isMoreResultsButtonVisible && (
                                     <div
-                                        className="cursor-pointer text-blue-500 text-sm hover:underline ml-4"
+                                        class名称="cursor-pointer text-blue-500 text-sm hover:underline ml-4"
                                         onClick={onLoadMoreResults}
                                     >
                                         (load more)
@@ -368,9 +368,9 @@ const PanelGroup = ({
                             </>
                         )}
                     </div>
-                    <div className="flex-1 min-h-0">
+                    <div class名称="flex-1 min-h-0">
                         {filteredFileMatches.length > 0 ? (
-                            <SearchResultsPanel
+                            <搜索ResultsPanel
                                 ref={searchResultsPanelRef}
                                 fileMatches={filteredFileMatches}
                                 onOpenFilePreview={(fileMatch, matchIndex) => {
@@ -383,13 +383,13 @@ const PanelGroup = ({
                                 repoInfo={repoInfo}
                             />
                         ) : isStreaming ? (
-                            <div className="flex flex-col items-center justify-center h-full gap-2">
-                                <RefreshCwIcon className="h-6 w-6 animate-spin" />
-                                <p className="font-semibold text-center">Searching...</p>
+                            <div class名称="flex flex-col items-center justify-center h-full gap-2">
+                                <RefreshCwIcon class名称="h-6 w-6 animate-spin" />
+                                <p class名称="font-semibold text-center">搜索ing...</p>
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center justify-center h-full">
-                                <p className="text-sm text-muted-foreground">No results found</p>
+                            <div class名称="flex flex-col items-center justify-center h-full">
+                                <p class名称="text-sm text-muted-foreground">No results found</p>
                             </div>
                         )}
                     </div>
@@ -409,7 +409,7 @@ const PanelGroup = ({
                     >
                         <CodePreviewPanel
                             previewedFile={previewedFile}
-                            onClose={() => setPreviewedFile(undefined)}
+                            on关闭={() => setPreviewedFile(undefined)}
                             selectedMatchIndex={selectedMatchIndex}
                             onSelectedMatchIndexChange={setSelectedMatchIndex}
                         />

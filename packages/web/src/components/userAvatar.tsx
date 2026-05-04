@@ -10,7 +10,7 @@ interface UserAvatarProps extends ComponentPropsWithoutRef<typeof Avatar> {
 }
 
 export const UserAvatar = forwardRef<HTMLSpanElement, UserAvatarProps>(
-    ({ email, imageUrl, className, ...rest }, ref) => {
+    ({ email, imageUrl, class名称, ...rest }, ref) => {
         const resolverUri = useMemo(() => {
             if (!email) {
                 return undefined;
@@ -21,7 +21,7 @@ export const UserAvatar = forwardRef<HTMLSpanElement, UserAvatarProps>(
         const src = imageUrl ?? resolverUri;
 
         return (
-            <Avatar ref={ref} className={cn("bg-muted", className)} {...rest}>
+            <Avatar ref={ref} class名称={cn("bg-muted", class名称)} {...rest}>
                 {/*
                   We render a raw <img> instead of Radix's <AvatarImage>. AvatarImage
                   delays painting until its internal `new Image().onload` fires —
@@ -33,7 +33,7 @@ export const UserAvatar = forwardRef<HTMLSpanElement, UserAvatarProps>(
                     <img
                         src={src}
                         alt=""
-                        className="aspect-square h-full w-full"
+                        class名称="aspect-square h-full w-full"
                     />
                 )}
             </Avatar>
@@ -41,4 +41,4 @@ export const UserAvatar = forwardRef<HTMLSpanElement, UserAvatarProps>(
     }
 );
 
-UserAvatar.displayName = 'UserAvatar';
+UserAvatar.display名称 = 'UserAvatar';

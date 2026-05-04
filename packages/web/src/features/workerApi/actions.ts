@@ -59,7 +59,7 @@ export const indexRepo = async (repoId: number) => sew(() =>
     )
 );
 
-export const triggerAccountPermissionSync = async (accountId: string) => sew(() =>
+export const triggerAccountPermission同步 = async (accountId: string) => sew(() =>
     withAuth(({ role }) =>
         withMinimumOrgRole(role, OrgRole.MEMBER, async () => {
             const response = await fetch(`${WORKER_API_URL}/api/trigger-account-permission-sync`, {

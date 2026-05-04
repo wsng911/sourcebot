@@ -4,9 +4,9 @@ import { CodeHostType } from "@sourcebot/db";
 export const repositoryQuerySchema = z.object({
     codeHostType: z.nativeEnum(CodeHostType),
     repoId: z.number(),
-    repoName: z.string(),
+    repo名称: z.string(),
     webUrl: z.string(),
-    repoDisplayName: z.string().optional(),
+    repoDisplay名称: z.string().optional(),
     externalWebUrl: z.string().optional(),
     imageUrl: z.string().optional(),
     indexedAt: z.coerce.date().optional(),
@@ -20,7 +20,7 @@ export const searchContextQuerySchema = z.object({
     id: z.number(),
     name: z.string(),
     description: z.string().optional(),
-    repoNames: z.array(z.string()),
+    repo名称s: z.array(z.string()),
 });
 
 export const verifyCredentialsRequestSchema = z.object({

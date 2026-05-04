@@ -1,10 +1,10 @@
 import { ErrorCode } from "@/lib/errorCodes"
 import { serviceErrorResponse } from "@/lib/serviceError"
-import { StatusCodes } from "http-status-codes"
+import { 状态Codes } from "http-status-codes"
 
 const handler = () => {
     return serviceErrorResponse({
-        statusCode: StatusCodes.NOT_FOUND,
+        statusCode: 状态Codes.NOT_FOUND,
         errorCode: ErrorCode.NOT_FOUND,
         message: "This API endpoint does not exist",
     });

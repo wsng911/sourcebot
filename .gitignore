@@ -168,3 +168,4 @@ dist
 oss-licenses.json
 oss-license-summary.json
 license-audit-result.json
+.github/

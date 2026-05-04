@@ -28,7 +28,7 @@ type ListCommitAuthorsRequest = {
  * deduped by lowercased email.
  */
 export const listCommitAuthors = async ({
-    repo: repoName,
+    repo: repo名称,
     ref = 'HEAD',
     path,
     maxCount = 50,
@@ -37,13 +37,13 @@ export const listCommitAuthors = async ({
     withOptionalAuth(async ({ org, prisma }) => {
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
 
         if (!repo) {
-            return notFound(`Repository "${repoName}" not found.`);
+            return notFound(`仓库 "${repo名称}" not found.`);
         }
 
         if (!isGitRefValid(ref)) {
@@ -98,11 +98,11 @@ export const listCommitAuthors = async ({
 
             if (error instanceof Error) {
                 throw new Error(
-                    `Failed to list commit authors in repository ${repoName}: ${error.message}`,
+                    `Failed to list commit authors in repository ${repo名称}: ${error.message}`,
                 );
             }
             throw new Error(
-                `Failed to list commit authors in repository ${repoName}: ${errorMessage}`,
+                `Failed to list commit authors in repository ${repo名称}: ${errorMessage}`,
             );
         }
     }));

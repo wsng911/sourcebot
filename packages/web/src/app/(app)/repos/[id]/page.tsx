@@ -2,20 +2,20 @@ import { getCurrentUserRole } from "@/actions"
 import { sew } from "@/middleware/sew"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, Card描述, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { env } from "@sourcebot/shared"
 import { ServiceErrorException } from "@/lib/serviceError"
 import { cn, getCodeHostInfoForRepo, isServiceError } from "@/lib/utils"
 import { withOptionalAuth } from "@/middleware/withAuth"
-import { getConfigSettings, repoMetadataSchema } from "@sourcebot/shared"
+import { getConfig设置, repoMetadataSchema } from "@sourcebot/shared"
 import { ExternalLink, Info } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
-import { BackButton } from "../../components/backButton"
+import { 返回Button } from "../../components/backButton"
 import { DisplayDate } from "../../components/DisplayDate"
 import { RepoBranchesTable } from "../components/repoBranchesTable"
 import { RepoJobsTable } from "../components/repoJobsTable"
@@ -31,11 +31,11 @@ export default async function RepoDetailPage({ params }: { params: Promise<{ id:
     const codeHostInfo = getCodeHostInfoForRepo({
         codeHostType: repo.external_codeHostType,
         name: repo.name,
-        displayName: repo.displayName ?? undefined,
+        display名称: repo.display名称 ?? undefined,
         externalWebUrl: repo.webUrl ?? undefined,
     });
 
-    const configSettings = await getConfigSettings(env.CONFIG_PATH);
+    const config设置 = await getConfig设置(env.CONFIG_PATH);
 
     const nextIndexAttempt = (() => {
         const latestJob = repo.jobs.length > 0 ? repo.jobs[0] : null;
@@ -44,7 +44,7 @@ export default async function RepoDetailPage({ params }: { params: Promise<{ id:
         }
 
         if (latestJob.completedAt) {
-            return new Date(latestJob.completedAt.getTime() + configSettings.reindexIntervalMs);
+            return new Date(latestJob.completedAt.getTime() + config设置.reindexIntervalMs);
         }
 
         return undefined;
@@ -59,46 +59,46 @@ export default async function RepoDetailPage({ params }: { params: Promise<{ id:
 
     return (
         <>
-            <div className="mb-6">
-                <BackButton
+            <div class名称="mb-6">
+                <返回Button
                     href={`/repos`}
-                    name="Back to repositories"
-                    className="mb-2"
+                    name="返回 to repositories"
+                    class名称="mb-2"
                 />
 
-                <div className="flex items-start justify-between">
+                <div class名称="flex items-start justify-between">
                     <div>
-                        <h1 className="text-3xl font-semibold">{repo.displayName || repo.name}</h1>
+                        <h1 class名称="text-3xl font-semibold">{repo.display名称 || repo.name}</h1>
                     </div>
                     {codeHostInfo.externalWebUrl && (
                         <Button variant="outline" asChild>
-                            <Link href={codeHostInfo.externalWebUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                            <Link href={codeHostInfo.externalWebUrl} target="_blank" rel="noopener noreferrer" class名称="flex items-center">
                                 <Image
                                     src={codeHostInfo.icon}
-                                    alt={codeHostInfo.codeHostName}
-                                    className={cn("w-4 h-4 flex-shrink-0", codeHostInfo.iconClassName)}
+                                    alt={codeHostInfo.codeHost名称}
+                                    class名称={cn("w-4 h-4 flex-shrink-0", codeHostInfo.iconClass名称)}
                                 />
-                                Open in {codeHostInfo.codeHostName}
-                                <ExternalLink className="ml-2 h-4 w-4" />
+                                Open in {codeHostInfo.codeHost名称}
+                                <ExternalLink class名称="ml-2 h-4 w-4" />
                             </Link>
                         </Button>
                     )}
                 </div>
 
-                <div className="flex gap-2 mt-4">
+                <div class名称="flex gap-2 mt-4">
                     {repo.isArchived && <Badge variant="secondary">Archived</Badge>}
-                    {repo.isPublic && <Badge variant="outline">Public</Badge>}
+                    {repo.is公开 && <Badge variant="outline">公开</Badge>}
                 </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3 mb-8">
+            <div class名称="grid gap-4 md:grid-cols-3 mb-8">
                 <Card>
-                    <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium flex items-center gap-1.5">
-                            Created
+                    <CardHeader class名称="pb-3">
+                        <CardTitle class名称="text-sm font-medium flex items-center gap-1.5">
+                            创建d
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>When this repository was first added to Sourcebot</p>
@@ -107,17 +107,17 @@ export default async function RepoDetailPage({ params }: { params: Promise<{ id:
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <span className="text-2xl font-semibold"><DisplayDate date={repo.createdAt} /></span>
+                        <span class名称="text-2xl font-semibold"><DisplayDate date={repo.createdAt} /></span>
                     </CardContent>
                 </Card>
 
                 <Card>
-                    <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium flex items-center gap-1.5">
+                    <CardHeader class名称="pb-3">
+                        <CardTitle class名称="text-sm font-medium flex items-center gap-1.5">
                             Last indexed
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>The last time this repository was successfully indexed</p>
@@ -126,17 +126,17 @@ export default async function RepoDetailPage({ params }: { params: Promise<{ id:
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <span className="text-2xl font-semibold">{repo.indexedAt ? <DisplayDate date={repo.indexedAt} /> : "Never"}</span>
+                        <span class名称="text-2xl font-semibold">{repo.indexedAt ? <DisplayDate date={repo.indexedAt} /> : "Never"}</span>
                     </CardContent>
                 </Card>
 
                 <Card>
-                    <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium flex items-center gap-1.5">
+                    <CardHeader class名称="pb-3">
+                        <CardTitle class名称="text-sm font-medium flex items-center gap-1.5">
                             Scheduled
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                    <Info class名称="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>When the next indexing job is scheduled to run</p>
@@ -145,21 +145,21 @@ export default async function RepoDetailPage({ params }: { params: Promise<{ id:
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <span className="text-2xl font-semibold">{nextIndexAttempt ? <DisplayDate date={nextIndexAttempt} /> : "-"}</span>
+                        <span class名称="text-2xl font-semibold">{nextIndexAttempt ? <DisplayDate date={nextIndexAttempt} /> : "-"}</span>
                     </CardContent>
                 </Card>
             </div>
 
             {repoMetadata.indexedRevisions && (
-                <Card className="mb-8">
+                <Card class名称="mb-8">
                     <CardHeader>
-                        <div className="flex items-center gap-2">
+                        <div class名称="flex items-center gap-2">
                             <CardTitle>Indexed Branches</CardTitle>
                         </div>
-                        <CardDescription>Branches that have been indexed for this repository. <Link href="https://docs.sourcebot.dev/docs/features/search/multi-branch-indexing" target="_blank" className="text-link hover:underline">Docs</Link></CardDescription>
+                        <Card描述>Branches that have been indexed for this repository. <Link href="https://docs.sourcebot.dev/docs/features/search/multi-branch-indexing" target="_blank" class名称="text-link hover:underline">Docs</Link></Card描述>
                     </CardHeader>
                     <CardContent>
-                        <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+                        <Suspense fallback={<Skeleton class名称="h-64 w-full" />}>
                             <RepoBranchesTable
                                 indexRevisions={repoMetadata.indexedRevisions}
                                 repoWebUrl={repo.webUrl}
@@ -173,10 +173,10 @@ export default async function RepoDetailPage({ params }: { params: Promise<{ id:
             <Card>
                 <CardHeader>
                     <CardTitle>Indexing History</CardTitle>
-                    <CardDescription>History of all indexing and cleanup jobs for this repository.</CardDescription>
+                    <Card描述>History of all indexing and cleanup jobs for this repository.</Card描述>
                 </CardHeader>
                 <CardContent>
-                    <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+                    <Suspense fallback={<Skeleton class名称="h-96 w-full" />}>
                         <RepoJobsTable
                             data={repo.jobs}
                             repoId={repo.id}

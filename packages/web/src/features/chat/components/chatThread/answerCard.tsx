@@ -9,7 +9,7 @@ import { MarkdownRenderer } from "./markdownRenderer";
 import { forwardRef, memo, useCallback, useImperativeHandle, useRef, useState } from "react";
 import { Toggle } from "@/components/ui/toggle";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { CopyIconButton } from "@/app/(app)/components/copyIconButton";
+import { 复制IconButton } from "@/app/(app)/components/copyIconButton";
 import { useToast } from "@/components/hooks/use-toast";
 import { convertLLMOutputToPortableMarkdown } from "../../utils";
 import { submitFeedback } from "../../actions";
@@ -42,7 +42,7 @@ const AnswerCardComponent = forwardRef<HTMLDivElement, AnswerCardProps>(({
     const { tocItems, activeId } = useExtractTOCItems({ target: markdownRendererRef.current });
     const [isTOCButtonToggled, setIsTOCButtonToggled] = useState(false);
     const { toast } = useToast();
-    const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
+    const [is提交tingFeedback, setIs提交tingFeedback] = useState(false);
     const [feedback, setFeedback] = useState<'like' | 'dislike' | undefined>(undefined);
     const captureEvent = useCaptureEvent();
 
@@ -51,7 +51,7 @@ const AnswerCardComponent = forwardRef<HTMLDivElement, AnswerCardProps>(({
         () => markdownRendererRef.current as HTMLDivElement
     );
 
-    const onCopyAnswer = useCallback(() => {
+    const on复制Answer = useCallback(() => {
         const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
         const markdownText = convertLLMOutputToPortableMarkdown(answerText, baseUrl);
         navigator.clipboard.writeText(markdownText);
@@ -63,7 +63,7 @@ const AnswerCardComponent = forwardRef<HTMLDivElement, AnswerCardProps>(({
     }, [answerText, chatId, captureEvent, toast]);
 
     const onFeedback = useCallback(async (feedbackType: 'like' | 'dislike') => {
-        setIsSubmittingFeedback(true);
+        setIs提交tingFeedback(true);
 
         const response = await submitFeedback({
             chatId,
@@ -94,48 +94,48 @@ const AnswerCardComponent = forwardRef<HTMLDivElement, AnswerCardProps>(({
             })
         }
 
-        setIsSubmittingFeedback(false);
+        setIs提交tingFeedback(false);
     }, [chatId, messageId, toast, captureEvent, traceId]);
 
     return (
-        <div className="flex flex-row w-full relative scroll-mt-16">
+        <div class名称="flex flex-row w-full relative scroll-mt-16">
             {(isTOCButtonToggled && tocItems.length > 0) && (
                 <TableOfContents
                     tocItems={tocItems}
                     activeId={activeId}
-                    className="sticky top-0 h-fit max-w-44 py-2 mr-1.5"
+                    class名称="sticky top-0 h-fit max-w-44 py-2 mr-1.5"
                 />
             )}
-            <div className="flex flex-col w-full bg-[#fcfcfc] dark:bg-[#0e1320] px-4 py-2 rounded-lg shadow-sm">
-                <div className="flex flex-col z-10 bg-inherit py-2 sticky top-0">
-                    <div className="flex items-center justify-between mb-2">
-                        <p className="font-semibold text-muted-foreground">Answer</p>
-                        <div className="flex items-center gap-2">
+            <div class名称="flex flex-col w-full bg-[#fcfcfc] dark:bg-[#0e1320] px-4 py-2 rounded-lg shadow-sm">
+                <div class名称="flex flex-col z-10 bg-inherit py-2 sticky top-0">
+                    <div class名称="flex items-center justify-between mb-2">
+                        <p class名称="font-semibold text-muted-foreground">Answer</p>
+                        <div class名称="flex items-center gap-2">
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <CopyIconButton
-                                        onCopy={onCopyAnswer}
-                                        className="h-6 w-6 text-muted-foreground"
+                                    <复制IconButton
+                                        on复制={on复制Answer}
+                                        class名称="h-6 w-6 text-muted-foreground"
                                     />
                                 </TooltipTrigger>
                                 <TooltipContent
                                     side="bottom"
                                 >
-                                    Copy answer
+                                    复制 answer
                                 </TooltipContent>
                             </Tooltip>
                             {tocItems.length > 0 && (
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <Toggle
-                                            className="h-6 w-6 px-3 min-w-6 text-muted-foreground"
+                                            class名称="h-6 w-6 px-3 min-w-6 text-muted-foreground"
                                             pressed={isTOCButtonToggled}
                                             onPressedChange={(next) => {
                                                 setIsTOCButtonToggled(next);
                                                 captureEvent('wa_chat_toc_toggled', { chatId, isExpanded: next });
                                             }}
                                         >
-                                            <TableOfContentsIcon className="h-3 w-3" />
+                                            <TableOfContentsIcon class名称="h-3 w-3" />
                                         </Toggle>
                                     </TooltipTrigger>
                                     <TooltipContent
@@ -154,27 +154,27 @@ const AnswerCardComponent = forwardRef<HTMLDivElement, AnswerCardProps>(({
                     content={answerText}
                     // scroll-mt offsets the scroll position for headings to take account
                     // of the sticky "answer" header.
-                    className="prose prose-sm max-w-none prose-headings:scroll-mt-14"
+                    class名称="prose prose-sm max-w-none prose-headings:scroll-mt-14"
                 />
-                <Separator className="my-2" />
-                <div className="flex gap-2">
+                <Separator class名称="my-2" />
+                <div class名称="flex gap-2">
                     <Button
                         variant={feedback === 'like' ? "default" : "ghost"}
                         size="sm"
-                        className="h-8 px-2"
+                        class名称="h-8 px-2"
                         onClick={() => onFeedback('like')}
-                        disabled={isSubmittingFeedback || feedback !== undefined}
+                        disabled={is提交tingFeedback || feedback !== undefined}
                     >
-                        <ThumbsUp className="h-4 w-4" />
+                        <ThumbsUp class名称="h-4 w-4" />
                     </Button>
                     <Button
                         variant={feedback === 'dislike' ? "default" : "ghost"}
                         size="sm"
-                        className="h-8 px-2"
+                        class名称="h-8 px-2"
                         onClick={() => onFeedback('dislike')}
-                        disabled={isSubmittingFeedback || feedback !== undefined}
+                        disabled={is提交tingFeedback || feedback !== undefined}
                     >
-                        <ThumbsDown className="h-4 w-4" />
+                        <ThumbsDown class名称="h-4 w-4" />
                     </Button>
                 </div>
             </div>
@@ -183,6 +183,6 @@ const AnswerCardComponent = forwardRef<HTMLDivElement, AnswerCardProps>(({
     )
 })
 
-AnswerCardComponent.displayName = 'AnswerCard';
+AnswerCardComponent.display名称 = 'AnswerCard';
 
 export const AnswerCard = memo(AnswerCardComponent, isEqual);

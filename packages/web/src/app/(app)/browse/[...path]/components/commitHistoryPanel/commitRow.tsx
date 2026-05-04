@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { Code } from "lucide-react";
-import { CopyIconButton } from "@/app/(app)/components/copyIconButton";
+import { 复制IconButton } from "@/app/(app)/components/copyIconButton";
 import { useToast } from "@/components/hooks/use-toast";
 import type { Commit } from "@/features/git";
 import { getBrowsePath } from "@/app/(app)/browse/hooks/utils";
@@ -18,11 +18,11 @@ import {
 
 interface CommitRowProps {
     commit: Commit;
-    repoName: string;
-    revisionName?: string;
+    repo名称: string;
+    revision名称?: string;
 }
 
-export const CommitRow = ({ commit, repoName, revisionName }: CommitRowProps) => {
+export const CommitRow = ({ commit, repo名称, revision名称 }: CommitRowProps) => {
     const [isBodyExpanded, setIsBodyExpanded] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
@@ -37,21 +37,21 @@ export const CommitRow = ({ commit, repoName, revisionName }: CommitRowProps) =>
     );
 
     const viewRepoAtCommitHref = getBrowsePath({
-        repoName,
-        revisionName: commit.hash,
+        repo名称,
+        revision名称: commit.hash,
         path: '',
         pathType: 'tree',
     });
 
     const commitDiffHref = getBrowsePath({
-            repoName,
-            revisionName,
+            repo名称,
+            revision名称,
             path: '',
             pathType: 'commit',
             commitSha: commit.hash,
         });
 
-    const onCopySha = useCallback(() => {
+    const on复制Sha = useCallback(() => {
         navigator.clipboard.writeText(commit.hash).then(() => {
             toast({ description: "✅ Copied commit SHA to clipboard" });
         })
@@ -87,13 +87,13 @@ export const CommitRow = ({ commit, repoName, revisionName }: CommitRowProps) =>
             <div
                 role="link"
                 tabIndex={0}
-                className="flex flex-row py-3 px-3 items-center justify-between gap-4 min-w-0 border-b cursor-pointer hover:bg-muted"
+                class名称="flex flex-row py-3 px-3 items-center justify-between gap-4 min-w-0 border-b cursor-pointer hover:bg-muted"
                 onClick={onRowClick}
                 onKeyDown={onRowKeyDown}
             >
-                <div className="flex flex-col gap-1 min-w-0 overflow-hidden">
-                    <div className="flex flex-row items-center gap-2 min-w-0 overflow-hidden">
-                        <span className="text-sm font-medium truncate" title={commit.message}>
+                <div class名称="flex flex-col gap-1 min-w-0 overflow-hidden">
+                    <div class名称="flex flex-row items-center gap-2 min-w-0 overflow-hidden">
+                        <span class名称="text-sm font-medium truncate" title={commit.message}>
                             {commit.message}
                         </span>
                         {hasBody && (
@@ -103,27 +103,27 @@ export const CommitRow = ({ commit, repoName, revisionName }: CommitRowProps) =>
                             />
                         )}
                     </div>
-                    <div className="flex flex-row items-center gap-2 min-w-0 overflow-hidden">
+                    <div class名称="flex flex-row items-center gap-2 min-w-0 overflow-hidden">
                         <AuthorsAvatarGroup authors={authors} />
-                        <span className="text-sm text-muted-foreground truncate">
+                        <span class名称="text-sm text-muted-foreground truncate">
                             {formatAuthorsText(authors)} authored {relativeDate}
                         </span>
                     </div>
                 </div>
-                <div className="flex flex-row items-center gap-1 flex-shrink-0">
-                    <span className="text-sm font-mono text-muted-foreground" title={commit.hash}>
+                <div class名称="flex flex-row items-center gap-1 flex-shrink-0">
+                    <span class名称="text-sm font-mono text-muted-foreground" title={commit.hash}>
                         {shortSha}
                     </span>
-                    <CopyIconButton onCopy={onCopySha} />
+                    <复制IconButton on复制={on复制Sha} />
                     <CommitActionLink
                         href={viewRepoAtCommitHref}
                         label="View repository at this commit"
-                        icon={<Code className="h-3 w-3" />}
+                        icon={<Code class名称="h-3 w-3" />}
                     />
                 </div>
             </div>
             {hasBody && isBodyExpanded && (
-                <CommitBody body={commit.body} className="border-b" />
+                <CommitBody body={commit.body} class名称="border-b" />
             )}
         </>
     );

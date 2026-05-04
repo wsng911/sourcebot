@@ -3,7 +3,7 @@ import { isServiceError } from "@/lib/utils";
 import { ServiceErrorException } from "@/lib/serviceError";
 import { __unsafePrisma } from "@/prisma";
 import { getRepoInfo } from "./api";
-import { CustomSlateEditor } from "@/features/chat/customSlateEditor";
+import { CustomSlate编辑or } from "@/features/chat/customSlate编辑or";
 import { RepoIndexedGuard } from "./components/repoIndexedGuard";
 import { LandingPage } from "./components/landingPage";
 import { getConfiguredLanguageModelsInfo } from "@/features/chat/utils.server";
@@ -20,10 +20,10 @@ export default async function GitHubRepoPage(props: PageProps) {
     
     const repoId = await (async () => {
         // 1. Look up repo by owner/repo
-        const displayName = `${owner}/${repo}`;
+        const display名称 = `${owner}/${repo}`;
         const existingRepo = await __unsafePrisma.repo.findFirst({
             where: {
-                displayName: displayName,
+                display名称: display名称,
                 external_codeHostType: 'github',
                 external_codeHostUrl: 'https://github.com',
             },
@@ -52,16 +52,16 @@ export default async function GitHubRepoPage(props: PageProps) {
 
     return (
         <RepoIndexedGuard initialRepoInfo={repoInfo}>
-            <CustomSlateEditor>
+            <CustomSlate编辑or>
                 <LandingPage
                     languageModels={languageModels}
-                    repoName={repoInfo.name}
-                    repoDisplayName={repoInfo.displayName ?? undefined}
+                    repo名称={repoInfo.name}
+                    repoDisplay名称={repoInfo.display名称 ?? undefined}
                     imageUrl={repoInfo.imageUrl ?? undefined}
                     repoId={repoInfo.id}
                     isAuthenticated={!!session?.user}
                 />
-            </CustomSlateEditor>
+            </CustomSlate编辑or>
         </RepoIndexedGuard>
     )
 }

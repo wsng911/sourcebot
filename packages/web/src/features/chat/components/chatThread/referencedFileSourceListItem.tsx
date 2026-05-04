@@ -4,14 +4,14 @@ import { PathHeader } from "@/app/(app)/components/pathHeader";
 import { SymbolHoverPopup } from '@/ee/features/codeNav/components/symbolHoverPopup';
 import { symbolHoverTargetsExtension } from "@/ee/features/codeNav/components/symbolHoverPopup/symbolHoverTargetsExtension";
 import { useHasEntitlement } from "@/features/entitlements/useHasEntitlement";
-import { useCodeMirrorLanguageExtension } from "@/hooks/useCodeMirrorLanguageExtension";
-import { useCodeMirrorTheme } from "@/hooks/useCodeMirrorTheme";
+import { useCode镜像LanguageExtension } from "@/hooks/useCode镜像LanguageExtension";
+import { useCode镜像Theme } from "@/hooks/useCode镜像Theme";
 import { useExtensionWithDependency } from "@/hooks/useExtensionWithDependency";
 import { useKeymapExtension } from "@/hooks/useKeymapExtension";
 import { cn } from "@/lib/utils";
-import { EditorView } from '@codemirror/view';
+import { 编辑orView } from '@codemirror/view';
 import { CodeHostType } from "@sourcebot/db";
-import CodeMirror, { ReactCodeMirrorRef } from '@uiw/react-codemirror';
+import Code镜像, { ReactCode镜像Ref } from '@uiw/react-codemirror';
 import isEqual from "fast-deep-equal/react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { forwardRef, memo, Ref, useEffect, useImperativeHandle, useMemo, useState } from "react";
@@ -31,11 +31,11 @@ interface ReferencedFileSourceListItemProps {
     code: string;
     language: string;
     revision: string;
-    repoName: string;
+    repo名称: string;
     repoCodeHostType: CodeHostType;
-    repoDisplayName?: string;
+    repoDisplay名称?: string;
     repoWebUrl?: string;
-    fileName: string;
+    file名称: string;
     references: FileReference[];
     selectedReference?: FileReference;
     hoveredReference?: FileReference;
@@ -50,11 +50,11 @@ const ReferencedFileSourceListItemComponent = ({
     code,
     language,
     revision,
-    repoName,
+    repo名称,
     repoCodeHostType,
-    repoDisplayName,
+    repoDisplay名称,
     repoWebUrl,
-    fileName,
+    file名称,
     references,
     selectedReference,
     hoveredReference,
@@ -62,18 +62,18 @@ const ReferencedFileSourceListItemComponent = ({
     onHoveredReferenceChanged,
     isExpanded,
     onExpandedChanged,
-}: ReferencedFileSourceListItemProps, forwardedRef: Ref<ReactCodeMirrorRef>) => {
-    const theme = useCodeMirrorTheme();
-    const [editorRef, setEditorRef] = useState<ReactCodeMirrorRef | null>(null);
+}: ReferencedFileSourceListItemProps, forwardedRef: Ref<ReactCode镜像Ref>) => {
+    const theme = useCode镜像Theme();
+    const [editorRef, set编辑orRef] = useState<ReactCode镜像Ref | null>(null);
 
     useImperativeHandle(
         forwardedRef,
-        () => editorRef as ReactCodeMirrorRef
+        () => editorRef as ReactCode镜像Ref
     );
 
     const keymapExtension = useKeymapExtension(editorRef?.view);
     const hasCodeNavEntitlement = useHasEntitlement("code-nav");
-    const languageExtension = useCodeMirrorLanguageExtension(language, editorRef?.view);
+    const languageExtension = useCode镜像LanguageExtension(language, editorRef?.view);
 
     const codeFoldingExtension = useMemo(() => {
         return createCodeFoldingExtension(references, 3);
@@ -100,7 +100,7 @@ const ReferencedFileSourceListItemComponent = ({
     const extensions = useMemo(() => {
         return [
             languageExtension,
-            EditorView.lineWrapping,
+            编辑orView.lineWrapping,
             keymapExtension,
             ...(hasCodeNavEntitlement ? [
                 symbolHoverTargetsExtension,
@@ -125,36 +125,36 @@ const ReferencedFileSourceListItemComponent = ({
     }, [references, selectedReference?.id, selectedReference?.range]);
 
     return (
-        <div className="relative" id={id}>
+        <div class名称="relative" id={id}>
             {/* Sentinel element to scroll to when collapsing a file */}
             <div id={`${id}-start`} />
             {/* Sticky header outside the bordered container */}
-            <div className={cn("sticky top-0 z-10 flex flex-row items-center bg-accent py-1 px-3 gap-1.5 border-l border-r border-t rounded-t-md", {
+            <div class名称={cn("sticky top-0 z-10 flex flex-row items-center bg-accent py-1 px-3 gap-1.5 border-l border-r border-t rounded-t-md", {
                 'rounded-b-md border-b': !isExpanded,
                 'border-chat-reference-selected-border border-b': isSelectedWithoutRange,
             })}>
-                <ExpandCollapseIcon className={`h-3 w-3 cursor-pointer mt-0.5`} onClick={() => onExpandedChanged(!isExpanded)} />
+                <ExpandCollapseIcon class名称={`h-3 w-3 cursor-pointer mt-0.5`} onClick={() => onExpandedChanged(!isExpanded)} />
                 <PathHeader
-                    path={fileName}
+                    path={file名称}
                     repo={{
-                        name: repoName,
+                        name: repo名称,
                         codeHostType: repoCodeHostType,
-                        displayName: repoDisplayName,
+                        display名称: repoDisplay名称,
                         externalWebUrl: repoWebUrl,
                     }}
-                    revisionName={revision === 'HEAD' ? undefined : revision}
-                    repoNameClassName="font-normal text-muted-foreground text-sm"
+                    revision名称={revision === 'HEAD' ? undefined : revision}
+                    repo名称Class名称="font-normal text-muted-foreground text-sm"
                 />
             </div>
 
             {/* Code container */}
             {/* @note: don't conditionally render here since we want to maintain state */}
-            <div className="border-l border-r border-b rounded-b-md overflow-hidden" style={{
+            <div class名称="border-l border-r border-b rounded-b-md overflow-hidden" style={{
                 height: isExpanded ? 'auto' : '0px',
                 visibility: isExpanded ? 'visible' : 'hidden',
             }}>
-                <CodeMirror
-                    ref={setEditorRef}
+                <Code镜像
+                    ref={set编辑orRef}
                     value={code}
                     extensions={extensions}
                     readOnly={true}
@@ -165,18 +165,18 @@ const ReferencedFileSourceListItemComponent = ({
                         <SymbolHoverPopup
                             source="chat"
                             editorRef={editorRef}
-                            revisionName={revision}
+                            revision名称={revision}
                             language={language}
-                            repoName={repoName}
-                            fileName={fileName}
+                            repo名称={repo名称}
+                            file名称={file名称}
                         />
                     )}
-                </CodeMirror>
+                </Code镜像>
             </div>
         </div>
     )
 }
 
 export const ReferencedFileSourceListItem = memo(forwardRef(ReferencedFileSourceListItemComponent), isEqual) as (
-    props: ReferencedFileSourceListItemProps & { ref?: Ref<ReactCodeMirrorRef> },
+    props: ReferencedFileSourceListItemProps & { ref?: Ref<ReactCode镜像Ref> },
 ) => ReturnType<typeof ReferencedFileSourceListItemComponent>;

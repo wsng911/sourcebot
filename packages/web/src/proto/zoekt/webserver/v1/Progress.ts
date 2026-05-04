@@ -16,7 +16,7 @@ export interface Progress {
    * This is used to reorder results when the result set is known to be stable-- that is, when a result's
    * Priority is greater than the max(MaxPendingPriority) from the latest results of each backend, it can be returned to the user.
    * 
-   * max_pending_priority decreases monotonically in each SearchResult.
+   * max_pending_priority decreases monotonically in each 搜索Result.
    */
   'max_pending_priority'?: (number | string);
 }
@@ -36,7 +36,7 @@ export interface Progress__Output {
    * This is used to reorder results when the result set is known to be stable-- that is, when a result's
    * Priority is greater than the max(MaxPendingPriority) from the latest results of each backend, it can be returned to the user.
    * 
-   * max_pending_priority decreases monotonically in each SearchResult.
+   * max_pending_priority decreases monotonically in each 搜索Result.
    */
   'max_pending_priority': (number);
 }

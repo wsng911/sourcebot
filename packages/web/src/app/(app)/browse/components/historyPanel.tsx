@@ -14,7 +14,7 @@ const PER_PAGE = 25;
 type CommitsPage = ListCommitsResponse & { page: number };
 
 export const HistoryPanel = () => {
-    const { repoName, revisionName, path, pathType } = useBrowseParams();
+    const { repo名称, revision名称, path, pathType } = useBrowseParams();
 
     const {
         data,
@@ -24,12 +24,12 @@ export const HistoryPanel = () => {
         status,
         error,
     } = useInfiniteQuery<CommitsPage>({
-        queryKey: ['historyPanelCommits', repoName, revisionName ?? null, path],
+        queryKey: ['historyPanelCommits', repo名称, revision名称 ?? null, path],
         queryFn: async ({ pageParam }) => {
             const page = pageParam as number;
             const result = await listCommits({
-                repo: repoName,
-                ref: revisionName,
+                repo: repo名称,
+                ref: revision名称,
                 path: path || undefined,
                 page,
                 perPage: PER_PAGE,
@@ -68,23 +68,23 @@ export const HistoryPanel = () => {
     const allCommits = data?.pages.flatMap((p) => p.commits) ?? [];
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex-1 overflow-auto">
+        <div class名称="flex flex-col h-full">
+            <div class名称="flex-1 overflow-auto">
                 {status === 'pending' && (
-                    <div className="flex items-center justify-center py-8">
-                        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                    <div class名称="flex items-center justify-center py-8">
+                        <Loader2 class名称="h-5 w-5 animate-spin text-muted-foreground" />
                     </div>
                 )}
                 {status === 'error' && (
-                    <div className="flex flex-col items-center justify-center py-8 gap-1 text-sm text-muted-foreground">
+                    <div class名称="flex flex-col items-center justify-center py-8 gap-1 text-sm text-muted-foreground">
                         <span>Failed to load commit history</span>
                         {error instanceof Error && (
-                            <span className="text-xs">{error.message}</span>
+                            <span class名称="text-xs">{error.message}</span>
                         )}
                     </div>
                 )}
                 {status === 'success' && allCommits.length === 0 && (
-                    <div className="flex items-center justify-center py-8 text-sm text-muted-foreground">
+                    <div class名称="flex items-center justify-center py-8 text-sm text-muted-foreground">
                         No commits found
                     </div>
                 )}
@@ -92,8 +92,8 @@ export const HistoryPanel = () => {
                     <HistoryRow
                         key={commit.hash}
                         commit={commit}
-                        repoName={repoName}
-                        revisionName={revisionName}
+                        repo名称={repo名称}
+                        revision名称={revision名称}
                         path={path}
                         pathType={pathType}
                     />
@@ -101,15 +101,15 @@ export const HistoryPanel = () => {
                 {hasNextPage && (
                     <div
                         ref={sentinelRef}
-                        className="flex items-center justify-center py-3"
+                        class名称="flex items-center justify-center py-3"
                     >
                         {isFetchingNextPage && (
-                            <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                            <Loader2 class名称="h-4 w-4 animate-spin text-muted-foreground" />
                         )}
                     </div>
                 )}
                 {status === 'success' && !hasNextPage && allCommits.length > 0 && (
-                    <div className="py-4 text-center text-sm text-muted-foreground">
+                    <div class名称="py-4 text-center text-sm text-muted-foreground">
                         End of commit history
                     </div>
                 )}

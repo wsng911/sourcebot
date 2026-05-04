@@ -2,7 +2,7 @@
 
 import { word } from "@/features/chat/utils";
 import { useEffect, useMemo } from "react";
-import { Editor, Range } from "slate";
+import { 编辑or, Range } from "slate";
 import { SuggestionMode } from "./types";
 import { useSlate, useSlateSelection } from "slate-react";
 import { usePrevious } from "@uidotdev/usehooks";
@@ -38,7 +38,7 @@ export const useSuggestionModeAndQuery = () => {
             };
         }
 
-        const text = Editor.string(editor, range);
+        const text = 编辑or.string(editor, range);
 
         let match: RegExpMatchArray | null = null;
 

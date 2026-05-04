@@ -73,7 +73,7 @@ const parsePorcelainBlame = (output: string): FileBlameResponse => {
         // Metadata lines may appear after any header but only the first time we
         // see a given commit. Accumulate whatever's there until the "\t<content>"
         // sentinel; for continuation lines this loop usually exits immediately.
-        let authorName: string | undefined;
+        let author名称: string | undefined;
         let authorMail: string | undefined;
         let date: string | undefined;
         let message: string | undefined;
@@ -86,7 +86,7 @@ const parsePorcelainBlame = (output: string): FileBlameResponse => {
             const value = spaceIdx === -1 ? '' : fieldLine.substring(spaceIdx + 1);
 
             if (key === 'author') {
-                authorName = value;
+                author名称 = value;
             } else if (key === 'author-mail') {
                 authorMail = value.replace(/^<|>$/g, '');
             } else if (key === 'author-time') {
@@ -113,13 +113,13 @@ const parsePorcelainBlame = (output: string): FileBlameResponse => {
             i++;
         }
 
-        if (!commits[hash] && authorName !== undefined && authorMail !== undefined && date !== undefined && message !== undefined) {
+        if (!commits[hash] && author名称 !== undefined && authorMail !== undefined && date !== undefined && message !== undefined) {
             commits[hash] = {
                 hash,
                 date,
                 message,
-                authorName,
-                authorEmail: authorMail,
+                author名称,
+                author邮箱: authorMail,
                 ...(previous ? { previous } : {}),
             };
         }
@@ -146,7 +146,7 @@ const parsePorcelainBlame = (output: string): FileBlameResponse => {
     return { ranges: coalescedRanges, commits };
 };
 
-export const getFileBlame = async ({ path: filePath, repo: repoName, ref }: FileBlameRequest, { source }: { source?: string } = {}): Promise<FileBlameResponse | ServiceError> =>
+export const getFileBlame = async ({ path: filePath, repo: repo名称, ref }: FileBlameRequest, { source }: { source?: string } = {}): Promise<FileBlameResponse | ServiceError> =>
     sew(() =>
         withOptionalAuth(async ({ org, prisma, user }) => {
             if (user) {
@@ -161,14 +161,14 @@ export const getFileBlame = async ({ path: filePath, repo: repoName, ref }: File
             }
 
             const repo = await prisma.repo.findFirst({
-                where: { name: repoName, orgId: org.id },
+                where: { name: repo名称, orgId: org.id },
             });
             if (!repo) {
-                return notFound(`Repository "${repoName}" not found.`);
+                return notFound(`仓库 "${repo名称}" not found.`);
             }
 
             if (!isPathValid(filePath)) {
-                return fileNotFound(filePath, repoName);
+                return fileNotFound(filePath, repo名称);
             }
 
             if (ref !== undefined && !isGitRefValid(ref)) {
@@ -186,7 +186,7 @@ export const getFileBlame = async ({ path: filePath, repo: repoName, ref }: File
             } catch (error: unknown) {
                 const errorMessage = error instanceof Error ? error.message : String(error);
                 if (errorMessage.includes('no such path') || errorMessage.includes('does not exist') || errorMessage.includes('fatal: path') || errorMessage.includes('no such file')) {
-                    return fileNotFound(filePath, repoName);
+                    return fileNotFound(filePath, repo名称);
                 }
                 if (errorMessage.includes('unknown revision') || errorMessage.includes('bad revision') || errorMessage.includes('invalid object name')) {
                     return unresolvedGitRef(gitRef);

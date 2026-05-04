@@ -6,22 +6,22 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface SourcebotLogoProps {
-    className?: string;
+    class名称?: string;
     size?: "small" | "large";
 }
 
-export const SourcebotLogo = ({ className, size = "large" }: SourcebotLogoProps) => {
+export const SourcebotLogo = ({ class名称, size = "large" }: SourcebotLogoProps) => {
     return (
         <>
             <Image
                 src={size === "large" ? logoDarkLarge : logoDarkSmall}
-                className={cn("h-16 w-auto hidden dark:block", className)}
+                class名称={cn("h-16 w-auto hidden dark:block", class名称)}
                 alt={"Sourcebot logo"}
                 priority={true}
             />
             <Image
                 src={size === "large" ? logoLightLarge : logoLightSmall}
-                className={cn("h-16 w-auto block dark:hidden", className)}
+                class名称={cn("h-16 w-auto block dark:hidden", class名称)}
                 alt={"Sourcebot logo"}
                 priority={true}
             />

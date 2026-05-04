@@ -1,22 +1,22 @@
 import { SourcebotLogo } from "@/app/components/sourcebotLogo"
 import { NavigationMenu } from "../../components/navigationMenu"
-import { RepositoryCarousel } from "../../components/repositoryCarousel"
+import { 仓库Carousel } from "../../components/repositoryCarousel"
 import { Separator } from "@/components/ui/separator"
 import { SyntaxReferenceGuideHint } from "../../components/syntaxReferenceGuideHint"
 import Link from "next/link"
-import { SearchBar } from "../../components/searchBar"
-import { SearchModeSelector } from "../../components/searchModeSelector"
+import { 搜索Bar } from "../../components/searchBar"
+import { 搜索ModeSelector } from "../../components/searchModeSelector"
 import { getRepos, getReposStats } from "@/actions"
 import { ServiceErrorException } from "@/lib/serviceError"
 import { isServiceError } from "@/lib/utils"
 
-export interface SearchLandingPageProps {
-    isSearchAssistSupported: boolean;
+export interface 搜索LandingPageProps {
+    is搜索AssistSupported: boolean;
 }
 
-export const SearchLandingPage = async ({
-    isSearchAssistSupported,
-}: SearchLandingPageProps) => {
+export const 搜索LandingPage = async ({
+    is搜索AssistSupported,
+}: 搜索LandingPageProps) => {
     const carouselRepos = await getRepos({
         where: {
             indexedAt: {
@@ -32,43 +32,43 @@ export const SearchLandingPage = async ({
     if (isServiceError(repoStats)) throw new ServiceErrorException(repoStats);
 
     return (
-        <div className="flex flex-col items-center overflow-hidden min-h-screen">
+        <div class名称="flex flex-col items-center overflow-hidden min-h-screen">
             <NavigationMenu />
 
-            <div className="flex flex-col justify-center items-center mt-8 mb-8 md:mt-16 w-full px-5">
-                <div className="max-h-44 w-auto">
+            <div class名称="flex flex-col justify-center items-center mt-8 mb-8 md:mt-16 w-full px-5">
+                <div class名称="max-h-44 w-auto">
                     <SourcebotLogo
-                        className="h-18 md:h-40 w-auto"
+                        class名称="h-18 md:h-40 w-auto"
                     />
                 </div>
-                <div className="mt-4 w-full max-w-[800px] border rounded-md shadow-sm">
-                    <SearchBar
+                <div class名称="mt-4 w-full max-w-[800px] border rounded-md shadow-sm">
+                    <搜索Bar
                         autoFocus={true}
-                        className="border-none pt-0.5 pb-0"
-                        isSearchAssistSupported={isSearchAssistSupported}
+                        class名称="border-none pt-0.5 pb-0"
+                        is搜索AssistSupported={is搜索AssistSupported}
                     />
                     <Separator />
-                    <div className="w-full flex flex-row items-center bg-accent rounded-b-md px-2">
-                        <SearchModeSelector
+                    <div class名称="w-full flex flex-row items-center bg-accent rounded-b-md px-2">
+                        <搜索ModeSelector
                             searchMode="precise"
-                            className="ml-auto"
+                            class名称="ml-auto"
                         />
                     </div>
                 </div>
 
-                <div className="mt-8">
-                    <RepositoryCarousel
+                <div class名称="mt-8">
+                    <仓库Carousel
                         numberOfReposWithIndex={repoStats.numberOfReposWithIndex}
                         displayRepos={carouselRepos}
                     />
                 </div>
 
-                <div className="flex flex-col items-center w-fit gap-6">
-                    <Separator className="mt-5" />
-                    <span className="font-semibold">How to search</span>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class名称="flex flex-col items-center w-fit gap-6">
+                    <Separator class名称="mt-5" />
+                    <span class名称="font-semibold">How to search</span>
+                    <div class名称="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <HowToSection
-                            title="Search in files or paths"
+                            title="搜索 in files or paths"
                         >
                             <QueryExample>
                                 <Query query="test todo">test todo</Query> <QueryExplanation>(both test and todo)</QueryExplanation>
@@ -125,8 +125,8 @@ export const SearchLandingPage = async ({
 
 const HowToSection = ({ title, children }: { title: string, children: React.ReactNode }) => {
     return (
-        <div className="flex flex-col gap-1">
-            <span className="dark:text-gray-300 text-sm mb-2 underline">{title}</span>
+        <div class名称="flex flex-col gap-1">
+            <span class名称="dark:text-gray-300 text-sm mb-2 underline">{title}</span>
             {children}
         </div>
     )
@@ -135,7 +135,7 @@ const HowToSection = ({ title, children }: { title: string, children: React.Reac
 
 const Highlight = ({ children }: { children: React.ReactNode }) => {
     return (
-        <span className="text-highlight">
+        <span class名称="text-highlight">
             {children}
         </span>
     )
@@ -143,7 +143,7 @@ const Highlight = ({ children }: { children: React.ReactNode }) => {
 
 const QueryExample = ({ children }: { children: React.ReactNode }) => {
     return (
-        <span className="text-sm font-mono">
+        <span class名称="text-sm font-mono">
             {children}
         </span>
     )
@@ -151,7 +151,7 @@ const QueryExample = ({ children }: { children: React.ReactNode }) => {
 
 const QueryExplanation = ({ children }: { children: React.ReactNode }) => {
     return (
-        <span className="text-gray-500 dark:text-gray-400 ml-3">
+        <span class名称="text-gray-500 dark:text-gray-400 ml-3">
             {children}
         </span>
     )
@@ -161,7 +161,7 @@ const Query = ({ query, children, isCaseSensitivityEnabled = false }: { query: s
     return (
         <Link
             href={`/search?query=${query}${isCaseSensitivityEnabled ? "&isCaseSensitivityEnabled=true" : ""}`}
-            className="cursor-pointer hover:underline"
+            class名称="cursor-pointer hover:underline"
         >
             {children}
         </Link>

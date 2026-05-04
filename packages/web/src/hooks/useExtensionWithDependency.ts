@@ -1,14 +1,14 @@
 'use client';
 
 import { Compartment, Extension } from "@codemirror/state";
-import { EditorView } from "@codemirror/view";
+import { 编辑orView } from "@codemirror/view";
 import { useEffect, useMemo } from "react";
 
 /**
  * @see https://thetrevorharmon.com/blog/codemirror-and-react/
  */
 export function useExtensionWithDependency(
-    view: EditorView | null,
+    view: 编辑orView | null,
     extensionFactory: () => Extension,
     deps: unknown[],
 ) {

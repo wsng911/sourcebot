@@ -45,11 +45,11 @@ export const CodeFoldingExpandButton = ({
             {expandDirections.map((direction, index) => (
                 <div
                     key={index}
-                    className="py-[3px] px-1.5 bg-chat-reference hover:bg-chat-reference-hover cursor-pointer" onClick={() => onClick(direction)}
+                    class名称="py-[3px] px-1.5 bg-chat-reference hover:bg-chat-reference-hover cursor-pointer" onClick={() => onClick(direction)}
                 >
-                    {direction === 'up' && <PiArrowLineUp className="w-4 h-4" />}
-                    {direction === 'down' && <PiArrowLineDown className="w-4 h-4" />}
-                    {direction === 'merged' && <PiArrowsOutLineVertical className="w-4 h-4" />}
+                    {direction === 'up' && <PiArrowLineUp class名称="w-4 h-4" />}
+                    {direction === 'down' && <PiArrowLineDown class名称="w-4 h-4" />}
+                    {direction === 'merged' && <PiArrowsOutLineVertical class名称="w-4 h-4" />}
                 </div>
             ))}
         </>

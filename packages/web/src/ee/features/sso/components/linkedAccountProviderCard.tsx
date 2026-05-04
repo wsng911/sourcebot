@@ -14,14 +14,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { unlinkLinkedAccountProvider } from "@/ee/features/sso/actions";
-import { triggerAccountPermissionSync } from "@/features/workerApi/actions";
+import { triggerAccountPermission同步 } from "@/features/workerApi/actions";
 import { isServiceError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/hooks/use-toast";
 import { signIn } from "next-auth/react";
 import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
-import { getAccountSyncStatus } from "@/app/api/(client)/client";
+import { getAccount同步状态 } from "@/app/api/(client)/client";
 
 interface LinkedAccountProviderCardProps {
     linkedAccount: LinkedAccount;
@@ -33,28 +33,28 @@ export function LinkedAccountProviderCard({
     callbackUrl,
 }: LinkedAccountProviderCardProps) {
     const [isDisconnecting, setIsDisconnecting] = useState(false);
-    const [syncJobId, setSyncJobId] = useState<string | null>(null);
+    const [syncJobId, set同步JobId] = useState<string | null>(null);
     const router = useRouter();
     const { toast } = useToast();
 
     const providerInfo = getAuthProviderInfo(linkedAccount.provider);
 
-    const { data: syncStatusData } = useQuery({
-        queryKey: ["accountSyncStatus", syncJobId],
-        queryFn: () => unwrapServiceError(getAccountSyncStatus(syncJobId!)),
+    const { data: sync状态Data } = useQuery({
+        queryKey: ["account同步状态", syncJobId],
+        queryFn: () => unwrapServiceError(getAccount同步状态(syncJobId!)),
         enabled: !!syncJobId,
         refetchInterval: 1000,
     });
 
-    const isSyncing = !!syncJobId && (syncStatusData?.isSyncing ?? true);
+    const is同步ing = !!syncJobId && (sync状态Data?.is同步ing ?? true);
 
     useEffect(() => {
-        if (syncJobId && syncStatusData !== undefined && !syncStatusData.isSyncing) {
-            setSyncJobId(null);
-            toast({ description: `✅ Permissions refreshed for ${providerInfo.displayName}.` });
+        if (syncJobId && sync状态Data !== undefined && !sync状态Data.is同步ing) {
+            set同步JobId(null);
+            toast({ description: `✅ Permissions refreshed for ${providerInfo.display名称}.` });
             router.refresh();
         }
-    }, [syncJobId, syncStatusData, providerInfo.displayName, toast, router]);
+    }, [syncJobId, sync状态Data, providerInfo.display名称, toast, router]);
 
     const handleConnect = () => {
         signIn(linkedAccount.provider, { redirectTo: callbackUrl ?? window.location.href });
@@ -66,12 +66,12 @@ export function LinkedAccountProviderCard({
             const result = await unlinkLinkedAccountProvider(linkedAccount.provider);
             if (isServiceError(result)) {
                 toast({
-                    description: `❌ Failed to disconnect ${providerInfo.displayName}. ${result.message}`,
+                    description: `❌ Failed to disconnect ${providerInfo.display名称}. ${result.message}`,
                     variant: "destructive",
                 });
                 return;
             }
-            toast({ description: `✅ ${providerInfo.displayName} disconnected.` });
+            toast({ description: `✅ ${providerInfo.display名称} disconnected.` });
             router.refresh();
         } catch (error) {
             toast({
@@ -86,7 +86,7 @@ export function LinkedAccountProviderCard({
     const handleRefreshPermissions = async () => {
         if (!linkedAccount.accountId) return;
         try {
-            const result = await triggerAccountPermissionSync(linkedAccount.accountId);
+            const result = await triggerAccountPermission同步(linkedAccount.accountId);
             if (isServiceError(result)) {
                 toast({
                     description: `❌ Failed to refresh permissions. ${result.message}`,
@@ -94,7 +94,7 @@ export function LinkedAccountProviderCard({
                 });
                 return;
             }
-            setSyncJobId(result.jobId);
+            set同步JobId(result.jobId);
         } catch (error) {
             toast({
                 description: `❌ Failed to refresh permissions. ${error instanceof Error ? error.message : "Unknown error"}`,
@@ -103,71 +103,71 @@ export function LinkedAccountProviderCard({
         }
     };
 
-    const isBusy = isDisconnecting || isSyncing;
+    const isBusy = isDisconnecting || is同步ing;
 
     return (
-        <div className="flex items-center justify-between px-4 py-3 border border-border rounded-lg bg-card">
-            <div className="flex items-center gap-3">
+        <div class名称="flex items-center justify-between px-4 py-3 border border-border rounded-lg bg-card">
+            <div class名称="flex items-center gap-3">
                 <ProviderIcon
                     icon={providerInfo.icon}
-                    displayName={providerInfo.displayName}
+                    display名称={providerInfo.display名称}
                     size="md"
                 />
-                <div className="flex flex-col gap-0.5">
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium">{providerInfo.displayName}</span>
+                <div class名称="flex flex-col gap-0.5">
+                    <div class名称="flex items-center gap-2">
+                        <span class名称="text-sm font-medium">{providerInfo.display名称}</span>
                         {linkedAccount.required && (
-                            <Badge variant="default" className="text-xs font-medium">Required</Badge>
+                            <Badge variant="default" class名称="text-xs font-medium">Required</Badge>
                         )}
                     </div>
                     {linkedAccount.isLinked && linkedAccount.providerAccountId && (
-                        <span className="text-xs text-muted-foreground font-mono">
+                        <span class名称="text-xs text-muted-foreground font-mono">
                             {linkedAccount.providerAccountId}
                         </span>
                     )}
                     {linkedAccount.error && (
-                        <span className="text-xs text-destructive flex items-center gap-1">
-                            <AlertCircle className="h-3 w-3" />
+                        <span class名称="text-xs text-destructive flex items-center gap-1">
+                            <AlertCircle class名称="h-3 w-3" />
                             Token refresh failed — please reconnect
                         </span>
                     )}
                 </div>
             </div>
 
-            <div className="flex-shrink-0">
+            <div class名称="flex-shrink-0">
                 {linkedAccount.isLinked ? (
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm" disabled={isBusy} className="gap-1.5">
-                                {isSyncing
-                                    ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                                    : <span className="h-2 w-2 rounded-full bg-green-500" />
+                            <Button variant="ghost" size="sm" disabled={isBusy} class名称="gap-1.5">
+                                {is同步ing
+                                    ? <Loader2 class名称="h-3.5 w-3.5 animate-spin" />
+                                    : <span class名称="h-2 w-2 rounded-full bg-green-500" />
                                 }
-                                {isDisconnecting ? "Disconnecting..." : isSyncing ? "Syncing..." : "Connected"}
-                                <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+                                {isDisconnecting ? "Disconnecting..." : is同步ing ? "同步ing..." : "Connected"}
+                                <ChevronDown class名称="h-3.5 w-3.5 text-muted-foreground" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            {linkedAccount.supportsPermissionSync && linkedAccount.accountId && (
+                            {linkedAccount.supportsPermission同步 && linkedAccount.accountId && (
                                 <DropdownMenuItem onClick={handleRefreshPermissions}>
-                                    <RefreshCw className="h-4 w-4 mr-2" />
+                                    <RefreshCw class名称="h-4 w-4 mr-2" />
                                     Refresh Permissions
                                 </DropdownMenuItem>
                             )}
                             <DropdownMenuItem
                                 onClick={handleDisconnect}
-                                className="text-destructive focus:text-destructive"
+                                class名称="text-destructive focus:text-destructive"
                             >
-                                <Unlink className="h-4 w-4 mr-2" />
+                                <Unlink class名称="h-4 w-4 mr-2" />
                                 Disconnect...
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
 
                 ) : (
-                    <Button variant="ghost" size="sm" onClick={handleConnect} className="gap-1">
+                    <Button variant="ghost" size="sm" onClick={handleConnect} class名称="gap-1">
                         Connect
-                        <ArrowUpRight className="h-3.5 w-3.5" />
+                        <ArrowUpRight class名称="h-3.5 w-3.5" />
                     </Button>
                 )}
             </div>

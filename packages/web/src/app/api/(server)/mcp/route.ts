@@ -5,7 +5,7 @@ import { withOptionalAuth } from '@/middleware/withAuth';
 import { isServiceError } from '@/lib/utils';
 import { notAuthenticated, serviceErrorResponse, ServiceError } from '@/lib/serviceError';
 import { ErrorCode } from '@/lib/errorCodes';
-import { StatusCodes } from 'http-status-codes';
+import { 状态Codes } from 'http-status-codes';
 import { NextRequest } from 'next/server';
 import { sew } from "@/middleware/sew";
 import { apiHandler } from '@/lib/apiHandler';
@@ -18,7 +18,7 @@ import { env, hasEntitlement } from '@sourcebot/shared';
 // @see: https://datatracker.ietf.org/doc/html/rfc9728
 function mcpErrorResponse(error: ServiceError): Response {
     const response = serviceErrorResponse(error);
-    if (error.statusCode === StatusCodes.UNAUTHORIZED && hasEntitlement('oauth')) {
+    if (error.statusCode === 状态Codes.UNAUTHORIZED && hasEntitlement('oauth')) {
         const issuer = env.AUTH_URL.replace(/\/$/, '');
         response.headers.set(
             'WWW-Authenticate',
@@ -55,7 +55,7 @@ export const POST = apiHandler(async (request: NextRequest) => {
                 const session = sessions.get(sessionId)!;
                 if (session.ownerId !== ownerId) {
                     return {
-                        statusCode: StatusCodes.FORBIDDEN,
+                        statusCode: 状态Codes.FORBIDDEN,
                         errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
                         message: 'Session does not belong to the authenticated user.',
                     } satisfies ServiceError;
@@ -63,7 +63,7 @@ export const POST = apiHandler(async (request: NextRequest) => {
                 return session.transport.handleRequest(request);
             }
 
-            // Create a new session
+            // 创建 a new session
             const transport = new WebStandardStreamableHTTPServerTransport({
                 sessionIdGenerator: () => crypto.randomUUID(),
                 onsessioninitialized: (newSessionId) => {
@@ -103,7 +103,7 @@ export const DELETE = apiHandler(async (request: NextRequest) => {
             const sessionId = request.headers.get(MCP_SESSION_ID_HEADER);
             if (!sessionId || !sessions.has(sessionId)) {
                 return {
-                    statusCode: StatusCodes.NOT_FOUND,
+                    statusCode: 状态Codes.NOT_FOUND,
                     errorCode: ErrorCode.NOT_FOUND,
                     message: 'Session not found.',
                 } satisfies ServiceError;
@@ -112,7 +112,7 @@ export const DELETE = apiHandler(async (request: NextRequest) => {
             const session = sessions.get(sessionId)!;
             if (session.ownerId !== ownerId) {
                 return {
-                    statusCode: StatusCodes.FORBIDDEN,
+                    statusCode: 状态Codes.FORBIDDEN,
                     errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
                     message: 'Session does not belong to the authenticated user.',
                 } satisfies ServiceError;
@@ -135,7 +135,7 @@ export const DELETE = apiHandler(async (request: NextRequest) => {
 // @see: https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#listening-for-messages-from-the-server
 export const GET = apiHandler(async (_request: NextRequest) => {
     return new Response(null, {
-        status: StatusCodes.METHOD_NOT_ALLOWED,
+        status: 状态Codes.METHOD_NOT_ALLOWED,
         headers: { Allow: 'POST, DELETE' },
     });
 });

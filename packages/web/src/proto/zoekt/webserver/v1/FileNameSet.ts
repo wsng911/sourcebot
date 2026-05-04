@@ -2,15 +2,15 @@
 
 
 /**
- * FileNameSet is a list of file names to match.
+ * File名称Set is a list of file names to match.
  */
-export interface FileNameSet {
+export interface File名称Set {
   'set'?: (string)[];
 }
 
 /**
- * FileNameSet is a list of file names to match.
+ * File名称Set is a list of file names to match.
  */
-export interface FileNameSet__Output {
+export interface File名称Set__Output {
   'set': (string)[];
 }

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useCallback, useRef, useState } from "react";
 import { useToast } from "@/components/hooks/use-toast";
 import useCaptureEvent from "@/hooks/useCaptureEvent";
-import { translateSearchQuery } from "@/features/searchAssist/actions";
+import { translate搜索Query } from "@/features/searchAssist/actions";
 import { isServiceError } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Loader2, WandSparkles, Info } from "lucide-react";
@@ -20,19 +20,19 @@ const EXAMPLES = [
     "Find hardcoded API keys or secrets",
 ];
 
-interface SearchAssistBoxProps {
+interface 搜索AssistBoxProps {
     isEnabled: boolean;
     onBlur: () => void;
     onQueryGenerated: (query: string) => void;
-    className?: string;
+    class名称?: string;
 }
 
-export const SearchAssistBox = ({
+export const 搜索AssistBox = ({
     isEnabled,
     onBlur,
     onQueryGenerated,
-    className,
-}: SearchAssistBoxProps) => {
+    class名称,
+}: 搜索AssistBoxProps) => {
     const [query, setQuery] = useState("");
     const boxRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -47,7 +47,7 @@ export const SearchAssistBox = ({
 
         setIsLoading(true);
         try {
-            const result = await translateSearchQuery({ prompt: query });
+            const result = await translate搜索Query({ prompt: query });
             if (isServiceError(result)) {
                 toast({ title: "Failed to generate query", description: result.message ?? "An unexpected error occurred.", variant: "destructive" });
                 captureEvent('wa_search_assist_generate_failed', {});
@@ -77,7 +77,7 @@ export const SearchAssistBox = ({
     return (
         <div
             ref={boxRef}
-            className={cn("absolute z-10 left-16 right-0 max-w-[600px] border rounded-md bg-background drop-shadow-2xl p-2", className)}
+            class名称={cn("absolute z-10 left-16 right-0 max-w-[600px] border rounded-md bg-background drop-shadow-2xl p-2", class名称)}
             tabIndex={0}
             onBlur={(e) => {
                 // Don't close if focus is moving to another element within this box
@@ -88,27 +88,27 @@ export const SearchAssistBox = ({
                 onBlur();
             }}
         >
-            <div className="flex flex-row items-center gap-1.5 mb-2">
-                <p className="text-muted-foreground text-sm">Generate a query</p>
+            <div class名称="flex flex-row items-center gap-1.5 mb-2">
+                <p class名称="text-muted-foreground text-sm">Generate a query</p>
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <Info className="w-3.5 h-3.5 text-muted-foreground cursor-pointer" />
+                        <Info class名称="w-3.5 h-3.5 text-muted-foreground cursor-pointer" />
                     </TooltipTrigger>
-                    <TooltipContent side="right" className="max-w-[260px] flex flex-col gap-2 p-3">
-                        <p className="text-sm">Describe what you&apos;re looking for in natural language and AI will generate a search query for you.</p>
+                    <TooltipContent side="right" class名称="max-w-[260px] flex flex-col gap-2 p-3">
+                        <p class名称="text-sm">Describe what you&apos;re looking for in natural language and AI will generate a search query for you.</p>
                         <Link
                             href={SEARCH_ASSIST_DOCS_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-blue-500 hover:underline"
+                            class名称="text-sm text-blue-500 hover:underline"
                         >
                             Learn more
                         </Link>
                     </TooltipContent>
                 </Tooltip>
             </div>
-            <div className="flex flex-row gap-2 items-center">
-                <div className="relative flex-1">
+            <div class名称="flex flex-row gap-2 items-center">
+                <div class名称="relative flex-1">
                     <Input
                         placeholder="Describe what you're looking for..."
                         ref={inputRef}
@@ -122,11 +122,11 @@ export const SearchAssistBox = ({
                         }}
                         disabled={isLoading}
                         autoFocus
-                        className="focus-visible:ring-0 focus-visible:ring-offset-0 h-9 pr-12"
+                        class名称="focus-visible:ring-0 focus-visible:ring-offset-0 h-9 pr-12"
                     />
                     {!isLoading && query.trim() && (
-                        <div className="absolute right-2 inset-y-0 flex items-center pointer-events-none">
-                            <kbd className="text-sm text-muted-foreground border rounded px-1 py-0.5">↵</kbd>
+                        <div class名称="absolute right-2 inset-y-0 flex items-center pointer-events-none">
+                            <kbd class名称="text-sm text-muted-foreground border rounded px-1 py-0.5">↵</kbd>
                         </div>
                     )}
                 </div>
@@ -136,14 +136,14 @@ export const SearchAssistBox = ({
                     disabled={isLoading || !query.trim()}
                 >
                     {isLoading ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <Loader2 class名称="w-4 h-4 animate-spin" />
                     ) : (
-                        <WandSparkles className="w-4 h-4" />
+                        <WandSparkles class名称="w-4 h-4" />
                     )}
                     Generate
                 </Button>
             </div>
-            <div className="flex flex-wrap gap-1.5 mt-2">
+            <div class名称="flex flex-wrap gap-1.5 mt-2">
                 {EXAMPLES.map((example) => (
                     <button
                         key={example}
@@ -154,7 +154,7 @@ export const SearchAssistBox = ({
                                 onExampleClicked(example);
                             }
                         }}
-                        className="text-xs text-muted-foreground border rounded-full px-2.5 py-1 hover:bg-muted hover:text-foreground transition-colors"
+                        class名称="text-xs text-muted-foreground border rounded-full px-2.5 py-1 hover:bg-muted hover:text-foreground transition-colors"
                     >
                         {example}
                     </button>

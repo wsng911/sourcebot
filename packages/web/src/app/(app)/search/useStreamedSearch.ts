@@ -1,17 +1,17 @@
 'use client';
 
-import { RepositoryInfo, SearchRequest, SearchResultFile, SearchStats, StreamedSearchResponse } from '@/features/search';
+import { 仓库Info, 搜索Request, 搜索ResultFile, 搜索Stats, Streamed搜索Response } from '@/features/search';
 import { ServiceErrorException } from '@/lib/serviceError';
 import { isServiceError } from '@/lib/utils';
 import * as Sentry from '@sentry/nextjs';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface CacheEntry {
-    files: SearchResultFile[];
-    repoInfo: Record<number, RepositoryInfo>;
+    files: 搜索ResultFile[];
+    repoInfo: Record<number, 仓库Info>;
     numMatches: number;
-    timeToSearchCompletionMs: number;
-    timeToFirstSearchResultMs: number;
+    timeTo搜索CompletionMs: number;
+    timeToFirst搜索ResultMs: number;
     timestamp: number;
     isExhaustive: boolean;
 }
@@ -19,7 +19,7 @@ interface CacheEntry {
 const searchCache = new Map<string, CacheEntry>();
 const CACHE_TTL = 5 * 60 * 1000;
 
-const createCacheKey = (params: SearchRequest): string => {
+const createCacheKey = (params: 搜索Request): string => {
     return JSON.stringify({
         query: params.query,
         matches: params.matches,
@@ -34,25 +34,25 @@ const isCacheValid = (entry: CacheEntry): boolean => {
     return Date.now() - entry.timestamp < CACHE_TTL;
 };
 
-export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegexEnabled, isCaseSensitivityEnabled }: SearchRequest) => {
+export const useStreamed搜索 = ({ query, matches, contextLines, whole, isRegexEnabled, isCaseSensitivityEnabled }: 搜索Request) => {
     const [state, setState] = useState<{
         isStreaming: boolean,
         isExhaustive: boolean,
         error: Error | null,
-        files: SearchResultFile[],
-        repoInfo: Record<number, RepositoryInfo>,
-        timeToSearchCompletionMs: number,
-        timeToFirstSearchResultMs: number,
+        files: 搜索ResultFile[],
+        repoInfo: Record<number, 仓库Info>,
+        timeTo搜索CompletionMs: number,
+        timeToFirst搜索ResultMs: number,
         numMatches: number,
-        stats?: SearchStats,
+        stats?: 搜索Stats,
     }>({
         isStreaming: false,
         isExhaustive: false,
         error: null,
         files: [],
         repoInfo: {},
-        timeToSearchCompletionMs: 0,
-        timeToFirstSearchResultMs: 0,
+        timeTo搜索CompletionMs: 0,
+        timeToFirst搜索ResultMs: 0,
         numMatches: 0,
         stats: undefined,
     });
@@ -98,8 +98,8 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
                     error: null,
                     files: cachedEntry.files,
                     repoInfo: cachedEntry.repoInfo,
-                    timeToSearchCompletionMs: cachedEntry.timeToSearchCompletionMs,
-                    timeToFirstSearchResultMs: cachedEntry.timeToFirstSearchResultMs,
+                    timeTo搜索CompletionMs: cachedEntry.timeTo搜索CompletionMs,
+                    timeToFirst搜索ResultMs: cachedEntry.timeToFirst搜索ResultMs,
                     numMatches: cachedEntry.numMatches,
                 });
                 return;
@@ -111,8 +111,8 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
                 error: null,
                 files: [],
                 repoInfo: {},
-                timeToSearchCompletionMs: 0,
-                timeToFirstSearchResultMs: 0,
+                timeTo搜索CompletionMs: 0,
+                timeToFirst搜索ResultMs: 0,
                 numMatches: 0,
             });
 
@@ -130,7 +130,7 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
                         whole,
                         isRegexEnabled,
                         isCaseSensitivityEnabled,
-                    } satisfies SearchRequest),
+                    } satisfies 搜索Request),
                     signal: abortControllerRef.current.signal,
                 });
 
@@ -190,7 +190,7 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
                             break;
                         }
 
-                        const response: StreamedSearchResponse = JSON.parse(data);
+                        const response: Streamed搜索Response = JSON.parse(data);
                         const isFirstMessage = numMessagesProcessed === 0;
                         switch (response.type) {
                             case 'chunk':
@@ -205,21 +205,21 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
                                         ...response.repositoryInfo.reduce((acc, repo) => {
                                             acc[repo.id] = repo;
                                             return acc;
-                                        }, {} as Record<number, RepositoryInfo>),
+                                        }, {} as Record<number, 仓库Info>),
                                     },
                                     numMatches: prev.numMatches + response.stats.actualMatchCount,
                                     ...(isFirstMessage ? {
-                                        timeToFirstSearchResultMs: performance.now() - startTime,
+                                        timeToFirst搜索ResultMs: performance.now() - startTime,
                                     } : {}),
                                 }));
                                 break;
                             case 'final':
                                 setState(prev => ({
                                     ...prev,
-                                    isExhaustive: response.isSearchExhaustive,
+                                    isExhaustive: response.is搜索Exhaustive,
                                     stats: response.accumulatedStats,
                                     ...(isFirstMessage ? {
-                                        timeToFirstSearchResultMs: performance.now() - startTime,
+                                        timeToFirst搜索ResultMs: performance.now() - startTime,
                                     } : {}),
                                 }));
                                 break;
@@ -231,7 +231,7 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
                     }
                 }
 
-                const timeToSearchCompletionMs = performance.now() - startTime;
+                const timeTo搜索CompletionMs = performance.now() - startTime;
                 setState(prev => {
                     // Cache the final results after the stream has completed.
                     searchCache.set(cacheKey, {
@@ -239,13 +239,13 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
                         repoInfo: prev.repoInfo,
                         isExhaustive: prev.isExhaustive,
                         numMatches: prev.numMatches,
-                        timeToFirstSearchResultMs: prev.timeToFirstSearchResultMs,
-                        timeToSearchCompletionMs,
+                        timeToFirst搜索ResultMs: prev.timeToFirst搜索ResultMs,
+                        timeTo搜索CompletionMs,
                         timestamp: Date.now(),
                     });
                     return {
                         ...prev,
-                        timeToSearchCompletionMs,
+                        timeTo搜索CompletionMs,
                         isStreaming: false,
                     }
                 });
@@ -257,11 +257,11 @@ export const useStreamedSearch = ({ query, matches, contextLines, whole, isRegex
 
                 console.error(error);
                 Sentry.captureException(error);
-                const timeToSearchCompletionMs = performance.now() - startTime;
+                const timeTo搜索CompletionMs = performance.now() - startTime;
                 setState(prev => ({
                     ...prev,
                     isStreaming: false,
-                    timeToSearchCompletionMs,
+                    timeTo搜索CompletionMs,
                     error: error instanceof Error ? error : null,
                 }));
             }

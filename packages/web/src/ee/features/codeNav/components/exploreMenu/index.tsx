@@ -1,7 +1,7 @@
 'use client';
 
 import { useBrowseState } from "@/app/(app)/browse/hooks/useBrowseState";
-import { findSearchBasedSymbolDefinitions, findSearchBasedSymbolReferences } from "@/app/api/(client)/client";
+import { find搜索BasedSymbolDefinitions, find搜索BasedSymbolReferences } from "@/app/api/(client)/client";
 import { AnimatedResizableHandle } from "@/components/ui/animatedResizableHandle";
 import { Badge } from "@/components/ui/badge";
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
@@ -20,9 +20,9 @@ import useCaptureEvent from "@/hooks/useCaptureEvent";
 
 interface ExploreMenuProps {
     selectedSymbolInfo: {
-        symbolName: string;
-        repoName: string;
-        revisionName: string;
+        symbol名称: string;
+        repo名称: string;
+        revision名称: string;
         language: string;
     }
 }
@@ -36,7 +36,7 @@ export const ExploreMenu = ({
         updateBrowseState,
     } = useBrowseState();
 
-    const [isGlobalSearchEnabled, setIsGlobalSearchEnabled] = useState(false);
+    const [isGlobal搜索Enabled, setIsGlobal搜索Enabled] = useState(false);
 
     const {
         data: referencesResponse,
@@ -44,20 +44,20 @@ export const ExploreMenu = ({
         isPending: isReferencesResponsePending,
         isLoading: isReferencesResponseLoading,
     } = useQuery({
-        queryKey: ["references", selectedSymbolInfo.symbolName, selectedSymbolInfo.repoName, selectedSymbolInfo.revisionName, selectedSymbolInfo.language, isGlobalSearchEnabled],
+        queryKey: ["references", selectedSymbolInfo.symbol名称, selectedSymbolInfo.repo名称, selectedSymbolInfo.revision名称, selectedSymbolInfo.language, isGlobal搜索Enabled],
         queryFn: async () => {
             const response = await measure(() => unwrapServiceError(
-                findSearchBasedSymbolReferences({
-                    symbolName: selectedSymbolInfo.symbolName,
+                find搜索BasedSymbolReferences({
+                    symbol名称: selectedSymbolInfo.symbol名称,
                     language: selectedSymbolInfo.language,
-                    revisionName: selectedSymbolInfo.revisionName,
-                    repoName: isGlobalSearchEnabled ? undefined : selectedSymbolInfo.repoName
+                    revision名称: selectedSymbolInfo.revision名称,
+                    repo名称: isGlobal搜索Enabled ? undefined : selectedSymbolInfo.repo名称
                 })
-            ), 'findSearchBasedSymbolReferences', false);
+            ), 'find搜索BasedSymbolReferences', false);
 
             captureEvent('wa_explore_menu_references_loaded', {
                 durationMs: response.durationMs,
-                isGlobalSearchEnabled,
+                isGlobal搜索Enabled,
             })
 
             return response.data;
@@ -70,20 +70,20 @@ export const ExploreMenu = ({
         isPending: isDefinitionsResponsePending,
         isLoading: isDefinitionsResponseLoading,
     } = useQuery({
-        queryKey: ["definitions", selectedSymbolInfo.symbolName, selectedSymbolInfo.repoName, selectedSymbolInfo.revisionName, selectedSymbolInfo.language, isGlobalSearchEnabled],
+        queryKey: ["definitions", selectedSymbolInfo.symbol名称, selectedSymbolInfo.repo名称, selectedSymbolInfo.revision名称, selectedSymbolInfo.language, isGlobal搜索Enabled],
         queryFn: async () => {
             const response = await measure(() => unwrapServiceError(
-                findSearchBasedSymbolDefinitions({
-                    symbolName: selectedSymbolInfo.symbolName,
+                find搜索BasedSymbolDefinitions({
+                    symbol名称: selectedSymbolInfo.symbol名称,
                     language: selectedSymbolInfo.language,
-                    revisionName: selectedSymbolInfo.revisionName,
-                    repoName: isGlobalSearchEnabled ? undefined : selectedSymbolInfo.repoName
+                    revision名称: selectedSymbolInfo.revision名称,
+                    repo名称: isGlobal搜索Enabled ? undefined : selectedSymbolInfo.repo名称
                 })
-            ), 'findSearchBasedSymbolDefinitions', false);
+            ), 'find搜索BasedSymbolDefinitions', false);
 
             captureEvent('wa_explore_menu_definitions_loaded', {
                 durationMs: response.durationMs,
-                isGlobalSearchEnabled,
+                isGlobal搜索Enabled,
             })
 
             return response.data;
@@ -91,11 +91,11 @@ export const ExploreMenu = ({
     });
 
     useHotkeys('shift+a', () => {
-        setIsGlobalSearchEnabled(prev => !prev);
+        setIsGlobal搜索Enabled(prev => !prev);
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
-        description: "Search all repositories",
+        enableOnContent编辑able: true,
+        description: "搜索 all repositories",
     });
 
     const isPending = isReferencesResponsePending || isDefinitionsResponsePending;
@@ -104,16 +104,16 @@ export const ExploreMenu = ({
 
     if (isPending || isLoading) {
         return (
-            <div className="flex flex-row items-center justify-center h-full">
-                <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                Loading...
+            <div class名称="flex flex-row items-center justify-center h-full">
+                <Loader2 class名称="w-4 h-4 animate-spin mr-2" />
+                加载中...
             </div>
         )
     }
 
     if (isError) {
         return (
-            <div className="flex flex-row items-center justify-center h-full">
+            <div class名称="flex flex-row items-center justify-center h-full">
                 <p>Error loading {activeExploreMenuTab}</p>
             </div>
         )
@@ -130,23 +130,23 @@ export const ExploreMenu = ({
             <ResizablePanel
                 minSize={10}
                 maxSize={20}
-                className="flex flex-col h-full"
+                class名称="flex flex-col h-full"
             >
-                <div className="flex flex-col p-2">
-                    <div className="flex flex-row items-center justify-between">
+                <div class名称="flex flex-col p-2">
+                    <div class名称="flex flex-row items-center justify-between">
 
                         <Tooltip
                             delayDuration={100}
                         >
                             <TooltipTrigger
                                 disabled={true}
-                                className="mr-auto"
+                                class名称="mr-auto"
                             >
                                 <Badge
                                     variant="outline"
-                                    className="w-fit h-fit flex-shrink-0 select-none"
+                                    class名称="w-fit h-fit flex-shrink-0 select-none"
                                 >
-                                    Search Based
+                                    搜索 Based
                                 </Badge>
                             </TooltipTrigger>
                             <TooltipContent
@@ -160,23 +160,23 @@ export const ExploreMenu = ({
                             <TooltipTrigger asChild>
                                 <span>
                                     <Toggle
-                                        pressed={isGlobalSearchEnabled}
-                                        onPressedChange={setIsGlobalSearchEnabled}
+                                        pressed={isGlobal搜索Enabled}
+                                        onPressedChange={setIsGlobal搜索Enabled}
                                     >
-                                        <GlobeIcon className="w-4 h-4" />
+                                        <GlobeIcon class名称="w-4 h-4" />
                                     </Toggle>
                                 </span>
                             </TooltipTrigger>
                             <TooltipContent side="top" align="center">
-                                Search all repositories
+                                搜索 all repositories
                                 <KeyboardShortcutHint
                                     shortcut="shift+a"
-                                    className="ml-2"
+                                    class名称="ml-2"
                                 />
                             </TooltipContent>
                         </Tooltip>
                     </div>
-                    <div className="flex flex-col gap-1 mt-4">
+                    <div class名称="flex flex-col gap-1 mt-4">
                         <Entry
                             name="References"
                             isSelected={activeExploreMenuTab === "references"}
@@ -201,12 +201,12 @@ export const ExploreMenu = ({
                 {data.files.length > 0 ? (
                     <ReferenceList
                         data={data}
-                        revisionName={selectedSymbolInfo.revisionName}
+                        revision名称={selectedSymbolInfo.revision名称}
                     />
                 ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-                        <VscSymbolMisc className="w-6 h-6 mb-2" />
-                        <p className="text-sm">No {activeExploreMenuTab} found</p>
+                    <div class名称="flex flex-col items-center justify-center h-full text-muted-foreground">
+                        <VscSymbolMisc class名称="w-6 h-6 mb-2" />
+                        <p class名称="text-sm">No {activeExploreMenuTab} found</p>
                     </div>
                 )}
             </ResizablePanel>
@@ -241,7 +241,7 @@ const Entry = ({
 
     return (
         <div
-            className={clsx(
+            class名称={clsx(
                 "flex flex-row items-center justify-between p-1 rounded-md cursor-pointer gap-2 select-none",
                 {
                     "hover:bg-gray-200 dark:hover:bg-gray-700": !isSelected,
@@ -250,8 +250,8 @@ const Entry = ({
             )}
             onClick={() => onClicked()}
         >
-            <p className="text-sm font-medium">{name}</p>
-            <div className="px-2 py-0.5 bg-accent text-sm rounded-md">
+            <p class名称="text-sm font-medium">{name}</p>
+            <div class名称="px-2 py-0.5 bg-accent text-sm rounded-md">
                 {countText}
             </div>
         </div>

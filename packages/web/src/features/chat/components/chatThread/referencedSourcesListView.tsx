@@ -1,7 +1,7 @@
 'use client';
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import { ReactCode镜像Ref } from "@uiw/react-codemirror";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { FileReference, FileSource, Reference } from "../../types";
@@ -31,7 +31,7 @@ const ReferencedSourcesListViewComponent = ({
     onSelectedReferenceChanged,
 }: ReferencedSourcesListViewProps) => {
     const scrollAreaRef = useRef<HTMLDivElement>(null);
-    const editorRefsMap = useRef<Map<string, ReactCodeMirrorRef>>(new Map());
+    const editorRefsMap = useRef<Map<string, ReactCode镜像Ref>>(new Map());
     const [collapsedFileIds, setCollapsedFileIds] = useState<string[]>([]);
 
     const getFileId = useCallback((fileSource: FileSource) => {
@@ -41,7 +41,7 @@ const ReferencedSourcesListViewComponent = ({
         return `file-source-${fileSource.repo}-${fileSource.path}-${index}`;
     }, [index]);
 
-    const setEditorRef = useCallback((fileKey: string, ref: ReactCodeMirrorRef | null) => {
+    const set编辑orRef = useCallback((fileKey: string, ref: ReactCode镜像Ref | null) => {
         if (ref) {
             editorRefsMap.current.set(fileKey, ref);
         } else {
@@ -99,15 +99,15 @@ const ReferencedSourcesListViewComponent = ({
             // Expand the file if it's collapsed.
             setCollapsedFileIds((collapsedFileIds) => collapsedFileIds.filter((id) => id !== fileId));
 
-            // @hack: CodeMirror 6 virtualizes line rendering — it only renders lines near the
+            // @hack: Code镜像 6 virtualizes line rendering — it only renders lines near the
             // browser viewport and uses estimated heights for everything else. This means
             // coordsAtPos() returns inaccurate positions for lines that are off-screen,
             // causing the scroll to land at the wrong position on the first click.
             //
             // To work around this, we use a two-step scroll:
             //   Step 1: Instantly bring the file element into the browser viewport. This
-            //           forces CodeMirror to render and measure the target lines.
-            //   Step 2: In the next frame (after CodeMirror has measured), coordsAtPos()
+            //           forces Code镜像 to render and measure the target lines.
+            //   Step 2: In the next frame (after Code镜像 has measured), coordsAtPos()
             //           returns accurate screen coordinates which we use to scroll precisely
             //           to the target line.
             scrollIntoView(fileSourceElement, {
@@ -120,17 +120,17 @@ const ReferencedSourcesListViewComponent = ({
             const lineNumber = selectedReference.range.startLine;
 
             requestAnimationFrame(() => {
-                // Get the line's position within the CodeMirror document
+                // Get the line's position within the Code镜像 document
                 const pos = view.state.doc.line(lineNumber).from;
                 const blockInfo = view.lineBlockAt(pos);
-                const lineTopInCodeMirror = blockInfo.top;
+                const lineTopInCode镜像 = blockInfo.top;
 
                 // Get the bounds of both elements
                 const viewportRect = scrollAreaViewport.getBoundingClientRect();
-                const codeMirrorRect = view.dom.getBoundingClientRect();
+                const code镜像Rect = view.dom.getBoundingClientRect();
 
                 // Calculate the line's position relative to the ScrollArea content
-                const lineTopRelativeToScrollArea = lineTopInCodeMirror + (codeMirrorRect.top - viewportRect.top) + scrollAreaViewport.scrollTop;
+                const lineTopRelativeToScrollArea = lineTopInCode镜像 + (code镜像Rect.top - viewportRect.top) + scrollAreaViewport.scrollTop;
 
                 // Get the height of the visible ScrollArea
                 const scrollAreaHeight = scrollAreaViewport.clientHeight;
@@ -176,7 +176,7 @@ const ReferencedSourcesListViewComponent = ({
 
     if (sources.length === 0) {
         return (
-            <div className="p-4 text-center text-muted-foreground text-sm">
+            <div class名称="p-4 text-center text-muted-foreground text-sm">
                 No file references found
             </div>
         );
@@ -187,7 +187,7 @@ const ReferencedSourcesListViewComponent = ({
             ref={scrollAreaRef}
             style={style}
         >
-            <div className="space-y-4 pr-2">
+            <div class名称="space-y-4 pr-2">
                 {sources.map((fileSource) => {
                     const fileId = getFileId(fileSource);
                     const referencesInFile = referencesGroupedByFile.get(fileId) || [];
@@ -206,7 +206,7 @@ const ReferencedSourcesListViewComponent = ({
                             onSelectedReferenceChanged={onSelectedReferenceChanged}
                             isExpanded={!collapsedFileIds.includes(fileId)}
                             onExpandedChanged={onExpandedChanged}
-                            onEditorRef={setEditorRef}
+                            on编辑orRef={set编辑orRef}
                         />
                     );
                 })}

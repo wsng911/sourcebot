@@ -14,7 +14,7 @@ import { createLogger, env } from "@sourcebot/shared";
 import {
     createUIMessageStreamResponse
 } from "ai";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -33,7 +33,7 @@ export const POST = apiHandler(async (req: NextRequest) => {
         return serviceErrorResponse(requestBodySchemaValidationError(parsed.error));
     }
 
-    const { messages, id, selectedSearchScopes, languageModel: _languageModel } = parsed.data;
+    const { messages, id, selected搜索Scopes, languageModel: _languageModel } = parsed.data;
     // @note: a bit of type massaging is required here since the
     // zod schema does not enum on `model` or `provider`.
     // @see: chat/types.ts
@@ -57,7 +57,7 @@ export const POST = apiHandler(async (req: NextRequest) => {
             const isOwner = await isOwnerOfChat(chat, user);
             if (!isOwner) {
                 return {
-                    statusCode: StatusCodes.FORBIDDEN,
+                    statusCode: 状态Codes.FORBIDDEN,
                     errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
                     message: 'Only the owner of a chat can send messages.',
                 } satisfies ServiceError;
@@ -71,7 +71,7 @@ export const POST = apiHandler(async (req: NextRequest) => {
 
             if (!languageModelConfig) {
                 return {
-                    statusCode: StatusCodes.BAD_REQUEST,
+                    statusCode: 状态Codes.BAD_REQUEST,
                     errorCode: ErrorCode.INVALID_REQUEST_BODY,
                     message: `Language model ${languageModel.model} is not configured.`,
                 } satisfies ServiceError;
@@ -79,7 +79,7 @@ export const POST = apiHandler(async (req: NextRequest) => {
 
             const { model, providerOptions, temperature } = await getAISDKLanguageModelAndOptions(languageModelConfig);
 
-            const expandedRepos = (await Promise.all(selectedSearchScopes.map(async (scope) => {
+            const expandedRepos = (await Promise.all(selected搜索Scopes.map(async (scope) => {
                 if (scope.type === 'repo') return [scope.value];
                 if (scope.type === 'reposet') {
                     const reposet = await prisma.searchContext.findFirst({
@@ -105,11 +105,11 @@ export const POST = apiHandler(async (req: NextRequest) => {
                 chatId: id,
                 messages,
                 metadata: {
-                    selectedSearchScopes,
+                    selected搜索Scopes,
                 },
                 selectedRepos: expandedRepos,
                 model,
-                modelName: languageModelConfig.displayName ?? languageModelConfig.model,
+                model名称: languageModelConfig.display名称 ?? languageModelConfig.model,
                 modelProviderOptions: providerOptions,
                 modelTemperature: temperature,
                 onFinish: async ({ messages }) => {

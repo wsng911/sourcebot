@@ -11,7 +11,7 @@ export const githubPushPrReviews = async (octokit: Octokit, pr_payload: sourcebo
         for (const file_diff_review of file_diff_reviews) {
             for (const review of file_diff_review.reviews) {
                 try {
-                    await octokit.rest.pulls.createReviewComment({
+                    await octokit.rest.pulls.createReview评论({
                         owner: pr_payload.owner,
                         repo: pr_payload.repo,
                         pull_number: pr_payload.number,

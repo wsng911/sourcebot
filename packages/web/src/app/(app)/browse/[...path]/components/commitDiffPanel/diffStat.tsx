@@ -32,7 +32,7 @@ export const computeTotalChangeCounts = (files: FileDiff[]) => {
 
 // Map a total change count to a number of filled squares (0–5) using a
 // log-ish scale so tiny diffs still show one square and huge diffs cap out.
-// Mirrors GitHub's diffstat indicator behavior.
+// 镜像s GitHub's diffstat indicator behavior.
 const filledSquaresForTotal = (total: number): number => {
     if (total === 0) {
         return 0;
@@ -72,24 +72,24 @@ export const DiffStat = ({ additions, deletions }: DiffStatProps) => {
 
     return (
         <div
-            className="flex flex-row items-center gap-2 text-xs flex-shrink-0 font-mono"
+            class名称="flex flex-row items-center gap-2 text-xs flex-shrink-0 font-mono"
             title={`${additions} additions, ${deletions} deletions`}
         >
             {additions > 0 && (
-                <span className="text-green-700 dark:text-green-400">+{additions}</span>
+                <span class名称="text-green-700 dark:text-green-400">+{additions}</span>
             )}
             {deletions > 0 && (
-                <span className="text-red-700 dark:text-red-400">-{deletions}</span>
+                <span class名称="text-red-700 dark:text-red-400">-{deletions}</span>
             )}
-            <div className="flex flex-row gap-px">
+            <div class名称="flex flex-row gap-px">
                 {Array.from({ length: greenCount }).map((_, i) => (
-                    <span key={`g-${i}`} className="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-[1px]" />
+                    <span key={`g-${i}`} class名称="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-[1px]" />
                 ))}
                 {Array.from({ length: redCount }).map((_, i) => (
-                    <span key={`r-${i}`} className="w-2 h-2 bg-red-500 dark:bg-red-400 rounded-[1px]" />
+                    <span key={`r-${i}`} class名称="w-2 h-2 bg-red-500 dark:bg-red-400 rounded-[1px]" />
                 ))}
                 {Array.from({ length: emptyCount }).map((_, i) => (
-                    <span key={`e-${i}`} className="w-2 h-2 bg-border rounded-[1px]" />
+                    <span key={`e-${i}`} class名称="w-2 h-2 bg-border rounded-[1px]" />
                 ))}
             </div>
         </div>

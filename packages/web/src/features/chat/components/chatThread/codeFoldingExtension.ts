@@ -1,8 +1,8 @@
-import { Extension, StateField, StateEffect, Transaction, Range as CodeMirrorRange, EditorState } from "@codemirror/state";
+import { Extension, StateField, StateEffect, Transaction, Range as Code镜像Range, 编辑orState } from "@codemirror/state";
 import { 
     Decoration, 
     DecorationSet, 
-    EditorView,
+    编辑orView,
     WidgetType
 } from "@codemirror/view";
 import { FileReference } from "../../types";
@@ -79,7 +79,7 @@ export const calculateVisibleRanges = (
         }
     }
     
-    // Add the last range
+    // 添加 the last range
     mergedRanges.push(currentRange);
 
     return mergedRanges;
@@ -252,11 +252,11 @@ class CodeFoldingExpandButtonWidget extends WidgetType {
         super();
     }
 
-    toDOM(view: EditorView): HTMLElement {
+    toDOM(view: 编辑orView): HTMLElement {
         const container = document.createElement('div');
-        container.className = 'cm-code-folding-expand-container';
+        container.class名称 = 'cm-code-folding-expand-container';
        
-        // Create React root and render component
+        // 创建 React root and render component
         const root = createRoot(container);
         root.render(
             React.createElement(CodeFoldingExpandButton, {
@@ -303,10 +303,10 @@ class CodeFoldingExpandButtonWidget extends WidgetType {
 }
 
 // Function to create decorations from folding state
-const createDecorations = (state: EditorState, foldingState: FoldingState): DecorationSet => {
-    const decorations: CodeMirrorRange<Decoration>[] = [];
+const createDecorations = (state: 编辑orState, foldingState: FoldingState): DecorationSet => {
+    const decorations: Code镜像Range<Decoration>[] = [];
 
-    // Create decorations for each hidden region
+    // 创建 decorations for each hidden region
     foldingState.hiddenRegions.forEach((region, index) => {
 
         // Catch cases where the region is outside the document bounds.
@@ -323,7 +323,7 @@ const createDecorations = (state: EditorState, foldingState: FoldingState): Deco
         const to = state.doc.line(region.endLine).to;
         const hiddenLineCount = region.endLine - region.startLine + 1;
 
-        // Create a widget that replaces the hidden region
+        // 创建 a widget that replaces the hidden region
         const widget = new CodeFoldingExpandButtonWidget(
             index,
             'down', // Default direction
@@ -381,7 +381,7 @@ export const createCodeFoldingExtension = (
             const totalLines = state.doc.lines;
             const stateWithDecorations = createFoldingStateWithDecorations(references, totalLines, padding);
             
-            // Create decorations for the initial state
+            // 创建 decorations for the initial state
             const decorations = createDecorations(state, stateWithDecorations);
             
             return {
@@ -449,11 +449,11 @@ export const createCodeFoldingExtension = (
             return newState;
         },
         
-        provide: field => EditorView.decorations.from(field, state => state.decorations),
+        provide: field => 编辑orView.decorations.from(field, state => state.decorations),
     });
 
     // View plugin to handle gutter width updates
-    const gutterUpdatePlugin = EditorView.updateListener.of((update) => {
+    const gutterUpdatePlugin = 编辑orView.updateListener.of((update) => {
         if (update.geometryChanged) {
             const gutterPlugin = update.view.plugin(gutterWidthExtension);
             if (gutterPlugin) {
@@ -471,7 +471,7 @@ export const createCodeFoldingExtension = (
         }
     });
 
-    const codeFoldingTheme = EditorView.theme({
+    const codeFoldingTheme = 编辑orView.theme({
         '.cm-code-folding-expand-container': {
             marginLeft: '0px',
             width: '100%',
@@ -479,7 +479,7 @@ export const createCodeFoldingExtension = (
             cursor: 'pointer',
         } satisfies CSSProperties,
         
-        // Remove top padding from cm-content
+        // 移除 top padding from cm-content
         '.cm-content': {
             paddingTop: '0px',
             paddingBottom: '0px',

@@ -9,15 +9,15 @@ interface FileIconProps {
 }
 
 export const FileIcon = ({ language }: FileIconProps) => {
-   const iconifyName = languageMetadataMap[language]?.iconify;
+   const iconify名称 = languageMetadataMap[language]?.iconify;
 
-   if (iconifyName) {
+   if (iconify名称) {
       return (
-         <Icon icon={iconifyName} className="w-4 h-4 flex-shrink-0" />
+         <Icon icon={iconify名称} class名称="w-4 h-4 flex-shrink-0" />
       )
    } else {
       return (
-         <QuestionMarkCircledIcon className="w-4 h-4 flex-shrink-0" />
+         <QuestionMarkCircledIcon class名称="w-4 h-4 flex-shrink-0" />
       )
    }
 };

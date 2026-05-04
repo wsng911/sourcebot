@@ -52,7 +52,7 @@ const Carousel = React.forwardRef<
       opts,
       setApi,
       plugins,
-      className,
+      class名称,
       children,
       ...props
     },
@@ -137,7 +137,7 @@ const Carousel = React.forwardRef<
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
-          className={cn("relative", className)}
+          class名称={cn("relative", class名称)}
           role="region"
           aria-roledescription="carousel"
           {...props}
@@ -148,34 +148,34 @@ const Carousel = React.forwardRef<
     )
   }
 )
-Carousel.displayName = "Carousel"
+Carousel.display名称 = "Carousel"
 
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+>(({ class名称, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div ref={carouselRef} class名称="overflow-hidden">
       <div
         ref={ref}
-        className={cn(
+        class名称={cn(
           "flex",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
+          class名称
         )}
         {...props}
       />
     </div>
   )
 })
-CarouselContent.displayName = "CarouselContent"
+CarouselContent.display名称 = "CarouselContent"
 
 const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+>(({ class名称, ...props }, ref) => {
   const { orientation } = useCarousel()
 
   return (
@@ -183,21 +183,21 @@ const CarouselItem = React.forwardRef<
       ref={ref}
       role="group"
       aria-roledescription="slide"
-      className={cn(
+      class名称={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
-        className
+        class名称
       )}
       {...props}
     />
   )
 })
-CarouselItem.displayName = "CarouselItem"
+CarouselItem.display名称 = "CarouselItem"
 
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ class名称, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   return (
@@ -205,28 +205,28 @@ const CarouselPrevious = React.forwardRef<
       ref={ref}
       variant={variant}
       size={size}
-      className={cn(
+      class名称={cn(
         "absolute  h-8 w-8 rounded-full",
         orientation === "horizontal"
           ? "-left-12 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        class名称
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft className="h-4 w-4" />
-      <span className="sr-only">Previous slide</span>
+      <ArrowLeft class名称="h-4 w-4" />
+      <span class名称="sr-only">Previous slide</span>
     </Button>
   )
 })
-CarouselPrevious.displayName = "CarouselPrevious"
+CarouselPrevious.display名称 = "CarouselPrevious"
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ class名称, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   return (
@@ -234,23 +234,23 @@ const CarouselNext = React.forwardRef<
       ref={ref}
       variant={variant}
       size={size}
-      className={cn(
+      class名称={cn(
         "absolute h-8 w-8 rounded-full",
         orientation === "horizontal"
           ? "-right-12 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        class名称
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight className="h-4 w-4" />
-      <span className="sr-only">Next slide</span>
+      <ArrowRight class名称="h-4 w-4" />
+      <span class名称="sr-only">Next slide</span>
     </Button>
   )
 })
-CarouselNext.displayName = "CarouselNext"
+CarouselNext.display名称 = "CarouselNext"
 
 export {
   type CarouselApi,

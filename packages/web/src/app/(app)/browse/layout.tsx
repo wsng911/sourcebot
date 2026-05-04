@@ -12,7 +12,7 @@ export default async function Layout({
     const session = await auth();
     const languageModels = await getConfiguredLanguageModelsInfo();
     return (
-        <LayoutClient session={session} isSearchAssistSupported={languageModels.length > 0}>
+        <LayoutClient session={session} is搜索AssistSupported={languageModels.length > 0}>
             {children}
         </LayoutClient>
     )

@@ -75,7 +75,7 @@ const MOCK_REPO = {
     defaultBranch: 'main',
     webUrl: 'https://github.com/owner/repo',
     external_codeHostType: 'GITHUB',
-    displayName: null,
+    display名称: null,
 };
 
 describe('getFileSourceForRepo', () => {

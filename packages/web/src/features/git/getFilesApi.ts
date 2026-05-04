@@ -13,11 +13,11 @@ export { getFilesRequestSchema, getFilesResponseSchema } from './schemas';
 export type GetFilesRequest = z.infer<typeof getFilesRequestSchema>;
 export type GetFilesResponse = z.infer<typeof getFilesResponseSchema>;
 
-export const getFiles = async ({ repoName, revisionName }: GetFilesRequest): Promise<GetFilesResponse | ServiceError> => sew(() =>
+export const getFiles = async ({ repo名称, revision名称 }: GetFilesRequest): Promise<GetFilesResponse | ServiceError> => sew(() =>
     withOptionalAuth(async ({ org, prisma }) => {
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
@@ -36,7 +36,7 @@ export const getFiles = async ({ repoName, revisionName }: GetFilesRequest): Pro
                 // Disable quoting of non-ASCII characters in paths
                 '-c', 'core.quotePath=false',
                 'ls-tree',
-                revisionName,
+                revision名称,
                 // recursive
                 '-r',
                 // only return the names of the files

@@ -1,7 +1,7 @@
-import { CreateUIMessage, InferUITool, UIMessage, UIMessagePart } from "ai";
-import { BaseEditor, Descendant } from "slate";
-import { HistoryEditor } from "slate-history";
-import { ReactEditor, RenderElementProps } from "slate-react";
+import { 创建UIMessage, InferUITool, UIMessage, UIMessagePart } from "ai";
+import { Base编辑or, Descendant } from "slate";
+import { History编辑or } from "slate-history";
+import { React编辑or, RenderElementProps } from "slate-react";
 import { z } from "zod";
 import { LanguageModel } from "@sourcebot/schemas/v3/index.type";
 import { createTools } from "./tools";
@@ -26,30 +26,30 @@ export const referenceSchema = z.discriminatedUnion('type', [
 ]);
 export type Reference = z.infer<typeof referenceSchema>;
 
-export const repoSearchScopeSchema = z.object({
+export const repo搜索ScopeSchema = z.object({
     type: z.literal('repo'),
     value: z.string(),
     name: z.string(),
     codeHostType: z.string(),
 });
-export type RepoSearchScope = z.infer<typeof repoSearchScopeSchema>;
+export type Repo搜索Scope = z.infer<typeof repo搜索ScopeSchema>;
 
-export const repoSetSearchScopeSchema = z.object({
+export const repoSet搜索ScopeSchema = z.object({
     type: z.literal('reposet'),
     value: z.string(),
     name: z.string(),
     repoCount: z.number(),
 });
-export type RepoSetSearchScope = z.infer<typeof repoSetSearchScopeSchema>;
+export type RepoSet搜索Scope = z.infer<typeof repoSet搜索ScopeSchema>;
 
 export const searchScopeSchema = z.discriminatedUnion('type', [
-    repoSearchScopeSchema,
-    repoSetSearchScopeSchema,
+    repo搜索ScopeSchema,
+    repoSet搜索ScopeSchema,
 ]);
-export type SearchScope = z.infer<typeof searchScopeSchema>;
+export type 搜索Scope = z.infer<typeof searchScopeSchema>;
 
 export const sbChatMessageMetadataSchema = z.object({
-    modelName: z.string().optional(),
+    model名称: z.string().optional(),
     totalInputTokens: z.number().optional(),
     totalOutputTokens: z.number().optional(),
     totalTokens: z.number().optional(),
@@ -59,7 +59,7 @@ export const sbChatMessageMetadataSchema = z.object({
         timestamp: z.string(), // ISO date string
         userId: z.string().optional(),
     })).optional(),
-    selectedSearchScopes: z.array(searchScopeSchema).optional(),
+    selected搜索Scopes: z.array(searchScopeSchema).optional(),
     traceId: z.string().optional(),
 });
 
@@ -119,10 +119,10 @@ export type CustomElement =
     ;
 
 
-export type CustomEditor =
-    BaseEditor &
-    ReactEditor &
-    HistoryEditor
+export type Custom编辑or =
+    Base编辑or &
+    React编辑or &
+    History编辑or
     ;
 
 export type RenderElementPropsFor<T> = RenderElementProps & {
@@ -131,7 +131,7 @@ export type RenderElementPropsFor<T> = RenderElementProps & {
 
 declare module 'slate' {
     interface CustomTypes {
-        Editor: CustomEditor
+        编辑or: Custom编辑or
         Element: CustomElement
         Text: CustomText
     }
@@ -141,8 +141,8 @@ declare module 'slate' {
 
 // Misc //
 export type SetChatStatePayload = {
-    inputMessage: CreateUIMessage<SBChatMessage>;
-    selectedSearchScopes: SearchScope[];
+    inputMessage: 创建UIMessage<SBChatMessage>;
+    selected搜索Scopes: 搜索Scope[];
 }
 
 
@@ -172,7 +172,7 @@ void _assertAllProviders;
 export const languageModelInfoSchema = z.object({
     provider: z.enum(languageModelProviders).describe("The model provider (e.g., 'anthropic', 'openai')"),
     model: z.string().describe("The model ID"),
-    displayName: z.string().optional().describe("Optional display name for the model"),
+    display名称: z.string().optional().describe("Optional display name for the model"),
 });
 
 /**
@@ -181,12 +181,12 @@ export const languageModelInfoSchema = z.object({
 export type LanguageModelInfo = {
     provider: LanguageModelProvider,
     model: LanguageModel['model'],
-    displayName?: LanguageModel['displayName'],
+    display名称?: LanguageModel['display名称'],
 }
 
-// Additional request body data that we send along to the chat API.
+// 添加itional request body data that we send along to the chat API.
 export const additionalChatRequestParamsSchema = z.object({
     languageModel: languageModelInfoSchema,
-    selectedSearchScopes: z.array(searchScopeSchema),
+    selected搜索Scopes: z.array(searchScopeSchema),
 });
-export type AdditionalChatRequestParams = z.infer<typeof additionalChatRequestParamsSchema>;
+export type 添加itionalChatRequestParams = z.infer<typeof additionalChatRequestParamsSchema>;

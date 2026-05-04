@@ -1,5 +1,5 @@
 import type { IdentityProvider } from "@/auth";
-import { onCreateUser } from "@/lib/authUtils";
+import { on创建User } from "@/lib/authUtils";
 import { __unsafePrisma } from "@/prisma";
 import { AuthentikIdentityProviderConfig, BitbucketCloudIdentityProviderConfig, BitbucketServerIdentityProviderConfig, GCPIAPIdentityProviderConfig, GitHubIdentityProviderConfig, GitLabIdentityProviderConfig, GoogleIdentityProviderConfig, JumpCloudIdentityProviderConfig, KeycloakIdentityProviderConfig, MicrosoftEntraIDIdentityProviderConfig, OktaIdentityProviderConfig } from "@sourcebot/schemas/v3/index.type";
 import type { IdentityProviderType } from "@sourcebot/shared";
@@ -260,7 +260,7 @@ const createGitHubProvider = (clientId: string, clientSecret: string, baseUrl: s
                 ].join(' '),
             },
         },
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -290,7 +290,7 @@ const createGitLabProvider = (clientId: string, clientSecret: string, baseUrl: s
         userinfo: {
             url: `${baseUrl}/api/v4/user`,
         },
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -299,7 +299,7 @@ const createGoogleProvider = (clientId: string, clientSecret: string) => {
         id: 'google' satisfies IdentityProviderType,
         clientId: clientId,
         clientSecret: clientSecret,
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -309,7 +309,7 @@ const createOktaProvider = (clientId: string, clientSecret: string, issuer: stri
         clientId: clientId,
         clientSecret: clientSecret,
         issuer: issuer,
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -319,7 +319,7 @@ const createKeycloakProvider = (clientId: string, clientSecret: string, issuer: 
         clientId: clientId,
         clientSecret: clientSecret,
         issuer: issuer,
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -329,7 +329,7 @@ const createMicrosoftEntraIDProvider = (clientId: string, clientSecret: string, 
         clientId: clientId,
         clientSecret: clientSecret,
         issuer: issuer,
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -352,7 +352,7 @@ const createBitbucketCloudProvider = (clientId: string, clientSecret: string): P
                 ].join(' '),
             },
         },
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -415,12 +415,12 @@ const createBitbucketServerProvider = (clientId: string, clientSecret: string, b
         profile(profile) {
             return {
                 id: String(profile.id),
-                name: profile.displayName,
-                email: profile.emailAddress,
+                name: profile.display名称,
+                email: profile.email添加ress,
                 image: null,
             };
         },
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     } as Provider;
 }
 
@@ -430,7 +430,7 @@ export const createAuthentikProvider = (clientId: string, clientSecret: string, 
         clientId: clientId,
         clientSecret: clientSecret,
         issuer: issuer,
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     });
 }
 
@@ -443,7 +443,7 @@ const createJumpCloudProvider = (clientId: string, clientSecret: string, issuer:
         clientSecret: clientSecret,
         issuer: issuer,
         checks: ["pkce", "state"],
-        allowDangerousEmailAccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
+        allowDangerous邮箱AccountLinking: env.AUTH_EE_ALLOW_EMAIL_ACCOUNT_LINKING === 'true',
     } as Provider;
 }
 
@@ -462,7 +462,7 @@ const createGCPIAPProvider = (audience: string): Provider => {
 
                 const oauth2Client = new OAuth2Client();
 
-                const { pubkeys } = await oauth2Client.getIapPublicKeys();
+                const { pubkeys } = await oauth2Client.getIap公开Keys();
                 const ticket = await oauth2Client.verifySignedJwtWithCertsAsync(
                     iapAssertion,
                     pubkeys,
@@ -505,7 +505,7 @@ const createGCPIAPProvider = (audience: string): Provider => {
                         image: newUser.image,
                     };
 
-                    await onCreateUser({ user: authJsUser });
+                    await on创建User({ user: authJsUser });
                     return authJsUser;
                 } else {
                     return {

@@ -1,14 +1,14 @@
-import { getRepos, getSearchContexts } from '@/actions';
-import { getUserChatHistory, getChatInfo, claimAnonymousChats, getSharedWithUsersForChat } from '@/features/chat/actions';
+import { getRepos, get搜索Contexts } from '@/actions';
+import { getUserChatHistory, getChatInfo, claimAnonymousChats, get分享dWithUsersForChat } from '@/features/chat/actions';
 import { getConfiguredLanguageModelsInfo } from "@/features/chat/utils.server";
 import { ServiceErrorException } from '@/lib/serviceError';
 import { isServiceError } from '@/lib/utils';
 import { ChatThreadPanel } from './components/chatThreadPanel';
 import { notFound } from 'next/navigation';
-import { StatusCodes } from 'http-status-codes';
+import { 状态Codes } from 'http-status-codes';
 import { TopBar } from '../../components/topBar';
-import { ChatName } from '../components/chatName';
-import { ShareChatPopover } from '../components/shareChatPopover';
+import { Chat名称 } from '../components/chat名称';
+import { 分享ChatPopover } from '../components/shareChatPopover';
 import { auth } from '@/auth';
 import { AnimatedResizableHandle } from '@/components/ui/animatedResizableHandle';
 import { ChatSidePanel } from '../components/chatSidePanel';
@@ -44,12 +44,12 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
     // Only show detailed metadata for public chats
     if (chat.visibility !== ChatVisibility.PUBLIC) {
         return {
-            title: 'Private Chat | Sourcebot',
-            description: 'Login to view',
+            title: '私有 Chat | Sourcebot',
+            description: '登录 to view',
         };
     }
 
-    const chatName = chat.name ?? 'Untitled chat';
+    const chat名称 = chat.name ?? 'Untitled chat';
     const messages = chat.messages as unknown as SBChatMessage[];
     const firstUserMessage = messages.find(m => m.role === 'user');
 
@@ -64,16 +64,16 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
     }
 
     return {
-        title: `${chatName} | Sourcebot`,
+        title: `${chat名称} | Sourcebot`,
         description,
         openGraph: {
-            title: chatName,
+            title: chat名称,
             description,
             type: 'website',
         },
         twitter: {
             card: 'summary_large_image',
-            title: chatName,
+            title: chat名称,
             description,
         },
     };
@@ -94,7 +94,7 @@ export default async function Page(props: PageProps) {
 
     const languageModels = await getConfiguredLanguageModelsInfo();
     const repos = await getRepos();
-    const searchContexts = await getSearchContexts();
+    const searchContexts = await get搜索Contexts();
     const chatInfo = await getChatInfo({ chatId: params.id });
     const chatHistory = session ? await getUserChatHistory() : [];
 
@@ -111,14 +111,14 @@ export default async function Page(props: PageProps) {
     }
 
     if (isServiceError(chatInfo)) {
-        if (chatInfo.statusCode === StatusCodes.NOT_FOUND) {
+        if (chatInfo.statusCode === 状态Codes.NOT_FOUND) {
             return notFound();
         }
 
         throw new ServiceErrorException(chatInfo);
     }
 
-    const { messages, name, visibility, isOwner, isSharedWithUser } = chatInfo;
+    const { messages, name, visibility, isOwner, is分享dWithUser } = chatInfo;
 
     // Track when a non-owner views a shared chat
     if (!isOwner) {
@@ -126,11 +126,11 @@ export default async function Page(props: PageProps) {
             chatId: params.id,
             visibility,
             viewerType: session ? 'authenticated' : 'anonymous',
-            accessType: isSharedWithUser ? 'direct_invite' : 'public_link',
+            accessType: is分享dWithUser ? 'direct_invite' : 'public_link',
         });
     }
 
-    const sharedWithUsers = (session && isOwner) ? await getSharedWithUsersForChat({ chatId: params.id }) : [];
+    const sharedWithUsers = (session && isOwner) ? await get分享dWithUsersForChat({ chatId: params.id }) : [];
 
     if (isServiceError(sharedWithUsers)) {
         throw new ServiceErrorException(sharedWithUsers);
@@ -142,12 +142,12 @@ export default async function Page(props: PageProps) {
     const hasChatSharingEntitlement = hasEntitlement('chat-sharing');
 
     return (
-        <div className="flex flex-col h-screen w-screen">
+        <div class名称="flex flex-col h-screen w-screen">
             <TopBar
                 homePath="/chat"
                 session={session}
                 centerContent={
-                    <ChatName
+                    <Chat名称
                         name={name}
                         id={params.id}
                         isOwner={isOwner}
@@ -155,7 +155,7 @@ export default async function Page(props: PageProps) {
                     />
                 }
                 actions={isOwner ? (
-                    <ShareChatPopover
+                    <分享ChatPopover
                         chatId={params.id}
                         visibility={visibility}
                         currentUser={session?.user}
@@ -185,7 +185,7 @@ export default async function Page(props: PageProps) {
                     order={2}
                     isOwner={isOwner}
                     isAuthenticated={!!session}
-                    chatName={name ?? undefined}
+                    chat名称={name ?? undefined}
                 />
             </ResizablePanelGroup>
         </div>

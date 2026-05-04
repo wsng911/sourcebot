@@ -3,25 +3,25 @@
 import { ServiceError } from "@/lib/serviceError";
 import { withAuth } from "@/middleware/withAuth";
 import { env, getEntitlements } from "@sourcebot/shared";
-import { AccountPermissionSyncJobStatus } from "@sourcebot/db";
-import { StatusCodes } from "http-status-codes";
+import { AccountPermission同步Job状态 } from "@sourcebot/db";
+import { 状态Codes } from "http-status-codes";
 import { ErrorCode } from "@/lib/errorCodes";
 import { sew } from "@/middleware/sew";
 
-export interface PermissionSyncStatusResponse {
-    hasPendingFirstSync: boolean;
+export interface Permission同步状态Response {
+    hasPendingFirst同步: boolean;
 }
 
 /**
  * Returns whether a user has a account that has it's permissions
  * synced for the first time.
  */
-export const getPermissionSyncStatus = async (): Promise<PermissionSyncStatusResponse | ServiceError> => sew(async () =>
+export const getPermission同步状态 = async (): Promise<Permission同步状态Response | ServiceError> => sew(async () =>
     withAuth(async ({ prisma, user }) => {
         const entitlements = getEntitlements();
         if (!entitlements.includes('permission-syncing')) {
             return {
-                statusCode: StatusCodes.FORBIDDEN,
+                statusCode: 状态Codes.FORBIDDEN,
                 errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
                 message: "Permission syncing is not enabled for your license",
             } satisfies ServiceError;
@@ -34,27 +34,27 @@ export const getPermissionSyncStatus = async (): Promise<PermissionSyncStatusRes
                 provider: { in: ['github', 'gitlab', 'bitbucket-cloud', 'bitbucket-server'] }
             },
             include: {
-                permissionSyncJobs: {
+                permission同步Jobs: {
                     orderBy: { createdAt: 'desc' },
                     take: 1,
                 }
             }
         });
 
-        const activeStatuses: AccountPermissionSyncJobStatus[] = [
-            AccountPermissionSyncJobStatus.PENDING,
-            AccountPermissionSyncJobStatus.IN_PROGRESS
+        const active状态es: AccountPermission同步Job状态[] = [
+            AccountPermission同步Job状态.PENDING,
+            AccountPermission同步Job状态.IN_PROGRESS
         ];
 
-        const hasPendingFirstSync = env.PERMISSION_SYNC_ENABLED === 'true' &&
+        const hasPendingFirst同步 = env.PERMISSION_SYNC_ENABLED === 'true' &&
             accounts.some(account =>
-                account.permissionSyncedAt === null &&
+                account.permission同步edAt === null &&
                 // @note: to handle the case where the permission sync job
                 // has not yet been scheduled for a new account, we consider
                 // accounts with no permission sync jobs as having a pending first sync.
-                (account.permissionSyncJobs.length === 0 || (account.permissionSyncJobs.length > 0 && activeStatuses.includes(account.permissionSyncJobs[0].status)))
+                (account.permission同步Jobs.length === 0 || (account.permission同步Jobs.length > 0 && active状态es.includes(account.permission同步Jobs[0].status)))
             )
 
-        return { hasPendingFirstSync } satisfies PermissionSyncStatusResponse;
+        return { hasPendingFirst同步 } satisfies Permission同步状态Response;
     })
 )

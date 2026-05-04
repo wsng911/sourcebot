@@ -1,22 +1,22 @@
 'use client';
 
-import { RepositoryInfo, SearchResultFile } from "@/features/search";
+import { 仓库Info, 搜索ResultFile } from "@/features/search";
 import { useVirtualizer, VirtualItem } from "@tanstack/react-virtual";
 import { useDebounce } from "@uidotdev/usehooks";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
 import { useMap } from "usehooks-ts";
 import { FileMatchContainer, MAX_MATCHES_TO_PREVIEW } from "./fileMatchContainer";
 
-interface SearchResultsPanelProps {
-    fileMatches: SearchResultFile[];
-    onOpenFilePreview: (fileMatch: SearchResultFile, matchIndex?: number) => void;
+interface 搜索ResultsPanelProps {
+    fileMatches: 搜索ResultFile[];
+    onOpenFilePreview: (fileMatch: 搜索ResultFile, matchIndex?: number) => void;
     isLoadMoreButtonVisible: boolean;
     onLoadMoreButtonClicked: () => void;
     isBranchFilteringEnabled: boolean;
-    repoInfo: Record<number, RepositoryInfo>;
+    repoInfo: Record<number, 仓库Info>;
 }
 
-export interface SearchResultsPanelHandle {
+export interface 搜索ResultsPanelHandle {
     resetScroll: () => void;
 }
 
@@ -34,11 +34,11 @@ type ScrollHistoryState = {
  * Unique key for a given file match. Used to store the "show all matches" state for a
  * given file match.
  */
-const getFileMatchKey = (fileMatch: SearchResultFile) => {
-    return `${fileMatch.repository}-${fileMatch.fileName.text}`;
+const getFileMatchKey = (fileMatch: 搜索ResultFile) => {
+    return `${fileMatch.repository}-${fileMatch.file名称.text}`;
 }
 
-export const SearchResultsPanel = forwardRef<SearchResultsPanelHandle, SearchResultsPanelProps>(({
+export const 搜索ResultsPanel = forwardRef<搜索ResultsPanelHandle, 搜索ResultsPanelProps>(({
     fileMatches,
     onOpenFilePreview,
     isLoadMoreButtonVisible,
@@ -58,7 +58,7 @@ export const SearchResultsPanel = forwardRef<SearchResultsPanelHandle, SearchRes
         showAllMatchesMap: restoreShowAllMatchesStates,
     } = (history.state ?? {}) as ScrollHistoryState;
 
-    const [showAllMatchesMap, showAllMatchesActions] = useMap<string, boolean>(restoreShowAllMatchesStates || []);
+    const [showAllMatchesMap, showAllMatches操作] = useMap<string, boolean>(restoreShowAllMatchesStates || []);
 
     const virtualizer = useVirtualizer({
         count: fileMatches.length,
@@ -96,7 +96,7 @@ export const SearchResultsPanel = forwardRef<SearchResultsPanelHandle, SearchRes
     }), [resetScroll]);
 
 
-    // Save the scroll state to the history stack.
+    // 保存 the scroll state to the history stack.
     const debouncedScrollOffset = useDebounce(virtualizer.scrollOffset, 500);
     useEffect(() => {
         history.replaceState(
@@ -112,7 +112,7 @@ export const SearchResultsPanel = forwardRef<SearchResultsPanelHandle, SearchRes
 
     const onShowAllMatchesButtonClicked = useCallback((fileMatchKey: string, index: number) => {
         const wasShown = showAllMatchesMap.get(fileMatchKey) ?? false;
-        showAllMatchesActions.set(fileMatchKey, !wasShown);
+        showAllMatches操作.set(fileMatchKey, !wasShown);
 
         // When collapsing, scroll to the top of the file match container. This ensures
         // that the focused "show fewer matches" button is visible.
@@ -121,7 +121,7 @@ export const SearchResultsPanel = forwardRef<SearchResultsPanelHandle, SearchRes
                 align: 'start'
             });
         }
-    }, [showAllMatchesActions, showAllMatchesMap, virtualizer]);
+    }, [showAllMatches操作, showAllMatchesMap, virtualizer]);
 
 
     return (
@@ -174,9 +174,9 @@ export const SearchResultsPanel = forwardRef<SearchResultsPanelHandle, SearchRes
                 })}
             </div>
             {isLoadMoreButtonVisible && (
-                <div className="p-3">
+                <div class名称="p-3">
                     <span
-                        className="cursor-pointer text-blue-500 hover:underline"
+                        class名称="cursor-pointer text-blue-500 hover:underline"
                         onClick={onLoadMoreButtonClicked}
                     >
                         Load more results
@@ -187,4 +187,4 @@ export const SearchResultsPanel = forwardRef<SearchResultsPanelHandle, SearchRes
     )
 });
 
-SearchResultsPanel.displayName = 'SearchResultsPanel';
+搜索ResultsPanel.display名称 = '搜索ResultsPanel';

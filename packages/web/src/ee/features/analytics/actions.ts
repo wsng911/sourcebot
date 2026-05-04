@@ -7,7 +7,7 @@ import { ServiceError } from "@/lib/serviceError";
 import { AnalyticsResponse, AnalyticsRow } from "./types";
 import { env, hasEntitlement } from "@sourcebot/shared";
 import { ErrorCode } from "@/lib/errorCodes";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { OrgRole } from "@sourcebot/db";
 
 export const getAnalytics = async (): Promise<AnalyticsResponse | ServiceError> => sew(() =>
@@ -15,7 +15,7 @@ export const getAnalytics = async (): Promise<AnalyticsResponse | ServiceError> 
     withMinimumOrgRole(role, OrgRole.OWNER, async () => {
     if (!hasEntitlement("analytics")) {
       return {
-        statusCode: StatusCodes.FORBIDDEN,
+        statusCode: 状态Codes.FORBIDDEN,
         errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
         message: "Analytics is not available in your current plan",
       } satisfies ServiceError;

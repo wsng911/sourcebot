@@ -32,12 +32,12 @@ const mergeStreamAsync = async (stream: StreamTextResult<any, any>, writer: UIMe
     })));
 }
 
-interface CreateMessageStreamResponseProps {
+interface 创建MessageStreamResponseProps {
     chatId: string;
     messages: SBChatMessage[];
     selectedRepos: string[];
     model: AISDKLanguageModelV3;
-    modelName: string;
+    model名称: string;
     onFinish: UIMessageStreamOnFinishCallback<SBChatMessage>;
     onError: (error: unknown) => string;
     modelProviderOptions?: Record<string, Record<string, JSONValue>>;
@@ -51,12 +51,12 @@ export const createMessageStream = async ({
     metadata,
     selectedRepos,
     model,
-    modelName,
+    model名称,
     modelProviderOptions,
     modelTemperature,
     onFinish,
     onError,
-}: CreateMessageStreamResponseProps) => {
+}: 创建MessageStreamResponseProps) => {
     const latestMessage = messages[messages.length - 1];
     const sources = latestMessage.parts
         .filter((part) => part.type === 'data-source')
@@ -126,7 +126,7 @@ export const createMessageStream = async ({
                     totalInputTokens: totalUsage.inputTokens,
                     totalOutputTokens: totalUsage.outputTokens,
                     totalResponseTimeMs: new Date().getTime() - startTime.getTime(),
-                    modelName,
+                    model名称,
                     traceId,
                     ...metadata,
                 }

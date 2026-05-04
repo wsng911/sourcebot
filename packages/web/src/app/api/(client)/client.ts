@@ -4,8 +4,8 @@ import { ServiceError } from "@/lib/serviceError";
 import { GetVersionResponse, ListReposQueryParams, ListReposResponse } from "@/lib/types";
 import { isServiceError } from "@/lib/utils";
 import {
-    SearchRequest,
-    SearchResponse,
+    搜索Request,
+    搜索Response,
 } from "@/features/search";
 import {
     FindRelatedSymbolsRequest,
@@ -22,14 +22,14 @@ import {
     ListCommitsQueryParams,
     ListCommitsResponse,
 } from "@/features/git";
-import type { PermissionSyncStatusResponse } from "../(server)/ee/permissionSyncStatus/api";
-import type { AccountSyncStatusResponse } from "../(server)/ee/accountPermissionSyncJobStatus/api";
+import type { Permission同步状态Response } from "../(server)/ee/permission同步状态/api";
+import type { Account同步状态Response } from "../(server)/ee/accountPermission同步Job状态/api";
 import type {
-    SearchChatShareableMembersQueryParams,
-    SearchChatShareableMembersResponse,
+    搜索Chat分享ableMembersQueryParams,
+    搜索Chat分享ableMembersResponse,
 } from "../(server)/ee/chat/[chatId]/searchMembers/route";
 
-export const search = async (body: SearchRequest): Promise<SearchResponse | ServiceError> => {
+export const search = async (body: 搜索Request): Promise<搜索Response | ServiceError> => {
     const result = await fetch("/api/search", {
         method: "POST",
         headers: {
@@ -43,7 +43,7 @@ export const search = async (body: SearchRequest): Promise<SearchResponse | Serv
         return result;
     }
 
-    return result as SearchResponse | ServiceError;
+    return result as 搜索Response | ServiceError;
 }
 
 export const getFileSource = async (queryParams: FileSourceRequest): Promise<FileSourceResponse | ServiceError> => {
@@ -90,7 +90,7 @@ export const getVersion = async (): Promise<GetVersionResponse> => {
     return result as GetVersionResponse;
 }
 
-export const findSearchBasedSymbolReferences = async (body: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => {
+export const find搜索BasedSymbolReferences = async (body: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => {
     const result = await fetch("/api/find_references", {
         method: "POST",
         headers: {
@@ -101,7 +101,7 @@ export const findSearchBasedSymbolReferences = async (body: FindRelatedSymbolsRe
     return result as FindRelatedSymbolsResponse | ServiceError;
 }
 
-export const findSearchBasedSymbolDefinitions = async (body: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => {
+export const find搜索BasedSymbolDefinitions = async (body: FindRelatedSymbolsRequest): Promise<FindRelatedSymbolsResponse | ServiceError> => {
     const result = await fetch("/api/find_definitions", {
         method: "POST",
         headers: {
@@ -158,29 +158,29 @@ export const getFiles = async (body: GetFilesRequest): Promise<GetFilesResponse 
     return result as GetFilesResponse | ServiceError;
 }
 
-export const getPermissionSyncStatus = async (): Promise<PermissionSyncStatusResponse | ServiceError> => {
-    const result = await fetch("/api/ee/permissionSyncStatus", {
+export const getPermission同步状态 = async (): Promise<Permission同步状态Response | ServiceError> => {
+    const result = await fetch("/api/ee/permission同步状态", {
         method: "GET",
         headers: {
             "X-Sourcebot-Client-Source": "sourcebot-web-client",
         },
     }).then(response => response.json());
-    return result as PermissionSyncStatusResponse | ServiceError;
+    return result as Permission同步状态Response | ServiceError;
 }
 
-export const getAccountSyncStatus = async (jobId: string): Promise<AccountSyncStatusResponse | ServiceError> => {
-    const url = new URL("/api/ee/accountPermissionSyncJobStatus", window.location.origin);
+export const getAccount同步状态 = async (jobId: string): Promise<Account同步状态Response | ServiceError> => {
+    const url = new URL("/api/ee/accountPermission同步Job状态", window.location.origin);
     url.searchParams.set("jobId", jobId);
     const result = await fetch(url, {
         headers: { "X-Sourcebot-Client-Source": "sourcebot-web-client" },
     }).then(r => r.json());
-    return result as AccountSyncStatusResponse | ServiceError;
+    return result as Account同步状态Response | ServiceError;
 }
 
-export const searchChatShareableMembers = async (
-    params: SearchChatShareableMembersQueryParams & { chatId: string },
+export const searchChat分享ableMembers = async (
+    params: 搜索Chat分享ableMembersQueryParams & { chatId: string },
     signal?: AbortSignal
-): Promise<SearchChatShareableMembersResponse | ServiceError> => {
+): Promise<搜索Chat分享ableMembersResponse | ServiceError> => {
     const url = new URL(`/api/ee/chat/${params.chatId}/searchMembers`, window.location.origin);
     if (params.query) {
         url.searchParams.set('query', params.query);
@@ -194,5 +194,5 @@ export const searchChatShareableMembers = async (
         signal,
     }).then(response => response.json());
 
-    return result as SearchChatShareableMembersResponse | ServiceError;
+    return result as 搜索Chat分享ableMembersResponse | ServiceError;
 }

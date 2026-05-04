@@ -1,5 +1,5 @@
 import { Parser } from '@lezer/common';
-import { LanguageDescription, StreamLanguage } from '@codemirror/language';
+import { Language描述, StreamLanguage } from '@codemirror/language';
 import { Highlighter, highlightTree } from '@lezer/highlight';
 import { languages as builtinLanguages } from '@codemirror/language-data';
 
@@ -10,11 +10,11 @@ const plainTextLanguage = StreamLanguage.define({
     },
 });
 
-export const getCodeParserByLanguageName = async (languageName: string): Promise<Parser> => {
-    if (!languageName) {
+export const getCodeParserByLanguage名称 = async (language名称: string): Promise<Parser> => {
+    if (!language名称) {
         return plainTextLanguage.parser;
     }
-    const found = LanguageDescription.matchLanguageName(builtinLanguages, languageName, true);
+    const found = Language描述.matchLanguage名称(builtinLanguages, language名称, true);
     if (!found) {
         return plainTextLanguage.parser;
     }
@@ -25,7 +25,7 @@ export const getCodeParserByLanguageName = async (languageName: string): Promise
 };
 
 export const getCodeParserByFilename = async (filename: string): Promise<Parser> => {
-    const found = LanguageDescription.matchFilename(builtinLanguages, filename);
+    const found = Language描述.matchFilename(builtinLanguages, filename);
     if (!found) {
         return plainTextLanguage.parser;
     }
@@ -36,7 +36,7 @@ export const getCodeParserByFilename = async (filename: string): Promise<Parser>
 };
 
 export async function highlightCode<Output>(
-    languageName: string,
+    language名称: string,
     input: string,
     highlighter: Highlighter,
     highlightRanges: { from: number; to: number }[] = [],
@@ -47,7 +47,7 @@ export async function highlightCode<Output>(
         to: number,
     ) => Output,
 ): Promise<Output[]> {
-    const parser = await getCodeParserByLanguageName(languageName);
+    const parser = await getCodeParserByLanguage名称(language名称);
 
     const convertRangeToHighlightedSubranges = (
         from: number,

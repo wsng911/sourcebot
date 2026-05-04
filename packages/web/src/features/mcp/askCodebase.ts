@@ -1,6 +1,6 @@
 import { sew } from "@/middleware/sew";
-import { getConfiguredLanguageModels, getAISDKLanguageModelAndOptions, generateChatNameFromMessage, updateChatMessages } from "@/features/chat/utils.server";
-import { LanguageModelInfo, SBChatMessage, SearchScope } from "@/features/chat/types";
+import { getConfiguredLanguageModels, getAISDKLanguageModelAndOptions, generateChat名称FromMessage, updateChatMessages } from "@/features/chat/utils.server";
+import { LanguageModelInfo, SBChatMessage, 搜索Scope } from "@/features/chat/types";
 import { convertLLMOutputToPortableMarkdown, getAnswerPartFromAssistantMessage, getLanguageModelKey } from "@/features/chat/utils";
 import { ErrorCode } from "@/lib/errorCodes";
 import { ServiceError, ServiceErrorException } from "@/lib/serviceError";
@@ -8,7 +8,7 @@ import { withOptionalAuth } from "@/middleware/withAuth";
 import { ChatVisibility, Prisma } from "@sourcebot/db";
 import { createLogger, env } from "@sourcebot/shared";
 import { randomUUID } from "crypto";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { InferUIMessageChunk, UIDataTypes, UIMessage, UITools } from "ai";
 import { captureEvent } from "@/lib/posthog";
 import { getAuditService } from "@/ee/features/audit/factory";
@@ -49,7 +49,7 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
             const configuredModels = await getConfiguredLanguageModels();
             if (configuredModels.length === 0) {
                 return {
-                    statusCode: StatusCodes.BAD_REQUEST,
+                    statusCode: 状态Codes.BAD_REQUEST,
                     errorCode: ErrorCode.INVALID_REQUEST_BODY,
                     message: "No language models are configured. Please configure at least one language model. See: https://docs.sourcebot.dev/docs/configuration/language-model-providers",
                 } satisfies ServiceError;
@@ -62,7 +62,7 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
                 );
                 if (!matchingModel) {
                     return {
-                        statusCode: StatusCodes.BAD_REQUEST,
+                        statusCode: 状态Codes.BAD_REQUEST,
                         errorCode: ErrorCode.INVALID_REQUEST_BODY,
                         message: `Language model '${requestedLanguageModel.provider}/${requestedLanguageModel.model}' is not configured.`,
                     } satisfies ServiceError;
@@ -71,7 +71,7 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
             }
 
             const { model, providerOptions, temperature } = await getAISDKLanguageModelAndOptions(languageModelConfig);
-            const modelName = languageModelConfig.displayName ?? languageModelConfig.model;
+            const model名称 = languageModelConfig.display名称 ?? languageModelConfig.model;
 
             const chatVisibility = (requestedVisibility && user)
                 ? requestedVisibility
@@ -105,7 +105,7 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
             logger.debug(`Starting blocking agent for chat ${chat.id}`, {
                 chatId: chat.id,
                 query: query.substring(0, 100),
-                model: modelName,
+                model: model名称,
             });
 
             const userMessage: SBChatMessage = {
@@ -123,17 +123,17 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
                 });
                 if (!repoDB) {
                     throw new ServiceErrorException({
-                        statusCode: StatusCodes.BAD_REQUEST,
+                        statusCode: 状态Codes.BAD_REQUEST,
                         errorCode: ErrorCode.INVALID_REQUEST_BODY,
-                        message: `Repository '${repo}' not found.`,
+                        message: `仓库 '${repo}' not found.`,
                     });
                 }
                 return {
                     type: 'repo',
                     value: repoDB.name,
-                    name: repoDB.displayName ?? repoDB.name.split('/').pop() ?? repoDB.name,
+                    name: repoDB.display名称 ?? repoDB.name.split('/').pop() ?? repoDB.name,
                     codeHostType: repoDB.external_codeHostType,
-                } satisfies SearchScope;
+                } satisfies 搜索Scope;
             })));
 
             let finalMessages: SBChatMessage[] = [];
@@ -152,11 +152,11 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
                 chatId: chat.id,
                 messages: [userMessage],
                 metadata: {
-                    selectedSearchScopes: selectedRepos,
+                    selected搜索Scopes: selectedRepos,
                 },
                 selectedRepos: selectedRepos.map(r => r.value),
                 model,
-                modelName,
+                model名称,
                 modelProviderOptions: providerOptions,
                 modelTemperature: temperature,
                 onFinish: async ({ messages }) => {
@@ -168,7 +168,7 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
                     }
                     const message = error instanceof Error ? error.message : String(error);
                     throw new ServiceErrorException({
-                        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                        statusCode: 状态Codes.INTERNAL_SERVER_ERROR,
                         errorCode: ErrorCode.UNEXPECTED_ERROR,
                         message,
                     });
@@ -177,7 +177,7 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
 
             const [, name] = await Promise.all([
                 blockStreamUntilFinish(stream),
-                generateChatNameFromMessage({
+                generateChat名称FromMessage({
                     message: query,
                     languageModelConfig,
                 })
@@ -209,7 +209,7 @@ export const askCodebase = (params: AskCodebaseParams): Promise<AskCodebaseResul
                 languageModel: {
                     provider: languageModelConfig.provider,
                     model: languageModelConfig.model,
-                    displayName: languageModelConfig.displayName,
+                    display名称: languageModelConfig.display名称,
                 },
             } satisfies AskCodebaseResult;
         })

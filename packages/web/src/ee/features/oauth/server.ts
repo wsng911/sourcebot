@@ -59,7 +59,7 @@ export async function verifyAndExchangeCode({
     redirectUri: string;
     codeVerifier: string;
     resource: string | null;
-}): Promise<{ token: string; refreshToken: string; expiresIn: number } | { error: string; errorDescription: string }> {
+}): Promise<{ token: string; refreshToken: string; expiresIn: number } | { error: string; error描述: string }> {
     const codeHash = hashSecret(rawCode);
 
     const authCode = await __unsafePrisma.oAuthAuthorizationCode.findUnique({
@@ -67,20 +67,20 @@ export async function verifyAndExchangeCode({
     });
 
     if (!authCode) {
-        return { error: 'invalid_grant', errorDescription: 'Authorization code not found.' };
+        return { error: 'invalid_grant', error描述: 'Authorization code not found.' };
     }
 
     if (authCode.expiresAt < new Date()) {
         await __unsafePrisma.oAuthAuthorizationCode.delete({ where: { codeHash } });
-        return { error: 'invalid_grant', errorDescription: 'Authorization code has expired.' };
+        return { error: 'invalid_grant', error描述: 'Authorization code has expired.' };
     }
 
     if (authCode.clientId !== clientId) {
-        return { error: 'invalid_grant', errorDescription: 'Client ID mismatch.' };
+        return { error: 'invalid_grant', error描述: 'Client ID mismatch.' };
     }
 
     if (authCode.redirectUri !== redirectUri) {
-        return { error: 'invalid_grant', errorDescription: 'Redirect URI mismatch.' };
+        return { error: 'invalid_grant', error描述: 'Redirect URI mismatch.' };
     }
 
     // PKCE verification: BASE64URL(SHA-256(codeVerifier)) must equal stored codeChallenge
@@ -90,12 +90,12 @@ export async function verifyAndExchangeCode({
         .digest('base64url');
 
     if (computedChallenge !== authCode.codeChallenge) {
-        return { error: 'invalid_grant', errorDescription: 'PKCE code verifier is invalid.' };
+        return { error: 'invalid_grant', error描述: 'PKCE code verifier is invalid.' };
     }
 
     // RFC 8707: if a resource was bound to the auth code, the token request must present the same value.
     if (authCode.resource !== null && authCode.resource !== resource) {
-        return { error: 'invalid_target', errorDescription: 'resource parameter does not match the value bound to the authorization code.' };
+        return { error: 'invalid_target', error描述: 'resource parameter does not match the value bound to the authorization code.' };
     }
 
     // Single-use: delete the auth code before issuing token.
@@ -104,7 +104,7 @@ export async function verifyAndExchangeCode({
         await __unsafePrisma.oAuthAuthorizationCode.delete({ where: { codeHash } });
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-            return { error: 'invalid_grant', errorDescription: 'Authorization code has already been used.' };
+            return { error: 'invalid_grant', error描述: 'Authorization code has already been used.' };
         }
         throw error;
     }
@@ -147,9 +147,9 @@ export async function verifyAndRotateRefreshToken({
     rawRefreshToken: string;
     clientId: string;
     resource: string | null;
-}): Promise<{ token: string; refreshToken: string; expiresIn: number } | { error: string; errorDescription: string }> {
+}): Promise<{ token: string; refreshToken: string; expiresIn: number } | { error: string; error描述: string }> {
     if (!rawRefreshToken.startsWith(OAUTH_REFRESH_TOKEN_PREFIX)) {
-        return { error: 'invalid_grant', errorDescription: 'Refresh token is invalid.' };
+        return { error: 'invalid_grant', error描述: 'Refresh token is invalid.' };
     }
 
     const hash = hashSecret(rawRefreshToken.slice(OAUTH_REFRESH_TOKEN_PREFIX.length));
@@ -157,20 +157,20 @@ export async function verifyAndRotateRefreshToken({
     const existing = await __unsafePrisma.oAuthRefreshToken.findUnique({ where: { hash } });
 
     if (!existing) {
-        return { error: 'invalid_grant', errorDescription: 'Refresh token is invalid or has already been used.' };
+        return { error: 'invalid_grant', error描述: 'Refresh token is invalid or has already been used.' };
     }
 
     if (existing.clientId !== clientId) {
-        return { error: 'invalid_grant', errorDescription: 'Client ID mismatch.' };
+        return { error: 'invalid_grant', error描述: 'Client ID mismatch.' };
     }
 
     if (existing.expiresAt < new Date()) {
         await __unsafePrisma.oAuthRefreshToken.delete({ where: { hash } });
-        return { error: 'invalid_grant', errorDescription: 'Refresh token has expired.' };
+        return { error: 'invalid_grant', error描述: 'Refresh token has expired.' };
     }
 
     if (existing.resource !== null && existing.resource !== resource) {
-        return { error: 'invalid_target', errorDescription: 'resource parameter does not match the refresh token.' };
+        return { error: 'invalid_target', error描述: 'resource parameter does not match the refresh token.' };
     }
 
     const { token, hash: newTokenHash } = generateOAuthToken();

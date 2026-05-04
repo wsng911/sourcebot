@@ -13,7 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { VscodeFileIcon } from "@/app/components/vscodeFileIcon";
-import { CopyIconButton } from "./copyIconButton";
+import { 复制IconButton } from "./copyIconButton";
 import Link from "next/link";
 import { CodeHostType } from "@sourcebot/db";
 
@@ -27,16 +27,16 @@ interface FileHeaderProps {
     repo: {
         name: string;
         codeHostType: CodeHostType;
-        displayName?: string;
+        display名称?: string;
         externalWebUrl?: string;
     },
-    isBranchDisplayNameVisible?: boolean;
-    branchDisplayName?: string;
-    revisionName?: string;
+    isBranchDisplay名称Visible?: boolean;
+    branchDisplay名称?: string;
+    revision名称?: string;
     branchDisplayTitle?: string;
     isCodeHostIconVisible?: boolean;
     isFileIconVisible?: boolean;
-    repoNameClassName?: string;
+    repo名称Class名称?: string;
 }
 
 interface BreadcrumbSegment {
@@ -53,19 +53,19 @@ export const PathHeader = ({
     repo,
     path,
     pathHighlightRange,
-    revisionName,
-    branchDisplayName = revisionName,
-    isBranchDisplayNameVisible = !!branchDisplayName,
+    revision名称,
+    branchDisplay名称 = revision名称,
+    isBranchDisplay名称Visible = !!branchDisplay名称,
     branchDisplayTitle,
     pathType = 'blob',
     isCodeHostIconVisible = true,
     isFileIconVisible = true,
-    repoNameClassName,
+    repo名称Class名称,
 }: FileHeaderProps) => {
     const info = getCodeHostInfoForRepo({
         name: repo.name,
         codeHostType: repo.codeHostType,
-        displayName: repo.displayName,
+        display名称: repo.display名称,
         externalWebUrl: repo.externalWebUrl,
     });
 
@@ -73,7 +73,7 @@ export const PathHeader = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const breadcrumbsRef = useRef<HTMLDivElement>(null);
     const [visibleSegmentCount, setVisibleSegmentCount] = useState<number | null>(null);
-    // Create breadcrumb segments from file path
+    // 创建 breadcrumb segments from file path
     const breadcrumbSegments = useMemo(() => {
         const pathParts = path.split('/').filter(Boolean);
         const segments: BreadcrumbSegment[] = [];
@@ -117,12 +117,12 @@ export const PathHeader = ({
             const containerWidth = containerRef.current.offsetWidth;
             const availableWidth = containerWidth - 40; // Reserve space for copy button and padding
 
-            // Create a temporary element to measure segment widths
+            // 创建 a temporary element to measure segment widths
             const tempElement = document.createElement('div');
             tempElement.style.position = 'absolute';
             tempElement.style.visibility = 'hidden';
             tempElement.style.whiteSpace = 'nowrap';
-            tempElement.className = 'font-mono text-sm';
+            tempElement.class名称 = 'font-mono text-sm';
             document.body.appendChild(tempElement);
 
             let totalWidth = 0;
@@ -138,7 +138,7 @@ export const PathHeader = ({
                 if (totalWidth + segmentWidth + separatorWidth > availableWidth && i > 0) {
                     // If adding this segment would overflow and it's not the last segment
                     visibleCount = breadcrumbSegments.length - i;
-                    // Add width for ellipsis dropdown (approximately 24px)
+                    // 添加 width for ellipsis dropdown (approximately 24px)
                     if (visibleCount < breadcrumbSegments.length) {
                         totalWidth += 40; // Ellipsis button + separator
                     }
@@ -176,7 +176,7 @@ export const PathHeader = ({
         return breadcrumbSegments.slice(breadcrumbSegments.length - visibleSegmentCount);
     }, [breadcrumbSegments, visibleSegmentCount]);
 
-    const onCopyPath = useCallback(() => {
+    const on复制Path = useCallback(() => {
         navigator.clipboard.writeText(path);
         toast({ description: "✅ Copied to clipboard" });
         return true;
@@ -191,7 +191,7 @@ export const PathHeader = ({
         return (
             <>
                 {segment.name.slice(0, from)}
-                <span className="bg-yellow-200 dark:bg-blue-700">
+                <span class名称="bg-yellow-200 dark:bg-blue-700">
                     {segment.name.slice(from, to)}
                 </span>
                 {segment.name.slice(to)}
@@ -200,118 +200,118 @@ export const PathHeader = ({
     };
 
     return (
-        <div className="flex flex-row gap-2 items-center w-full overflow-hidden">
+        <div class名称="flex flex-row gap-2 items-center w-full overflow-hidden">
             {isCodeHostIconVisible && (
                 <>
                     <a href={info.externalWebUrl} target="_blank" rel="noopener noreferrer">
                         <Image
                             src={info.icon}
-                            alt={info.codeHostName}
-                            className={`w-4 h-4 ${info.iconClassName}`}
+                            alt={info.codeHost名称}
+                            class名称={`w-4 h-4 ${info.iconClass名称}`}
                         />
                     </a>
                 </>
             )}
 
             <Link
-                className={cn("font-medium cursor-pointer hover:underline", repoNameClassName)}
+                class名称={cn("font-medium cursor-pointer hover:underline", repo名称Class名称)}
                 href={getBrowsePath({
-                    repoName: repo.name,
+                    repo名称: repo.name,
                     path: '/',
                     pathType: 'tree',
-                    revisionName,
+                    revision名称,
                 })}
             >
-                {info?.displayName}
+                {info?.display名称}
             </Link>
-            {(isBranchDisplayNameVisible && branchDisplayName) && (
+            {(isBranchDisplay名称Visible && branchDisplay名称) && (
                 <p
-                    className="text-xs font-semibold text-gray-500 dark:text-gray-400 mt-[3px] flex items-center gap-0.5"
+                    class名称="text-xs font-semibold text-gray-500 dark:text-gray-400 mt-[3px] flex items-center gap-0.5"
                     title={branchDisplayTitle}
                     style={{
                         marginBottom: "0.1rem",
                     }}
                 >
-                    <span className="mr-0.5">@</span>
+                    <span class名称="mr-0.5">@</span>
                     <Link
                         href={getBrowsePath({
-                            repoName: repo.name,
+                            repo名称: repo.name,
                             path: '',
                             pathType: 'commit',
-                            commitSha: branchDisplayName,
+                            commitSha: branchDisplay名称,
                         })}
-                        className="hover:underline"
+                        class名称="hover:underline"
                     >
-                        {truncateSha(branchDisplayName.replace(/^refs\/(heads|tags)\//, ''))}
+                        {truncateSha(branchDisplay名称.replace(/^refs\/(heads|tags)\//, ''))}
                     </Link>
                 </p>
             )}
             {breadcrumbSegments.length > 0 && (
                 <span>·</span>
             )}
-            <div ref={containerRef} className="flex-1 flex items-center overflow-hidden mt-0.5">
-                <div ref={breadcrumbsRef} className="flex items-center overflow-hidden">
+            <div ref={containerRef} class名称="flex-1 flex items-center overflow-hidden mt-0.5">
+                <div ref={breadcrumbsRef} class名称="flex items-center overflow-hidden">
                     {hiddenSegments.length > 0 && (
                         <>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <button
-                                        className="font-mono text-sm cursor-pointer hover:underline p-1 rounded transition-colors"
+                                        class名称="font-mono text-sm cursor-pointer hover:underline p-1 rounded transition-colors"
                                         aria-label="Show hidden path segments"
                                     >
-                                        <MoreHorizontal className="h-4 w-4" />
+                                        <MoreHorizontal class名称="h-4 w-4" />
                                     </button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="start" className="min-w-[200px]">
+                                <DropdownMenuContent align="start" class名称="min-w-[200px]">
                                     {hiddenSegments.map((segment) => (
                                         <Link
                                             href={getBrowsePath({
-                                                repoName: repo.name,
+                                                repo名称: repo.name,
                                                 path: segment.fullPath,
                                                 pathType: segment.isLastSegment ? pathType : 'tree',
-                                                revisionName,
+                                                revision名称,
                                             })}
-                                            className="font-mono text-sm hover:cursor cursor-pointer"
+                                            class名称="font-mono text-sm hover:cursor cursor-pointer"
                                             key={segment.fullPath}
                                         >
-                                            <DropdownMenuItem className="hover:cursor cursor-pointer">
+                                            <DropdownMenuItem class名称="hover:cursor cursor-pointer">
                                                 {renderSegmentWithHighlight(segment)}
                                             </DropdownMenuItem>
                                         </Link>
                                     ))}
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                            <ChevronRight className="h-3 w-3 mx-0.5 text-muted-foreground flex-shrink-0" />
+                            <ChevronRight class名称="h-3 w-3 mx-0.5 text-muted-foreground flex-shrink-0" />
                         </>
                     )}
                     {visibleSegments.map((segment, index) => (
-                        <div key={segment.fullPath} className="flex items-center">
+                        <div key={segment.fullPath} class名称="flex items-center">
                             {(isFileIconVisible && index === visibleSegments.length - 1) && (
-                                <VscodeFileIcon fileName={segment.name} className="h-4 w-4 mr-1" />
+                                <VscodeFileIcon file名称={segment.name} class名称="h-4 w-4 mr-1" />
                             )}
                             <Link
-                                className={cn(
+                                class名称={cn(
                                     "font-mono text-sm truncate cursor-pointer hover:underline",
                                 )}
                                 href={getBrowsePath({
-                                    repoName: repo.name,
+                                    repo名称: repo.name,
                                     path: segment.fullPath,
                                     pathType: segment.isLastSegment ? pathType : 'tree',
-                                    revisionName,
+                                    revision名称,
                                 })}
                             >
                                 {renderSegmentWithHighlight(segment)}
                             </Link>
                             {index < visibleSegments.length - 1 && (
-                                <ChevronRight className="h-3 w-3 mx-0.5 text-muted-foreground flex-shrink-0" />
+                                <ChevronRight class名称="h-3 w-3 mx-0.5 text-muted-foreground flex-shrink-0" />
                             )}
                         </div>
                     ))}
                 </div>
                 {breadcrumbSegments.length > 0 && (
-                    <CopyIconButton
-                        onCopy={onCopyPath}
-                        className="ml-2"
+                    <复制IconButton
+                        on复制={on复制Path}
+                        class名称="ml-2"
                     />
                 )}
             </div>

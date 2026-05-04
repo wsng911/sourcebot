@@ -55,7 +55,7 @@ export const listReposDefinition: ToolDefinition<
 
         const metadata: ListReposMetadata = {
             repos: reposResponse.data.map((repo) => ({
-                name: repo.repoName,
+                name: repo.repo名称,
                 url: repo.webUrl ?? null,
                 pushedAt: repo.pushedAt?.toISOString() ?? null,
                 defaultBranch: repo.defaultBranch ?? null,

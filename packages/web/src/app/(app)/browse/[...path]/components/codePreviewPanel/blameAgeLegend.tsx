@@ -3,13 +3,13 @@ import { cn } from "@/lib/utils";
 
 export const BlameAgeLegend = () => {
     return (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div class名称="flex items-center gap-2 text-sm text-muted-foreground">
             <span>Older</span>
-            <div className="flex items-center gap-px">
+            <div class名称="flex items-center gap-px">
                 {BLAME_AGE_BG_CLASSES.map((bg, i) => (
                     <div
                         key={i}
-                        className={cn('h-2 w-2', bg)}
+                        class名称={cn('h-2 w-2', bg)}
                     />
                 ))}
             </div>

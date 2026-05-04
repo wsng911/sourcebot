@@ -65,11 +65,11 @@ export const SignInPromptBanner = ({
     }
 
     return (
-        <div className="flex flex-row items-center justify-between gap-3 p-3 mb-4 border rounded-md bg-muted/50 animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <p className="text-sm text-muted-foreground">
-                Sign in to save chat history.
+        <div class名称="flex flex-row items-center justify-between gap-3 p-3 mb-4 border rounded-md bg-muted/50 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <p class名称="text-sm text-muted-foreground">
+                登录 to save chat history.
             </p>
-            <div className="flex flex-row items-center gap-2">
+            <div class名称="flex flex-row items-center gap-2">
                 <Button
                     variant="default"
                     size="sm"
@@ -77,16 +77,16 @@ export const SignInPromptBanner = ({
                     onClick={handleSignInClick}
                 >
                     <Link href={`/login?callbackUrl=${encodeURIComponent(pathname)}`}>
-                        Sign in
+                        登录
                     </Link>
                 </Button>
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8"
+                    class名称="h-8 w-8"
                     onClick={handleDismiss}
                 >
-                    <X className="h-4 w-4" />
+                    <X class名称="h-4 w-4" />
                 </Button>
             </div>
         </div>

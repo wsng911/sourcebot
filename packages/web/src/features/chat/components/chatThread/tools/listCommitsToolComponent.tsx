@@ -9,12 +9,12 @@ export const ListCommitsToolComponent = ({ metadata }: ToolResult<ListCommitsMet
     const label = `${count} ${count === 1 ? 'commit' : 'commits'}`;
 
     return (
-        <div className="flex items-center gap-2 select-none cursor-default text-sm text-muted-foreground">
-            <span className="flex-shrink-0">Listed commits in</span>
+        <div class名称="flex items-center gap-2 select-none cursor-default text-sm text-muted-foreground">
+            <span class名称="flex-shrink-0">Listed commits in</span>
             <RepoBadge repo={metadata.repoInfo} />
-            <span className="flex-1" />
-            <span className="text-xs flex-shrink-0">{label}</span>
-            <Separator orientation="vertical" className="h-3 flex-shrink-0" />
+            <span class名称="flex-1" />
+            <span class名称="text-xs flex-shrink-0">{label}</span>
+            <Separator orientation="vertical" class名称="h-3 flex-shrink-0" />
         </div>
     );
 };

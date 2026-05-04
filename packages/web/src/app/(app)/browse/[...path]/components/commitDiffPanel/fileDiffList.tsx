@@ -7,7 +7,7 @@ import { FileDiffRow } from "./fileDiffRow";
 
 interface FileDiffListProps {
     files: FileDiff[];
-    repoName: string;
+    repo名称: string;
     commitSha: string;
     // Null for the initial commit (no parent).
     parentSha: string | null;
@@ -40,7 +40,7 @@ const estimateRowHeight = (file: FileDiff, isCollapsed: boolean): number => {
     return Math.max(estimated, MIN_ROW_HEIGHT_PX);
 };
 
-export const FileDiffList = ({ files, repoName, commitSha, parentSha }: FileDiffListProps) => {
+export const FileDiffList = ({ files, repo名称, commitSha, parentSha }: FileDiffListProps) => {
     const parentRef = useRef<HTMLDivElement>(null);
     const [collapsedKeys, setCollapsedKeys] = useState<Set<string>>(() => new Set());
     const collapsedKeysRef = useRef(collapsedKeys);
@@ -78,7 +78,7 @@ export const FileDiffList = ({ files, repoName, commitSha, parentSha }: FileDiff
     return (
         <div
             ref={parentRef}
-            className="flex-1 min-h-0"
+            class名称="flex-1 min-h-0"
             style={{
                 width: '100%',
                 overflowY: 'auto',
@@ -112,7 +112,7 @@ export const FileDiffList = ({ files, repoName, commitSha, parentSha }: FileDiff
                                 key={rowKey}
                                 file={file}
                                 yOffset={virtualRow.start}
-                                repoName={repoName}
+                                repo名称={repo名称}
                                 commitSha={commitSha}
                                 parentSha={parentSha}
                                 isCollapsed={collapsedKeys.has(rowKey)}

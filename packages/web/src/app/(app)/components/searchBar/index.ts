@@ -1,2 +1,2 @@
 
-export { SearchBar } from "./searchBar";
+export { 搜索Bar } from "./searchBar";

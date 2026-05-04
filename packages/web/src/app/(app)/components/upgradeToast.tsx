@@ -67,7 +67,7 @@ export const UpgradeToast = () => {
                     description: `Upgrade from ${getVersionString(currentVersion)} to ${getVersionString(latestVersion)}`,
                     duration: 10 * 1000,
                     action: (
-                        <div className="flex flex-col gap-1">
+                        <div class名称="flex flex-col gap-1">
                             <ToastAction
                                 altText="Upgrade"
                                 onClick={() => {

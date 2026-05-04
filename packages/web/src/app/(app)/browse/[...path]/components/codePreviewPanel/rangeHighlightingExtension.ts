@@ -1,7 +1,7 @@
 'use client';
 
 import { StateField, Range } from "@codemirror/state";
-import { Decoration, DecorationSet, EditorView } from "@codemirror/view";
+import { Decoration, DecorationSet, 编辑orView } from "@codemirror/view";
 import { BrowseHighlightRange } from "@/app/(app)/browse/hooks/utils";
 
 const markDecoration = Decoration.mark({
@@ -43,5 +43,5 @@ export const rangeHighlightingExtension = (range: BrowseHighlightRange) => State
     update(deco, tr) {
         return deco.map(tr.changes);
     },
-    provide: (field) => EditorView.decorations.from(field),
+    provide: (field) => 编辑orView.decorations.from(field),
 });

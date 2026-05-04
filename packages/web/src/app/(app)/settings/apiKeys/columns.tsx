@@ -7,9 +7,9 @@ import { deleteApiKey } from "@/actions"
 import {
     AlertDialog,
     AlertDialogAction,
-    AlertDialogCancel,
+    AlertDialog取消,
     AlertDialogContent,
-    AlertDialogDescription,
+    AlertDialog描述,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -25,11 +25,11 @@ export type ApiKeyColumnInfo = {
 }
 
 // Component for the actions cell to properly use React hooks
-function ApiKeyActions({ apiKey }: { apiKey: ApiKeyColumnInfo }) {
+function ApiKey操作({ apiKey }: { apiKey: ApiKeyColumnInfo }) {
     const [isPending, setIsPending] = useState(false)
     const { toast } = useToast()
     
-    const handleDelete = async () => {
+    const handle删除 = async () => {
         setIsPending(true)
         try {
             await deleteApiKey(apiKey.name)
@@ -37,7 +37,7 @@ function ApiKeyActions({ apiKey }: { apiKey: ApiKeyColumnInfo }) {
         } catch (error) {
             console.error("Failed to delete API key", error)
             toast({
-                title: "Failed to Delete API Key",
+                title: "Failed to 删除 API Key",
                 description: `There was an error deleting the API key: ${error}`,
                 variant: "destructive",
             })
@@ -47,28 +47,28 @@ function ApiKeyActions({ apiKey }: { apiKey: ApiKeyColumnInfo }) {
     }
     
     return (
-        <div className="flex justify-end">
+        <div class名称="flex justify-end">
             <AlertDialog>
                 <AlertDialogTrigger asChild>
-                    <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
-                        <Trash2 className="h-4 w-4" />
+                    <Button variant="ghost" size="icon" class名称="text-destructive hover:text-destructive">
+                        <Trash2 class名称="h-4 w-4" />
                     </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete API Key</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Are you sure you want to delete the API key <span className="font-semibold text-foreground">{apiKey.name}</span>? This action cannot be undone.
-                        </AlertDialogDescription>
+                        <AlertDialogTitle>删除 API Key</AlertDialogTitle>
+                        <AlertDialog描述>
+                            Are you sure you want to delete the API key <span class名称="font-semibold text-foreground">{apiKey.name}</span>? This action cannot be undone.
+                        </AlertDialog描述>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialog取消>取消</AlertDialog取消>
                         <AlertDialogAction 
-                            onClick={handleDelete} 
+                            onClick={handle删除} 
                             disabled={isPending}
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            class名称="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
-                            {isPending ? "Deleting..." : "Delete"}
+                            {isPending ? "Deleting..." : "删除"}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
@@ -80,13 +80,13 @@ function ApiKeyActions({ apiKey }: { apiKey: ApiKeyColumnInfo }) {
 export const columns = (): ColumnDef<ApiKeyColumnInfo>[] => [
     {
         accessorKey: "name",
-        header: () => <div className="flex items-center w-[300px]">Name</div>,
+        header: () => <div class名称="flex items-center w-[300px]">名称</div>,
         cell: ({ row }) => {
             const name = row.original.name
             return (
-                <div className="flex items-center gap-2 py-2">
-                    <Key className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium">{name}</span>
+                <div class名称="flex items-center gap-2 py-2">
+                    <Key class名称="h-4 w-4 text-muted-foreground" />
+                    <span class名称="font-medium">{name}</span>
                 </div>
             )
         },
@@ -94,24 +94,24 @@ export const columns = (): ColumnDef<ApiKeyColumnInfo>[] => [
     {
         accessorKey: "createdAt",
         header: ({ column }) => (
-            <div className="w-[200px]">
+            <div class名称="w-[200px]">
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    className="px-0 font-medium"
+                    class名称="px-0 font-medium"
                 >
-                    Created
-                    <ArrowUpDown className="ml-2 h-3.5 w-3.5 text-muted-foreground" />
+                    创建d
+                    <ArrowUpDown class名称="ml-2 h-3.5 w-3.5 text-muted-foreground" />
                 </Button>
             </div>
         ),
         cell: ({ row }) => {
             if (!row.original.createdAt) {
-                return <div className="py-2">—</div>
+                return <div class名称="py-2">—</div>
             }
             const date = new Date(row.original.createdAt)
             return (
-                <div className="py-2 text-muted-foreground">
+                <div class名称="py-2 text-muted-foreground">
                     {date.toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -124,24 +124,24 @@ export const columns = (): ColumnDef<ApiKeyColumnInfo>[] => [
     {
         accessorKey: "lastUsedAt",
         header: ({ column }) => (
-            <div className="w-[200px]">
+            <div class名称="w-[200px]">
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    className="px-0 font-medium"
+                    class名称="px-0 font-medium"
                 >
                     Last Used
-                    <ArrowUpDown className="ml-2 h-3.5 w-3.5 text-muted-foreground" />
+                    <ArrowUpDown class名称="ml-2 h-3.5 w-3.5 text-muted-foreground" />
                 </Button>
             </div>
         ),
         cell: ({ row }) => {
             if (!row.original.lastUsedAt) {
-                return <div className="py-2 text-muted-foreground">Never</div>
+                return <div class名称="py-2 text-muted-foreground">Never</div>
             }
             const date = new Date(row.original.lastUsedAt)
             return (
-                <div className="py-2 text-muted-foreground">
+                <div class名称="py-2 text-muted-foreground">
                     {date.toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -153,6 +153,6 @@ export const columns = (): ColumnDef<ApiKeyColumnInfo>[] => [
     },
     {
         id: "actions",
-        cell: ({ row }) => <ApiKeyActions apiKey={row.original} />
+        cell: ({ row }) => <ApiKey操作 apiKey={row.original} />
     }
 ] 

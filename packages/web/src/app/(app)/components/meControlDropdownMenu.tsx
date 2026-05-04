@@ -2,7 +2,7 @@
 
 import {
     LogOut,
-    Settings,
+    设置,
 } from "lucide-react"
 import {
     DropdownMenu,
@@ -20,12 +20,12 @@ import { AppearanceDropdownMenuGroup } from "./appearanceDropdownMenuGroup";
 import { UserAvatar } from "@/components/userAvatar";
 
 interface MeControlDropdownMenuProps {
-    menuButtonClassName?: string;
+    menuButtonClass名称?: string;
     session: Session;
 }
 
 export const MeControlDropdownMenu = ({
-    menuButtonClassName,
+    menuButtonClass名称,
     session,
 }: MeControlDropdownMenuProps) => {
     return (
@@ -34,21 +34,21 @@ export const MeControlDropdownMenu = ({
                 <UserAvatar
                     email={session.user.email}
                     imageUrl={session.user.image}
-                    className={cn("h-8 w-8 cursor-pointer", menuButtonClassName)}
+                    class名称={cn("h-8 w-8 cursor-pointer", menuButtonClass名称)}
                 />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-64" align="end" sideOffset={5}>
+            <DropdownMenuContent class名称="w-64" align="end" sideOffset={5}>
                 <DropdownMenuGroup>
-                    <div className="flex flex-row items-center gap-3 px-3 py-3">
+                    <div class名称="flex flex-row items-center gap-3 px-3 py-3">
                         <UserAvatar
                             email={session.user.email}
                             imageUrl={session.user.image}
-                            className="h-10 w-10 flex-shrink-0"
+                            class名称="h-10 w-10 flex-shrink-0"
                         />
-                        <div className="flex flex-col flex-1 min-w-0">
-                            <p className="text-sm font-semibold truncate">{session.user.name ?? "User"}</p>
+                        <div class名称="flex flex-col flex-1 min-w-0">
+                            <p class名称="text-sm font-semibold truncate">{session.user.name ?? "User"}</p>
                             {session.user.email && (
-                                <p className="text-xs text-muted-foreground truncate">{session.user.email}</p>
+                                <p class名称="text-xs text-muted-foreground truncate">{session.user.email}</p>
                             )}
                         </div>
                     </div>
@@ -57,8 +57,8 @@ export const MeControlDropdownMenu = ({
                 <AppearanceDropdownMenuGroup />
                 <DropdownMenuItem asChild>
                     <a href={`/settings`}>
-                        <Settings className="h-4 w-4 mr-2" />
-                        <span>Settings</span>
+                        <设置 class名称="h-4 w-4 mr-2" />
+                        <span>设置</span>
                     </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -72,8 +72,8 @@ export const MeControlDropdownMenu = ({
                             })
                         }}
                     >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Log out</span>
+                        <LogOut class名称="mr-2 h-4 w-4" />
+                        <span>退出登录</span>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>

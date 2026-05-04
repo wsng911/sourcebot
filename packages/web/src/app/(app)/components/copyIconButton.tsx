@@ -2,37 +2,37 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Copy } from "lucide-react";
+import { CheckCircle2, 复制 } from "lucide-react";
 import { useCallback, useState } from "react";
 
-interface CopyIconButtonProps {
-    onCopy: () => boolean;
-    className?: string;
+interface 复制IconButtonProps {
+    on复制: () => boolean;
+    class名称?: string;
 }
 
-export const CopyIconButton = ({ onCopy, className }: CopyIconButtonProps) => {
+export const 复制IconButton = ({ on复制, class名称 }: 复制IconButtonProps) => {
     const [copied, setCopied] = useState(false);
 
     const onClick = useCallback(() => {
-        const success = onCopy();
+        const success = on复制();
         if (success) {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         }
-    }, [onCopy]);
+    }, [on复制]);
 
     return (
         <Button
             variant="ghost"
             size="sm"
-            className={cn("h-6 w-6 text-muted-foreground", className)}
+            class名称={cn("h-6 w-6 text-muted-foreground", class名称)}
             onClick={onClick}
-            aria-label="Copy to clipboard"
+            aria-label="复制 to clipboard"
         >
             {copied ? (
-                <CheckCircle2 className="h-3 w-3 text-green-500" />
+                <CheckCircle2 class名称="h-3 w-3 text-green-500" />
             ) : (
-                <Copy className="h-3 w-3" />
+                <复制 class名称="h-3 w-3" />
             )}
         </Button>
     )

@@ -20,7 +20,7 @@ import {
 import { cva } from "class-variance-authority"
 import { AlertCircle, AlertTriangle, ArrowUpDown, PlusCircleIcon, RefreshCwIcon } from "lucide-react"
 import * as React from "react"
-import { CopyIconButton } from "@/app/(app)/components/copyIconButton"
+import { 复制IconButton } from "@/app/(app)/components/copyIconButton"
 import { useMemo } from "react"
 import { LightweightCodeHighlighter } from "@/app/(app)/components/lightweightCodeHighlighter"
 import { useRouter } from "next/navigation"
@@ -31,7 +31,7 @@ import { syncConnection } from "@/features/workerApi/actions"
 import { isServiceError } from "@/lib/utils"
 
 
-export type ConnectionSyncJob = {
+export type Connection同步Job = {
     id: string
     status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "FAILED"
     createdAt: Date
@@ -52,7 +52,7 @@ const statusBadgeVariants = cva("", {
     },
 })
 
-const getStatusBadge = (status: ConnectionSyncJob["status"]) => {
+const get状态Badge = (status: Connection同步Job["status"]) => {
     const labels = {
         PENDING: "Pending",
         IN_PROGRESS: "In Progress",
@@ -60,7 +60,7 @@ const getStatusBadge = (status: ConnectionSyncJob["status"]) => {
         FAILED: "Failed",
     }
 
-    return <Badge className={statusBadgeVariants({ status })}>{labels[status]}</Badge>
+    return <Badge class名称={statusBadgeVariants({ status })}>{labels[status]}</Badge>
 }
 
 const getDuration = (start: Date, end: Date | null) => {
@@ -71,22 +71,22 @@ const getDuration = (start: Date, end: Date | null) => {
     return `${minutes}m ${seconds}s`
 }
 
-export const columns: ColumnDef<ConnectionSyncJob>[] = [
+export const columns: ColumnDef<Connection同步Job>[] = [
     {
         accessorKey: "status",
-        header: "Status",
+        header: "状态",
         cell: ({ row }) => {
             const job = row.original
             return (
-                <div className="flex items-center gap-2">
-                    {getStatusBadge(row.getValue("status"))}
+                <div class名称="flex items-center gap-2">
+                    {get状态Badge(row.getValue("status"))}
                     {job.errorMessage ? (
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <AlertCircle className="h-4 w-4 text-destructive" />
+                                    <AlertCircle class名称="h-4 w-4 text-destructive" />
                                 </TooltipTrigger>
-                                <TooltipContent className="max-w-[750px] max-h-96 overflow-scroll p-4">
+                                <TooltipContent class名称="max-w-[750px] max-h-96 overflow-scroll p-4">
                                     <LightweightCodeHighlighter
                                         language="text"
                                         lineNumbers={true}
@@ -101,18 +101,18 @@ export const columns: ColumnDef<ConnectionSyncJob>[] = [
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <AlertTriangle className="h-4 w-4 text-warning" />
+                                    <AlertTriangle class名称="h-4 w-4 text-warning" />
                                 </TooltipTrigger>
-                                <TooltipContent className="max-w-[750px] max-h-96 overflow-scroll p-4">
-                                    <p className="text-sm font-medium mb-2">{job.warningMessages.length} warning(s) while syncing:</p>
-                                    <div className="flex flex-col gap-1">
+                                <TooltipContent class名称="max-w-[750px] max-h-96 overflow-scroll p-4">
+                                    <p class名称="text-sm font-medium mb-2">{job.warningMessages.length} warning(s) while syncing:</p>
+                                    <div class名称="flex flex-col gap-1">
                                         {job.warningMessages.map((warning, index) => (
                                             <div
                                                 key={index}
-                                                className="text-sm font-mono flex flex-row items-center gap-1.5"
+                                                class名称="text-sm font-mono flex flex-row items-center gap-1.5"
                                             >
                                                 <span>{index + 1}.</span>
-                                                <span className="text-warning">{warning}</span>
+                                                <span class名称="text-warning">{warning}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -133,11 +133,11 @@ export const columns: ColumnDef<ConnectionSyncJob>[] = [
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Started
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    <ArrowUpDown class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
-        cell: ({ row }) => <DisplayDate date={row.getValue("createdAt") as Date} className="ml-3" />,
+        cell: ({ row }) => <DisplayDate date={row.getValue("createdAt") as Date} class名称="ml-3" />,
     },
     {
         accessorKey: "completedAt",
@@ -145,7 +145,7 @@ export const columns: ColumnDef<ConnectionSyncJob>[] = [
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Completed
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    <ArrowUpDown class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
@@ -155,7 +155,7 @@ export const columns: ColumnDef<ConnectionSyncJob>[] = [
                 return "-";
             }
 
-            return <DisplayDate date={completedAt} className="ml-3" />
+            return <DisplayDate date={completedAt} class名称="ml-3" />
         },
     },
     {
@@ -172,9 +172,9 @@ export const columns: ColumnDef<ConnectionSyncJob>[] = [
         cell: ({ row }) => {
             const id = row.getValue("id") as string
             return (
-                <div className="flex items-center gap-2">
-                    <code className="text-xs text-muted-foreground">{id}</code>
-                    <CopyIconButton onCopy={() => {
+                <div class名称="flex items-center gap-2">
+                    <code class名称="text-xs text-muted-foreground">{id}</code>
+                    <复制IconButton on复制={() => {
                         navigator.clipboard.writeText(id);
                         return true;
                     }} />
@@ -184,16 +184,16 @@ export const columns: ColumnDef<ConnectionSyncJob>[] = [
     },
 ]
 
-export const ConnectionJobsTable = ({ data, connectionId }: { data: ConnectionSyncJob[], connectionId: number }) => {
+export const ConnectionJobsTable = ({ data, connectionId }: { data: Connection同步Job[], connectionId: number }) => {
     const [sorting, setSorting] = React.useState<SortingState>([{ id: "createdAt", desc: true }])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
     const router = useRouter();
     const { toast } = useToast();
 
-    const [isSyncSubmitting, setIsSyncSubmitting] = React.useState(false);
-    const onSyncButtonClick = React.useCallback(async () => {
-        setIsSyncSubmitting(true);
+    const [is同步提交ting, setIs同步提交ting] = React.useState(false);
+    const on同步ButtonClick = React.useCallback(async () => {
+        setIs同步提交ting(true);
         const response = await syncConnection(connectionId);
 
         if (!isServiceError(response)) {
@@ -208,7 +208,7 @@ export const ConnectionJobsTable = ({ data, connectionId }: { data: ConnectionSy
             });
         }
 
-        setIsSyncSubmitting(false);
+        setIs同步提交ting(false);
     }, [connectionId, router, toast]);
 
     const table = useReactTable({
@@ -243,13 +243,13 @@ export const ConnectionJobsTable = ({ data, connectionId }: { data: ConnectionSy
     }, [data]);
 
     return (
-        <div className="w-full">
-            <div className="flex items-center gap-4 py-4">
+        <div class名称="w-full">
+            <div class名称="flex items-center gap-4 py-4">
                 <Select
                     value={(table.getColumn("status")?.getFilterValue() as string) ?? "all"}
                     onValueChange={(value) => table.getColumn("status")?.setFilterValue(value === "all" ? "" : value)}
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger class名称="w-[180px]">
                         <SelectValue placeholder="Filter by status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -261,7 +261,7 @@ export const ConnectionJobsTable = ({ data, connectionId }: { data: ConnectionSy
                     </SelectContent>
                 </Select>
 
-                <div className="ml-auto flex items-center gap-2">
+                <div class名称="ml-auto flex items-center gap-2">
                     <Button
                         variant="outline"
                         onClick={() => {
@@ -271,22 +271,22 @@ export const ConnectionJobsTable = ({ data, connectionId }: { data: ConnectionSy
                             });
                         }}
                     >
-                        <RefreshCwIcon className="w-3 h-3" />
+                        <RefreshCwIcon class名称="w-3 h-3" />
                         Refresh
                     </Button>
 
                     <LoadingButton
-                        onClick={onSyncButtonClick}
-                        loading={isSyncSubmitting}
+                        onClick={on同步ButtonClick}
+                        loading={is同步提交ting}
                         variant="outline"
                     >
-                        <PlusCircleIcon className="w-3 h-3" />
+                        <PlusCircleIcon class名称="w-3 h-3" />
                         Trigger sync
                     </LoadingButton>
                 </div>
             </div>
 
-            <div className="rounded-md border">
+            <div class名称="rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -312,7 +312,7 @@ export const ConnectionJobsTable = ({ data, connectionId }: { data: ConnectionSy
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} class名称="h-24 text-center">
                                     No sync jobs found.
                                 </TableCell>
                             </TableRow>
@@ -321,11 +321,11 @@ export const ConnectionJobsTable = ({ data, connectionId }: { data: ConnectionSy
                 </Table>
             </div>
 
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
+            <div class名称="flex items-center justify-end space-x-2 py-4">
+                <div class名称="flex-1 text-sm text-muted-foreground">
                     {table.getFilteredRowModel().rows.length} job(s) total
                 </div>
-                <div className="space-x-2">
+                <div class名称="space-x-2">
                     <Button
                         variant="outline"
                         size="sm"

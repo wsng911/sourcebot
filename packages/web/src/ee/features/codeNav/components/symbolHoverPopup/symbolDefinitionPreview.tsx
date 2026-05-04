@@ -8,8 +8,8 @@ interface SymbolDefinitionPreviewProps {
     symbolDefinition: {
         lineContent: string;
         language: string;
-        fileName: string;
-        repoName: string;
+        file名称: string;
+        repo名称: string;
         range: SourceRange;
     };
 }
@@ -21,19 +21,19 @@ export const SymbolDefinitionPreview = ({
     const highlightRanges = useMemo(() => [range], [range]);
 
     return (
-        <div className="flex flex-col gap-2 mb-2">
+        <div class名称="flex flex-col gap-2 mb-2">
             <Tooltip
                 delayDuration={100}
             >
                 <TooltipTrigger
                     disabled={true}
-                    className="mr-auto"
+                    class名称="mr-auto"
                 >
                     <Badge
                         variant="outline"
-                        className="w-fit h-fit flex-shrink-0 select-none"
+                        class名称="w-fit h-fit flex-shrink-0 select-none"
                     >
-                        Search Based
+                        搜索 Based
                     </Badge>
                 </TooltipTrigger>
                 <TooltipContent

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, use搜索Params } from "next/navigation";
 import { Calendar as CalendarIcon, ChevronDown } from "lucide-react";
 import { format } from "date-fns";
 import type { DateRange } from "react-day-picker";
@@ -55,7 +55,7 @@ const formatLabel = (from: Date | undefined, to: Date | undefined): string => {
 export const DateFilter = ({ since, until }: DateFilterProps) => {
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
+    const searchParams = use搜索Params();
 
     const [isOpen, setIsOpen] = useState(false);
     const [timeZone, setTimeZone] = useState<string | undefined>(undefined);
@@ -82,7 +82,7 @@ export const DateFilter = ({ since, until }: DateFilterProps) => {
     // look like a fresh range start.
     const [draftRange, setDraftRange] = useState<DateRange | undefined>(selectedRange);
 
-    // Sync the draft with the URL whenever the popover is (re)opened, so a
+    // 同步 the draft with the URL whenever the popover is (re)opened, so a
     // half-finished selection from a previous session doesn't carry over.
     useEffect(() => {
         if (isOpen) {
@@ -92,7 +92,7 @@ export const DateFilter = ({ since, until }: DateFilterProps) => {
 
     const navigateWithRange = useCallback(
         (from: Date | undefined, to: Date | undefined) => {
-            const params = new URLSearchParams(searchParams);
+            const params = new URL搜索Params(searchParams);
             if (from) {
                 params.set('since', formatLocalDate(from));
             } else {
@@ -179,15 +179,15 @@ export const DateFilter = ({ since, until }: DateFilterProps) => {
                 <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-2 flex-shrink-0"
+                    class名称="h-8 gap-2 flex-shrink-0"
                     aria-label="Filter by date"
                 >
-                    <CalendarIcon className="h-4 w-4 flex-shrink-0" />
-                    <span className="text-sm truncate max-w-[180px]">{label}</span>
-                    <ChevronDown className="h-3 w-3 flex-shrink-0 text-muted-foreground" />
+                    <CalendarIcon class名称="h-4 w-4 flex-shrink-0" />
+                    <span class名称="text-sm truncate max-w-[180px]">{label}</span>
+                    <ChevronDown class名称="h-3 w-3 flex-shrink-0 text-muted-foreground" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent class名称="w-auto p-0" align="start">
                 <Calendar
                     mode="range"
                     captionLayout="dropdown"
@@ -199,13 +199,13 @@ export const DateFilter = ({ since, until }: DateFilterProps) => {
                     numberOfMonths={1}
                     disabled={{ after: new Date() }}
                 />
-                <div className="flex flex-row items-center gap-4 px-3 py-2 border-t">
+                <div class名称="flex flex-row items-center gap-4 px-3 py-2 border-t">
                     <Button
                         variant="link"
                         size="sm"
                         onClick={onClear}
                         disabled={!hasFilter}
-                        className="h-auto p-0 text-foreground font-medium"
+                        class名称="h-auto p-0 text-foreground font-medium"
                     >
                         Clear
                     </Button>
@@ -213,7 +213,7 @@ export const DateFilter = ({ since, until }: DateFilterProps) => {
                         variant="link"
                         size="sm"
                         onClick={onToday}
-                        className="h-auto p-0"
+                        class名称="h-auto p-0"
                     >
                         Today
                     </Button>

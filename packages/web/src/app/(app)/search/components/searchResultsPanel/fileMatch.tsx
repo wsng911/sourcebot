@@ -1,14 +1,14 @@
 'use client';
 
-import { SearchResultFile, SearchResultChunk } from "@/features/search";
+import { 搜索ResultFile, 搜索ResultChunk } from "@/features/search";
 import { LightweightCodeHighlighter } from "@/app/(app)/components/lightweightCodeHighlighter";
 import Link from "next/link";
 import { getBrowsePath } from "@/app/(app)/browse/hooks/utils";
 
 
 interface FileMatchProps {
-    match: SearchResultChunk;
-    file: SearchResultFile;
+    match: 搜索ResultChunk;
+    file: 搜索ResultFile;
 }
 
 export const FileMatch = ({
@@ -23,11 +23,11 @@ export const FileMatch = ({
     return (
         <Link
             tabIndex={0}
-            className="cursor-pointer focus:ring-inset focus:ring-4 bg-background hover:bg-editor-lineHighlight"
+            class名称="cursor-pointer focus:ring-inset focus:ring-4 bg-background hover:bg-editor-lineHighlight"
             href={getBrowsePath({
-                repoName: file.repository,
-                revisionName: file.branches?.[0] ?? 'HEAD',
-                path: file.fileName.text,
+                repo名称: file.repository,
+                revision名称: file.branches?.[0] ?? 'HEAD',
+                path: file.file名称.text,
                 pathType: 'blob',
                 highlightRange: {
                     start: {

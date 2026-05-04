@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
+import { InputGroup, InputGroup添加on, InputGroupInput } from "@/components/ui/input-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { cn, getCodeHostCommitUrl, getCodeHostIcon, getRepoImageSrc, isServiceError } from "@/lib/utils"
@@ -19,7 +19,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { getBrowsePath } from "../../browse/hooks/utils"
-import { useRouter, useSearchParams, usePathname } from "next/navigation"
+import { useRouter, use搜索Params, usePathname } from "next/navigation"
 import { useToast } from "@/components/hooks/use-toast";
 import { DisplayDate } from "../../components/DisplayDate"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -27,23 +27,23 @@ import { NotificationDot } from "../../components/notificationDot"
 import { CodeHostType } from "@sourcebot/db"
 import { useHotkeys } from "react-hotkeys-hook"
 import { indexRepo } from "@/features/workerApi/actions"
-import { RepoActionsDropdown } from "./repoActionsDropdown"
+import { Repo操作Dropdown } from "./repo操作Dropdown"
 
 // @see: https://v0.app/chat/repo-indexing-status-uhjdDim8OUS
 
 export type Repo = {
     id: number
     name: string
-    displayName: string | null
+    display名称: string | null
     isArchived: boolean
-    isPublic: boolean
+    is公开: boolean
     indexedAt: Date | null
     createdAt: Date
     webUrl: string | null
     codeHostType: CodeHostType
     imageUrl: string | null
     indexedCommitHash: string | null
-    latestJobStatus: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "FAILED" | null
+    latestJob状态: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "FAILED" | null
     isFirstTimeIndex: boolean
 }
 
@@ -58,7 +58,7 @@ const statusBadgeVariants = cva("", {
     },
 })
 
-const getStatusBadge = (status: Repo["latestJobStatus"]) => {
+const get状态Badge = (status: Repo["latestJob状态"]) => {
     if (!status) {
         return "-";
     }
@@ -70,22 +70,22 @@ const getStatusBadge = (status: Repo["latestJobStatus"]) => {
         FAILED: "Failed",
     }
 
-    return <Badge className={statusBadgeVariants({ status })}>{labels[status]}</Badge>
+    return <Badge class名称={statusBadgeVariants({ status })}>{labels[status]}</Badge>
 }
 
 interface ColumnsContext {
     onSortChange: (sortBy: string) => void;
     currentSortBy?: string;
     currentSortOrder: string;
-    onTriggerSync: (repoId: number) => void;
+    onTrigger同步: (repoId: number) => void;
 }
 
 export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
     {
-        accessorKey: "displayName",
+        accessorKey: "display名称",
         size: 400,
         header: () => {
-            const isActive = context.currentSortBy === 'displayName';
+            const isActive = context.currentSortBy === 'display名称';
             const Icon = isActive 
                 ? (context.currentSortOrder === 'asc' ? ArrowUp : ArrowDown)
                 : ArrowUpDown;
@@ -93,10 +93,10 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
             return (
                 <Button 
                     variant="ghost" 
-                    onClick={() => context.onSortChange('displayName')}
+                    onClick={() => context.onSortChange('display名称')}
                 >
-                    Repository
-                    <Icon className="ml-2 h-4 w-4" />
+                    仓库
+                    <Icon class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
@@ -110,23 +110,23 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
             const isInternalApiImage = repoImageSrc?.startsWith('/api/');
 
             return (
-                <div className="flex flex-row gap-2 items-center">
+                <div class名称="flex flex-row gap-2 items-center">
                     {
                         repoImageSrc ? (
                             <Image
                                 src={repoImageSrc}
-                                alt={`${repo.displayName} logo`}
+                                alt={`${repo.display名称} logo`}
                                 width={32}
                                 height={32}
-                                className="object-cover"
+                                class名称="object-cover"
                                 unoptimized={isInternalApiImage}
                             />
                         ) : <Image
                             src={codeHostIcon.src}
-                            alt={`${repo.displayName} logo`}
+                            alt={`${repo.display名称} logo`}
                             width={32}
                             height={32}
-                            className={cn(codeHostIcon.className)}
+                            class名称={cn(codeHostIcon.class名称)}
                         />
                     }
 
@@ -134,19 +134,19 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
                         as the code will not be available yet */}
                     <Link
                         href={repo.isFirstTimeIndex ? `/repos/${repo.id}` : getBrowsePath({
-                            repoName: repo.name,
+                            repo名称: repo.name,
                             path: '/',
                             pathType: 'tree',
                         })}
-                        className="font-medium hover:underline"
+                        class名称="font-medium hover:underline"
                     >
-                        <span>{repo.displayName || repo.name}</span>
+                        <span>{repo.display名称 || repo.name}</span>
                     </Link>
                     {repo.isFirstTimeIndex && (
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <span>
-                                    <NotificationDot className="ml-1.5" />
+                                    <NotificationDot class名称="ml-1.5" />
                                 </span>
                             </TooltipTrigger>
                             <TooltipContent>
@@ -159,10 +159,10 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
         },
     },
     {
-        accessorKey: "latestJobStatus",
+        accessorKey: "latestJob状态",
         size: 150,
         header: "Lastest status",
-        cell: ({ row }) => getStatusBadge(row.getValue("latestJobStatus")),
+        cell: ({ row }) => get状态Badge(row.getValue("latestJob状态")),
     },
     {
         accessorKey: "indexedAt",
@@ -179,7 +179,7 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
                     onClick={() => context.onSortChange('indexedAt')}
                 >
                     Last synced
-                    <Icon className="ml-2 h-4 w-4" />
+                    <Icon class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
@@ -190,14 +190,14 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
             }
 
             return (
-                <DisplayDate date={indexedAt} className="ml-3" />
+                <DisplayDate date={indexedAt} class名称="ml-3" />
             )
         }
     },
     {
         accessorKey: "indexedCommitHash",
         size: 150,
-        header: "Synced commit",
+        header: "同步ed commit",
         cell: ({ row }) => {
             const hash = row.getValue("indexedCommitHash") as string | null;
             if (!hash) {
@@ -218,12 +218,12 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
             const HashComponent = commitUrl ? (
                 <Link
                     href={commitUrl}
-                    className="font-mono text-sm text-link hover:underline"
+                    class名称="font-mono text-sm text-link hover:underline"
                 >
                     {smallHash}
                 </Link>
             ) : (
-                <span className="font-mono text-sm text-muted-foreground">
+                <span class名称="font-mono text-sm text-muted-foreground">
                     {smallHash}
                 </span>
             )
@@ -234,7 +234,7 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
                         {HashComponent}
                     </TooltipTrigger>
                     <TooltipContent>
-                        <span className="font-mono">{hash}</span>
+                        <span class名称="font-mono">{hash}</span>
                     </TooltipContent>
                 </Tooltip>
             );
@@ -246,7 +246,7 @@ export const getColumns = (context: ColumnsContext): ColumnDef<Repo>[] => [
         enableHiding: false,
         cell: ({ row }) => {
             const repo = row.original
-            return <RepoActionsDropdown repo={repo} />
+            return <Repo操作Dropdown repo={repo} />
         },
     },
 ]
@@ -256,8 +256,8 @@ interface ReposTableProps {
     currentPage: number;
     pageSize: number;
     totalCount: number;
-    initialSearch: string;
-    initialStatus: string;
+    initial搜索: string;
+    initial状态: string;
     initialSortBy?: string;
     initialSortOrder: string;
     stats: {
@@ -274,19 +274,19 @@ export const ReposTable = ({
     currentPage, 
     pageSize, 
     totalCount, 
-    initialSearch, 
-    initialStatus,
+    initial搜索, 
+    initial状态,
     initialSortBy,
     initialSortOrder,
     stats,
 }: ReposTableProps) => {
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = useState({})
-    const [searchValue, setSearchValue] = useState(initialSearch)
-    const [isPendingSearch, setIsPendingSearch] = useState(false)
+    const [searchValue, set搜索Value] = useState(initial搜索)
+    const [isPending搜索, setIsPending搜索] = useState(false)
     const searchInputRef = useRef<HTMLInputElement>(null)
     const router = useRouter();
-    const searchParams = useSearchParams();
+    const searchParams = use搜索Params();
     const pathname = usePathname();
     const { toast } = useToast();
 
@@ -298,9 +298,9 @@ export const ReposTable = ({
 
     // Debounced search effect - only runs when searchValue changes
     useEffect(() => {
-        setIsPendingSearch(true);
+        setIsPending搜索(true);
         const timer = setTimeout(() => {
-            const params = new URLSearchParams(searchParams.toString());
+            const params = new URL搜索Params(searchParams.toString());
             if (searchValue) {
                 params.set('search', searchValue);
             } else {
@@ -308,18 +308,18 @@ export const ReposTable = ({
             }
             params.set('page', '1'); // Reset to page 1 on search
             router.replace(`${pathname}?${params.toString()}`);
-            setIsPendingSearch(false);
+            setIsPending搜索(false);
         }, 300);
         
         return () => {
             clearTimeout(timer);
-            setIsPendingSearch(false);
+            setIsPending搜索(false);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchValue]);
 
-    const updateStatusFilter = (value: string) => {
-        const params = new URLSearchParams(searchParams.toString());
+    const update状态Filter = (value: string) => {
+        const params = new URL搜索Params(searchParams.toString());
         if (value === 'all') {
             params.delete('status');
         } else {
@@ -330,7 +330,7 @@ export const ReposTable = ({
     };
 
     const handleSortChange = (sortBy: string) => {
-        const params = new URLSearchParams(searchParams.toString());
+        const params = new URL搜索Params(searchParams.toString());
         
         // Toggle sort order if clicking the same column
         if (initialSortBy === sortBy) {
@@ -346,13 +346,13 @@ export const ReposTable = ({
         router.replace(`${pathname}?${params.toString()}`);
     };
 
-    const handleTriggerSync = async (repoId: number) => {
+    const handleTrigger同步 = async (repoId: number) => {
         const response = await indexRepo(repoId);
 
         if (!isServiceError(response)) {
             const { jobId } = response;
             toast({
-                description: `✅ Repository sync triggered successfully. Job ID: ${jobId}`,
+                description: `✅ 仓库 sync triggered successfully. Job ID: ${jobId}`,
             });
             router.refresh();
         } else {
@@ -368,7 +368,7 @@ export const ReposTable = ({
         onSortChange: handleSortChange,
         currentSortBy: initialSortBy,
         currentSortOrder: initialSortOrder,
-        onTriggerSync: handleTriggerSync
+        onTrigger同步: handleTrigger同步
     });
 
     const table = useReactTable({
@@ -386,27 +386,27 @@ export const ReposTable = ({
     })
 
     return (
-        <div className="w-full">
-            <div className="flex items-center gap-4 py-4">
-                <InputGroup className="max-w-sm">
+        <div class名称="w-full">
+            <div class名称="flex items-center gap-4 py-4">
+                <InputGroup class名称="max-w-sm">
                     <InputGroupInput
                         ref={searchInputRef}
                         placeholder="Filter repositories..."
                         value={searchValue}
-                        onChange={(event) => setSearchValue(event.target.value)}
-                        className="ring-0"
+                        onChange={(event) => set搜索Value(event.target.value)}
+                        class名称="ring-0"
                     />
-                    {isPendingSearch && (
-                        <InputGroupAddon align="inline-end">
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                        </InputGroupAddon>
+                    {isPending搜索 && (
+                        <InputGroup添加on align="inline-end">
+                            <Loader2 class名称="h-4 w-4 animate-spin" />
+                        </InputGroup添加on>
                     )}
                 </InputGroup>
                 <Select
-                    value={initialStatus}
-                    onValueChange={updateStatusFilter}
+                    value={initial状态}
+                    onValueChange={update状态Filter}
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger class名称="w-[180px]">
                         <SelectValue placeholder="Filter by status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -420,7 +420,7 @@ export const ReposTable = ({
                 </Select>
                 <Button
                     variant="outline"
-                    className="ml-auto"
+                    class名称="ml-auto"
                     onClick={() => {
                         router.refresh();
                         toast({
@@ -428,11 +428,11 @@ export const ReposTable = ({
                         });
                     }}
                 >
-                    <RefreshCwIcon className="w-3 h-3" />
+                    <RefreshCwIcon class名称="w-3 h-3" />
                     Refresh
                 </Button>
             </div>
-            <div className="rounded-md border">
+            <div class名称="rounded-md border">
                 <Table style={{ width: '100%' }}>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -466,7 +466,7 @@ export const ReposTable = ({
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} class名称="h-24 text-center">
                                     No results.
                                 </TableCell>
                             </TableRow>
@@ -474,17 +474,17 @@ export const ReposTable = ({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
+            <div class名称="flex items-center justify-end space-x-2 py-4">
+                <div class名称="flex-1 text-sm text-muted-foreground">
                     {totalCount} {totalCount !== 1 ? 'repositories' : 'repository'} total
                     {totalPages > 1 && ` • Page ${currentPage} of ${totalPages}`}
                 </div>
-                <div className="space-x-2">
+                <div class名称="space-x-2">
                     <Button
                         variant="outline"
                         size="sm"
                         onClick={() => {
-                            const params = new URLSearchParams(searchParams.toString());
+                            const params = new URL搜索Params(searchParams.toString());
                             params.set('page', String(currentPage - 1));
                             router.push(`${pathname}?${params.toString()}`);
                         }}
@@ -496,7 +496,7 @@ export const ReposTable = ({
                         variant="outline" 
                         size="sm" 
                         onClick={() => {
-                            const params = new URLSearchParams(searchParams.toString());
+                            const params = new URL搜索Params(searchParams.toString());
                             params.set('page', String(currentPage + 1));
                             router.push(`${pathname}?${params.toString()}`);
                         }}

@@ -20,7 +20,7 @@ import {
 import { cva } from "class-variance-authority"
 import { AlertCircle, ArrowUpDown, PlusCircleIcon, RefreshCwIcon } from "lucide-react"
 import * as React from "react"
-import { CopyIconButton } from "../../components/copyIconButton"
+import { 复制IconButton } from "../../components/copyIconButton"
 import { useMemo } from "react"
 import { LightweightCodeHighlighter } from "../../components/lightweightCodeHighlighter"
 import { useRouter } from "next/navigation"
@@ -53,7 +53,7 @@ const statusBadgeVariants = cva("", {
     },
 })
 
-const getStatusBadge = (status: RepoIndexingJob["status"]) => {
+const get状态Badge = (status: RepoIndexingJob["status"]) => {
     const labels = {
         PENDING: "Pending",
         IN_PROGRESS: "In Progress",
@@ -61,12 +61,12 @@ const getStatusBadge = (status: RepoIndexingJob["status"]) => {
         FAILED: "Failed",
     }
 
-    return <Badge className={statusBadgeVariants({ status })}>{labels[status]}</Badge>
+    return <Badge class名称={statusBadgeVariants({ status })}>{labels[status]}</Badge>
 }
 
 const getTypeBadge = (type: RepoIndexingJob["type"]) => {
     return (
-        <Badge variant="outline" className="font-mono">
+        <Badge variant="outline" class名称="font-mono">
             {type}
         </Badge>
     )
@@ -91,19 +91,19 @@ export const columns: ColumnDef<RepoIndexingJob>[] = [
     },
     {
         accessorKey: "status",
-        header: "Status",
+        header: "状态",
         cell: ({ row }) => {
             const job = row.original
             return (
-                <div className="flex items-center gap-2">
-                    {getStatusBadge(row.getValue("status"))}
+                <div class名称="flex items-center gap-2">
+                    {get状态Badge(row.getValue("status"))}
                     {job.errorMessage && (
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <AlertCircle className="h-4 w-4 text-destructive" />
+                                    <AlertCircle class名称="h-4 w-4 text-destructive" />
                                 </TooltipTrigger>
-                                <TooltipContent className="max-w-[750px] max-h-96 overflow-scroll">
+                                <TooltipContent class名称="max-w-[750px] max-h-96 overflow-scroll">
                                     <LightweightCodeHighlighter
                                         language="text"
                                         lineNumbers={true}
@@ -128,11 +128,11 @@ export const columns: ColumnDef<RepoIndexingJob>[] = [
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Started
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    <ArrowUpDown class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
-        cell: ({ row }) => <DisplayDate date={row.getValue("createdAt") as Date} className="ml-3" />,
+        cell: ({ row }) => <DisplayDate date={row.getValue("createdAt") as Date} class名称="ml-3" />,
     },
     {
         accessorKey: "completedAt",
@@ -140,7 +140,7 @@ export const columns: ColumnDef<RepoIndexingJob>[] = [
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Completed
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    <ArrowUpDown class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
@@ -150,7 +150,7 @@ export const columns: ColumnDef<RepoIndexingJob>[] = [
                 return "-";
             }
 
-            return <DisplayDate date={completedAt} className="ml-3" />
+            return <DisplayDate date={completedAt} class名称="ml-3" />
         },
     },
     {
@@ -167,9 +167,9 @@ export const columns: ColumnDef<RepoIndexingJob>[] = [
         cell: ({ row }) => {
             const id = row.getValue("id") as string
             return (
-                <div className="flex items-center gap-2">
-                    <code className="text-xs text-muted-foreground">{id}</code>
-                    <CopyIconButton onCopy={() => {
+                <div class名称="flex items-center gap-2">
+                    <code class名称="text-xs text-muted-foreground">{id}</code>
+                    <复制IconButton on复制={() => {
                         navigator.clipboard.writeText(id);
                         return true;
                     }} />
@@ -194,15 +194,15 @@ export const RepoJobsTable = ({
     const router = useRouter();
     const { toast } = useToast();
 
-    const [isIndexSubmitting, setIsIndexSubmitting] = React.useState(false);
+    const [isIndex提交ting, setIsIndex提交ting] = React.useState(false);
     const onIndexButtonClick = React.useCallback(async () => {
-        setIsIndexSubmitting(true);
+        setIsIndex提交ting(true);
         const response = await indexRepo(repoId);
 
         if (!isServiceError(response)) {
             const { jobId } = response;
             toast({
-                description: `✅ Repository sync triggered successfully. Job ID: ${jobId}`,
+                description: `✅ 仓库 sync triggered successfully. Job ID: ${jobId}`,
             })
             router.refresh();
         } else {
@@ -211,7 +211,7 @@ export const RepoJobsTable = ({
             });
         }
 
-        setIsIndexSubmitting(false);
+        setIsIndex提交ting(false);
     }, [repoId, router, toast]);
 
     const table = useReactTable({
@@ -246,13 +246,13 @@ export const RepoJobsTable = ({
     }, [data]);
 
     return (
-        <div className="w-full">
-            <div className="flex items-center gap-4 py-4">
+        <div class名称="w-full">
+            <div class名称="flex items-center gap-4 py-4">
                 <Select
                     value={(table.getColumn("status")?.getFilterValue() as string) ?? "all"}
                     onValueChange={(value) => table.getColumn("status")?.setFilterValue(value === "all" ? "" : value)}
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger class名称="w-[180px]">
                         <SelectValue placeholder="Filter by status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -268,7 +268,7 @@ export const RepoJobsTable = ({
                     value={(table.getColumn("type")?.getFilterValue() as string) ?? "all"}
                     onValueChange={(value) => table.getColumn("type")?.setFilterValue(value === "all" ? "" : value)}
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger class名称="w-[180px]">
                         <SelectValue placeholder="Filter by type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -278,7 +278,7 @@ export const RepoJobsTable = ({
                     </SelectContent>
                 </Select>
 
-                <div className="ml-auto flex items-center gap-2">
+                <div class名称="ml-auto flex items-center gap-2">
                     <Button
                         variant="outline"
                         onClick={() => {
@@ -288,24 +288,24 @@ export const RepoJobsTable = ({
                             });
                         }}
                     >
-                        <RefreshCwIcon className="w-3 h-3" />
+                        <RefreshCwIcon class名称="w-3 h-3" />
                         Refresh
                     </Button>
 
                     {isIndexButtonVisible && (
                         <LoadingButton
                             onClick={onIndexButtonClick}
-                            loading={isIndexSubmitting}
+                            loading={isIndex提交ting}
                             variant="outline"
                         >
-                            <PlusCircleIcon className="w-3 h-3" />
+                            <PlusCircleIcon class名称="w-3 h-3" />
                             Trigger sync
                         </LoadingButton>
                     )}
                 </div>
             </div>
 
-            <div className="rounded-md border">
+            <div class名称="rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -331,7 +331,7 @@ export const RepoJobsTable = ({
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} class名称="h-24 text-center">
                                     No indexing jobs found.
                                 </TableCell>
                             </TableRow>
@@ -340,11 +340,11 @@ export const RepoJobsTable = ({
                 </Table>
             </div>
 
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
+            <div class名称="flex items-center justify-end space-x-2 py-4">
+                <div class名称="flex-1 text-sm text-muted-foreground">
                     {table.getFilteredRowModel().rows.length} job(s) total
                 </div>
-                <div className="space-x-2">
+                <div class名称="space-x-2">
                     <Button
                         variant="outline"
                         size="sm"

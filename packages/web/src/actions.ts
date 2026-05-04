@@ -9,21 +9,21 @@ import { getOrgMetadata, isHttpError, isServiceError } from "@/lib/utils";
 import { __unsafePrisma } from "@/prisma";
 import { render } from "@react-email/components";
 import { generateApiKey, getTokenFromConfig } from "@sourcebot/shared";
-import { ConnectionSyncJobStatus, OrgRole, Prisma, RepoIndexingJobStatus, RepoIndexingJobType } from "@sourcebot/db";
+import { Connection同步Job状态, OrgRole, Prisma, RepoIndexingJob状态, RepoIndexingJobType } from "@sourcebot/db";
 import { createLogger } from "@sourcebot/shared";
 import { GiteaConnectionConfig } from "@sourcebot/schemas/v3/gitea.type";
 import { GithubConnectionConfig } from "@sourcebot/schemas/v3/github.type";
 import { GitlabConnectionConfig } from "@sourcebot/schemas/v3/gitlab.type";
 import { getPlan, hasEntitlement } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { cookies } from "next/headers";
 import { createTransport } from "nodemailer";
 import { Octokit } from "octokit";
-import InviteUserEmail from "./emails/inviteUserEmail";
-import JoinRequestApprovedEmail from "./emails/joinRequestApprovedEmail";
-import JoinRequestSubmittedEmail from "./emails/joinRequestSubmittedEmail";
+import InviteUser邮箱 from "./emails/inviteUser邮箱";
+import JoinRequestApproved邮箱 from "./emails/joinRequestApproved邮箱";
+import JoinRequest提交ted邮箱 from "./emails/joinRequest提交ted邮箱";
 import { AGENTIC_SEARCH_TUTORIAL_DISMISSED_COOKIE_NAME, MOBILE_UNSUPPORTED_SPLASH_SCREEN_DISMISSED_COOKIE_NAME, SINGLE_TENANT_ORG_ID, SOURCEBOT_SUPPORT_EMAIL } from "./lib/constants";
-import { RepositoryQuery } from "./lib/types";
+import { 仓库Query } from "./lib/types";
 import { getAuthenticatedUser, withAuth, withOptionalAuth } from "./middleware/withAuth";
 import { withMinimumOrgRole } from "./middleware/withMinimumOrgRole";
 import { getBrowsePath } from "./app/(app)/browse/hooks/utils";
@@ -32,7 +32,7 @@ import { sew } from "@/middleware/sew";
 const logger = createLogger('web-actions');
 const auditService = getAuditService();
 
-////// Actions ///////
+////// 操作 ///////
 export const completeOnboarding = async (): Promise<{ success: boolean } | ServiceError> => sew(() =>
     withAuth(async ({ org, prisma }) => {
         await prisma.org.update({
@@ -52,7 +52,7 @@ export const createApiKey = async (name: string): Promise<{ key: string } | Serv
         if ((env.DISABLE_API_KEY_CREATION_FOR_NON_OWNER_USERS === 'true' || env.DISABLE_API_KEY_USAGE_FOR_NON_OWNER_USERS === 'true') && role !== OrgRole.OWNER) {
            logger.error(`API key creation is disabled for non-admin users. User ${user.id} is not an owner.`);
            return {
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
             message: "API key creation is disabled for non-admin users.",
            } satisfies ServiceError;
@@ -83,7 +83,7 @@ export const createApiKey = async (name: string): Promise<{ key: string } | Serv
                 }
             });
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.API_KEY_ALREADY_EXISTS,
                 message: `API key ${name} already exists`,
             } satisfies ServiceError;
@@ -144,7 +144,7 @@ export const deleteApiKey = async (name: string): Promise<{ success: boolean } |
                 }
             });
             return {
-                statusCode: StatusCodes.NOT_FOUND,
+                statusCode: 状态Codes.NOT_FOUND,
                 errorCode: ErrorCode.API_KEY_NOT_FOUND,
                 message: `API key ${name} not found for user ${user.id}`,
             } satisfies ServiceError;
@@ -217,10 +217,10 @@ export const getRepos = async ({
         return repos.map((repo) => ({
             codeHostType: repo.external_codeHostType,
             repoId: repo.id,
-            repoName: repo.name,
-            repoDisplayName: repo.displayName ?? undefined,
+            repo名称: repo.name,
+            repoDisplay名称: repo.display名称 ?? undefined,
             webUrl: `${baseUrl}${getBrowsePath({
-                repoName: repo.name,
+                repo名称: repo.name,
                 path: '',
                 pathType: 'tree',
             })}`,
@@ -231,7 +231,7 @@ export const getRepos = async ({
             defaultBranch: repo.defaultBranch ?? undefined,
             isFork: repo.isFork,
             isArchived: repo.isArchived,
-        } satisfies RepositoryQuery))
+        } satisfies 仓库Query))
     }));
 
 /**
@@ -262,8 +262,8 @@ export const getReposStats = async () => sew(() =>
                             type: RepoIndexingJobType.INDEX,
                             status: {
                                 in: [
-                                    RepoIndexingJobStatus.PENDING,
-                                    RepoIndexingJobStatus.IN_PROGRESS,
+                                    RepoIndexingJob状态.PENDING,
+                                    RepoIndexingJob状态.IN_PROGRESS,
                                 ]
                             }
                         },
@@ -292,7 +292,7 @@ export const getConnectionStats = async () => sew(() =>
     withAuth(async ({ org, prisma }) => {
         const [
             numberOfConnections,
-            numberOfConnectionsWithFirstTimeSyncJobsInProgress,
+            numberOfConnectionsWithFirstTime同步JobsInProgress,
         ] = await Promise.all([
             prisma.connection.count({
                 where: {
@@ -307,8 +307,8 @@ export const getConnectionStats = async () => sew(() =>
                         some: {
                             status: {
                                 in: [
-                                    ConnectionSyncJobStatus.PENDING,
-                                    ConnectionSyncJobStatus.IN_PROGRESS,
+                                    Connection同步Job状态.PENDING,
+                                    Connection同步Job状态.IN_PROGRESS,
                                 ]
                             }
                         }
@@ -319,12 +319,12 @@ export const getConnectionStats = async () => sew(() =>
 
         return {
             numberOfConnections,
-            numberOfConnectionsWithFirstTimeSyncJobsInProgress,
+            numberOfConnectionsWithFirstTime同步JobsInProgress,
         };
     })
 );
 
-export const getRepoInfoByName = async (repoName: string) => sew(() =>
+export const getRepoInfoBy名称 = async (repo名称: string) => sew(() =>
     withOptionalAuth(async ({ org, prisma }) => {
         // @note: repo names are represented by their remote url
         // on the code host. E.g.,:
@@ -363,7 +363,7 @@ export const getRepoInfoByName = async (repoName: string) => sew(() =>
         // @see: repoCompileUtils.ts
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
@@ -375,7 +375,7 @@ export const getRepoInfoByName = async (repoName: string) => sew(() =>
         return {
             id: repo.id,
             name: repo.name,
-            displayName: repo.displayName ?? undefined,
+            display名称: repo.display名称 ?? undefined,
             codeHostType: repo.external_codeHostType,
             externalWebUrl: repo.webUrl ?? undefined,
             imageUrl: repo.imageUrl ?? undefined,
@@ -383,11 +383,11 @@ export const getRepoInfoByName = async (repoName: string) => sew(() =>
         }
     }));
 
-export const experimental_addGithubRepositoryByUrl = async (repositoryUrl: string): Promise<{ connectionId: number } | ServiceError> => sew(() =>
+export const experimental_addGithub仓库ByUrl = async (repositoryUrl: string): Promise<{ connectionId: number } | ServiceError> => sew(() =>
     withOptionalAuth(async ({ org, prisma }) => {
         if (env.EXPERIMENT_SELF_SERVE_REPO_INDEXING_ENABLED !== 'true') {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.INVALID_REQUEST_BODY,
                 message: "This feature is not enabled.",
             } satisfies ServiceError;
@@ -422,7 +422,7 @@ export const experimental_addGithubRepositoryByUrl = async (repositoryUrl: strin
 
         if (!repoInfo) {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.INVALID_REQUEST_BODY,
                 message: "Invalid repository URL format. Please use 'owner/repo' or 'https://github.com/owner/repo' format.",
             } satisfies ServiceError;
@@ -445,22 +445,22 @@ export const experimental_addGithubRepositoryByUrl = async (repositoryUrl: strin
         } catch (error) {
             if (isHttpError(error, 404)) {
                 return {
-                    statusCode: StatusCodes.NOT_FOUND,
+                    statusCode: 状态Codes.NOT_FOUND,
                     errorCode: ErrorCode.INVALID_REQUEST_BODY,
-                    message: `Repository '${owner}/${repo}' not found or is private. Only public repositories can be added.`,
+                    message: `仓库 '${owner}/${repo}' not found or is private. Only public repositories can be added.`,
                 } satisfies ServiceError;
             }
 
             if (isHttpError(error, 403)) {
                 return {
-                    statusCode: StatusCodes.FORBIDDEN,
+                    statusCode: 状态Codes.FORBIDDEN,
                     errorCode: ErrorCode.INVALID_REQUEST_BODY,
                     message: `Access to repository '${owner}/${repo}' is forbidden. Only public repositories can be added.`,
                 } satisfies ServiceError;
             }
 
             return {
-                statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                statusCode: 状态Codes.INTERNAL_SERVER_ERROR,
                 errorCode: ErrorCode.INVALID_REQUEST_BODY,
                 message: `Failed to fetch repository information: ${error instanceof Error ? error.message : 'Unknown error'}`,
             } satisfies ServiceError;
@@ -468,7 +468,7 @@ export const experimental_addGithubRepositoryByUrl = async (repositoryUrl: strin
 
         if (githubRepo.private) {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.INVALID_REQUEST_BODY,
                 message: "Only public repositories can be added.",
             } satisfies ServiceError;
@@ -486,15 +486,15 @@ export const experimental_addGithubRepositoryByUrl = async (repositoryUrl: strin
 
         if (existingRepo) {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.CONNECTION_ALREADY_EXISTS,
                 message: "This repository already exists.",
             } satisfies ServiceError;
         }
 
-        const connectionName = `${owner}-${repo}-${Date.now()}`;
+        const connection名称 = `${owner}-${repo}-${Date.now()}`;
 
-        // Create GitHub connection config
+        // 创建 GitHub connection config
         const connectionConfig: GithubConnectionConfig = {
             type: "github" as const,
             repos: [`${owner}/${repo}`],
@@ -508,7 +508,7 @@ export const experimental_addGithubRepositoryByUrl = async (repositoryUrl: strin
         const connection = await prisma.connection.create({
             data: {
                 orgId: org.id,
-                name: connectionName,
+                name: connection名称,
                 config: connectionConfig as unknown as Prisma.InputJsonValue,
                 connectionType: 'github',
             }
@@ -565,7 +565,7 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
                     }
                 });
                 return {
-                    statusCode: StatusCodes.BAD_REQUEST,
+                    statusCode: 状态Codes.BAD_REQUEST,
                     errorCode: ErrorCode.ORG_SEAT_COUNT_REACHED,
                     message: "The organization has reached the maximum number of seats. Unable to create a new invite",
                 } satisfies ServiceError;
@@ -574,7 +574,7 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
             // Check for existing invites
             const existingInvites = await prisma.invite.findMany({
                 where: {
-                    recipientEmail: {
+                    recipient邮箱: {
                         in: emails
                     },
                     orgId: org.id,
@@ -584,7 +584,7 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
             if (existingInvites.length > 0) {
                 await failAuditCallback("A pending invite already exists for one or more of the provided emails");
                 return {
-                    statusCode: StatusCodes.BAD_REQUEST,
+                    statusCode: 状态Codes.BAD_REQUEST,
                     errorCode: ErrorCode.INVALID_INVITE,
                     message: `A pending invite already exists for one or more of the provided emails.`,
                 } satisfies ServiceError;
@@ -605,7 +605,7 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
             if (existingMembers.length > 0) {
                 await failAuditCallback("One or more of the provided emails are already members of this org");
                 return {
-                    statusCode: StatusCodes.BAD_REQUEST,
+                    statusCode: 状态Codes.BAD_REQUEST,
                     errorCode: ErrorCode.INVALID_INVITE,
                     message: `One or more of the provided emails are already members of this org.`,
                 } satisfies ServiceError;
@@ -613,7 +613,7 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
 
             await prisma.invite.createMany({
                 data: emails.map((email) => ({
-                    recipientEmail: email,
+                    recipient邮箱: email,
                     hostUserId: user.id,
                     orgId: org.id,
                 })),
@@ -626,8 +626,8 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
                 await Promise.all(emails.map(async (email) => {
                     const invite = await prisma.invite.findUnique({
                         where: {
-                            recipientEmail_orgId: {
-                                recipientEmail: email,
+                            recipient邮箱_orgId: {
+                                recipient邮箱: email,
                                 orgId: org.id,
                             },
                         },
@@ -647,7 +647,7 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
                     });
                     const inviteLink = `${env.AUTH_URL}/redeem?invite_id=${invite.id}`;
                     const transport = createTransport(smtpConnectionUrl);
-                    const html = await render(InviteUserEmail({
+                    const html = await render(InviteUser邮箱({
                         baseUrl: env.AUTH_URL,
                         host: {
                             name: user.name ?? undefined,
@@ -657,7 +657,7 @@ export const createInvites = async (emails: string[]): Promise<{ success: boolea
                         recipient: {
                             name: recipient?.name ?? undefined,
                         },
-                        orgName: invite.org.name,
+                        org名称: invite.org.name,
                         orgImageUrl: invite.org.imageUrl ?? undefined,
                         inviteLink,
                     }));
@@ -792,7 +792,7 @@ export const getOrgInvites = async () => sew(() =>
 
         return invites.map((invite) => ({
             id: invite.id,
-            email: invite.recipientEmail,
+            email: invite.recipient邮箱,
             createdAt: invite.createdAt,
         }));
     }));
@@ -863,7 +863,7 @@ export const createAccountRequest = async () => sew(async () => {
         const smtpConnectionUrl = getSMTPConnectionURL();
         if (smtpConnectionUrl && env.EMAIL_FROM_ADDRESS) {
             // TODO: This is needed because we can't fetch the origin from the request headers when this is called
-            // on user creation (the header isn't set when next-auth calls onCreateUser for some reason)
+            // on user creation (the header isn't set when next-auth calls on创建User for some reason)
             const deploymentUrl = env.AUTH_URL;
 
             const owners = await __unsafePrisma.user.findMany({
@@ -880,24 +880,24 @@ export const createAccountRequest = async () => sew(async () => {
             if (owners.length === 0) {
                 logger.error(`Failed to find any owners for org ${org.id} when drafting email for account request from ${user.id}`);
             } else {
-                const html = await render(JoinRequestSubmittedEmail({
+                const html = await render(JoinRequest提交ted邮箱({
                     baseUrl: deploymentUrl,
                     requestor: {
                         name: user.name ?? undefined,
                         email: user.email!,
                         avatarUrl: user.image ?? undefined,
                     },
-                    orgName: org.name,
+                    org名称: org.name,
                     orgImageUrl: org.imageUrl ?? undefined,
                 }));
 
-                const ownerEmails = owners
+                const owner邮箱s = owners
                     .map((owner) => owner.email)
                     .filter((email): email is string => email !== null);
 
                 const transport = createTransport(smtpConnectionUrl);
                 const result = await transport.sendMail({
-                    to: ownerEmails,
+                    to: owner邮箱s,
                     from: env.EMAIL_FROM_ADDRESS,
                     subject: `New account request for ${org.name} on Sourcebot`,
                     html,
@@ -906,7 +906,7 @@ export const createAccountRequest = async () => sew(async () => {
 
                 const failed = result.rejected.concat(result.pending).filter(Boolean);
                 if (failed.length > 0) {
-                    logger.error(`Failed to send account request email to ${ownerEmails.join(', ')}: ${failed}`);
+                    logger.error(`Failed to send account request email to ${owner邮箱s.join(', ')}: ${failed}`);
                 }
             }
         } else {
@@ -1032,14 +1032,14 @@ export const approveAccountRequest = async (requestId: string) => sew(async () =
             const smtpConnectionUrl = getSMTPConnectionURL();
             if (smtpConnectionUrl && env.EMAIL_FROM_ADDRESS) {
                 try {
-                    const html = await render(JoinRequestApprovedEmail({
+                    const html = await render(JoinRequestApproved邮箱({
                         baseUrl: env.AUTH_URL,
                         user: {
                             name: request.requestedBy.name ?? undefined,
                             email: request.requestedBy.email!,
                             avatarUrl: request.requestedBy.image ?? undefined,
                         },
-                        orgName: org.name,
+                        org名称: org.name,
                     }));
 
                     const transport = createTransport(smtpConnectionUrl);
@@ -1093,7 +1093,7 @@ export const rejectAccountRequest = async (requestId: string) => sew(() =>
     ));
 
 
-export const getSearchContexts = async () => sew(() =>
+export const get搜索Contexts = async () => sew(() =>
     withOptionalAuth(async ({ org, prisma }) => {
         const searchContexts = await prisma.searchContext.findMany({
             where: {
@@ -1108,7 +1108,7 @@ export const getSearchContexts = async () => sew(() =>
             id: context.id,
             name: context.name,
             description: context.description ?? undefined,
-            repoNames: context.repos.map((repo) => repo.name),
+            repo名称s: context.repos.map((repo) => repo.name),
         }));
     }));
 
@@ -1181,13 +1181,13 @@ export const getRepoImage = async (repoId: number): Promise<ArrayBuffer | Servic
     })
 });
 
-export const getAnonymousAccessStatus = async (): Promise<boolean | ServiceError> => sew(async () => {
+export const getAnonymousAccess状态 = async (): Promise<boolean | ServiceError> => sew(async () => {
     const org = await __unsafePrisma.org.findUnique({
         where: { id: SINGLE_TENANT_ORG_ID },
     });
     if (!org) {
         return {
-            statusCode: StatusCodes.NOT_FOUND,
+            statusCode: 状态Codes.NOT_FOUND,
             errorCode: ErrorCode.NOT_FOUND,
             message: "Organization not found",
         } satisfies ServiceError;
@@ -1201,7 +1201,7 @@ export const getAnonymousAccessStatus = async (): Promise<boolean | ServiceError
     const orgMetadata = getOrgMetadata(org);
     if (!orgMetadata) {
         return {
-            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            statusCode: 状态Codes.INTERNAL_SERVER_ERROR,
             errorCode: ErrorCode.INVALID_ORG_METADATA,
             message: "Invalid organization metadata",
         } satisfies ServiceError;
@@ -1210,7 +1210,7 @@ export const getAnonymousAccessStatus = async (): Promise<boolean | ServiceError
     return !!orgMetadata.anonymousAccessEnabled;
 });
 
-export const setAnonymousAccessStatus = async (enabled: boolean): Promise<ServiceError | boolean> => sew(async () => {
+export const setAnonymousAccess状态 = async (enabled: boolean): Promise<ServiceError | boolean> => sew(async () => {
     return await withAuth(async ({ org, role, prisma }) => {
         return await withMinimumOrgRole(role, OrgRole.OWNER, async () => {
             const hasAnonymousAccessEntitlement = hasEntitlement("anonymous-access");
@@ -1218,7 +1218,7 @@ export const setAnonymousAccessStatus = async (enabled: boolean): Promise<Servic
                 const plan = getPlan();
                 console.error(`Anonymous access isn't supported in your current plan: ${plan}. For support, contact ${SOURCEBOT_SUPPORT_EMAIL}.`);
                 return {
-                    statusCode: StatusCodes.FORBIDDEN,
+                    statusCode: 状态Codes.FORBIDDEN,
                     errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
                     message: "Anonymous access is not supported in your current plan",
                 } satisfies ServiceError;
@@ -1244,7 +1244,7 @@ export const setAnonymousAccessStatus = async (enabled: boolean): Promise<Servic
     });
 });
 
-export const setAgenticSearchTutorialDismissedCookie = async (dismissed: boolean) => sew(async () => {
+export const setAgentic搜索TutorialDismissedCookie = async (dismissed: boolean) => sew(async () => {
     const cookieStore = await cookies();
     cookieStore.set(AGENTIC_SEARCH_TUTORIAL_DISMISSED_COOKIE_NAME, dismissed ? "true" : "false", {
         httpOnly: false, // Allow client-side access

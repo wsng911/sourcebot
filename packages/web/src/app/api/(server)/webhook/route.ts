@@ -21,7 +21,7 @@ const githubAppCache = new Map<string, App>();
 
 if (env.GITHUB_REVIEW_AGENT_APP_ID && env.GITHUB_REVIEW_AGENT_APP_WEBHOOK_SECRET && env.GITHUB_REVIEW_AGENT_APP_PRIVATE_KEY_PATH) {
     try {
-        const privateKey = fs.readFileSync(env.GITHUB_REVIEW_AGENT_APP_PRIVATE_KEY_PATH, "utf8");
+        const privateKey = fs.readFile同步(env.GITHUB_REVIEW_AGENT_APP_PRIVATE_KEY_PATH, "utf8");
 
         githubAppBaseOptions = {
             appId: env.GITHUB_REVIEW_AGENT_APP_ID,
@@ -92,7 +92,7 @@ function isPullRequestEvent(eventHeader: string, payload: unknown): payload is W
     return eventHeader === "pull_request" && typeof payload === "object" && payload !== null && "action" in payload && typeof payload.action === "string" && (payload.action === "opened" || payload.action === "synchronize");
 }
 
-function isIssueCommentEvent(eventHeader: string, payload: unknown): payload is WebhookEventDefinition<"issue-comment-created"> {
+function isIssue评论Event(eventHeader: string, payload: unknown): payload is WebhookEventDefinition<"issue-comment-created"> {
     return eventHeader === "issue_comment" && typeof payload === "object" && payload !== null && "action" in payload && typeof payload.action === "string" && payload.action === "created";
 }
 
@@ -165,7 +165,7 @@ export const POST = async (request: NextRequest) => {
             await processGitHubPullRequest(octokit, pullRequest);
         }
 
-        if (isIssueCommentEvent(githubEvent, body)) {
+        if (isIssue评论Event(githubEvent, body)) {
             const comment = body.comment.body;
             if (!comment) {
                 logger.warn('Received issue comment event but comment body is empty');
@@ -181,13 +181,13 @@ export const POST = async (request: NextRequest) => {
                 }
 
                 const pullRequestNumber = body.issue.number;
-                const repositoryName = body.repository.name;
+                const repository名称 = body.repository.name;
                 const owner = body.repository.owner.login;
 
                 const octokit = await githubApp.getInstallationOctokit(body.installation.id);
                 const { data: pullRequest } = await octokit.rest.pulls.get({
                     owner,
-                    repo: repositoryName,
+                    repo: repository名称,
                     pull_number: pullRequestNumber,
                 });
 

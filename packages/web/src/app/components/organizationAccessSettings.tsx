@@ -1,12 +1,12 @@
 import { createInviteLink } from "@/lib/utils"
 import { AnonymousAccessToggle } from "./anonymousAccessToggle"
-import { OrganizationAccessSettingsWrapper } from "./organizationAccessSettingsWrapper"
+import { OrganizationAccess设置Wrapper } from "./organizationAccess设置Wrapper"
 import { getOrgMetadata } from "@/lib/utils"
 import { SINGLE_TENANT_ORG_ID } from "@/lib/constants"
 import { __unsafePrisma } from "@/prisma"
 import { hasEntitlement, env } from "@sourcebot/shared"
 
-export async function OrganizationAccessSettings() {
+export async function OrganizationAccess设置() {
     const org = await __unsafePrisma.org.findUnique({ where: { id: SINGLE_TENANT_ORG_ID } });
     if (!org) {
         return <div>Error loading organization</div>
@@ -24,14 +24,14 @@ export async function OrganizationAccessSettings() {
     const memberApprovalEnvVarSet = env.REQUIRE_APPROVAL_NEW_MEMBERS !== undefined;
 
     return (
-        <div className="space-y-6">
+        <div class名称="space-y-6">
             <AnonymousAccessToggle
                 hasAnonymousAccessEntitlement={hasAnonymousAccessEntitlement}
                 anonymousAccessEnabled={anonymousAccessEnabled}
                 forceEnableAnonymousAccess={forceEnableAnonymousAccess}
             />
 
-            <OrganizationAccessSettingsWrapper
+            <OrganizationAccess设置Wrapper
                 memberApprovalRequired={org.memberApprovalRequired}
                 inviteLinkEnabled={org.inviteLinkEnabled}
                 inviteLink={inviteLink}

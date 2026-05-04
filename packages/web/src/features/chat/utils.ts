@@ -1,9 +1,9 @@
 import { BrowseHighlightRange, getBrowsePath } from "@/app/(app)/browse/hooks/utils";
-import { CreateUIMessage, TextUIPart, UIMessagePart } from "ai";
-import { Descendant, Editor, Point, Range, Transforms } from "slate";
+import { 创建UIMessage, TextUIPart, UIMessagePart } from "ai";
+import { Descendant, 编辑or, Point, Range, Transforms } from "slate";
 import { ANSWER_TAG, FILE_REFERENCE_PREFIX, FILE_REFERENCE_REGEX } from "./constants";
 import {
-    CustomEditor,
+    Custom编辑or,
     CustomText,
     FileReference,
     FileSource,
@@ -14,12 +14,12 @@ import {
     SBChatMessage,
     SBChatMessagePart,
     SBChatMessageToolTypes,
-    SearchScope,
+    搜索Scope,
     Source,
 } from "./types";
 
 
-export const insertMention = (editor: CustomEditor, data: MentionData, target?: Range | null) => {
+export const insertMention = (editor: Custom编辑or, data: MentionData, target?: Range | null) => {
     const mention: MentionElement = {
         type: 'mention',
         data,
@@ -36,7 +36,7 @@ export const insertMention = (editor: CustomEditor, data: MentionData, target?: 
 
 // @see: https://github.com/ianstormtaylor/slate/issues/4162#issuecomment-1127062098
 export function word(
-    editor: CustomEditor,
+    editor: Custom编辑or,
     location: Range,
     options: {
         terminator?: string[]
@@ -57,14 +57,14 @@ export function word(
     function move(direction: 'right' | 'left'): boolean {
         const next =
             direction === 'right'
-                ? Editor.after(editor, point, {
+                ? 编辑or.after(editor, point, {
                     unit: 'character',
                 })
-                : Editor.before(editor, point, { unit: 'character' })
+                : 编辑or.before(editor, point, { unit: 'character' })
 
         const wordNext =
             next &&
-            Editor.string(
+            编辑or.string(
                 editor,
                 direction === 'right' ? { anchor: point, focus: next } : { anchor: next, focus: point },
             )
@@ -102,8 +102,8 @@ export function word(
 
     if (include) {
         return {
-            anchor: Editor.before(editor, start, { unit: 'offset' }) ?? start,
-            focus: Editor.after(editor, end, { unit: 'offset' }) ?? end,
+            anchor: 编辑or.before(editor, start, { unit: 'offset' }) ?? start,
+            focus: 编辑or.after(editor, end, { unit: 'offset' }) ?? end,
         }
     }
 
@@ -162,7 +162,7 @@ export const getAllMentionElements = (children: Descendant[]): MentionElement[] 
 }
 
 // @see: https://stackoverflow.com/a/74102147
-export const resetEditor = (editor: CustomEditor) => {
+export const reset编辑or = (editor: Custom编辑or) => {
     const point = { path: [0, 0], offset: 0 }
     editor.selection = { anchor: point, focus: point };
     editor.history = { redos: [], undos: [] };
@@ -176,7 +176,7 @@ export const addLineNumbers = (source: string, lineOffset = 1) => {
     return source.split('\n').map((line, index) => `${index + lineOffset}: ${line}`).join('\n');
 }
 
-export const createUIMessage = (text: string, mentions: MentionData[], selectedSearchScopes: SearchScope[]): CreateUIMessage<SBChatMessage> => {
+export const createUIMessage = (text: string, mentions: MentionData[], selected搜索Scopes: 搜索Scope[]): 创建UIMessage<SBChatMessage> => {
     // Converts applicable mentions into sources.
     const sources: Source[] = mentions
         .map((mention) => {
@@ -208,7 +208,7 @@ export const createUIMessage = (text: string, mentions: MentionData[], selectedS
             })) as UIMessagePart<{ source: Source }, SBChatMessageToolTypes>[],
         ],
         metadata: {
-            selectedSearchScopes,
+            selected搜索Scopes,
         },
     }
 }
@@ -247,10 +247,10 @@ export const createFileReference = ({ repo, path, startLine, endLine }: { repo: 
 export const convertLLMOutputToPortableMarkdown = (text: string, baseUrl: string): string => {
     return text
         .replace(ANSWER_TAG, '')
-        .replace(FILE_REFERENCE_REGEX, (_, repo, fileName, startLine, endLine) => {
-            const displayName = fileName.split('/').pop() || fileName;
+        .replace(FILE_REFERENCE_REGEX, (_, repo, file名称, startLine, endLine) => {
+            const display名称 = file名称.split('/').pop() || file名称;
 
-            let linkText = displayName;
+            let linkText = display名称;
             if (startLine) {
                 if (endLine && startLine !== endLine) {
                     linkText += `:${startLine}-${endLine}`;
@@ -267,8 +267,8 @@ export const convertLLMOutputToPortableMarkdown = (text: string, baseUrl: string
 
             // Construct full browse URL
             const browsePath = getBrowsePath({
-                repoName: repo,
-                path: fileName,
+                repo名称: repo,
+                path: file名称,
                 pathType: 'blob',
                 highlightRange,
             });
@@ -357,7 +357,7 @@ export const getAnswerPartFromAssistantMessage = (message: SBChatMessage, isStre
  * Generates a unique key given a LanguageModelInfo object.
  */
 export const getLanguageModelKey = (model: LanguageModelInfo) => {
-    return `${model.provider}-${model.model}-${model.displayName}`;
+    return `${model.provider}-${model.model}-${model.display名称}`;
 }
 
 /**

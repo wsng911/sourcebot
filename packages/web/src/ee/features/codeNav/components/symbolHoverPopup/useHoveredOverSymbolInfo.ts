@@ -1,32 +1,32 @@
-import { findSearchBasedSymbolDefinitions } from "@/app/api/(client)/client";
+import { find搜索BasedSymbolDefinitions } from "@/app/api/(client)/client";
 import { SourceRange } from "@/features/search";
 import useCaptureEvent from "@/hooks/useCaptureEvent";
 import { measure, unwrapServiceError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import { ReactCode镜像Ref } from "@uiw/react-codemirror";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SYMBOL_HOVER_TARGET_DATA_ATTRIBUTE } from "./symbolHoverTargetsExtension";
 
 interface UseHoveredOverSymbolInfoProps {
-    editorRef: ReactCodeMirrorRef;
+    editorRef: ReactCode镜像Ref;
     isSticky: boolean;
-    revisionName: string;
+    revision名称: string;
     language: string;
-    repoName: string;
+    repo名称: string;
 }
 
 export type SymbolDefinition = {
     lineContent: string;
     language: string;
-    fileName: string;
-    repoName: string;
-    revisionName: string;
+    file名称: string;
+    repo名称: string;
+    revision名称: string;
     range: SourceRange;
 }
 
 interface HoveredOverSymbolInfo {
     element: HTMLElement;
-    symbolName: string;
+    symbol名称: string;
     range: SourceRange;
     isSymbolDefinitionsLoading: boolean;
     symbolDefinitions?: SymbolDefinition[];
@@ -38,9 +38,9 @@ const SYMBOL_HOVER_POPUP_MOUSE_OUT_TIMEOUT_MS = 100;
 export const useHoveredOverSymbolInfo = ({
     editorRef,
     isSticky,
-    revisionName,
+    revision名称,
     language,
-    repoName,
+    repo名称,
 }: UseHoveredOverSymbolInfoProps): HoveredOverSymbolInfo | undefined => {
     const mouseOverTimerRef = useRef<NodeJS.Timeout | null>(null);
     const mouseOutTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -48,23 +48,23 @@ export const useHoveredOverSymbolInfo = ({
     const [isVisible, setIsVisible] = useState(false);
 
     const [symbolElement, setSymbolElement] = useState<HTMLElement | null>(null);
-    const symbolName = useMemo(() => {
+    const symbol名称 = useMemo(() => {
         return (symbolElement && symbolElement.textContent) ?? undefined;
     }, [symbolElement]);
 
     const captureEvent = useCaptureEvent();
 
     const { data: symbolDefinitions, isLoading: isSymbolDefinitionsLoading } = useQuery({
-        queryKey: ["definitions", symbolName, revisionName, language, repoName],
+        queryKey: ["definitions", symbol名称, revision名称, language, repo名称],
         queryFn: async () => {
             const response = await measure(() => unwrapServiceError(
-                findSearchBasedSymbolDefinitions({
-                    symbolName: symbolName!,
+                find搜索BasedSymbolDefinitions({
+                    symbol名称: symbol名称!,
                     language,
-                    revisionName,
-                    repoName,
+                    revision名称,
+                    repo名称,
                 })
-            ), 'findSearchBasedSymbolDefinitions', false);
+            ), 'find搜索BasedSymbolDefinitions', false);
 
             captureEvent('wa_symbol_hover_popup_definitions_loaded', {
                 durationMs: response.durationMs,
@@ -78,16 +78,16 @@ export const useHoveredOverSymbolInfo = ({
                     return {
                         lineContent: match.lineContent,
                         language: file.language,
-                        fileName: file.fileName,
-                        repoName: file.repository,
-                        revisionName: revisionName,
+                        file名称: file.file名称,
+                        repo名称: file.repository,
+                        revision名称: revision名称,
                         range: match.range,
                     }
                 })
             })
 
         }),
-        enabled: !!symbolName,
+        enabled: !!symbol名称,
         staleTime: Infinity,
     })
 
@@ -162,7 +162,7 @@ export const useHoveredOverSymbolInfo = ({
             return undefined;
         }
 
-        // Convert CodeMirror positions to SourceRange format
+        // Convert Code镜像 positions to SourceRange format
         const startLine = view.state.doc.lineAt(startPos);
         const endLine = view.state.doc.lineAt(endPos);
 
@@ -187,13 +187,13 @@ export const useHoveredOverSymbolInfo = ({
         return undefined;
     }
 
-    if (!symbolElement || !symbolName || !highlightRange) {
+    if (!symbolElement || !symbol名称 || !highlightRange) {
         return undefined;
     }
 
     return {
         element: symbolElement,
-        symbolName,
+        symbol名称,
         range: highlightRange,
         isSymbolDefinitionsLoading: isSymbolDefinitionsLoading,
         symbolDefinitions,

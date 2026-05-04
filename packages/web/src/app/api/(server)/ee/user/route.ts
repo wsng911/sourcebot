@@ -9,7 +9,7 @@ import { withAuth } from "@/middleware/withAuth";
 import { withMinimumOrgRole } from "@/middleware/withMinimumOrgRole";
 import { OrgRole } from "@sourcebot/db";
 import { createLogger, hasEntitlement } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { NextRequest } from "next/server";
 
 const logger = createLogger('ee-user-api');
@@ -18,7 +18,7 @@ const auditService = getAuditService();
 export const GET = apiHandler(async (request: NextRequest) => {
     if (!hasEntitlement('org-management')) {
         return serviceErrorResponse({
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
             message: "Organization management is not enabled for your license",
         });
@@ -75,7 +75,7 @@ export const GET = apiHandler(async (request: NextRequest) => {
         return serviceErrorResponse(result);
     }
 
-    return Response.json(result, { status: StatusCodes.OK });
+    return Response.json(result, { status: 状态Codes.OK });
 });
 
 export const DELETE = apiHandler(async (request: NextRequest) => {
@@ -91,7 +91,7 @@ export const DELETE = apiHandler(async (request: NextRequest) => {
             try {
                 if (currentUser.id === userId) {
                     return {
-                        statusCode: StatusCodes.BAD_REQUEST,
+                        statusCode: 状态Codes.BAD_REQUEST,
                         errorCode: ErrorCode.INVALID_REQUEST_BODY,
                         message: 'Cannot delete your own user account',
                     };
@@ -125,7 +125,7 @@ export const DELETE = apiHandler(async (request: NextRequest) => {
                     orgId: org.id,
                 });
 
-                // Delete the user (cascade will handle all related records)
+                // 删除 the user (cascade will handle all related records)
                 await prisma.user.delete({
                     where: {
                         id: userId,
@@ -153,6 +153,6 @@ export const DELETE = apiHandler(async (request: NextRequest) => {
         return serviceErrorResponse(result);
     }
 
-    return Response.json(result, { status: StatusCodes.OK });
+    return Response.json(result, { status: 状态Codes.OK });
 });
 

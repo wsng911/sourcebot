@@ -4,7 +4,7 @@ import { isServiceError } from "@/lib/utils";
 import { withAuth } from "@/middleware/withAuth";
 import Link from "next/link";
 import { ConnectionsTable } from "./components/connectionsTable";
-import { ConnectionSyncJobStatus } from "@prisma/client";
+import { Connection同步Job状态 } from "@prisma/client";
 
 const DOCS_URL = "https://docs.sourcebot.dev/docs/connections/overview";
 
@@ -18,32 +18,32 @@ export default async function ConnectionsPage() {
     const connections = _connections
         .map((connection) => ({
             ...connection,
-            isFirstTimeSync: connection.syncedAt === null && connection.syncJobs.filter((job) => job.status === ConnectionSyncJobStatus.PENDING || job.status === ConnectionSyncJobStatus.IN_PROGRESS).length > 0,
-            latestJobStatus: connection.syncJobs.length > 0 ? connection.syncJobs[0].status : null,
+            isFirstTime同步: connection.syncedAt === null && connection.syncJobs.filter((job) => job.status === Connection同步Job状态.PENDING || job.status === Connection同步Job状态.IN_PROGRESS).length > 0,
+            latestJob状态: connection.syncJobs.length > 0 ? connection.syncJobs[0].status : null,
         }))
         .sort((a, b) => {
-            if (a.isFirstTimeSync && !b.isFirstTimeSync) {
+            if (a.isFirstTime同步 && !b.isFirstTime同步) {
                 return -1;
             }
-            if (!a.isFirstTimeSync && b.isFirstTimeSync) {
+            if (!a.isFirstTime同步 && b.isFirstTime同步) {
                 return 1;
             }
             return a.name.localeCompare(b.name);
         });
 
     return (
-        <div className="flex flex-col gap-6">
+        <div class名称="flex flex-col gap-6">
             <div>
-                <h3 className="text-lg font-medium">Code Host Connections</h3>
-                <p className="text-sm text-muted-foreground">Manage your connections to external code hosts. <Link href={DOCS_URL} target="_blank" className="text-link hover:underline">Learn more</Link></p>
+                <h3 class名称="text-lg font-medium">Code Host Connections</h3>
+                <p class名称="text-sm text-muted-foreground">Manage your connections to external code hosts. <Link href={DOCS_URL} target="_blank" class名称="text-link hover:underline">Learn more</Link></p>
             </div>
             <ConnectionsTable data={connections.map((connection) => ({
                 id: connection.id,
                 name: connection.name,
                 connectionType: connection.connectionType,
                 syncedAt: connection.syncedAt,
-                latestJobStatus: connection.latestJobStatus,
-                isFirstTimeSync: connection.isFirstTimeSync,
+                latestJob状态: connection.latestJob状态,
+                isFirstTime同步: connection.isFirstTime同步,
             }))} />
         </div>
     )

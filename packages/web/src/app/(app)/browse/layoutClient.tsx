@@ -7,36 +7,36 @@ import { BrowseStateProvider } from "./browseStateProvider";
 import { FileTreePanel } from "./components/fileTreePanel";
 import { TopBar } from "@/app/(app)/components/topBar";
 import { useBrowseParams } from "./hooks/useBrowseParams";
-import { FileSearchCommandDialog } from "./components/fileSearchCommandDialog";
-import { SearchBar } from "../components/searchBar";
+import { File搜索CommandDialog } from "./components/file搜索CommandDialog";
+import { 搜索Bar } from "../components/searchBar";
 import escapeStringRegexp from "escape-string-regexp";
 import { Session } from "next-auth";
 
 interface LayoutProps {
     children: React.ReactNode;
     session: Session | null;
-    isSearchAssistSupported: boolean;
+    is搜索AssistSupported: boolean;
 }
 
 export function LayoutClient({
     children,
     session,
-    isSearchAssistSupported,
+    is搜索AssistSupported,
 }: LayoutProps) {
-    const { repoName, revisionName, pathType } = useBrowseParams();
+    const { repo名称, revision名称, pathType } = useBrowseParams();
     return (
         <BrowseStateProvider>
-            <div className="flex flex-col h-screen">
+            <div class名称="flex flex-col h-screen">
                 <TopBar
                     session={session}
                 >
-                    <SearchBar
+                    <搜索Bar
                         size="sm"
                         defaults={{
-                            query: `repo:^${escapeStringRegexp(repoName)}$${revisionName ? ` rev:${revisionName}` : ''} `,
+                            query: `repo:^${escapeStringRegexp(repo名称)}$${revision名称 ? ` rev:${revision名称}` : ''} `,
                         }}
-                        className="w-full"
-                        isSearchAssistSupported={isSearchAssistSupported}
+                        class名称="w-full"
+                        is搜索AssistSupported={is搜索AssistSupported}
                     />
                 </TopBar>
                 <ResizablePanelGroup
@@ -73,7 +73,7 @@ export function LayoutClient({
                     </ResizablePanel>
                 </ResizablePanelGroup>
             </div>
-            <FileSearchCommandDialog />
+            <File搜索CommandDialog />
         </BrowseStateProvider>
     );
 }

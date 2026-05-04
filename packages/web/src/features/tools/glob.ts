@@ -7,7 +7,7 @@ import { Source, ToolDefinition } from "./types";
 import { logger } from "./logger";
 import description from "./glob.txt";
 import { CodeHostType } from "@sourcebot/db";
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 
 const DEFAULT_LIMIT = 100;
 const TRUNCATION_MESSAGE = `(Results truncated. Consider using a more specific pattern, specifying a repo, or increasing the limit.)`;
@@ -48,7 +48,7 @@ export type GlobFile = {
 
 export type GlobRepoInfo = {
     name: string;
-    displayName: string;
+    display名称: string;
     codeHostType: CodeHostType;
 };
 
@@ -114,8 +114,8 @@ export const globDefinition: ToolDefinition<'glob', typeof globShape, GlobMetada
         }
 
         const files = response.files.map((file) => ({
-            path: file.fileName.text,
-            name: file.fileName.text.split('/').pop() ?? file.fileName.text,
+            path: file.file名称.text,
+            name: file.file名称.text.split('/').pop() ?? file.file名称.text,
             repo: file.repository,
             revision: ref ?? 'HEAD',
         } satisfies GlobFile));
@@ -123,21 +123,21 @@ export const globDefinition: ToolDefinition<'glob', typeof globShape, GlobMetada
         const repoInfoMap = Object.fromEntries(
             response.repositoryInfo.map((info) => [info.name, {
                 name: info.name,
-                displayName: info.displayName ?? info.name,
+                display名称: info.display名称 ?? info.name,
                 codeHostType: info.codeHostType,
             }])
         );
 
-        const truncated = !response.isSearchExhaustive;
+        const truncated = !response.is搜索Exhaustive;
 
-        const inputRepoResult = repo ? await getRepoInfoByName(repo) : undefined;
+        const inputRepoResult = repo ? await getRepoInfoBy名称(repo) : undefined;
         if (isServiceError(inputRepoResult)) {
-            throw new Error(`Repository "${repo}" not found.`);
+            throw new Error(`仓库 "${repo}" not found.`);
         }
 
         const inputRepo = inputRepoResult ? {
             name: inputRepoResult.name,
-            displayName: inputRepoResult.displayName ?? inputRepoResult.name,
+            display名称: inputRepoResult.display名称 ?? inputRepoResult.name,
             codeHostType: inputRepoResult.codeHostType,
         } : undefined;
         

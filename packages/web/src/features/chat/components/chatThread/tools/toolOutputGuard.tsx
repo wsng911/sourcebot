@@ -1,7 +1,7 @@
 'use client';
 
 import { SBChatMessageToolTypes } from "@/features/chat/types";
-import { CopyIconButton } from "@/app/(app)/components/copyIconButton";
+import { 复制IconButton } from "@/app/(app)/components/copyIconButton";
 import { ToolUIPart } from "ai";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -36,12 +36,12 @@ export const ToolOutputGuard = <T extends ToolUIPart<{ [K in keyof SBChatMessage
         ? (part.errorText ?? '')
         : undefined;
 
-    const onCopyRequest = useCallback(() => {
+    const on复制Request = useCallback(() => {
         navigator.clipboard.writeText(requestText);
         return true;
     }, [requestText]);
 
-    const onCopyResponse = useCallback(() => {
+    const on复制Response = useCallback(() => {
         if (!responseText) {
             return false;
         }
@@ -50,15 +50,15 @@ export const ToolOutputGuard = <T extends ToolUIPart<{ [K in keyof SBChatMessage
     }, [responseText]);
 
     return (
-        <div className="flex flex-col gap-1.5">
-            <div className="flex items-center gap-2">
-                <div className="flex-1 min-w-0">
+        <div class名称="flex flex-col gap-1.5">
+            <div class名称="flex items-center gap-2">
+                <div class名称="flex-1 min-w-0">
                     {part.state === 'output-error' ? (
-                        <span className="text-sm flex-1 text-destructive">
+                        <span class名称="text-sm flex-1 text-destructive">
                             {part.title!} failed with error: {part.errorText}
                         </span>
                     ) : part.state !== 'output-available' ? (
-                        <span className="text-sm flex-1 text-muted-foreground animate-pulse">
+                        <span class名称="text-sm flex-1 text-muted-foreground animate-pulse">
                             {loadingText}
                         </span>
                     ) : (
@@ -68,17 +68,17 @@ export const ToolOutputGuard = <T extends ToolUIPart<{ [K in keyof SBChatMessage
                 {hasInput && <ExpandButton isExpanded={isExpanded} onToggle={onToggle} />}
             </div>
             {hasInput && isExpanded && (
-                <div className="rounded-lg border border-border text-xs overflow-y-auto max-h-72">
-                    <ResultSection label={`Request (${part.type})`} onCopy={onCopyRequest}>
-                        <pre className="whitespace-pre-wrap break-all font-mono">
+                <div class名称="rounded-lg border border-border text-xs overflow-y-auto max-h-72">
+                    <ResultSection label={`Request (${part.type})`} on复制={on复制Request}>
+                        <pre class名称="whitespace-pre-wrap break-all font-mono">
                             {requestText}
                         </pre>
                     </ResultSection>
                     {responseText !== undefined && (
                         <>
-                            <div className="border-t border-border" />
-                            <ResultSection label="Response" onCopy={onCopyResponse}>
-                                <pre className={cn("whitespace-pre-wrap break-all font-mono", part.state === 'output-error' && "text-destructive")}>
+                            <div class名称="border-t border-border" />
+                            <ResultSection label="Response" on复制={on复制Response}>
+                                <pre class名称={cn("whitespace-pre-wrap break-all font-mono", part.state === 'output-error' && "text-destructive")}>
                                     {responseText}
                                 </pre>
                             </ResultSection>
@@ -91,19 +91,19 @@ export const ToolOutputGuard = <T extends ToolUIPart<{ [K in keyof SBChatMessage
 }
 
 const ExpandButton = ({ isExpanded, onToggle }: { isExpanded: boolean; onToggle: () => void }) => (
-    <button onClick={onToggle} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors flex-shrink-0">
+    <button onClick={onToggle} class名称="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors flex-shrink-0">
         <span>Details</span>
-        <ChevronDown className={cn("h-3 w-3 transition-transform -rotate-90", isExpanded && "rotate-0")} />
+        <ChevronDown class名称={cn("h-3 w-3 transition-transform -rotate-90", isExpanded && "rotate-0")} />
     </button>
 );
 
-const ResultSection = ({ label, onCopy, children }: { label: string; onCopy: () => boolean; children: React.ReactNode }) => (
-    <div className="flex flex-col gap-1.5">
-        <div className="sticky top-0 flex items-center justify-between bg-muted px-3 py-1.5 border-b border-border">
-            <span className="font-medium text-foreground">{label}</span>
-            <CopyIconButton onCopy={onCopy} />
+const ResultSection = ({ label, on复制, children }: { label: string; on复制: () => boolean; children: React.ReactNode }) => (
+    <div class名称="flex flex-col gap-1.5">
+        <div class名称="sticky top-0 flex items-center justify-between bg-muted px-3 py-1.5 border-b border-border">
+            <span class名称="font-medium text-foreground">{label}</span>
+            <复制IconButton on复制={on复制} />
         </div>
-        <div className="text-muted-foreground p-3">
+        <div class名称="text-muted-foreground p-3">
             {children}
         </div>
     </div>

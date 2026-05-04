@@ -4,10 +4,10 @@ import type * as grpc from '@grpc/grpc-js'
 import type { MethodDefinition } from '@grpc/proto-loader'
 import type { ListRequest as _zoekt_webserver_v1_ListRequest, ListRequest__Output as _zoekt_webserver_v1_ListRequest__Output } from '../../../zoekt/webserver/v1/ListRequest';
 import type { ListResponse as _zoekt_webserver_v1_ListResponse, ListResponse__Output as _zoekt_webserver_v1_ListResponse__Output } from '../../../zoekt/webserver/v1/ListResponse';
-import type { SearchRequest as _zoekt_webserver_v1_SearchRequest, SearchRequest__Output as _zoekt_webserver_v1_SearchRequest__Output } from '../../../zoekt/webserver/v1/SearchRequest';
-import type { SearchResponse as _zoekt_webserver_v1_SearchResponse, SearchResponse__Output as _zoekt_webserver_v1_SearchResponse__Output } from '../../../zoekt/webserver/v1/SearchResponse';
-import type { StreamSearchRequest as _zoekt_webserver_v1_StreamSearchRequest, StreamSearchRequest__Output as _zoekt_webserver_v1_StreamSearchRequest__Output } from '../../../zoekt/webserver/v1/StreamSearchRequest';
-import type { StreamSearchResponse as _zoekt_webserver_v1_StreamSearchResponse, StreamSearchResponse__Output as _zoekt_webserver_v1_StreamSearchResponse__Output } from '../../../zoekt/webserver/v1/StreamSearchResponse';
+import type { 搜索Request as _zoekt_webserver_v1_搜索Request, 搜索Request__Output as _zoekt_webserver_v1_搜索Request__Output } from '../../../zoekt/webserver/v1/搜索Request';
+import type { 搜索Response as _zoekt_webserver_v1_搜索Response, 搜索Response__Output as _zoekt_webserver_v1_搜索Response__Output } from '../../../zoekt/webserver/v1/搜索Response';
+import type { Stream搜索Request as _zoekt_webserver_v1_Stream搜索Request, Stream搜索Request__Output as _zoekt_webserver_v1_Stream搜索Request__Output } from '../../../zoekt/webserver/v1/Stream搜索Request';
+import type { Stream搜索Response as _zoekt_webserver_v1_Stream搜索Response, Stream搜索Response__Output as _zoekt_webserver_v1_Stream搜索Response__Output } from '../../../zoekt/webserver/v1/Stream搜索Response';
 
 export interface WebserverServiceClient extends grpc.Client {
   /**
@@ -27,19 +27,19 @@ export interface WebserverServiceClient extends grpc.Client {
   list(argument: _zoekt_webserver_v1_ListRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_ListResponse__Output>): grpc.ClientUnaryCall;
   list(argument: _zoekt_webserver_v1_ListRequest, callback: grpc.requestCallback<_zoekt_webserver_v1_ListResponse__Output>): grpc.ClientUnaryCall;
   
-  Search(argument: _zoekt_webserver_v1_SearchRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
-  Search(argument: _zoekt_webserver_v1_SearchRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
-  Search(argument: _zoekt_webserver_v1_SearchRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
-  Search(argument: _zoekt_webserver_v1_SearchRequest, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
-  search(argument: _zoekt_webserver_v1_SearchRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
-  search(argument: _zoekt_webserver_v1_SearchRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
-  search(argument: _zoekt_webserver_v1_SearchRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
-  search(argument: _zoekt_webserver_v1_SearchRequest, callback: grpc.requestCallback<_zoekt_webserver_v1_SearchResponse__Output>): grpc.ClientUnaryCall;
+  搜索(argument: _zoekt_webserver_v1_搜索Request, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
+  搜索(argument: _zoekt_webserver_v1_搜索Request, metadata: grpc.Metadata, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
+  搜索(argument: _zoekt_webserver_v1_搜索Request, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
+  搜索(argument: _zoekt_webserver_v1_搜索Request, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
+  search(argument: _zoekt_webserver_v1_搜索Request, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
+  search(argument: _zoekt_webserver_v1_搜索Request, metadata: grpc.Metadata, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
+  search(argument: _zoekt_webserver_v1_搜索Request, options: grpc.CallOptions, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
+  search(argument: _zoekt_webserver_v1_搜索Request, callback: grpc.requestCallback<_zoekt_webserver_v1_搜索Response__Output>): grpc.ClientUnaryCall;
   
-  StreamSearch(argument: _zoekt_webserver_v1_StreamSearchRequest, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_StreamSearchResponse__Output>;
-  StreamSearch(argument: _zoekt_webserver_v1_StreamSearchRequest, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_StreamSearchResponse__Output>;
-  streamSearch(argument: _zoekt_webserver_v1_StreamSearchRequest, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_StreamSearchResponse__Output>;
-  streamSearch(argument: _zoekt_webserver_v1_StreamSearchRequest, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_StreamSearchResponse__Output>;
+  Stream搜索(argument: _zoekt_webserver_v1_Stream搜索Request, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_Stream搜索Response__Output>;
+  Stream搜索(argument: _zoekt_webserver_v1_Stream搜索Request, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_Stream搜索Response__Output>;
+  stream搜索(argument: _zoekt_webserver_v1_Stream搜索Request, metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_Stream搜索Response__Output>;
+  stream搜索(argument: _zoekt_webserver_v1_Stream搜索Request, options?: grpc.CallOptions): grpc.ClientReadableStream<_zoekt_webserver_v1_Stream搜索Response__Output>;
   
 }
 
@@ -50,14 +50,14 @@ export interface WebserverServiceHandlers extends grpc.UntypedServiceImplementat
    */
   List: grpc.handleUnaryCall<_zoekt_webserver_v1_ListRequest__Output, _zoekt_webserver_v1_ListResponse>;
   
-  Search: grpc.handleUnaryCall<_zoekt_webserver_v1_SearchRequest__Output, _zoekt_webserver_v1_SearchResponse>;
+  搜索: grpc.handleUnaryCall<_zoekt_webserver_v1_搜索Request__Output, _zoekt_webserver_v1_搜索Response>;
   
-  StreamSearch: grpc.handleServerStreamingCall<_zoekt_webserver_v1_StreamSearchRequest__Output, _zoekt_webserver_v1_StreamSearchResponse>;
+  Stream搜索: grpc.handleServerStreamingCall<_zoekt_webserver_v1_Stream搜索Request__Output, _zoekt_webserver_v1_Stream搜索Response>;
   
 }
 
 export interface WebserverServiceDefinition extends grpc.ServiceDefinition {
   List: MethodDefinition<_zoekt_webserver_v1_ListRequest, _zoekt_webserver_v1_ListResponse, _zoekt_webserver_v1_ListRequest__Output, _zoekt_webserver_v1_ListResponse__Output>
-  Search: MethodDefinition<_zoekt_webserver_v1_SearchRequest, _zoekt_webserver_v1_SearchResponse, _zoekt_webserver_v1_SearchRequest__Output, _zoekt_webserver_v1_SearchResponse__Output>
-  StreamSearch: MethodDefinition<_zoekt_webserver_v1_StreamSearchRequest, _zoekt_webserver_v1_StreamSearchResponse, _zoekt_webserver_v1_StreamSearchRequest__Output, _zoekt_webserver_v1_StreamSearchResponse__Output>
+  搜索: MethodDefinition<_zoekt_webserver_v1_搜索Request, _zoekt_webserver_v1_搜索Response, _zoekt_webserver_v1_搜索Request__Output, _zoekt_webserver_v1_搜索Response__Output>
+  Stream搜索: MethodDefinition<_zoekt_webserver_v1_Stream搜索Request, _zoekt_webserver_v1_Stream搜索Response, _zoekt_webserver_v1_Stream搜索Request__Output, _zoekt_webserver_v1_Stream搜索Response__Output>
 }

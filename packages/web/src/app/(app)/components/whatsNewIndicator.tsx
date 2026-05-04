@@ -103,69 +103,69 @@ export default function WhatsNewIndicator({ newsItems = newsData, autoMarkAsRead
         <Button
           variant="ghost"
           size="icon"
-          className="relative h-9 w-9 rounded-full hover:bg-muted"
+          class名称="relative h-9 w-9 rounded-full hover:bg-muted"
           aria-label={`What's new${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
         >
-          <HelpCircle className="h-4 w-4" />
+          <HelpCircle class名称="h-4 w-4" />
           {isInitialized && unreadCount > 0 && (
             <Badge
               variant="destructive"
-              className="absolute -top-1 -right-1 h-5 w-5 p-0 text-[10px] flex items-center justify-center"
+              class名称="absolute -top-1 -right-1 h-5 w-5 p-0 text-[10px] flex items-center justify-center"
             >
               {unreadCount > 9 ? "9+" : unreadCount}
-              <span className="sr-only">{unreadCount} unread updates</span>
+              <span class名称="sr-only">{unreadCount} unread updates</span>
             </Badge>
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="end" sideOffset={8}>
-        <div className="border-b p-4">
-          <div className="flex items-center justify-between">
+      <PopoverContent class名称="w-80 p-0" align="end" sideOffset={8}>
+        <div class名称="border-b p-4">
+          <div class名称="flex items-center justify-between">
             <div>
-              <h3 className="font-semibold text-sm">{"What's New"}</h3>
-              <p className="text-xs text-muted-foreground mt-1">
+              <h3 class名称="font-semibold text-sm">{"What's New"}</h3>
+              <p class名称="text-xs text-muted-foreground mt-1">
                 {unreadCount > 0 ? `${unreadCount} unread update${unreadCount === 1 ? "" : "s"}` : "All caught up!"}
               </p>
             </div>
             {unreadCount > 0 && (
-              <Button variant="ghost" size="sm" onClick={markAllAsRead} className="text-xs h-7">
+              <Button variant="ghost" size="sm" onClick={markAllAsRead} class名称="text-xs h-7">
                 Mark all read
               </Button>
             )}
           </div>
 
         </div>
-        <div className="max-h-[32rem] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
+        <div class名称="max-h-[32rem] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
           {newsItemsWithReadState.length === 0 ? (
-            <div className="p-4 text-center text-sm text-muted-foreground">No recent updates</div>
+            <div class名称="p-4 text-center text-sm text-muted-foreground">No recent updates</div>
           ) : (
-            <div className="space-y-1 p-2">
+            <div class名称="space-y-1 p-2">
               {newsItemsWithReadState.map((item, index) => (
                 <div
                   key={item.unique_id}
-                  className={`relative rounded-md transition-colors ${item.read ? "opacity-60" : ""} ${index !== newsItemsWithReadState.length - 1 ? "border-b border-border/50" : ""
+                  class名称={`relative rounded-md transition-colors ${item.read ? "opacity-60" : ""} ${index !== newsItemsWithReadState.length - 1 ? "border-b border-border/50" : ""
                     }`}
                 >
-                  {!item.read && <div className="absolute left-2 top-3 h-2 w-2 bg-blue-500 rounded-full"></div>}
+                  {!item.read && <div class名称="absolute left-2 top-3 h-2 w-2 bg-blue-500 rounded-full"></div>}
                   <button
                     onClick={() => handleNewsItemClick(item)}
-                    className="w-full text-left p-3 pl-6 rounded-md hover:bg-muted transition-colors group"
+                    class名称="w-full text-left p-3 pl-6 rounded-md hover:bg-muted transition-colors group"
                   >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1 min-w-0">
+                    <div class名称="flex items-start justify-between gap-2">
+                      <div class名称="flex-1 min-w-0">
                         <h4
-                          className={`font-medium text-sm leading-tight group-hover:text-primary ${item.read ? "text-muted-foreground" : ""
+                          class名称={`font-medium text-sm leading-tight group-hover:text-primary ${item.read ? "text-muted-foreground" : ""
                             }`}
                         >
                           {item.header}
                         </h4>
-                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{item.sub_header}</p>
+                        <p class名称="text-xs text-muted-foreground mt-1 line-clamp-2">{item.sub_header}</p>
                       </div>
-                      <div className="flex items-center gap-1 flex-shrink-0">
+                      <div class名称="flex items-center gap-1 flex-shrink-0">
                         {item.read ? (
-                          <MailOpen className="h-3 w-3 text-muted-foreground group-hover:text-primary" />
+                          <MailOpen class名称="h-3 w-3 text-muted-foreground group-hover:text-primary" />
                         ) : (
-                          <Mail className="h-3 w-3 text-muted-foreground group-hover:text-primary" />
+                          <Mail class名称="h-3 w-3 text-muted-foreground group-hover:text-primary" />
                         )}
                       </div>
                     </div>
@@ -176,14 +176,14 @@ export default function WhatsNewIndicator({ newsItems = newsData, autoMarkAsRead
           )}
         </div>
         <Separator />
-        <div className="px-2 py-2 text-xs text-muted-foreground">
+        <div class名称="px-2 py-2 text-xs text-muted-foreground">
           Current version: {SOURCEBOT_VERSION}
           {env.NEXT_PUBLIC_BUILD_COMMIT_SHA && (
             <Link
-              className="ml-1 font-mono"
+              class名称="ml-1 font-mono"
               href={`https://github.com/sourcebot-dev/sourcebot/commit/${env.NEXT_PUBLIC_BUILD_COMMIT_SHA}`}
             >
-              (<span className="hover:underline">{env.NEXT_PUBLIC_BUILD_COMMIT_SHA.substring(0, 7)}</span>)
+              (<span class名称="hover:underline">{env.NEXT_PUBLIC_BUILD_COMMIT_SHA.substring(0, 7)}</span>)
             </Link>
           )}
         </div>

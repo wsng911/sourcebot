@@ -5,14 +5,14 @@ import { createContext, useCallback, useEffect, useState } from "react";
 
 export interface BrowseState {
     selectedSymbolInfo?: {
-        symbolName: string;
-        repoName: string;
-        revisionName: string;
+        symbol名称: string;
+        repo名称: string;
+        revision名称: string;
         language: string;
     }
     isBottomPanelCollapsed: boolean;
     isFileTreePanelCollapsed: boolean;
-    isFileSearchOpen: boolean;
+    isFile搜索Open: boolean;
     activeExploreMenuTab: "references" | "definitions";
     activeBottomPanelTab: "explore" | "history";
     bottomPanelSize: number;
@@ -22,7 +22,7 @@ const defaultState: BrowseState = {
     selectedSymbolInfo: undefined,
     isBottomPanelCollapsed: true,
     isFileTreePanelCollapsed: false,
-    isFileSearchOpen: false,
+    isFile搜索Open: false,
     activeExploreMenuTab: "references",
     activeBottomPanelTab: "history",
     bottomPanelSize: 35,
@@ -63,7 +63,7 @@ export const BrowseStateProvider = ({ children }: BrowseStateProviderProps) => {
                 console.error("Error parsing hydratedBrowseState", error);
             }
 
-            // Remove the query param
+            // 移除 the query param
             const url = new URL(window.location.href);
             url.searchParams.delete(SET_BROWSE_STATE_QUERY_PARAM);
             window.history.replaceState({}, '', url.toString());

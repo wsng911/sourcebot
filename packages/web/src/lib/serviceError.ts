@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { ErrorCode } from "./errorCodes";
 import { z, ZodError } from "zod";
 
@@ -31,7 +31,7 @@ export const serviceErrorResponse = ({ statusCode, errorCode, message }: Service
 
 export const missingQueryParam = (name: string): ServiceError => {
     return {
-        statusCode: StatusCodes.BAD_REQUEST,
+        statusCode: 状态Codes.BAD_REQUEST,
         errorCode: ErrorCode.MISSING_REQUIRED_QUERY_PARAMETER,
         message: `Missing required query parameter: ${name}`,
     };
@@ -39,7 +39,7 @@ export const missingQueryParam = (name: string): ServiceError => {
 
 export const requestBodySchemaValidationError = (error: ZodError): ServiceError => {
     return {
-        statusCode: StatusCodes.BAD_REQUEST,
+        statusCode: 状态Codes.BAD_REQUEST,
         errorCode: ErrorCode.INVALID_REQUEST_BODY,
         message: `Schema validation failed with: ${error.message}`,
     };
@@ -47,23 +47,23 @@ export const requestBodySchemaValidationError = (error: ZodError): ServiceError 
 
 export const queryParamsSchemaValidationError = (error: ZodError): ServiceError => {
     return {
-        statusCode: StatusCodes.BAD_REQUEST,
+        statusCode: 状态Codes.BAD_REQUEST,
         errorCode: ErrorCode.INVALID_QUERY_PARAMS,
         message: `Query params validation failed with: ${error.message}`,
     };
 }
 
-export const fileNotFound = (fileName: string, repository: string): ServiceError => {
+export const fileNotFound = (file名称: string, repository: string): ServiceError => {
     return {
-        statusCode: StatusCodes.NOT_FOUND,
+        statusCode: 状态Codes.NOT_FOUND,
         errorCode: ErrorCode.FILE_NOT_FOUND,
-        message: `File "${fileName}" not found in repository "${repository}"`,
+        message: `File "${file名称}" not found in repository "${repository}"`,
     };
 }
 
 export const unexpectedError = (message: string): ServiceError => {
     return {
-        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        statusCode: 状态Codes.INTERNAL_SERVER_ERROR,
         errorCode: ErrorCode.UNEXPECTED_ERROR,
         message: `Unexpected error: ${message}`,
     };
@@ -71,7 +71,7 @@ export const unexpectedError = (message: string): ServiceError => {
 
 export const notAuthenticated = (): ServiceError => {
     return {
-        statusCode: StatusCodes.UNAUTHORIZED,
+        statusCode: 状态Codes.UNAUTHORIZED,
         errorCode: ErrorCode.NOT_AUTHENTICATED,
         message: "Not authenticated",
     }
@@ -79,7 +79,7 @@ export const notAuthenticated = (): ServiceError => {
 
 export const notFound = (message?: string): ServiceError => {
     return {
-        statusCode: StatusCodes.NOT_FOUND,
+        statusCode: 状态Codes.NOT_FOUND,
         errorCode: ErrorCode.NOT_FOUND,
         message: message ?? "Not found",
     }
@@ -87,7 +87,7 @@ export const notFound = (message?: string): ServiceError => {
 
 export const userNotFound = (): ServiceError => {
     return {
-        statusCode: StatusCodes.NOT_FOUND,
+        statusCode: 状态Codes.NOT_FOUND,
         errorCode: ErrorCode.USER_NOT_FOUND,
         message: "User not found",
     }
@@ -95,7 +95,7 @@ export const userNotFound = (): ServiceError => {
 
 export const orgNotFound = (): ServiceError => {
     return {
-        statusCode: StatusCodes.NOT_FOUND,
+        statusCode: 状态Codes.NOT_FOUND,
         errorCode: ErrorCode.ORG_NOT_FOUND,
         message: "Organization not found",
     }
@@ -103,7 +103,7 @@ export const orgNotFound = (): ServiceError => {
 
 export const invalidGitRef = (ref: string): ServiceError => {
     return {
-        statusCode: StatusCodes.BAD_REQUEST,
+        statusCode: 状态Codes.BAD_REQUEST,
         errorCode: ErrorCode.INVALID_GIT_REF,
         message: `Invalid git reference: "${ref}". Git refs cannot start with '-'.`,
     };
@@ -111,7 +111,7 @@ export const invalidGitRef = (ref: string): ServiceError => {
 
 export const unresolvedGitRef = (ref: string): ServiceError => {
     return {
-        statusCode: StatusCodes.BAD_REQUEST,
+        statusCode: 状态Codes.BAD_REQUEST,
         errorCode: ErrorCode.INVALID_GIT_REF,
         message: `Git reference "${ref}" could not be resolved.`,
     };

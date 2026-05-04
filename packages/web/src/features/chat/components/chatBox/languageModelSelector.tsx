@@ -31,14 +31,14 @@ interface LanguageModelSelectorProps {
     languageModels: LanguageModelInfo[];
     selectedModel?: LanguageModelInfo;
     onSelectedModelChange: (model: LanguageModelInfo) => void;
-    className?: string;
+    class名称?: string;
 }
 
 export const LanguageModelSelector = ({
     languageModels: _languageModels,
     selectedModel,
     onSelectedModelChange,
-    className,
+    class名称,
 }: LanguageModelSelectorProps) => {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
@@ -76,43 +76,43 @@ export const LanguageModelSelector = ({
                     <TooltipTrigger asChild>
                         <Button
                             onClick={handleTogglePopover}
-                            className={cn(
+                            class名称={cn(
                                 "flex p-1 rounded-md items-center justify-between bg-inherit h-6",
-                                className
+                                class名称
                             )}
                         >
-                            <div className="flex items-center justify-between mx-auto max-w-64 overflow-hidden">
+                            <div class名称="flex items-center justify-between mx-auto max-w-64 overflow-hidden">
                                 {selectedModel ? (
                                     <ModelProviderLogo
                                         provider={selectedModel.provider}
-                                        className="mr-1"
+                                        class名称="mr-1"
                                     />
                                 ) : (
-                                    <Bot className="h-4 w-4 text-muted-foreground mr-1" />
+                                    <Bot class名称="h-4 w-4 text-muted-foreground mr-1" />
                                 )}
                                 <span
-                                    className={cn(
+                                    class名称={cn(
                                         "text-sm text-muted-foreground mx-1 text-ellipsis overflow-hidden whitespace-nowrap font-medium",
                                     )}
                                 >
-                                    {selectedModel ? (selectedModel.displayName ?? selectedModel.model) : "Select model"}
+                                    {selectedModel ? (selectedModel.display名称 ?? selectedModel.model) : "Select model"}
                                 </span>
-                                <ChevronDown className="h-4 cursor-pointer text-muted-foreground" />
+                                <ChevronDown class名称="h-4 cursor-pointer text-muted-foreground" />
                             </div>
                         </Button>
                     </TooltipTrigger>
                 </PopoverTrigger>
-                <TooltipContent side="bottom" className="p-0 border-0 bg-transparent shadow-none">
+                <TooltipContent side="bottom" class名称="p-0 border-0 bg-transparent shadow-none">
                     <LanguageModelInfoCard />
                 </TooltipContent>
                 <PopoverContent
-                    className="w-auto p-0"
+                    class名称="w-auto p-0"
                     align="start"
                     onEscapeKeyDown={() => setIsPopoverOpen(false)}
                 >
                     <Command>
                         <CommandInput
-                            placeholder="Search models..."
+                            placeholder="搜索 models..."
                             onKeyDown={handleInputKeyDown}
                         />
                         <CommandList>
@@ -129,23 +129,23 @@ export const LanguageModelSelector = ({
                                                 onSelect={() => {
                                                     selectModel(model)
                                                 }}
-                                                className="cursor-pointer"
+                                                class名称="cursor-pointer"
                                             >
                                                 <div
-                                                    className={cn(
+                                                    class名称={cn(
                                                         "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                                                         isSelected
                                                             ? "bg-primary text-primary-foreground"
                                                             : "opacity-50 [&_svg]:invisible"
                                                     )}
                                                 >
-                                                    <CheckIcon className="h-4 w-4" />
+                                                    <CheckIcon class名称="h-4 w-4" />
                                                 </div>
                                                 <ModelProviderLogo
                                                     provider={model.provider}
-                                                    className="mr-2"
+                                                    class名称="mr-2"
                                                 />
-                                                <span>{model.displayName ?? model.model}</span>
+                                                <span>{model.display名称 ?? model.model}</span>
                                             </CommandItem>
                                         );
                                     })}

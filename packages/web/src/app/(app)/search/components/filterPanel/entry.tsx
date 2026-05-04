@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 export type Entry = {
     key: string;
-    displayName: string;
+    display名称: string;
     count: number;
     isSelected: boolean;
     isHidden: boolean;
@@ -22,7 +22,7 @@ interface EntryProps {
 export const Entry = ({
     entry: {
         isSelected,
-        displayName,
+        display名称,
         count,
         Icon,
         isDisabled,
@@ -35,7 +35,7 @@ export const Entry = ({
     }
     return (
         <div
-            className={clsx(
+            class名称={clsx(
                 "flex flex-row items-center justify-between py-0.5 px-1 cursor-pointer rounded-md gap-2 select-none",
                 {
                     "hover:bg-gray-200 dark:hover:bg-gray-700": !isSelected,
@@ -45,22 +45,22 @@ export const Entry = ({
             )}
             onClick={() => onClicked()}
         >
-            <div className="flex flex-row items-center gap-1 overflow-hidden min-w-0">
+            <div class名称="flex flex-row items-center gap-1 overflow-hidden min-w-0">
                 {Icon ? Icon : (
-                    <QuestionMarkCircledIcon className="w-4 h-4 flex-shrink-0" />
+                    <QuestionMarkCircledIcon class名称="w-4 h-4 flex-shrink-0" />
                 )}
-                <div className="overflow-hidden flex-1 min-w-0">
+                <div class名称="overflow-hidden flex-1 min-w-0">
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <p className="overflow-hidden text-ellipsis whitespace-nowrap truncate-start"><span>{displayName}</span></p>
+                            <p class名称="overflow-hidden text-ellipsis whitespace-nowrap truncate-start"><span>{display名称}</span></p>
                         </TooltipTrigger>
-                        <TooltipContent side="right" className="max-w-sm">
-                            <p className="font-mono text-sm break-all whitespace-pre-wrap">{displayName}</p>
+                        <TooltipContent side="right" class名称="max-w-sm">
+                            <p class名称="font-mono text-sm break-all whitespace-pre-wrap">{display名称}</p>
                         </TooltipContent>
                     </Tooltip>
                 </div>
             </div>
-            <div className="px-2 py-0.5 bg-accent text-sm rounded-md flex-shrink-0">
+            <div class名称="px-2 py-0.5 bg-accent text-sm rounded-md flex-shrink-0">
                 {countText}
             </div>
         </div>

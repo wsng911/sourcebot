@@ -6,7 +6,7 @@ import { createLogger } from "@sourcebot/shared";
 
 const logger = createLogger('generate-pr-review');
 
-export const generatePrReviews = async (reviewAgentLogFileName: string | undefined, pr_payload: sourcebot_pr_payload, rules: string[]): Promise<sourcebot_file_diff_review[]> => {
+export const generatePrReviews = async (reviewAgentLogFile名称: string | undefined, pr_payload: sourcebot_pr_payload, rules: string[]): Promise<sourcebot_file_diff_review[]> => {
     logger.debug("Executing generate_pr_reviews");
 
     const file_diff_reviews: sourcebot_file_diff_review[] = [];
@@ -32,7 +32,7 @@ export const generatePrReviews = async (reviewAgentLogFileName: string | undefin
 
                 const prompt = await generateDiffReviewPrompt(diff, context, rules);
                 
-                const diffReview = await invokeDiffReviewLlm(reviewAgentLogFileName, prompt);
+                const diffReview = await invokeDiffReviewLlm(reviewAgentLogFile名称, prompt);
                 reviews.push(...diffReview.reviews);
             } catch (error) {
                 logger.error(`Error generating review for ${file_diff.to}: ${error}`);

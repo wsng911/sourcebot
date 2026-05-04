@@ -36,8 +36,8 @@ export type Connection = {
     name: string
     syncedAt: Date | null
     connectionType: ConnectionType
-    latestJobStatus: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "FAILED" | null
-    isFirstTimeSync: boolean
+    latestJob状态: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "FAILED" | null
+    isFirstTime同步: boolean
 }
 
 const statusBadgeVariants = cva("", {
@@ -51,7 +51,7 @@ const statusBadgeVariants = cva("", {
     },
 })
 
-const getStatusBadge = (status: Connection["latestJobStatus"]) => {
+const get状态Badge = (status: Connection["latestJob状态"]) => {
     if (!status) {
         return "-";
     }
@@ -63,7 +63,7 @@ const getStatusBadge = (status: Connection["latestJobStatus"]) => {
         FAILED: "Failed",
     }
 
-    return <Badge className={statusBadgeVariants({ status })}>{labels[status]}</Badge>
+    return <Badge class名称={statusBadgeVariants({ status })}>{labels[status]}</Badge>
 }
 
 export const columns: ColumnDef<Connection>[] = [
@@ -73,8 +73,8 @@ export const columns: ColumnDef<Connection>[] = [
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                    Name
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    名称
+                    <ArrowUpDown class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
@@ -83,22 +83,22 @@ export const columns: ColumnDef<Connection>[] = [
             const codeHostIcon = getCodeHostIcon(connection.connectionType);
 
             return (
-                <div className="flex flex-row gap-2 items-center">
+                <div class名称="flex flex-row gap-2 items-center">
                     <Image
                         src={codeHostIcon.src}
                         alt={`${connection.connectionType} logo`}
-                        className={codeHostIcon.className}
+                        class名称={codeHostIcon.class名称}
                         width={20}
                         height={20}
                     />
-                    <Link href={`/settings/connections/${connection.id}`} className="font-medium hover:underline">
+                    <Link href={`/settings/connections/${connection.id}`} class名称="font-medium hover:underline">
                         {connection.name}
                     </Link>
-                    {connection.isFirstTimeSync && (
+                    {connection.isFirstTime同步 && (
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <span>
-                                    <NotificationDot className="ml-1.5" />
+                                    <NotificationDot class名称="ml-1.5" />
                                 </span>
                             </TooltipTrigger>
                             <TooltipContent>
@@ -111,10 +111,10 @@ export const columns: ColumnDef<Connection>[] = [
         },
     },
     {
-        accessorKey: "latestJobStatus",
+        accessorKey: "latestJob状态",
         size: 150,
         header: "Lastest status",
-        cell: ({ row }) => getStatusBadge(row.getValue("latestJobStatus")),
+        cell: ({ row }) => get状态Badge(row.getValue("latestJob状态")),
     },
     {
         accessorKey: "syncedAt",
@@ -126,7 +126,7 @@ export const columns: ColumnDef<Connection>[] = [
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Last synced
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    <ArrowUpDown class名称="ml-2 h-4 w-4" />
                 </Button>
             )
         },
@@ -137,7 +137,7 @@ export const columns: ColumnDef<Connection>[] = [
             }
 
             return (
-                <DisplayDate date={syncedAt} className="ml-3" />
+                <DisplayDate date={syncedAt} class名称="ml-3" />
             )
         }
     },
@@ -159,11 +159,11 @@ export const ConnectionsTable = ({ data }: { data: Connection[] }) => {
         numNoJobs,
     } = useMemo(() => {
         return {
-            numCompleted: data.filter((connection) => connection.latestJobStatus === "COMPLETED").length,
-            numInProgress: data.filter((connection) => connection.latestJobStatus === "IN_PROGRESS").length,
-            numPending: data.filter((connection) => connection.latestJobStatus === "PENDING").length,
-            numFailed: data.filter((connection) => connection.latestJobStatus === "FAILED").length,
-            numNoJobs: data.filter((connection) => connection.latestJobStatus === null).length,
+            numCompleted: data.filter((connection) => connection.latestJob状态 === "COMPLETED").length,
+            numInProgress: data.filter((connection) => connection.latestJob状态 === "IN_PROGRESS").length,
+            numPending: data.filter((connection) => connection.latestJob状态 === "PENDING").length,
+            numFailed: data.filter((connection) => connection.latestJob状态 === "FAILED").length,
+            numNoJobs: data.filter((connection) => connection.latestJob状态 === null).length,
         }
     }, [data]);
 
@@ -189,21 +189,21 @@ export const ConnectionsTable = ({ data }: { data: Connection[] }) => {
     })
 
     return (
-        <div className="w-full">
-            <div className="flex items-center gap-4 py-4">
+        <div class名称="w-full">
+            <div class名称="flex items-center gap-4 py-4">
                 <Input
                     placeholder="Filter connections..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
-                    className="max-w-sm"
+                    class名称="max-w-sm"
                 />
                 <Select
-                    value={(table.getColumn("latestJobStatus")?.getFilterValue() as string) ?? "all"}
+                    value={(table.getColumn("latestJob状态")?.getFilterValue() as string) ?? "all"}
                     onValueChange={(value) => {
-                        table.getColumn("latestJobStatus")?.setFilterValue(value === "all" ? "" : value)
+                        table.getColumn("latestJob状态")?.setFilterValue(value === "all" ? "" : value)
                     }}
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger class名称="w-[180px]">
                         <SelectValue placeholder="Filter by status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -217,7 +217,7 @@ export const ConnectionsTable = ({ data }: { data: Connection[] }) => {
                 </Select>
                 <Button
                     variant="outline"
-                    className="ml-auto"
+                    class名称="ml-auto"
                     onClick={() => {
                         router.refresh();
                         toast({
@@ -225,11 +225,11 @@ export const ConnectionsTable = ({ data }: { data: Connection[] }) => {
                         });
                     }}
                 >
-                    <RefreshCwIcon className="w-3 h-3" />
+                    <RefreshCwIcon class名称="w-3 h-3" />
                     Refresh
                 </Button>
             </div>
-            <div className="rounded-md border">
+            <div class名称="rounded-md border">
                 <Table style={{ width: '100%' }}>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -263,7 +263,7 @@ export const ConnectionsTable = ({ data }: { data: Connection[] }) => {
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} class名称="h-24 text-center">
                                     No results.
                                 </TableCell>
                             </TableRow>
@@ -271,11 +271,11 @@ export const ConnectionsTable = ({ data }: { data: Connection[] }) => {
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
+            <div class名称="flex items-center justify-end space-x-2 py-4">
+                <div class名称="flex-1 text-sm text-muted-foreground">
                     {table.getFilteredRowModel().rows.length} {data.length > 1 ? 'connections' : 'connection'} total
                 </div>
-                <div className="space-x-2">
+                <div class名称="space-x-2">
                     <Button
                         variant="outline"
                         size="sm"

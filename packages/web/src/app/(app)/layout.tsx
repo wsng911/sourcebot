@@ -17,18 +17,18 @@ import { SyntaxReferenceGuide } from "./components/syntaxReferenceGuide";
 import { SyntaxGuideProvider } from "./components/syntaxGuideProvider";
 import { notFound, redirect } from "next/navigation";
 import { PendingApprovalCard } from "./components/pendingApproval";
-import { SubmitJoinRequest } from "./components/submitJoinRequest";
+import { 提交JoinRequest } from "./components/submitJoinRequest";
 import { hasEntitlement } from "@sourcebot/shared";
 import { env } from "@sourcebot/shared";
 import { GcpIapAuth } from "./components/gcpIapAuth";
-import { getAnonymousAccessStatus, getMemberApprovalRequired } from "@/actions";
+import { getAnonymousAccess状态, getMemberApprovalRequired } from "@/actions";
 import { JoinOrganizationCard } from "@/app/components/joinOrganizationCard";
 import { LogoutEscapeHatch } from "@/app/components/logoutEscapeHatch";
 import { GitHubStarToast } from "./components/githubStarToast";
 import { UpgradeToast } from "./components/upgradeToast";
 import { getLinkedAccounts } from "@/ee/features/sso/actions";
-import { PermissionSyncBanner } from "./components/permissionSyncBanner";
-import { getPermissionSyncStatus } from "../api/(server)/ee/permissionSyncStatus/api";
+import { Permission同步Banner } from "./components/permission同步Banner";
+import { getPermission同步状态 } from "../api/(server)/ee/permission同步状态/api";
 import { ServiceErrorException } from "@/lib/serviceError";
 import { ConnectAccountsCard } from "@/ee/features/sso/components/connectAccountsCard";
 
@@ -55,7 +55,7 @@ export default async function Layout(props: LayoutProps) {
             return false;
         }
 
-        const status = await getAnonymousAccessStatus();
+        const status = await getAnonymousAccess状态();
         if (isServiceError(status)) {
             return false;
         }
@@ -85,8 +85,8 @@ export default async function Layout(props: LayoutProps) {
             const memberApprovalRequired = await getMemberApprovalRequired();
             if (!memberApprovalRequired) {
                 return (
-                    <div className="min-h-screen flex items-center justify-center p-6">
-                        <LogoutEscapeHatch className="absolute top-0 right-0 p-6" />
+                    <div class名称="min-h-screen flex items-center justify-center p-6">
+                        <LogoutEscapeHatch class名称="absolute top-0 right-0 p-6" />
                         <JoinOrganizationCard />
                     </div>
                 )
@@ -101,7 +101,7 @@ export default async function Layout(props: LayoutProps) {
                 if (hasPendingApproval) {
                     return <PendingApprovalCard />
                 } else {
-                    return <SubmitJoinRequest />
+                    return <提交JoinRequest />
                 }
             }
         }
@@ -141,8 +141,8 @@ export default async function Layout(props: LayoutProps) {
             const hasRequiredUnlinkedProviders = unlinkedProviders.some(a => a.required);
             if (hasRequiredUnlinkedProviders || !hasSkippedOptional) {
                 return (
-                    <div className="min-h-screen flex items-center justify-center p-6">
-                        <LogoutEscapeHatch className="absolute top-0 right-0 p-6" />
+                    <div class名称="min-h-screen flex items-center justify-center p-6">
+                        <LogoutEscapeHatch class名称="absolute top-0 right-0 p-6" />
                         <ConnectAccountsCard linkedAccounts={linkedAccounts} callbackUrl="/" />
                     </div>
                 )
@@ -160,17 +160,17 @@ export default async function Layout(props: LayoutProps) {
             <MobileUnsupportedSplashScreen />
         )
     }
-    const isPermissionSyncBannerVisible = session && hasEntitlement("permission-syncing");
-    const hasPendingFirstSync = isPermissionSyncBannerVisible ? (await getPermissionSyncStatus()) : null;
+    const isPermission同步BannerVisible = session && hasEntitlement("permission-syncing");
+    const hasPendingFirst同步 = isPermission同步BannerVisible ? (await getPermission同步状态()) : null;
 
     return (
         <SyntaxGuideProvider>
             {
-                isPermissionSyncBannerVisible ? (
-                    <PermissionSyncBanner
-                        initialHasPendingFirstSync={(isServiceError(hasPendingFirstSync) || hasPendingFirstSync === null) ?
+                isPermission同步BannerVisible ? (
+                    <Permission同步Banner
+                        initialHasPendingFirst同步={(isServiceError(hasPendingFirst同步) || hasPendingFirst同步 === null) ?
                             false :
-                            hasPendingFirstSync.hasPendingFirstSync
+                            hasPendingFirst同步.hasPendingFirst同步
                         }
                     />
                 ) : null

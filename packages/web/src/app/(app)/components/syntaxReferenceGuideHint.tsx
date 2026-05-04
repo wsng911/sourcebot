@@ -8,10 +8,10 @@ export const SyntaxReferenceGuideHint = () => {
 
     return (
         <div
-            className="text-sm cursor-pointer"
+            class名称="text-sm cursor-pointer"
             onClick={() => onOpenChanged(!isOpen)}
         >
-            <span className="dark:text-gray-300">Reference guide: </span><KeyboardShortcutHint shortcut="mod" /> <KeyboardShortcutHint shortcut="/" />
+            <span class名称="dark:text-gray-300">Reference guide: </span><KeyboardShortcutHint shortcut="mod" /> <KeyboardShortcutHint shortcut="/" />
         </div>
     )
 }

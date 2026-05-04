@@ -1,7 +1,7 @@
 import 'next-auth/jwt';
 import NextAuth, { DefaultSession, User as AuthJsUser } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import EmailProvider from "next-auth/providers/nodemailer";
+import 邮箱Provider from "next-auth/providers/nodemailer";
 import { __unsafePrisma } from "@/prisma";
 import { env, getSMTPConnectionURL } from "@sourcebot/shared";
 import { User } from '@sourcebot/db';
@@ -10,11 +10,11 @@ import type { Provider } from "next-auth/providers";
 import { verifyCredentialsRequestSchema } from './lib/schemas';
 import { createTransport } from 'nodemailer';
 import { render } from '@react-email/render';
-import MagicLinkEmail from './emails/magicLinkEmail';
+import MagicLink邮箱 from './emails/magicLink邮箱';
 import bcrypt from 'bcryptjs';
 import { getEEIdentityProviders } from '@/ee/features/sso/sso';
 import { hasEntitlement } from '@sourcebot/shared';
-import { onCreateUser } from '@/lib/authUtils';
+import { on创建User } from '@/lib/authUtils';
 import { getAuditService } from '@/ee/features/audit/factory';
 import { SINGLE_TENANT_ORG_ID } from './lib/constants';
 import { EncryptedPrismaAdapter, encryptAccountData } from '@/lib/encryptedPrismaAdapter';
@@ -53,7 +53,7 @@ export const getProviders = () => {
     const smtpConnectionUrl = getSMTPConnectionURL();
     if (smtpConnectionUrl && env.EMAIL_FROM_ADDRESS && env.AUTH_EMAIL_CODE_LOGIN_ENABLED === 'true') {
         providers.push({
-            provider: EmailProvider({
+            provider: 邮箱Provider({
                 server: smtpConnectionUrl,
                 from: env.EMAIL_FROM_ADDRESS,
                 maxAge: 60 * 10,
@@ -63,7 +63,7 @@ export const getProviders = () => {
                 },
                 sendVerificationRequest: async ({ identifier, provider, token }) => {
                     const transport = createTransport(provider.server);
-                    const html = await render(MagicLinkEmail({ token: token }));
+                    const html = await render(MagicLink邮箱({ token: token }));
                     const result = await transport.sendMail({
                         to: identifier,
                         from: provider.from,
@@ -74,7 +74,7 @@ export const getProviders = () => {
 
                     const failed = result.rejected.concat(result.pending).filter(Boolean);
                     if (failed.length) {
-                        throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
+                        throw new Error(`邮箱(s) (${failed.join(", ")}) could not be sent`);
                     }
                 }
             }), purpose: "sso"
@@ -102,11 +102,11 @@ export const getProviders = () => {
 
                     // The user doesn't exist, so create a new one.
                     if (!user) {
-                        const hashedPassword = bcrypt.hashSync(password, 10);
+                        const hashed密码 = bcrypt.hash同步(password, 10);
                         const newUser = await __unsafePrisma.user.create({
                             data: {
                                 email,
-                                hashedPassword,
+                                hashed密码,
                             }
                         });
 
@@ -115,16 +115,16 @@ export const getProviders = () => {
                             email: newUser.email,
                         }
 
-                        onCreateUser({ user: authJsUser });
+                        on创建User({ user: authJsUser });
                         return authJsUser;
 
                         // Otherwise, the user exists, so verify the password.
                     } else {
-                        if (!user.hashedPassword) {
+                        if (!user.hashed密码) {
                             return null;
                         }
 
-                        if (!bcrypt.compareSync(password, user.hashedPassword)) {
+                        if (!bcrypt.compare同步(password, user.hashed密码)) {
                             return null;
                         }
 
@@ -153,7 +153,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     trustHost: true,
     events: {
-        createUser: onCreateUser,
+        createUser: on创建User,
         signIn: async ({ user, account }) => {
             // Explicitly update the Account record with the OAuth token details.
             // This is necessary to update the access token when the user

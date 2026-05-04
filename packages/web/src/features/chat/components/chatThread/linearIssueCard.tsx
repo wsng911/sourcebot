@@ -9,28 +9,28 @@ interface LinearIssueCardProps {
     identifier: string;
     title: string;
     href: string;
-    className?: string;
+    class名称?: string;
 }
 
-export const LinearIssueCard = ({ identifier, title, href, className }: LinearIssueCardProps) => {
+export const LinearIssueCard = ({ identifier, title, href, class名称 }: LinearIssueCardProps) => {
     return (
         <a
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(
+            class名称={cn(
                 "not-prose inline-flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border bg-muted hover:bg-accent transition-colors text-sm no-underline",
-                className
+                class名称
             )}
         >
             <Image
                 src={linearLogo}
                 alt="Linear"
-                className="w-4 h-4 shrink-0 dark:invert"
+                class名称="w-4 h-4 shrink-0 dark:invert"
             />
-            <span className="font-mono font-semibold text-foreground">{identifier}</span>
-            <span className="text-muted-foreground truncate max-w-[240px] capitalize">{title}</span>
-            <ExternalLinkIcon className="w-3 h-3 shrink-0 text-muted-foreground" />
+            <span class名称="font-mono font-semibold text-foreground">{identifier}</span>
+            <span class名称="text-muted-foreground truncate max-w-[240px] capitalize">{title}</span>
+            <ExternalLinkIcon class名称="w-3 h-3 shrink-0 text-muted-foreground" />
         </a>
     );
 };

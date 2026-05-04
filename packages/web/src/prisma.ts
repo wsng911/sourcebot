@@ -25,7 +25,7 @@ export const __unsafePrisma = globalForPrisma.prisma || new PrismaClient({
 if (env.NODE_ENV !== "production") globalForPrisma.prisma = __unsafePrisma
 
 /**
- * Creates a prisma client extension that scopes queries to striclty information
+ * 创建s a prisma client extension that scopes queries to striclty information
  * a given user should be able to access.
  */
 export const userScopedPrismaClientExtension = (user?: UserWithAccounts) => {
@@ -59,7 +59,7 @@ export const userScopedPrismaClientExtension = (user?: UserWithAccounts) => {
  */
 export const getRepoPermissionFilterForUser = (user?: UserWithAccounts): Prisma.RepoWhereInput => {
     // Collect the issuer URLs from the user's linked accounts.
-    // Used to grant access to public repos on connections with enforcePermissionsForPublicRepos: true.
+    // Used to grant access to public repos on connections with enforcePermissionsFor公开Repos: true.
     const linkedAccountIssuerUrls = (user?.accounts ?? [])
         .map(account => account.issuerUrl)
         .filter((url): url is string => url !== null && url !== undefined);
@@ -100,12 +100,12 @@ export const getRepoPermissionFilterForUser = (user?: UserWithAccounts): Prisma.
                 ]
             },
             // 3. The repo is public and either:
-            //   - a. The `enforcePermissionsForPublicRepos` flag is *not* set to `true`
+            //   - a. The `enforcePermissionsFor公开Repos` flag is *not* set to `true`
             //     on any of the repo's connections.
             //   - b. The user has a account linked to the same code host as the repo.
             {
                 AND: [
-                    { isPublic: true },
+                    { is公开: true },
                     { connections: { some: {} } }, // guard against vacuous truthiness
                     {
                         OR: [
@@ -113,7 +113,7 @@ export const getRepoPermissionFilterForUser = (user?: UserWithAccounts): Prisma.
                                 NOT: {
                                     connections: {
                                         some: {
-                                            connection: { enforcePermissionsForPublicRepos: true }
+                                            connection: { enforcePermissionsFor公开Repos: true }
                                         }
                                     }
                                 }

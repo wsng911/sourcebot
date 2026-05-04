@@ -9,24 +9,24 @@ import { isServiceError } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 
 
-export function SubmitAccountRequestButton() {
+export function 提交AccountRequestButton() {
     const { toast } = useToast()
     const router = useRouter()
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [is提交ting, setIs提交ting] = useState(false)
 
-    const handleSubmit = async () => {
-        setIsSubmitting(true)
+    const handle提交 = async () => {
+        setIs提交ting(true)
         const result = await createAccountRequest()
         if (!isServiceError(result)) {
             if (result.existingRequest) {
                 toast({
-                    title: "Request Already Submitted",
+                    title: "Request Already 提交ted",
                     description: "Your request to join the organization has already been submitted. Please wait for it to be approved.",
                     variant: "default",
                 })
             } else {
                 toast({
-                    title: "Request Submitted",
+                    title: "Request 提交ted",
                     description: "Your request to join the organization has been submitted.",
                     variant: "default",
                 })
@@ -35,27 +35,27 @@ export function SubmitAccountRequestButton() {
             router.refresh()
         } else {
             toast({
-                title: "Failed to Submit",
+                title: "Failed to 提交",
                 description: `There was an error submitting your request. Reason: ${result.message}`,
                 variant: "destructive",
             })
         }
-        setIsSubmitting(false)
+        setIs提交ting(false)
     }
 
     return (
-        <form onSubmit={(e) => {
+        <form on提交={(e) => {
             e.preventDefault();
-            handleSubmit();
+            handle提交();
         }}>
             <Button
                 type="submit"
-                className="flex items-center gap-2"
+                class名称="flex items-center gap-2"
                 variant="outline"
-                disabled={isSubmitting}
+                disabled={is提交ting}
             >
-                <Clock className="h-4 w-4" />
-                {isSubmitting ? "Submitting..." : "Submit Request"}
+                <Clock class名称="h-4 w-4" />
+                {is提交ting ? "提交ting..." : "提交 Request"}
             </Button>
         </form>
     )

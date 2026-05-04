@@ -20,11 +20,11 @@ export interface ToolContext {
 }
 
 export interface ToolDefinition<
-    TName extends string,
+    T名称 extends string,
     TShape extends z.ZodRawShape,
     TMetadata = Record<string, unknown>,
 > {
-    name: TName;
+    name: T名称;
     title: string;
     description: string;
     inputSchema: z.ZodObject<TShape>;

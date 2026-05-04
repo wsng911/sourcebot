@@ -1,10 +1,10 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { useCodeMirrorHighlighter } from '@/hooks/useCodeMirrorHighlighter'
+import { useCode镜像Highlighter } from '@/hooks/useCode镜像Highlighter'
 import tailwind from '@/tailwind'
 import { measure } from '@/lib/utils'
 import { highlightCode } from '@/lib/codeHighlight'
 import { SourceRange } from '@/features/search'
-import { CopyIconButton } from './copyIconButton'
+import { 复制IconButton } from './copyIconButton'
 
 interface LightweightCodeHighlighter {
     language: string;
@@ -15,7 +15,7 @@ interface LightweightCodeHighlighter {
     /* 1-based line number offset */
     lineNumbersOffset?: number;
     renderWhitespace?: boolean;
-    isCopyButtonVisible?: boolean;
+    is复制ButtonVisible?: boolean;
 }
 
 // The maximum number of characters per line that we will display in the preview.
@@ -24,7 +24,7 @@ const MAX_NUMBER_OF_CHARACTER_PER_LINE = 1000;
 /**
  * Lightweight code highlighter that uses the Lezer parser to highlight code.
  * This is helpful in scenarios where we need to highlight a ton of code snippets
- * (e.g., code nav, search results, etc)., but can't use the full-blown CodeMirror
+ * (e.g., code nav, search results, etc)., but can't use the full-blown Code镜像
  * editor because of perf issues.
  * 
  * Inspired by: https://github.com/craftzdog/react-codemirror-runmode
@@ -37,7 +37,7 @@ export const LightweightCodeHighlighter = memo<LightweightCodeHighlighter>((prop
         lineNumbers = false,
         lineNumbersOffset = 1,
         renderWhitespace = false,
-        isCopyButtonVisible = false,
+        is复制ButtonVisible = false,
     } = props;
 
     const unhighlightedLines = useMemo(() => {
@@ -50,7 +50,7 @@ export const LightweightCodeHighlighter = memo<LightweightCodeHighlighter>((prop
 
     const [highlightedLines, setHighlightedLines] = useState<React.ReactNode[] | null>(null);
 
-    const highlightStyle = useCodeMirrorHighlighter();
+    const highlightStyle = useCode镜像Highlighter();
 
     useEffect(() => {
         if (isFileTooLargeToDisplay) {
@@ -79,7 +79,7 @@ export const LightweightCodeHighlighter = memo<LightweightCodeHighlighter>((prop
                             return (
                                 <span
                                     key={from}
-                                    className={`${style || ''}`}
+                                    class名称={`${style || ''}`}
                                 >
                                     {text}
                                 </span>
@@ -102,7 +102,7 @@ export const LightweightCodeHighlighter = memo<LightweightCodeHighlighter>((prop
         isFileTooLargeToDisplay,
     ]);
 
-    const onCopy = useCallback(() => {
+    const on复制 = useCallback(() => {
         try {
             navigator.clipboard.writeText(code);
             return true;
@@ -117,18 +117,18 @@ export const LightweightCodeHighlighter = memo<LightweightCodeHighlighter>((prop
 
     if (isFileTooLargeToDisplay) {
         return (
-            <div className="font-mono text-sm px-2">
+            <div class名称="font-mono text-sm px-2">
                 File too large to display in preview.
             </div>
         );
     }
 
     return (
-        <div className="relative group">
-            {isCopyButtonVisible && (
-                <CopyIconButton
-                    onCopy={onCopy}
-                    className="absolute top-1 right-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity group-hover:bg-background"
+        <div class名称="relative group">
+            {is复制ButtonVisible && (
+                <复制IconButton
+                    on复制={on复制}
+                    class名称="absolute top-1 right-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity group-hover:bg-background"
                 />
             )}
             <div
@@ -142,7 +142,7 @@ export const LightweightCodeHighlighter = memo<LightweightCodeHighlighter>((prop
                 {(highlightedLines ?? unhighlightedLines).map((line, index) => (
                     <div
                         key={index}
-                        className="flex"
+                        class名称="flex"
                     >
                         {lineNumbers && (
                             <span
@@ -177,4 +177,4 @@ export const LightweightCodeHighlighter = memo<LightweightCodeHighlighter>((prop
     )
 })
 
-LightweightCodeHighlighter.displayName = 'LightweightCodeHighlighter';
+LightweightCodeHighlighter.display名称 = 'LightweightCodeHighlighter';

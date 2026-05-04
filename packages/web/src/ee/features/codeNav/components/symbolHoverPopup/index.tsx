@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { createAuditAction } from "@/ee/features/audit/actions";
 import useCaptureEvent from "@/hooks/useCaptureEvent";
 import { computePosition, flip, offset, shift, VirtualElement } from "@floating-ui/react";
-import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import { ReactCode镜像Ref } from "@uiw/react-codemirror";
 import { Loader2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -17,20 +17,20 @@ import { SymbolDefinitionPreview } from "./symbolDefinitionPreview";
 import { useHoveredOverSymbolInfo } from "./useHoveredOverSymbolInfo";
 
 interface SymbolHoverPopupProps {
-    editorRef: ReactCodeMirrorRef;
+    editorRef: ReactCode镜像Ref;
     language: string;
-    revisionName: string;
-    repoName: string;
-    fileName: string;
+    revision名称: string;
+    repo名称: string;
+    file名称: string;
     source: 'browse' | 'preview' | 'chat';
 }
 
 export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
     editorRef,
-    revisionName,
+    revision名称,
     language,
-    repoName,
-    fileName,
+    repo名称,
+    file名称,
     source,
 }) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -42,9 +42,9 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
     const symbolInfo = useHoveredOverSymbolInfo({
         editorRef,
         isSticky,
-        revisionName,
+        revision名称,
         language,
-        repoName,
+        repo名称,
     });
 
     // Positions the popup relative to the symbol
@@ -95,7 +95,7 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
 
         const matchingDefinition = symbolInfo.symbolDefinitions.find(
             (definition) => (
-                definition.fileName === fileName && definition.repoName === repoName
+                definition.file名称 === file名称 && definition.repo名称 === repo名称
             )
         );
 
@@ -104,7 +104,7 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
         }
 
         return symbolInfo.symbolDefinitions[0];
-    }, [fileName, repoName, symbolInfo?.symbolDefinitions]);
+    }, [file名称, repo名称, symbolInfo?.symbolDefinitions]);
 
     const onGotoDefinition = useCallback(() => {
         if (
@@ -122,33 +122,33 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
         createAuditAction({
             action: "user.performed_goto_definition",
             metadata: {
-                message: symbolInfo.symbolName,
+                message: symbolInfo.symbol名称,
                 source: 'sourcebot-web-client',
             },
         });
 
         const {
-            fileName,
-            repoName,
-            revisionName,
+            file名称,
+            repo名称,
+            revision名称,
             language,
             range: highlightRange,
         } = previewedSymbolDefinition;
 
         navigateToPath({
             // Always navigate to the preview symbol definition.
-            repoName,
-            revisionName,
-            path: fileName,
+            repo名称,
+            revision名称,
+            path: file名称,
             pathType: 'blob',
             highlightRange,
             // If there are multiple definitions, we should open the Explore panel with the definitions.
             ...(symbolInfo.symbolDefinitions.length > 1 ? {
                 setBrowseState: {
                     selectedSymbolInfo: {
-                        symbolName: symbolInfo.symbolName,
-                        repoName,
-                        revisionName,
+                        symbol名称: symbolInfo.symbol名称,
+                        repo名称,
+                        revision名称,
                         language,
                     },
                     activeExploreMenuTab: "definitions",
@@ -177,22 +177,22 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
         createAuditAction({
             action: "user.performed_find_references",
             metadata: {
-                message: symbolInfo.symbolName,
+                message: symbolInfo.symbol名称,
                 source: 'sourcebot-web-client',
             },
         })
 
         navigateToPath({
-            repoName,
-            revisionName,
-            path: fileName,
+            repo名称,
+            revision名称,
+            path: file名称,
             pathType: 'blob',
             highlightRange: symbolInfo.range,
             setBrowseState: {
                 selectedSymbolInfo: {
-                    symbolName: symbolInfo.symbolName,
-                    repoName,
-                    revisionName,
+                    symbol名称: symbolInfo.symbol名称,
+                    repo名称,
+                    revision名称,
                     language,
                 },
                 activeExploreMenuTab: "references",
@@ -200,7 +200,7 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
                 activeBottomPanelTab: 'explore'
             }
         })
-    }, [captureEvent, fileName, language, navigateToPath, repoName, revisionName, source, symbolInfo]);
+    }, [captureEvent, file名称, language, navigateToPath, repo名称, revision名称, source, symbolInfo]);
 
     // @todo: We should probably make the behaviour s.t., the ctrl / cmd key needs to be held
     // down to navigate to the definition. We should also only show the underline when the key
@@ -220,7 +220,7 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
         onFindReferences();
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
+        enableOnContent编辑able: true,
         description: "Open Explore Panel",
     });
 
@@ -239,7 +239,7 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
         onGotoDefinition();
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
+        enableOnContent编辑able: true,
         description: "Go to definition",
     })
 
@@ -253,24 +253,24 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
     return createPortal(
         <div
             ref={ref}
-            className="absolute z-10 flex flex-col gap-2 bg-background border border-gray-300 dark:border-gray-700 rounded-md shadow-lg p-2 max-w-3xl"
+            class名称="absolute z-10 flex flex-col gap-2 bg-background border border-gray-300 dark:border-gray-700 rounded-md shadow-lg p-2 max-w-3xl"
             onMouseOver={() => setIsSticky(true)}
             onMouseOut={() => setIsSticky(false)}
         >
             {symbolInfo.isSymbolDefinitionsLoading ? (
-                <div className="flex flex-row items-center gap-2 text-sm">
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Loading...
+                <div class名称="flex flex-row items-center gap-2 text-sm">
+                    <Loader2 class名称="w-4 h-4 animate-spin" />
+                    加载中...
                 </div>
             ) : previewedSymbolDefinition ? (
                 <SymbolDefinitionPreview
                     symbolDefinition={previewedSymbolDefinition}
                 />
             ) : (
-                <p className="text-sm font-medium text-muted-foreground">No hover info found</p>
+                <p class名称="text-sm font-medium text-muted-foreground">No hover info found</p>
             )}
             <Separator />
-            <div className="flex flex-row gap-2 mt-2">
+            <div class名称="flex flex-row gap-2 mt-2">
                 <Tooltip delayDuration={500}>
                     <TooltipTrigger asChild>
                         <LoadingButton
@@ -289,10 +289,10 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
                     </TooltipTrigger>
                     <TooltipContent
                         side="bottom"
-                        className="flex flex-row items-center gap-2"
+                        class名称="flex flex-row items-center gap-2"
                     >
                         <KeyboardShortcutHint shortcut="alt+f12" />
-                        <Separator orientation="vertical" className="h-4" />
+                        <Separator orientation="vertical" class名称="h-4" />
                         <span>{`Go to ${symbolInfo.symbolDefinitions && symbolInfo.symbolDefinitions.length > 1 ? "definitions" : "definition"}`}</span>
                     </TooltipContent>
                 </Tooltip>
@@ -308,10 +308,10 @@ export const SymbolHoverPopup: React.FC<SymbolHoverPopupProps> = ({
                     </TooltipTrigger>
                     <TooltipContent
                         side="bottom"
-                        className="flex flex-row items-center gap-2"
+                        class名称="flex flex-row items-center gap-2"
                     >
                         <KeyboardShortcutHint shortcut="alt+shift+f12" />
-                        <Separator orientation="vertical" className="h-4" />
+                        <Separator orientation="vertical" class名称="h-4" />
                         <span>Find references</span>
                     </TooltipContent>
                 </Tooltip>

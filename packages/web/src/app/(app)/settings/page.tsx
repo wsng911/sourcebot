@@ -4,7 +4,7 @@ import { isServiceError } from "@/lib/utils";
 import { ServiceErrorException } from "@/lib/serviceError";
 import { auth } from "@/auth";
 
-export default async function SettingsPage() {
+export default async function 设置Page() {
     const session = await auth();
     if (!session) {
         return redirect(`/`);

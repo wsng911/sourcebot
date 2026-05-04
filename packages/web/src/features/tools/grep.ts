@@ -7,7 +7,7 @@ import { Source, ToolDefinition } from "./types";
 import { logger } from "./logger";
 import description from "./grep.txt";
 import { CodeHostType } from "@sourcebot/db";
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 
 const DEFAULT_LIMIT = 100;
 const DEFAULT_GROUP_BY_REPO_LIMIT = 10_000;
@@ -59,7 +59,7 @@ export type GrepFile = {
 
 export type GrepRepoInfo = {
     name: string;
-    displayName: string;
+    display名称: string;
     codeHostType: CodeHostType;
 };
 
@@ -76,7 +76,7 @@ export type GrepMetadata = {
 
 export const grepDefinition: ToolDefinition<'grep', typeof grepShape, GrepMetadata> = {
     name: 'grep',
-    title: 'Search code',
+    title: '搜索 code',
     isReadOnly: true,
     isIdempotent: true,
     description,
@@ -133,8 +133,8 @@ export const grepDefinition: ToolDefinition<'grep', typeof grepShape, GrepMetada
         }
 
         const files = response.files.map((file) => ({
-            path: file.fileName.text,
-            name: file.fileName.text.split('/').pop() ?? file.fileName.text,
+            path: file.file名称.text,
+            name: file.file名称.text.split('/').pop() ?? file.file名称.text,
             repo: file.repository,
             revision: ref ?? 'HEAD',
         } satisfies GrepFile));
@@ -142,19 +142,19 @@ export const grepDefinition: ToolDefinition<'grep', typeof grepShape, GrepMetada
         const repoInfoMap = Object.fromEntries(
             response.repositoryInfo.map((info) => [info.name, {
                 name: info.name,
-                displayName: info.displayName ?? info.name,
+                display名称: info.display名称 ?? info.name,
                 codeHostType: info.codeHostType,
             }])
         );
 
-        const inputRepoResult = repo ? await getRepoInfoByName(repo) : undefined;
+        const inputRepoResult = repo ? await getRepoInfoBy名称(repo) : undefined;
         if (isServiceError(inputRepoResult)) {
-            throw new Error(`Repository "${repo}" not found.`);
+            throw new Error(`仓库 "${repo}" not found.`);
         }
 
         const inputRepo = inputRepoResult ? {
             name: inputRepoResult.name,
-            displayName: inputRepoResult.displayName ?? inputRepoResult.name,
+            display名称: inputRepoResult.display名称 ?? inputRepoResult.name,
             codeHostType: inputRepoResult.codeHostType,
         } : undefined;
 
@@ -191,11 +191,11 @@ export const grepDefinition: ToolDefinition<'grep', typeof grepShape, GrepMetada
             const outputLines: string[] = [
                 `Found matches in ${repoCounts.size} ${repoCounts.size === 1 ? 'repository' : 'repositories'}:`,
             ];
-            for (const [repoName, { matches, files }] of repoCounts) {
-                outputLines.push(`  ${repoName}: ${matches} ${matches === 1 ? 'match' : 'matches'} in ${files} ${files === 1 ? 'file' : 'files'}`);
+            for (const [repo名称, { matches, files }] of repoCounts) {
+                outputLines.push(`  ${repo名称}: ${matches} ${matches === 1 ? 'match' : 'matches'} in ${files} ${files === 1 ? 'file' : 'files'}`);
             }
 
-            if (!response.isSearchExhaustive) {
+            if (!response.is搜索Exhaustive) {
                 outputLines.push('');
                 outputLines.push(TRUNCATION_MESSAGE);
             }
@@ -215,7 +215,7 @@ export const grepDefinition: ToolDefinition<'grep', typeof grepShape, GrepMetada
 
             for (const file of response.files) {
                 outputLines.push('');
-                outputLines.push(`[${file.repository}] ${file.fileName.text}:`);
+                outputLines.push(`[${file.repository}] ${file.file名称.text}:`);
                 for (const chunk of file.chunks) {
                     chunk.content.split('\n').forEach((content, i) => {
                         if (!content.trim()) {
@@ -230,7 +230,7 @@ export const grepDefinition: ToolDefinition<'grep', typeof grepShape, GrepMetada
                 }
             }
 
-            if (!response.isSearchExhaustive) {
+            if (!response.is搜索Exhaustive) {
                 outputLines.push('');
                 outputLines.push(TRUNCATION_MESSAGE);
             }

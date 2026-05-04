@@ -11,7 +11,7 @@ import {
     FoldingState,
 } from './codeFoldingExtension'
 import { FileReference } from '../../types'
-import { EditorState, StateField } from '@codemirror/state'
+import { 编辑orState, StateField } from '@codemirror/state'
 
 describe('calculateVisibleRanges', () => {
     test('applies padding to a single range', () => {
@@ -418,9 +418,9 @@ describe('StateField Integration', () => {
         const extension = createCodeFoldingExtension(references, 3);
         const stateField = (extension as any)[0] as StateField<FoldingState>;
         
-        // Create document with 50 lines
+        // 创建 document with 50 lines
         const doc = Array.from({ length: 50 }, (_, i) => `line${i + 1}`).join('\n');
-        const state = EditorState.create({
+        const state = 编辑orState.create({
             doc,
             extensions: [extension],
         });
@@ -446,7 +446,7 @@ describe('StateField Integration', () => {
         const stateField = (extension as any)[0] as StateField<FoldingState>;
         
         const doc = Array.from({ length: 20 }, (_, i) => `line${i + 1}`).join('\n');
-        const state = EditorState.create({
+        const state = 编辑orState.create({
             doc,
             extensions: [extension],
         });
@@ -466,7 +466,7 @@ describe('StateField Integration', () => {
         const stateField = (extension as any)[0] as StateField<FoldingState>;
         
         const doc = Array.from({ length: 30 }, (_, i) => `line${i + 1}`).join('\n');
-        let state = EditorState.create({
+        let state = 编辑orState.create({
             doc,
             extensions: [extension],
         });
@@ -517,7 +517,7 @@ describe('StateField Integration', () => {
         const stateField = (extension as any)[0] as StateField<FoldingState>;
         
         const doc = Array.from({ length: 50 }, (_, i) => `line${i + 1}`).join('\n');
-        let state = EditorState.create({
+        let state = 编辑orState.create({
             doc,
             extensions: [extension],
         });
@@ -564,7 +564,7 @@ describe('StateField Integration', () => {
         const stateField = (extension as any)[0] as StateField<FoldingState>;
         
         const doc = Array.from({ length: 50 }, (_, i) => `line${i + 1}`).join('\n');
-        let state = EditorState.create({
+        let state = 编辑orState.create({
             doc,
             extensions: [extension],
         });
@@ -601,7 +601,7 @@ describe('StateField Integration', () => {
         const stateField = (extension as any)[0] as StateField<FoldingState>;
         
         const doc = Array.from({ length: 20 }, (_, i) => `line${i + 1}`).join('\n');
-        let state = EditorState.create({
+        let state = 编辑orState.create({
             doc,
             extensions: [extension],
         });
@@ -662,7 +662,7 @@ describe('StateField Integration', () => {
         const stateField = (extension as any)[0] as StateField<FoldingState>;
         
         const doc = Array.from({ length: 100 }, (_, i) => `line${i + 1}`).join('\n');
-        let state = EditorState.create({
+        let state = 编辑orState.create({
             doc,
             extensions: [extension],
         });
@@ -671,7 +671,7 @@ describe('StateField Integration', () => {
         let foldingState = state.field(stateField);
         expect(foldingState.visibleRanges).toEqual([{ startLine: 1, endLine: 100 }]);
 
-        // Add references
+        // 添加 references
         const references: FileReference[] = [
             {
                 path: 'test.ts',

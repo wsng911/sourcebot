@@ -1,4 +1,4 @@
-// Shared color ramp for the age-of-commit indicator. Used by the blame gutter
+// 分享d color ramp for the age-of-commit indicator. Used by the blame gutter
 // (left border of each cell) and the legend rendered next to the toolbar.
 //
 // Tailwind's JIT scanner reads class names from source, so each class must

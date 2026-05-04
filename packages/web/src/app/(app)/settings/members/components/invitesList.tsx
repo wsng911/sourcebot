@@ -2,14 +2,14 @@
 
 import { OrgRole } from "@sourcebot/db";
 import { useToast } from "@/components/hooks/use-toast";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialog取消, AlertDialogContent, AlertDialog描述, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { createPathWithQueryParams, isServiceError } from "@/lib/utils";
 import { UserAvatar } from "@/components/userAvatar";
-import { Copy, MoreVertical, Search } from "lucide-react";
+import { 复制, MoreVertical, 搜索 } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { cancelInvite } from "@/actions";
 import { useRouter } from "next/navigation";
@@ -26,10 +26,10 @@ interface InviteListProps {
 }
 
 export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
-    const [searchQuery, setSearchQuery] = useState("")
+    const [searchQuery, set搜索Query] = useState("")
     const [dateSort, setDateSort] = useState<"newest" | "oldest">("newest")
-    const [isCancelInviteDialogOpen, setIsCancelInviteDialogOpen] = useState(false)
-    const [inviteToCancel, setInviteToCancel] = useState<Invite | null>(null)
+    const [is取消InviteDialogOpen, setIs取消InviteDialogOpen] = useState(false)
+    const [inviteTo取消, setInviteTo取消] = useState<Invite | null>(null)
     const { toast } = useToast();
     const router = useRouter();
     const captureEvent = useCaptureEvent();
@@ -38,9 +38,9 @@ export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
         return invites
             .filter((invite) => {
                 const searchLower = searchQuery.toLowerCase();
-                const matchesSearch =
+                const matches搜索 =
                     invite.email.toLowerCase().includes(searchLower);
-                return matchesSearch;
+                return matches搜索;
             })
             .sort((a, b) => {
                 return dateSort === "newest"
@@ -49,7 +49,7 @@ export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
             });
     }, [invites, searchQuery, dateSort]);
 
-    const onCancelInvite = useCallback((inviteId: string) => {
+    const on取消Invite = useCallback((inviteId: string) => {
         cancelInvite(inviteId)
             .then((response) => {
                 if (isServiceError(response)) {
@@ -70,20 +70,20 @@ export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
     }, [toast, router, captureEvent]);
 
     return (
-        <div className="w-full mx-auto space-y-6">
-            <div className="flex gap-4 flex-col sm:flex-row">
-                <div className="relative flex-1">
-                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+        <div class名称="w-full mx-auto space-y-6">
+            <div class名称="flex gap-4 flex-col sm:flex-row">
+                <div class名称="relative flex-1">
+                    <搜索 class名称="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder="Filter by name or email..."
-                        className="pl-9"
+                        class名称="pl-9"
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => set搜索Query(e.target.value)}
                     />
                 </div>
 
                 <Select value={dateSort} onValueChange={(value) => setDateSort(value as "newest" | "oldest")}>
-                    <SelectTrigger className="w-[140px]">
+                    <SelectTrigger class名称="w-[140px]">
                         <SelectValue placeholder="Date" />
                     </SelectTrigger>
                     <SelectContent>
@@ -93,30 +93,30 @@ export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
                 </Select>
             </div>
 
-            <div className="border rounded-lg overflow-hidden">
-                <div className="max-h-[600px] overflow-y-auto divide-y">
+            <div class名称="border rounded-lg overflow-hidden">
+                <div class名称="max-h-[600px] overflow-y-auto divide-y">
                     {invites.length === 0 || (filteredInvites.length === 0 && searchQuery.length > 0) ? (
-                        <div className="flex flex-col items-center justify-center h-96 p-4">
-                            <p className="font-medium text-sm">No Pending Invitations Found</p>
-                            <p className="text-sm text-muted-foreground mt-2">
+                        <div class名称="flex flex-col items-center justify-center h-96 p-4">
+                            <p class名称="font-medium text-sm">No Pending Invitations Found</p>
+                            <p class名称="text-sm text-muted-foreground mt-2">
                                 {filteredInvites.length === 0 && searchQuery.length > 0 ? "No pending invitations found matching your filters." : "Use the form above to invite new members."}
                             </p>
                         </div>
                     ) : (
                         filteredInvites.map((invite) => (
-                            <div key={invite.id} className="p-4 flex items-center justify-between bg-background">
-                                <div className="flex items-center gap-3">
+                            <div key={invite.id} class名称="p-4 flex items-center justify-between bg-background">
+                                <div class名称="flex items-center gap-3">
                                     <UserAvatar email={invite.email} />
                                     <div>
-                                        <div className="text-sm text-muted-foreground">{invite.email}</div>
+                                        <div class名称="text-sm text-muted-foreground">{invite.email}</div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-4">
+                                <div class名称="flex items-center gap-4">
                                     <Button
                                         variant="ghost"
                                         size="sm"
-                                        className="gap-2"
-                                        title="Copy invite link"
+                                        class名称="gap-2"
+                                        title="复制 invite link"
                                         onClick={() => {
                                             const url = createPathWithQueryParams(`${window.location.origin}/redeem?invite_id=${invite.id}`);
                                             navigator.clipboard.writeText(url)
@@ -134,23 +134,23 @@ export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
                                                 })
                                         }}
                                     >
-                                        <Copy className="h-4 w-4" />
-                                        Copy invite link
+                                        <复制 class名称="h-4 w-4" />
+                                        复制 invite link
                                     </Button>
                                     <DropdownMenu modal={false}>
                                         <DropdownMenuTrigger asChild>
-                                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                                <MoreVertical className="h-4 w-4" />
+                                            <Button variant="ghost" class名称="h-8 w-8 p-0">
+                                                <MoreVertical class名称="h-4 w-4" />
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuItem
-                                                className="cursor-pointer"
+                                                class名称="cursor-pointer"
                                                 onClick={() => {
                                                     navigator.clipboard.writeText(invite.email)
                                                         .then(() => {
                                                             toast({
-                                                                description: `✅ Email copied to clipboard.`
+                                                                description: `✅ 邮箱 copied to clipboard.`
                                                             })
                                                             captureEvent('wa_invites_list_copy_email_success', {})
                                                         })
@@ -162,17 +162,17 @@ export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
                                                         })
                                                 }}
                                             >
-                                                Copy email
+                                                复制 email
                                             </DropdownMenuItem>
                                             {currentUserRole === OrgRole.OWNER && (
                                                 <DropdownMenuItem
-                                                    className="cursor-pointer text-destructive"
+                                                    class名称="cursor-pointer text-destructive"
                                                     onClick={() => {
-                                                        setIsCancelInviteDialogOpen(true);
-                                                        setInviteToCancel(invite);
+                                                        setIs取消InviteDialogOpen(true);
+                                                        setInviteTo取消(invite);
                                                     }}
                                                 >
-                                                    Cancel invite
+                                                    取消 invite
                                                 </DropdownMenuItem>
                                             )}
                                         </DropdownMenuContent>
@@ -184,27 +184,27 @@ export const InvitesList = ({ invites, currentUserRole }: InviteListProps) => {
                 </div>
             </div>
             <AlertDialog
-                open={isCancelInviteDialogOpen}
-                onOpenChange={setIsCancelInviteDialogOpen}
+                open={is取消InviteDialogOpen}
+                onOpenChange={setIs取消InviteDialogOpen}
             >
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Cancel Invite</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Are you sure you want to cancel this invite for <strong>{inviteToCancel?.email}</strong>?
-                        </AlertDialogDescription>
+                        <AlertDialogTitle>取消 Invite</AlertDialogTitle>
+                        <AlertDialog描述>
+                            Are you sure you want to cancel this invite for <strong>{inviteTo取消?.email}</strong>?
+                        </AlertDialog描述>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>
-                            Back
-                        </AlertDialogCancel>
+                        <AlertDialog取消>
+                            返回
+                        </AlertDialog取消>
                         <AlertDialogAction
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            class名称="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                             onClick={() => {
-                                onCancelInvite(inviteToCancel?.id ?? "");
+                                on取消Invite(inviteTo取消?.id ?? "");
                             }}
                         >
-                            Cancel
+                            取消
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

@@ -11,43 +11,43 @@ import {
 } from '@react-email/components';
 import { SOURCEBOT_LOGO_LIGHT_LARGE_URL } from './constants';
 
-interface MagicLinkEmailProps {
+interface MagicLink邮箱Props {
     token: string,
 }
 
-export const MagicLinkEmail = ({
+export const MagicLink邮箱 = ({
     token,
-}: MagicLinkEmailProps) => (
+}: MagicLink邮箱Props) => (
     <Html>
         <Head />
         <Preview>Use this code {token} to log in to Sourcebot</Preview>
         <Tailwind>
-            <Body className="bg-white font-sans m-0 p-0">
-                <Container className="mx-auto max-w-[600px] p-6">
-                    <Section className="mb-4">
+            <Body class名称="bg-white font-sans m-0 p-0">
+                <Container class名称="mx-auto max-w-[600px] p-6">
+                    <Section class名称="mb-4">
                         <Img
                             src={SOURCEBOT_LOGO_LIGHT_LARGE_URL}
                             alt="Sourcebot Logo"
                             width="auto"
                             height="40"
-                            className="mx-0"
+                            class名称="mx-0"
                         />
                     </Section>
 
-                    <Section className="mb-4">
-                        <Text className="text-base text-black">
+                    <Section class名称="mb-4">
+                        <Text class名称="text-base text-black">
                             Use the code below to log in to Sourcebot.
                         </Text>
                     </Section>
 
-                    <Section className="bg-[#f4f7fa] py-4 px-2 rounded mb-4 text-center">
-                        <Text className="text-xl font-bold text-black tracking-[0.5em]">
+                    <Section class名称="bg-[#f4f7fa] py-4 px-2 rounded mb-4 text-center">
+                        <Text class名称="text-xl font-bold text-black tracking-[0.5em]">
                             {token}
                         </Text>
                     </Section>
 
                     <Section>
-                        <Text className="text-sm text-gray-600 leading-6">
+                        <Text class名称="text-sm text-gray-600 leading-6">
                             This code is only valid for the next 10 minutes. If you didn&apos;t try to log in,
                             you can safely ignore this email.
                         </Text>
@@ -58,8 +58,8 @@ export const MagicLinkEmail = ({
     </Html>
 );
 
-MagicLinkEmail.PreviewProps = {
+MagicLink邮箱.PreviewProps = {
     token: '123456',
-} as MagicLinkEmailProps;
+} as MagicLink邮箱Props;
 
-export default MagicLinkEmail;
+export default MagicLink邮箱;

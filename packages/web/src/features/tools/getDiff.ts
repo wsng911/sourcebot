@@ -6,11 +6,11 @@ import { formatDiffAsGitDiff } from './utils';
 import { logger } from './logger';
 import { ToolDefinition } from './types';
 import { CodeHostType } from '@sourcebot/db';
-import { getRepoInfoByName } from '@/actions';
+import { getRepoInfoBy名称 } from '@/actions';
 
 export type GetDiffRepoInfo = {
     name: string;
-    displayName: string;
+    display名称: string;
     codeHostType: CodeHostType;
 };
 
@@ -37,13 +37,13 @@ export const getDiffDefinition: ToolDefinition<'get_diff', typeof getDiffRequest
             throw new Error(response.message);
         }
 
-        const repoInfoResult = await getRepoInfoByName(repo);
+        const repoInfoResult = await getRepoInfoBy名称(repo);
         if (isServiceError(repoInfoResult) || !repoInfoResult) {
-            throw new Error(`Repository "${repo}" not found.`);
+            throw new Error(`仓库 "${repo}" not found.`);
         }
         const repoInfo: GetDiffRepoInfo = {
             name: repoInfoResult.name,
-            displayName: repoInfoResult.displayName ?? repoInfoResult.name,
+            display名称: repoInfoResult.display名称 ?? repoInfoResult.name,
             codeHostType: repoInfoResult.codeHostType,
         };
 

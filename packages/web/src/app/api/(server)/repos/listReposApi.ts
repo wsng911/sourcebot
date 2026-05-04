@@ -1,6 +1,6 @@
 import { sew } from "@/middleware/sew";
 import { getAuditService } from "@/ee/features/audit/factory";
-import { ListReposQueryParams, RepositoryQuery } from "@/lib/types";
+import { ListReposQueryParams, 仓库Query } from "@/lib/types";
 import { withOptionalAuth } from "@/middleware/withAuth";
 import { getBrowsePath } from "@/app/(app)/browse/hooks/utils";
 import { env } from "@sourcebot/shared";
@@ -49,13 +49,13 @@ export const listRepos = async ({ query, page, perPage, sort, direction, source 
             data: repos.map((repo) => ({
                 codeHostType: repo.external_codeHostType,
                 repoId: repo.id,
-                repoName: repo.name,
+                repo名称: repo.name,
                 webUrl: `${baseUrl}${getBrowsePath({
-                    repoName: repo.name,
+                    repo名称: repo.name,
                     path: '',
                     pathType: 'tree',
                 })}`,
-                repoDisplayName: repo.displayName ?? undefined,
+                repoDisplay名称: repo.display名称 ?? undefined,
                 externalWebUrl: repo.webUrl ?? undefined,
                 imageUrl: repo.imageUrl ?? undefined,
                 indexedAt: repo.indexedAt ?? undefined,
@@ -63,7 +63,7 @@ export const listRepos = async ({ query, page, perPage, sort, direction, source 
                 defaultBranch: repo.defaultBranch ?? undefined,
                 isFork: repo.isFork,
                 isArchived: repo.isArchived,
-            } satisfies RepositoryQuery)),
+            } satisfies 仓库Query)),
             totalCount,
         };
     })

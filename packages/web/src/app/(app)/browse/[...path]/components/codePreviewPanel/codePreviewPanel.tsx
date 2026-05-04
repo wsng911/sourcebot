@@ -1,4 +1,4 @@
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 import { PathHeader } from "@/app/(app)/components/pathHeader";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -25,30 +25,30 @@ const formatFileSize = (bytes: number): string => {
 
 interface CodePreviewPanelProps {
     path: string;
-    repoName: string;
-    revisionName?: string;
+    repo名称: string;
+    revision名称?: string;
     // When set, the file's content is fetched at this ref while the
-    // surrounding browse context (path header) stays at `revisionName`.
+    // surrounding browse context (path header) stays at `revision名称`.
     previewRef?: string;
     // When true, fetch blame data alongside the file source and pass it to
     // the editor so the blame gutter can render.
     blame?: boolean;
 }
 
-export const CodePreviewPanel = async ({ path, repoName, revisionName, previewRef, blame }: CodePreviewPanelProps) => {
-    const contentRef = previewRef ?? revisionName;
+export const CodePreviewPanel = async ({ path, repo名称, revision名称, previewRef, blame }: CodePreviewPanelProps) => {
+    const contentRef = previewRef ?? revision名称;
 
     const [fileSourceResponse, repoInfoResponse, blameResponse] = await Promise.all([
         getFileSource({
             path,
-            repo: repoName,
+            repo: repo名称,
             ref: contentRef,
         }, { source: 'sourcebot-web-client' }),
-        getRepoInfoByName(repoName),
+        getRepoInfoBy名称(repo名称),
         blame
             ? getFileBlame({
                 path,
-                repo: repoName,
+                repo: repo名称,
                 ref: contentRef,
             }, { source: 'sourcebot-web-client' })
             : Promise.resolve(undefined),
@@ -76,7 +76,7 @@ export const CodePreviewPanel = async ({ path, repoName, revisionName, previewRe
     const codeHostInfo = getCodeHostInfoForRepo({
         codeHostType: repoInfoResponse.codeHostType,
         name: repoInfoResponse.name,
-        displayName: repoInfoResponse.displayName,
+        display名称: repoInfoResponse.display名称,
         externalWebUrl: repoInfoResponse.externalWebUrl,
     });
 
@@ -87,16 +87,16 @@ export const CodePreviewPanel = async ({ path, repoName, revisionName, previewRe
 
     return (
         <>
-            <div className="flex flex-row py-1 px-2 items-center justify-between">
+            <div class名称="flex flex-row py-1 px-2 items-center justify-between">
                 <PathHeader
                     path={path}
                     repo={{
-                        name: repoName,
+                        name: repo名称,
                         codeHostType: repoInfoResponse.codeHostType,
-                        displayName: repoInfoResponse.displayName,
+                        display名称: repoInfoResponse.display名称,
                         externalWebUrl: repoInfoResponse.externalWebUrl,
                     }}
-                    revisionName={contentRef}
+                    revision名称={contentRef}
                 />
 
                 {fileWebUrl && (
@@ -105,50 +105,50 @@ export const CodePreviewPanel = async ({ path, repoName, revisionName, previewRe
                         href={fileWebUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex flex-row items-center gap-2 px-2 py-0.5 rounded-md flex-shrink-0"
+                        class名称="flex flex-row items-center gap-2 px-2 py-0.5 rounded-md flex-shrink-0"
                     >
                         <Image
                             src={codeHostInfo.icon}
-                            alt={codeHostInfo.codeHostName}
-                            className={cn('w-4 h-4 flex-shrink-0', codeHostInfo.iconClassName)}
+                            alt={codeHostInfo.codeHost名称}
+                            class名称={cn('w-4 h-4 flex-shrink-0', codeHostInfo.iconClass名称)}
                         />
-                        <span className="text-sm font-medium">Open in {codeHostInfo.codeHostName}</span>
+                        <span class名称="text-sm font-medium">Open in {codeHostInfo.codeHost名称}</span>
                     </a>
                 )}
             </div>
             <Separator />
             {!previewRef && (
-                <div className="flex flex-row items-center gap-3 px-4 py-1 border-b shrink-0">
+                <div class名称="flex flex-row items-center gap-3 px-4 py-1 border-b shrink-0">
                     <BlameViewToggle
-                        repoName={repoName}
-                        revisionName={revisionName}
+                        repo名称={repo名称}
+                        revision名称={revision名称}
                         path={path}
                         blame={blame ?? false}
                     />
-                    <span className="text-sm text-muted-foreground">
+                    <span class名称="text-sm text-muted-foreground">
                         {lineCount.toLocaleString()} lines · {fileSize}
                     </span>
                     {blame && (
                         <>
-                            <Separator orientation="vertical" className="h-4" />
+                            <Separator orientation="vertical" class名称="h-4" />
                             <BlameAgeLegend />
                         </>
                     )}
                 </div>
             )}
             {previewRef && (
-                <div className="flex flex-row items-center justify-between gap-2 px-4 py-2 border-b shrink-0">
-                    <span className="text-sm">
+                <div class名称="flex flex-row items-center justify-between gap-2 px-4 py-2 border-b shrink-0">
+                    <span class名称="text-sm">
                         Previewing file at revision{" "}
                         <Link
                             href={getBrowsePath({
-                                repoName,
-                                revisionName,
+                                repo名称,
+                                revision名称,
                                 path: '',
                                 pathType: 'commit',
                                 commitSha: previewRef,
                             })}
-                            className="font-mono text-link hover:underline"
+                            class名称="font-mono text-link hover:underline"
                         >
                             {truncateSha(previewRef)}
                         </Link>
@@ -159,31 +159,31 @@ export const CodePreviewPanel = async ({ path, repoName, revisionName, previewRe
                                 asChild
                                 variant="ghost"
                                 size="icon"
-                                className="h-6 w-6 text-muted-foreground"
+                                class名称="h-6 w-6 text-muted-foreground"
                             >
                                 <Link
                                     href={getBrowsePath({
-                                        repoName,
-                                        revisionName,
+                                        repo名称,
+                                        revision名称,
                                         path,
                                         pathType: 'blob',
                                     })}
-                                    aria-label="Close preview"
+                                    aria-label="关闭 preview"
                                 >
-                                    <X className="h-4 w-4" />
+                                    <X class名称="h-4 w-4" />
                                 </Link>
                             </Button>
                         </TooltipTrigger>
-                        <TooltipContent>Close preview</TooltipContent>
+                        <TooltipContent>关闭 preview</TooltipContent>
                     </Tooltip>
                 </div>
             )}
             <PureCodePreviewPanel
                 source={fileSourceResponse.source}
                 language={fileSourceResponse.language}
-                repoName={repoName}
+                repo名称={repo名称}
                 path={path}
-                revisionName={contentRef ?? 'HEAD'}
+                revision名称={contentRef ?? 'HEAD'}
                 blame={blameResponse}
             />
         </>

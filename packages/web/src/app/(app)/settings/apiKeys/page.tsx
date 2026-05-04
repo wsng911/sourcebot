@@ -4,10 +4,10 @@ import { ApiKeysPage } from "./apiKeysPage";
 import { authenticatedPage } from "@/middleware/authenticatedPage";
 
 export default authenticatedPage(async ({ role }) => {
-    let canCreateApiKey = true;
+    let can创建ApiKey = true;
     if (env.DISABLE_API_KEY_CREATION_FOR_NON_OWNER_USERS === 'true') {
-        canCreateApiKey = role === OrgRole.OWNER;
+        can创建ApiKey = role === OrgRole.OWNER;
     }
 
-    return <ApiKeysPage canCreateApiKey={canCreateApiKey} />;
+    return <ApiKeysPage can创建ApiKey={can创建ApiKey} />;
 });

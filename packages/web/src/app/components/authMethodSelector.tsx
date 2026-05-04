@@ -49,9 +49,9 @@ export const AuthMethodSelector = ({
 
     if (oauthProviders.length === 0 && !hasCredentials && !hasMagicLink) {
         return (
-            <div className="flex flex-col items-center justify-center w-full gap-2">
-                <p className="text-center font-medium">No authentication methods available. Please contact your administrator to configure authentication.</p>
-                <Link href="https://docs.sourcebot.dev/docs/configuration/auth/overview" target="_blank" rel="noopener" className="text-link hover:underline">Learn more</Link>
+            <div class名称="flex flex-col items-center justify-center w-full gap-2">
+                <p class名称="text-center font-medium">No authentication methods available. Please contact your administrator to configure authentication.</p>
+                <Link href="https://docs.sourcebot.dev/docs/configuration/auth/overview" target="_blank" rel="noopener" class名称="text-link hover:underline">Learn more</Link>
             </div>
         )
     }
@@ -62,13 +62,13 @@ export const AuthMethodSelector = ({
             <DividerSet
                 elements={[
                     ...(oauthProviders.length > 0 ? [
-                        <div key="oauth-providers" className="w-full space-y-3">
+                        <div key="oauth-providers" class名称="w-full space-y-3">
                             {oauthProviders.map((provider) => {
                                 const providerInfo = getAuthProviderInfo(provider.id);
                                 return (
                                     <ProviderButton
                                         key={provider.id}
-                                        name={providerInfo.displayName}
+                                        name={providerInfo.display名称}
                                         logo={providerInfo.icon}
                                         onClick={() => {
                                             onSignInWithOauth(provider.id);

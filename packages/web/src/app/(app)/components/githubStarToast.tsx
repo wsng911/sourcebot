@@ -58,7 +58,7 @@ export const GitHubStarToast = () => {
                 description: "If you've found Sourcebot useful, please consider starring us on GitHub. Your support means a lot!",
                 duration: 15 * 1000,
                 action: (
-                    <div className="flex flex-col gap-1">
+                    <div class名称="flex flex-col gap-1">
                         <ToastAction
                             altText="GitHub Button"
                             onClick={() => {
@@ -66,8 +66,8 @@ export const GitHubStarToast = () => {
                                 window.open(SOURCEBOT_GITHUB_URL, "_blank");
                             }}
                         >
-                            <div className="flex items-center gap-2">
-                                <GitHubLogoIcon className="w-4 h-4" />
+                            <div class名称="flex items-center gap-2">
+                                <GitHubLogoIcon class名称="w-4 h-4" />
                                 Sourcebot
                             </div>
                         </ToastAction>

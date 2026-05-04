@@ -28,19 +28,19 @@ const FORMAT = [
 ].join(FIELD_SEP);
 
 export const getCommit = async ({
-    repo: repoName,
+    repo: repo名称,
     ref,
 }: GetCommitRequest): Promise<CommitDetail | ServiceError> => sew(() =>
     withOptionalAuth(async ({ org, prisma }) => {
         const repo = await prisma.repo.findFirst({
             where: {
-                name: repoName,
+                name: repo名称,
                 orgId: org.id,
             },
         });
 
         if (!repo) {
-            return notFound(`Repository "${repoName}" not found.`);
+            return notFound(`仓库 "${repo名称}" not found.`);
         }
 
         if (!isGitRefValid(ref)) {
@@ -63,7 +63,7 @@ export const getCommit = async ({
                 return unexpectedError(`Failed to parse commit data for revision "${ref}".`);
             }
 
-            const [hash, date, message, refs, body, authorName, authorEmail, parentStr] = fields;
+            const [hash, date, message, refs, body, author名称, author邮箱, parentStr] = fields;
             const parents = parentStr.trim() === '' ? [] : parentStr.trim().split(' ');
 
             return {
@@ -72,8 +72,8 @@ export const getCommit = async ({
                 message,
                 refs,
                 body,
-                authorName,
-                authorEmail,
+                author名称,
+                author邮箱,
                 parents,
             };
         } catch (error: unknown) {
@@ -87,16 +87,16 @@ export const getCommit = async ({
             }
 
             if (errorMessage.includes('unknown revision') || errorMessage.includes('bad object')) {
-                return notFound(`Revision "${ref}" not found in repository "${repoName}".`);
+                return notFound(`Revision "${ref}" not found in repository "${repo名称}".`);
             }
 
             if (error instanceof Error) {
                 throw new Error(
-                    `Failed to get commit in repository ${repoName}: ${error.message}`
+                    `Failed to get commit in repository ${repo名称}: ${error.message}`
                 );
             } else {
                 throw new Error(
-                    `Failed to get commit in repository ${repoName}: ${errorMessage}`
+                    `Failed to get commit in repository ${repo名称}: ${errorMessage}`
                 );
             }
         }

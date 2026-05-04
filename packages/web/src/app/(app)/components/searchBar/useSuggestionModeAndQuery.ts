@@ -6,14 +6,14 @@ import { useSuggestionModeMappings } from "./useSuggestionModeMappings";
 
 interface Props {
     isSuggestionsEnabled: boolean;
-    isHistorySearchEnabled: boolean;
+    isHistory搜索Enabled: boolean;
     cursorPosition: number;
     query: string;
 }
 
 export const useSuggestionModeAndQuery = ({
     isSuggestionsEnabled,
-    isHistorySearchEnabled,
+    isHistory搜索Enabled,
     cursorPosition,
     query,
 }: Props) => {
@@ -30,7 +30,7 @@ export const useSuggestionModeAndQuery = ({
             };
         }
 
-        if (isHistorySearchEnabled) {
+        if (isHistory搜索Enabled) {
             return {
                 suggestionQuery: query,
                 suggestionMode: "searchHistory"
@@ -69,7 +69,7 @@ export const useSuggestionModeAndQuery = ({
             suggestionQuery: part,
             suggestionMode: "refine",
         }
-    }, [cursorPosition, isSuggestionsEnabled, query, isHistorySearchEnabled, suggestionModeMappings]);
+    }, [cursorPosition, isSuggestionsEnabled, query, isHistory搜索Enabled, suggestionModeMappings]);
 
     // Debug logging for tracking mode transitions.
     const [prevSuggestionMode, setPrevSuggestionMode] = useState<SuggestionMode>("none");

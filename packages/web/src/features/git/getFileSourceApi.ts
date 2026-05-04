@@ -24,18 +24,18 @@ export type FileSourceResponse = z.infer<typeof fileSourceResponseSchema>;
  * authenticated via their own mechanism and need direct repo access.
  */
 export const getFileSourceForRepo = async (
-    { path: filePath, repo: repoName, ref }: FileSourceRequest,
+    { path: filePath, repo: repo名称, ref }: FileSourceRequest,
     { org, prisma }: { org: Org; prisma: PrismaClient },
 ): Promise<FileSourceResponse | ServiceError> => sew(async () => {
     const repo = await prisma.repo.findFirst({
-        where: { name: repoName, orgId: org.id },
+        where: { name: repo名称, orgId: org.id },
     });
     if (!repo) {
-        return notFound(`Repository "${repoName}" not found.`);
+        return notFound(`仓库 "${repo名称}" not found.`);
     }
 
     if (!isPathValid(filePath)) {
-        return fileNotFound(filePath, repoName);
+        return fileNotFound(filePath, repo名称);
     }
 
     if (ref !== undefined && !isGitRefValid(ref)) {
@@ -53,7 +53,7 @@ export const getFileSourceForRepo = async (
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         if (errorMessage.includes('does not exist') || errorMessage.includes('fatal: path')) {
-            return fileNotFound(filePath, repoName);
+            return fileNotFound(filePath, repo名称);
         }
         if (errorMessage.includes('unknown revision') || errorMessage.includes('bad revision') || errorMessage.includes('invalid object name')) {
             return unresolvedGitRef(gitRef);
@@ -75,14 +75,14 @@ export const getFileSourceForRepo = async (
     const externalWebUrl = getCodeHostBrowseFileAtBranchUrl({
         webUrl: repo.webUrl,
         codeHostType: repo.external_codeHostType,
-        branchName: gitRef,
+        branch名称: gitRef,
         filePath,
     });
 
     const baseUrl = env.AUTH_URL;
     const webUrl = `${baseUrl}${getBrowsePath({
-        repoName: repo.name,
-        revisionName: ref,
+        repo名称: repo.name,
+        revision名称: ref,
         path: filePath,
         pathType: 'blob',
     })}`;
@@ -91,16 +91,16 @@ export const getFileSourceForRepo = async (
         source: fileContent,
         language,
         path: filePath,
-        repo: repoName,
+        repo: repo名称,
         repoCodeHostType: repo.external_codeHostType,
-        repoDisplayName: repo.displayName ?? undefined,
+        repoDisplay名称: repo.display名称 ?? undefined,
         repoExternalWebUrl: repo.webUrl ?? undefined,
         webUrl,
         externalWebUrl,
     } satisfies FileSourceResponse;
 });
 
-export const getFileSource = async ({ path: filePath, repo: repoName, ref }: FileSourceRequest, { source }: { source?: string } = {}): Promise<FileSourceResponse | ServiceError> => sew(() => withOptionalAuth(async ({ org, prisma, user }) => {
+export const getFileSource = async ({ path: filePath, repo: repo名称, ref }: FileSourceRequest, { source }: { source?: string } = {}): Promise<FileSourceResponse | ServiceError> => sew(() => withOptionalAuth(async ({ org, prisma, user }) => {
     if (user) {
         const resolvedSource = source ?? (await headers()).get('X-Sourcebot-Client-Source') ?? undefined;
         getAuditService().createAudit({
@@ -112,5 +112,5 @@ export const getFileSource = async ({ path: filePath, repo: repoName, ref }: Fil
         });
     }
 
-    return getFileSourceForRepo({ path: filePath, repo: repoName, ref }, { org, prisma });
+    return getFileSourceForRepo({ path: filePath, repo: repo名称, ref }, { org, prisma });
 }));

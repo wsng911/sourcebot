@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from "next/navigation";
+import { use搜索Params } from "next/navigation";
 import { useMemo } from "react";
 
 /**
@@ -16,9 +16,9 @@ import { useMemo } from "react";
  *  - `/foo`           -> `undefined`
  */
 export const useNonEmptyQueryParam = (param: string) => {
-    const searchParams = useSearchParams();
+    const searchParams = use搜索Params();
     const paramValue = useMemo(() => {
-        return getSearchParam(param, searchParams);
+        return get搜索Param(param, searchParams);
     }, [param, searchParams]);
 
     return paramValue;
@@ -27,7 +27,7 @@ export const useNonEmptyQueryParam = (param: string) => {
 /**
  * @see useNonEmptyQueryParam
  */
-export const getSearchParam = (param: string, searchParams: URLSearchParams | null) => {
+export const get搜索Param = (param: string, searchParams: URL搜索Params | null) => {
     const paramValue = searchParams?.get(param) ?? undefined;
     return (paramValue !== undefined && paramValue.length > 0) ? paramValue : undefined;
 }

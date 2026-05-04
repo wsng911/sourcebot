@@ -14,13 +14,13 @@ import { NotificationDot } from "../../components/notificationDot";
 import { Badge } from "@/components/ui/badge";
 import { authenticatedPage } from "@/middleware/authenticatedPage";
 
-type MembersSettingsPageProps = {
+type Members设置PageProps = {
     searchParams: Promise<{
         tab?: string
     }>
 }
 
-export default authenticatedPage<MembersSettingsPageProps>(async ({ org, role }, props) => {
+export default authenticatedPage<Members设置PageProps>(async ({ org, role }, props) => {
     const searchParams = await props.searchParams;
 
     const {
@@ -54,19 +54,19 @@ export default authenticatedPage<MembersSettingsPageProps>(async ({ org, role },
     const seatsAvailable = seats === SOURCEBOT_UNLIMITED_SEATS || usedSeats < seats;
 
     return (
-        <div className="flex flex-col gap-6">
-            <div className="flex items-start justify-between">
+        <div class名称="flex flex-col gap-6">
+            <div class名称="flex items-start justify-between">
                 <div>
-                    <h3 className="text-lg font-medium">Members</h3>
-                    <p className="text-sm text-muted-foreground">Invite and manage members of your organization.</p>
+                    <h3 class名称="text-lg font-medium">Members</h3>
+                    <p class名称="text-sm text-muted-foreground">Invite and manage members of your organization.</p>
                 </div>
                 {seats && seats !== SOURCEBOT_UNLIMITED_SEATS && (
-                    <div className="bg-card px-4 py-2 rounded-md border shadow-sm">
-                        <div className="text-sm">
-                            <span className="text-foreground font-medium">{usedSeats}</span>
-                            <span className="text-muted-foreground"> of </span>
-                            <span className="text-foreground font-medium">{seats}</span>
-                            <span className="text-muted-foreground"> seats used</span>
+                    <div class名称="bg-card px-4 py-2 rounded-md border shadow-sm">
+                        <div class名称="text-sm">
+                            <span class名称="text-foreground font-medium">{usedSeats}</span>
+                            <span class名称="text-muted-foreground"> of </span>
+                            <span class名称="text-foreground font-medium">{seats}</span>
+                            <span class名称="text-muted-foreground"> seats used</span>
                         </div>
                     </div>
                 )}
@@ -78,15 +78,15 @@ export default authenticatedPage<MembersSettingsPageProps>(async ({ org, role },
             />
 
             <Tabs value={currentTab}>
-                <div className="border-b border-border w-full">
+                <div class名称="border-b border-border w-full">
                     <TabSwitcher
-                        className="h-auto p-0 bg-transparent"
+                        class名称="h-auto p-0 bg-transparent"
                         tabs={[
                             {
                                 label: (
-                                    <div className="flex items-center gap-2">
+                                    <div class名称="flex items-center gap-2">
                                         Team Members
-                                        <Badge variant="secondary" className="px-1.5 relative">
+                                        <Badge variant="secondary" class名称="px-1.5 relative">
                                             {members.length}
                                         </Badge>
                                     </div>
@@ -96,13 +96,13 @@ export default authenticatedPage<MembersSettingsPageProps>(async ({ org, role },
                             ...(role === OrgRole.OWNER ? [
                                 {
                                     label: (
-                                        <div className="flex items-center gap-2">
+                                        <div class名称="flex items-center gap-2">
                                             {requests.length > 0 && (
                                                 <NotificationDot />
                                             )}
                                             Pending Requests
                                             {requests.length > 0 && (
-                                                <Badge variant="secondary" className="px-1.5 relative">
+                                                <Badge variant="secondary" class名称="px-1.5 relative">
                                                     {requests.length}
                                                 </Badge>
                                             )}
@@ -112,10 +112,10 @@ export default authenticatedPage<MembersSettingsPageProps>(async ({ org, role },
                                 },
                                 {
                                     label: (
-                                        <div className="flex items-center gap-2">
+                                        <div class名称="flex items-center gap-2">
                                             Pending Invites
                                             {invites.length > 0 && (
-                                                <Badge variant="secondary" className="px-1.5 relative">
+                                                <Badge variant="secondary" class名称="px-1.5 relative">
                                                     {invites.length}
                                                 </Badge>
                                             )}
@@ -133,7 +133,7 @@ export default authenticatedPage<MembersSettingsPageProps>(async ({ org, role },
                         members={members}
                         currentUserId={me.id}
                         currentUserRole={role}
-                        orgName={org.name}
+                        org名称={org.name}
                         hasOrgManagement={hasEntitlement('org-management')}
                     />
                 </TabsContent>

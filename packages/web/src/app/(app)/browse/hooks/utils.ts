@@ -14,9 +14,9 @@ export type BrowseHighlightRange = {
 }
 
 type BaseProps = {
-    repoName: string;
+    repo名称: string;
     path: string;
-    revisionName?: string;
+    revision名称?: string;
     setBrowseState?: Partial<BrowseState>;
 }
 
@@ -24,7 +24,7 @@ type BlobProps = BaseProps & {
     pathType: 'blob',
     highlightRange?: BrowseHighlightRange;
     // Override the ref the file's content is fetched at, while the surrounding
-    // browse context (file tree, etc.) stays anchored to `revisionName`.
+    // browse context (file tree, etc.) stays anchored to `revision名称`.
     previewRef?: string;
     // When true, render the focused commit diff (for `previewRef`) instead of
     // the file's source. Only meaningful alongside `previewRef`.
@@ -70,8 +70,8 @@ export const getBrowseParamsFromPathParam = (pathParam: string): BrowseProps => 
     const repoAndRevisionPart = decodeURIComponent(pathParam.substring(0, sentinelIndex));
     const lastAtIndex = repoAndRevisionPart.lastIndexOf('@');
 
-    const repoName = lastAtIndex === -1 ? repoAndRevisionPart : repoAndRevisionPart.substring(0, lastAtIndex);
-    const revisionName = lastAtIndex === -1 ? undefined : repoAndRevisionPart.substring(lastAtIndex + 1);
+    const repo名称 = lastAtIndex === -1 ? repoAndRevisionPart : repoAndRevisionPart.substring(0, lastAtIndex);
+    const revision名称 = lastAtIndex === -1 ? undefined : repoAndRevisionPart.substring(lastAtIndex + 1);
 
     const tail = pathParam.substring(sentinelIndex + '/-/'.length);
     const pathType = ((): BrowsePathType => {
@@ -93,8 +93,8 @@ export const getBrowseParamsFromPathParam = (pathParam: string): BrowseProps => 
         case 'tree': {
             const rest = tail.startsWith('tree/') ? tail.substring('tree/'.length) : tail.substring('tree'.length);
             return {
-                repoName,
-                revisionName,
+                repo名称,
+                revision名称,
                 pathType,
                 path: normalizeRepoPath(decodeURIComponent(rest)),
             };
@@ -102,8 +102,8 @@ export const getBrowseParamsFromPathParam = (pathParam: string): BrowseProps => 
         case 'commits': {
             const rest = tail.startsWith('commits/') ? tail.substring('commits/'.length) : tail.substring('commits'.length);
             return {
-                repoName,
-                revisionName,
+                repo名称,
+                revision名称,
                 pathType,
                 path: normalizeRepoPath(decodeURIComponent(rest)),
             };
@@ -121,8 +121,8 @@ export const getBrowseParamsFromPathParam = (pathParam: string): BrowseProps => 
             }
 
             return {
-                repoName,
-                revisionName,
+                repo名称,
+                revision名称,
                 pathType,
                 commitSha,
                 path: '',
@@ -137,8 +137,8 @@ export const getBrowseParamsFromPathParam = (pathParam: string): BrowseProps => 
             }
 
             return {
-                repoName,
-                revisionName,
+                repo名称,
+                revision名称,
                 pathType,
                 path,
             };
@@ -147,8 +147,8 @@ export const getBrowseParamsFromPathParam = (pathParam: string): BrowseProps => 
 };
 
 export const getBrowsePath = (props: BrowseProps) => {
-    const { repoName, revisionName, pathType, setBrowseState } = props;
-    const params = new URLSearchParams();
+    const { repo名称, revision名称, pathType, setBrowseState } = props;
+    const params = new URL搜索Params();
 
     if (pathType === 'blob' && props.highlightRange) {
         const { start, end } = props.highlightRange;
@@ -179,6 +179,6 @@ export const getBrowsePath = (props: BrowseProps) => {
     const tail = pathType === 'commit'
         ? encodeURIComponent(props.commitSha)
         : encodeURIComponent(normalizeRepoPath(props.path));
-    const browsePath = `/browse/${repoName}${revisionName ? `@${revisionName}` : ''}/-/${pathType}/${tail}${params.size > 0 ? `?${params.toString()}` : ''}`;
+    const browsePath = `/browse/${repo名称}${revision名称 ? `@${revision名称}` : ''}/-/${pathType}/${tail}${params.size > 0 ? `?${params.toString()}` : ''}`;
     return browsePath;
 };

@@ -9,21 +9,21 @@ const formatFullDate = (date: Date) => {
         hour: "numeric",
         minute: "2-digit",
         second: "2-digit",
-        timeZoneName: "short",
+        timeZone名称: "short",
     }).format(date)
 }
 
 interface DisplayDateProps {
     date: Date
-    className?: string
+    class名称?: string
 }
 
-export const DisplayDate = ({ date, className }: DisplayDateProps) => {
+export const DisplayDate = ({ date, class名称 }: DisplayDateProps) => {
     return (
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <span className={className}>
+                    <span class名称={class名称}>
                         {getFormattedDate(date)}
                     </span>
                 </TooltipTrigger>

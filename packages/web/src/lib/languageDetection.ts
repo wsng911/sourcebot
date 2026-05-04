@@ -9,7 +9,7 @@ const ambiguousExtensionOverrides: Record<string, string> = {
     '.fs': 'F#',        // Not Forth, GLSL, or Filterscript
     '.html': 'HTML',    // Not Ecmarkup
     '.json': 'JSON',    // Not OASv2-json, OASv3-json
-    '.md': 'Markdown',  // Not GCC Machine Description
+    '.md': 'Markdown',  // Not GCC Machine 描述
     '.rs': 'Rust',      // Not RenderScript (deprecated)
     '.tsx': 'TSX',      // Not XML
     '.ts': 'TypeScript', // Not XML
@@ -21,19 +21,19 @@ const ambiguousExtensionOverrides: Record<string, string> = {
 
 const extensionToLanguage = new Map<string, string>();
 
-for (const [languageName, languageData] of Object.entries(linguistLanguages)) {
+for (const [language名称, languageData] of Object.entries(linguistLanguages)) {
     if ('extensions' in languageData && languageData.extensions) {
         for (const ext of languageData.extensions) {
             const normalizedExt = ext.toLowerCase();
             if (!extensionToLanguage.has(normalizedExt)) {
-                extensionToLanguage.set(normalizedExt, languageName);
+                extensionToLanguage.set(normalizedExt, language名称);
             }
         }
     }
     if ('filenames' in languageData && languageData.filenames) {
         for (const filename of languageData.filenames) {
             if (!extensionToLanguage.has(filename)) {
-                extensionToLanguage.set(filename, languageName);
+                extensionToLanguage.set(filename, language名称);
             }
         }
     }

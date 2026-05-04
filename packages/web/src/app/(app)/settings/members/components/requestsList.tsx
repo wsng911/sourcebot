@@ -2,13 +2,13 @@
 
 import { OrgRole } from "@sourcebot/db";
 import { useToast } from "@/components/hooks/use-toast";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialog取消, AlertDialogContent, AlertDialog描述, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { isServiceError } from "@/lib/utils";
 import { UserAvatar } from "@/components/userAvatar";
-import { CheckCircle, Search, XCircle } from "lucide-react";
+import { CheckCircle, 搜索, XCircle } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { approveAccountRequest, rejectAccountRequest } from "@/actions";
 import { useRouter } from "next/navigation";
@@ -28,7 +28,7 @@ interface RequestsListProps {
 }
 
 export const RequestsList = ({ requests, currentUserRole }: RequestsListProps) => {
-    const [searchQuery, setSearchQuery] = useState("")
+    const [searchQuery, set搜索Query] = useState("")
     const [dateSort, setDateSort] = useState<"newest" | "oldest">("newest")
     const [isApproveRequestDialogOpen, setIsApproveRequestDialogOpen] = useState(false)
     const [isRejectRequestDialogOpen, setIsRejectRequestDialogOpen] = useState(false)
@@ -41,10 +41,10 @@ export const RequestsList = ({ requests, currentUserRole }: RequestsListProps) =
         return requests
             .filter((request) => {
                 const searchLower = searchQuery.toLowerCase();
-                const matchesSearch =
+                const matches搜索 =
                     request.email.toLowerCase().includes(searchLower) ||
                     (request.name?.toLowerCase().includes(searchLower) || false);
-                return matchesSearch;
+                return matches搜索;
             })
             .sort((a, b) => {
                 return dateSort === "newest"
@@ -94,20 +94,20 @@ export const RequestsList = ({ requests, currentUserRole }: RequestsListProps) =
     }, [toast, router, captureEvent]);
 
     return (
-        <div className="w-full mx-auto space-y-6">
-            <div className="flex gap-4 flex-col sm:flex-row">
-                <div className="relative flex-1">
-                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+        <div class名称="w-full mx-auto space-y-6">
+            <div class名称="flex gap-4 flex-col sm:flex-row">
+                <div class名称="relative flex-1">
+                    <搜索 class名称="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder="Filter by name or email..."
-                        className="pl-9"
+                        class名称="pl-9"
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => set搜索Query(e.target.value)}
                     />
                 </div>
 
                 <Select value={dateSort} onValueChange={(value) => setDateSort(value as "newest" | "oldest")}>
-                    <SelectTrigger className="w-[140px]">
+                    <SelectTrigger class名称="w-[140px]">
                         <SelectValue placeholder="Date" />
                     </SelectTrigger>
                     <SelectContent>
@@ -117,50 +117,50 @@ export const RequestsList = ({ requests, currentUserRole }: RequestsListProps) =
                 </Select>
             </div>
 
-            <div className="border rounded-lg overflow-hidden">
-                <div className="max-h-[600px] overflow-y-auto divide-y">
+            <div class名称="border rounded-lg overflow-hidden">
+                <div class名称="max-h-[600px] overflow-y-auto divide-y">
                     {requests.length === 0 || (filteredRequests.length === 0 && searchQuery.length > 0) ? (
-                        <div className="flex flex-col items-center justify-center h-96 p-4">
-                            <p className="font-medium text-sm">No Pending Requests Found</p>
-                            <p className="text-sm text-muted-foreground mt-2">
+                        <div class名称="flex flex-col items-center justify-center h-96 p-4">
+                            <p class名称="font-medium text-sm">No Pending Requests Found</p>
+                            <p class名称="text-sm text-muted-foreground mt-2">
                                 {filteredRequests.length === 0 && searchQuery.length > 0 ? "No pending requests found matching your filters." : "There are currently no pending requests to join your organization."}
                             </p>
                         </div>
                     ) : (
                         filteredRequests.map((request) => (
-                            <div key={request.id} className="p-4 flex items-center justify-between bg-background">
-                                <div className="flex items-center gap-3">
+                            <div key={request.id} class名称="p-4 flex items-center justify-between bg-background">
+                                <div class名称="flex items-center gap-3">
                                     <UserAvatar email={request.email} imageUrl={request.image} />
                                     <div>
-                                        <div className="font-medium">{request.name || request.email}</div>
-                                        <div className="text-sm text-muted-foreground">{request.email}</div>
+                                        <div class名称="font-medium">{request.name || request.email}</div>
+                                        <div class名称="text-sm text-muted-foreground">{request.email}</div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
+                                <div class名称="flex items-center gap-2">
                                     {currentUserRole === OrgRole.OWNER && (
                                         <>
                                             <Button
                                                 variant="outline"
                                                 size="sm"
-                                                className="gap-2"
+                                                class名称="gap-2"
                                                 onClick={() => {
                                                     setRequestToAction(request);
                                                     setIsApproveRequestDialogOpen(true);
                                                 }}
                                             >
-                                                <CheckCircle className="h-4 w-4" />
+                                                <CheckCircle class名称="h-4 w-4" />
                                                 Approve
                                             </Button>
                                             <Button
                                                 variant="outline"
                                                 size="sm"
-                                                className="gap-2 text-destructive border-destructive hover:bg-destructive/10"
+                                                class名称="gap-2 text-destructive border-destructive hover:bg-destructive/10"
                                                 onClick={() => {
                                                     setRequestToAction(request);
                                                     setIsRejectRequestDialogOpen(true);
                                                 }}
                                             >
-                                                <XCircle className="h-4 w-4" />
+                                                <XCircle class名称="h-4 w-4" />
                                                 Reject
                                             </Button>
                                         </>
@@ -180,16 +180,16 @@ export const RequestsList = ({ requests, currentUserRole }: RequestsListProps) =
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Approve Request</AlertDialogTitle>
-                        <AlertDialogDescription>
+                        <AlertDialog描述>
                             Are you sure you want to approve the request from <strong>{requestToAction?.email}</strong>? They will be added as a member to your organization.
-                        </AlertDialogDescription>
+                        </AlertDialog描述>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>
-                            Back
-                        </AlertDialogCancel>
+                        <AlertDialog取消>
+                            返回
+                        </AlertDialog取消>
                         <AlertDialogAction
-                            className="bg-primary text-primary-foreground hover:bg-primary/90"
+                            class名称="bg-primary text-primary-foreground hover:bg-primary/90"
                             onClick={() => {
                                 onApproveRequest(requestToAction?.id ?? "");
                             }}
@@ -208,16 +208,16 @@ export const RequestsList = ({ requests, currentUserRole }: RequestsListProps) =
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Reject Request</AlertDialogTitle>
-                        <AlertDialogDescription>
+                        <AlertDialog描述>
                             Are you sure you want to reject the request from <strong>{requestToAction?.email}</strong>?
-                        </AlertDialogDescription>
+                        </AlertDialog描述>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>
-                            Back
-                        </AlertDialogCancel>
+                        <AlertDialog取消>
+                            返回
+                        </AlertDialog取消>
                         <AlertDialogAction
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            class名称="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                             onClick={() => {
                                 onRejectRequest(requestToAction?.id ?? "");
                             }}

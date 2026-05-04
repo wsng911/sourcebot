@@ -5,33 +5,33 @@ import {
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel";
-import { RepositoryQuery } from "@/lib/types";
+import { 仓库Query } from "@/lib/types";
 import { getCodeHostInfoForRepo } from "@/lib/utils";
 import clsx from "clsx";
 import Autoscroll from "embla-carousel-auto-scroll";
 import Image from "next/image";
 import Link from "next/link";
 
-interface RepositoryCarouselProps {
-    displayRepos: RepositoryQuery[];
+interface 仓库CarouselProps {
+    displayRepos: 仓库Query[];
     numberOfReposWithIndex: number;
 }
 
-export function RepositoryCarousel({
+export function 仓库Carousel({
     displayRepos,
     numberOfReposWithIndex,
-}: RepositoryCarouselProps) {
+}: 仓库CarouselProps) {
     if (numberOfReposWithIndex === 0) {
         return (
-            <div className="flex flex-col items-center gap-3">
-                <span className="text-sm">No repositories found</span>
+            <div class名称="flex flex-col items-center gap-3">
+                <span class名称="text-sm">No repositories found</span>
 
-                <div className="w-full max-w-lg">
-                    <div className="flex flex-row items-center gap-2 border rounded-md p-4 justify-center">
-                        <span className="text-sm text-muted-foreground">
+                <div class名称="w-full max-w-lg">
+                    <div class名称="flex flex-row items-center gap-2 border rounded-md p-4 justify-center">
+                        <span class名称="text-sm text-muted-foreground">
                             <>
-                                Create a{" "}
-                                <Link href={`/settings/connections`} className="text-blue-500 hover:underline inline-flex items-center gap-1">
+                                创建 a{" "}
+                                <Link href={`/settings/connections`} class名称="text-blue-500 hover:underline inline-flex items-center gap-1">
                                     connection
                                 </Link>{" "}
                                 to start indexing repositories
@@ -44,12 +44,12 @@ export function RepositoryCarousel({
     }
 
     return (
-        <div className="flex flex-col items-center gap-3">
-            <span className="text-sm">
+        <div class名称="flex flex-col items-center gap-3">
+            <span class名称="text-sm">
                 {`${numberOfReposWithIndex} `}
                 <Link
                     href={`/repos`}
-                    className="text-link hover:underline"
+                    class名称="text-link hover:underline"
                 >
                     {numberOfReposWithIndex > 1 ? 'repositories' : 'repository'}
                 </Link>
@@ -60,7 +60,7 @@ export function RepositoryCarousel({
                     align: "start",
                     loop: true,
                 }}
-                className="w-full max-w-lg"
+                class名称="w-full max-w-lg"
                 plugins={[
                     Autoscroll({
                         startDelay: 0,
@@ -72,8 +72,8 @@ export function RepositoryCarousel({
             >
                 <CarouselContent>
                     {displayRepos.map((repo, index) => (
-                        <CarouselItem key={index} className="basis-auto">
-                            <RepositoryBadge
+                        <CarouselItem key={index} class名称="basis-auto">
+                            <仓库Badge
                                 key={index}
                                 repo={repo}
                             />
@@ -85,39 +85,39 @@ export function RepositoryCarousel({
     )
 }
 
-interface RepositoryBadgeProps {
-    repo: RepositoryQuery;
+interface 仓库BadgeProps {
+    repo: 仓库Query;
 }
 
-const RepositoryBadge = ({
+const 仓库Badge = ({
     repo
-}: RepositoryBadgeProps) => {
-    const { repoIcon, displayName } = (() => {
+}: 仓库BadgeProps) => {
+    const { repoIcon, display名称 } = (() => {
         const info = getCodeHostInfoForRepo({
             codeHostType: repo.codeHostType,
-            name: repo.repoName,
-            displayName: repo.repoDisplayName,
+            name: repo.repo名称,
+            display名称: repo.repoDisplay名称,
             externalWebUrl: repo.externalWebUrl,
         });
 
         return {
             repoIcon: <Image
                 src={info.icon}
-                alt={info.codeHostName}
-                className={`w-4 h-4 ${info.iconClassName}`}
+                alt={info.codeHost名称}
+                class名称={`w-4 h-4 ${info.iconClass名称}`}
             />,
-            displayName: info.displayName,
+            display名称: info.display名称,
         }
     })();
 
     return (
         <Link
             href={repo.webUrl}
-            className={clsx("flex flex-row items-center gap-2 border rounded-md p-2 text-clip")}
+            class名称={clsx("flex flex-row items-center gap-2 border rounded-md p-2 text-clip")}
         >
             {repoIcon}
-            <span className="text-sm font-mono">
-                {displayName}
+            <span class名称="text-sm font-mono">
+                {display名称}
             </span>
         </Link>
     )

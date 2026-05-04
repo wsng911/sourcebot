@@ -26,7 +26,7 @@ import { parser as _parser } from '@sourcebot/query-language';
 import { PrismaClient } from '@sourcebot/db';
 import { SINGLE_TENANT_ORG_ID } from '@/lib/constants';
 import { ServiceErrorException } from '@/lib/serviceError';
-import { StatusCodes } from 'http-status-codes';
+import { 状态Codes } from 'http-status-codes';
 import { ErrorCode } from '@/lib/errorCodes';
 import { languageMetadataMap } from '@/lib/languageMetadata';
 
@@ -100,11 +100,11 @@ export const parseQuerySyntaxIntoIR = async ({
             input: query,
             isCaseSensitivityEnabled: options.isCaseSensitivityEnabled ?? false,
             isRegexEnabled: options.isRegexEnabled ?? false,
-            onExpandSearchContext: async (contextName: string) => {
+            onExpand搜索Context: async (context名称: string) => {
                 const context = await prisma.searchContext.findUnique({
                     where: {
                         name_orgId: {
-                            name: contextName,
+                            name: context名称,
                             orgId: SINGLE_TENANT_ORG_ID,
                         }
                     },
@@ -114,7 +114,7 @@ export const parseQuerySyntaxIntoIR = async ({
                 });
 
                 if (!context) {
-                    throw new Error(`Search context "${contextName}" not found`);
+                    throw new Error(`搜索 context "${context名称}" not found`);
                 }
 
                 return context.repos.map((repo) => repo.name);
@@ -123,7 +123,7 @@ export const parseQuerySyntaxIntoIR = async ({
     } catch (error) {
         if (error instanceof SyntaxError) {
             throw new ServiceErrorException({
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.FAILED_TO_PARSE_QUERY,
                 message: `Failed to parse query "${query}" with message: ${error.message}`,
             });
@@ -140,13 +140,13 @@ const transformTreeToIR = async ({
     input,
     isCaseSensitivityEnabled,
     isRegexEnabled,
-    onExpandSearchContext,
+    onExpand搜索Context,
 }: {
     tree: Tree;
     input: string;
     isCaseSensitivityEnabled: boolean;
     isRegexEnabled: boolean;
-    onExpandSearchContext: (contextName: string) => Promise<string[]>;
+    onExpand搜索Context: (context名称: string) => Promise<string[]>;
 }): Promise<QueryIR> => {
     const transformNode = async (node: SyntaxNode): Promise<QueryIR> => {
         switch (node.type.id) {
@@ -402,10 +402,10 @@ const transformTreeToIR = async ({
             }
 
             case ContextExpr: {
-                const repoNames = await onExpandSearchContext(value);
+                const repo名称s = await onExpand搜索Context(value);
                 return {
                     repo_set: {
-                        set: repoNames.reduce((acc, s) => {
+                        set: repo名称s.reduce((acc, s) => {
                             acc[s.trim()] = true;
                             return acc;
                         }, {} as Record<string, boolean>)

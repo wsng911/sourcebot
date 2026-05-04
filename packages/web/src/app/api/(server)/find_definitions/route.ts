@@ -1,6 +1,6 @@
 'use server';
 
-import { findSearchBasedSymbolDefinitions } from "@/features/codeNav/api";
+import { find搜索BasedSymbolDefinitions } from "@/features/codeNav/api";
 import { findRelatedSymbolsRequestSchema } from "@/features/codeNav/types";
 import { apiHandler } from "@/lib/apiHandler";
 import { requestBodySchemaValidationError, serviceErrorResponse } from "@/lib/serviceError";
@@ -14,7 +14,7 @@ export const POST = apiHandler(async (request: NextRequest) => {
         return serviceErrorResponse(requestBodySchemaValidationError(parsed.error));
     }
 
-    const response = await findSearchBasedSymbolDefinitions(parsed.data);
+    const response = await find搜索BasedSymbolDefinitions(parsed.data);
     if (isServiceError(response)) {
         return serviceErrorResponse(response);
     }

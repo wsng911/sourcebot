@@ -3,20 +3,20 @@
 import { Separator } from "@/components/ui/separator";
 import { ChatBox } from "@/features/chat/components/chatBox";
 import { ChatBoxToolbar } from "@/features/chat/components/chatBox/chatBoxToolbar";
-import { LanguageModelInfo, SearchScope } from "@/features/chat/types";
-import { useCreateNewChatThread } from "@/features/chat/useCreateNewChatThread";
-import { RepositoryQuery, SearchContextQuery } from "@/lib/types";
+import { LanguageModelInfo, 搜索Scope } from "@/features/chat/types";
+import { use创建NewChatThread } from "@/features/chat/use创建NewChatThread";
+import { 仓库Query, 搜索ContextQuery } from "@/lib/types";
 import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { SELECTED_SEARCH_SCOPES_LOCAL_STORAGE_KEY } from "@/features/chat/constants";
-import { SearchModeSelector } from "../../components/searchModeSelector";
+import { 搜索ModeSelector } from "../../components/searchModeSelector";
 import { NotConfiguredErrorBanner } from "@/features/chat/components/notConfiguredErrorBanner";
-import { LoginModal } from "@/app/components/loginModal";
+import { 登录Modal } from "@/app/components/loginModal";
 
 interface LandingPageChatBox {
     languageModels: LanguageModelInfo[];
-    repos: RepositoryQuery[];
-    searchContexts: SearchContextQuery[];
+    repos: 仓库Query[];
+    searchContexts: 搜索ContextQuery[];
     isAuthenticated: boolean;
 }
 
@@ -26,50 +26,50 @@ export const LandingPageChatBox = ({
     searchContexts,
     isAuthenticated,
 }: LandingPageChatBox) => {
-    const { createNewChatThread, isLoading, loginWall } = useCreateNewChatThread({ isAuthenticated });
-    const [selectedSearchScopes, setSelectedSearchScopes] = useLocalStorage<SearchScope[]>(SELECTED_SEARCH_SCOPES_LOCAL_STORAGE_KEY, [], { initializeWithValue: false });
+    const { createNewChatThread, isLoading, loginWall } = use创建NewChatThread({ isAuthenticated });
+    const [selected搜索Scopes, setSelected搜索Scopes] = useLocalStorage<搜索Scope[]>(SELECTED_SEARCH_SCOPES_LOCAL_STORAGE_KEY, [], { initializeWithValue: false });
     const [isContextSelectorOpen, setIsContextSelectorOpen] = useState(false);
     const isChatBoxDisabled = languageModels.length === 0;
 
     return (
-        <div className="w-full max-w-[800px] mt-4">
-            <div className="border rounded-md w-full shadow-sm">
+        <div class名称="w-full max-w-[800px] mt-4">
+            <div class名称="border rounded-md w-full shadow-sm">
                 <ChatBox
-                    onSubmit={(children) => {
-                        createNewChatThread(children, selectedSearchScopes);
+                    on提交={(children) => {
+                        createNewChatThread(children, selected搜索Scopes);
                     }}
-                    className="min-h-[50px]"
+                    class名称="min-h-[50px]"
                     isRedirecting={isLoading}
                     languageModels={languageModels}
-                    selectedSearchScopes={selectedSearchScopes}
+                    selected搜索Scopes={selected搜索Scopes}
                     searchContexts={searchContexts}
                     isDisabled={isChatBoxDisabled}
                 />
                 <Separator />
-                <div className="relative">
-                    <div className="w-full flex flex-row items-center bg-accent rounded-b-md px-2">
+                <div class名称="relative">
+                    <div class名称="w-full flex flex-row items-center bg-accent rounded-b-md px-2">
                         <ChatBoxToolbar
                             languageModels={languageModels}
                             repos={repos}
                             searchContexts={searchContexts}
-                            selectedSearchScopes={selectedSearchScopes}
-                            onSelectedSearchScopesChange={setSelectedSearchScopes}
+                            selected搜索Scopes={selected搜索Scopes}
+                            onSelected搜索ScopesChange={setSelected搜索Scopes}
                             isContextSelectorOpen={isContextSelectorOpen}
                             onContextSelectorOpenChanged={setIsContextSelectorOpen}
                         />
-                        <SearchModeSelector
+                        <搜索ModeSelector
                             searchMode="agentic"
-                            className="ml-auto"
+                            class名称="ml-auto"
                         />
                     </div>
                 </div>
             </div>
 
             {isChatBoxDisabled && (
-                <NotConfiguredErrorBanner className="mt-4" />
+                <NotConfiguredErrorBanner class名称="mt-4" />
             )}
 
-            <LoginModal
+            <登录Modal
                 isOpen={loginWall.isOpen}
                 onOpenChange={loginWall.onOpenChange}
                 providers={loginWall.providers}

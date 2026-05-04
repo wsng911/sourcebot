@@ -133,13 +133,13 @@ describe('gitlabPushMrReviews', () => {
             {
                 filename: 'src/a.ts',
                 reviews: [
-                    { line_start: 1, line_end: 1, review: 'Comment A1' },
-                    { line_start: 5, line_end: 5, review: 'Comment A2' },
+                    { line_start: 1, line_end: 1, review: '评论 A1' },
+                    { line_start: 5, line_end: 5, review: '评论 A2' },
                 ],
             },
             {
                 filename: 'src/b.ts',
-                reviews: [{ line_start: 3, line_end: 3, review: 'Comment B1' }],
+                reviews: [{ line_start: 3, line_end: 3, review: '评论 B1' }],
             },
         ];
         const client = makeMockClient();
@@ -159,17 +159,17 @@ describe('gitlabPushMrReviews', () => {
                 ],
             },
         ];
-        const mockCreate = vi.fn()
+        const mock创建 = vi.fn()
             .mockRejectedValueOnce(new Error('400'))
             .mockResolvedValueOnce({});
         const client = {
-            MergeRequestDiscussions: { create: mockCreate },
+            MergeRequestDiscussions: { create: mock创建 },
             MergeRequestNotes: { create: vi.fn().mockResolvedValue({}) },
         } as any;
 
         await gitlabPushMrReviews(client, 101, MOCK_PAYLOAD, twoReviews);
 
-        expect(mockCreate).toHaveBeenCalledTimes(2);
+        expect(mock创建).toHaveBeenCalledTimes(2);
         // First failed → fallback note; second succeeded → no note
         expect(client.MergeRequestNotes.create).toHaveBeenCalledOnce();
     });

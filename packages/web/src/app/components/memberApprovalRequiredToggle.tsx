@@ -48,21 +48,21 @@ export function MemberApprovalRequiredToggle({ memberApprovalRequired, onToggleC
     const isDisabled = isLoading || isControlledByEnvVar;
 
     return (
-        <div className={`p-4 rounded-lg border border-border bg-card ${isControlledByEnvVar ? 'opacity-60' : ''}`}>
-            <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-foreground mb-2">
+        <div class名称={`p-4 rounded-lg border border-border bg-card ${isControlledByEnvVar ? 'opacity-60' : ''}`}>
+            <div class名称="flex items-start justify-between gap-4">
+                <div class名称="flex-1 min-w-0">
+                    <h3 class名称="font-medium text-foreground mb-2">
                         Require approval for new members
                     </h3>
-                    <div className="max-w-2xl">
-                        <p className="text-sm text-muted-foreground leading-relaxed">
+                    <div class名称="max-w-2xl">
+                        <p class名称="text-sm text-muted-foreground leading-relaxed">
                             When enabled, new users will need approval from an organization owner before they can access your deployment.
                         </p>
                         {isControlledByEnvVar && (
-                            <div className="mt-3 p-3 rounded-md bg-muted border border-border">
-                                <p className="text-sm text-foreground leading-relaxed flex items-center gap-2">
+                            <div class名称="mt-3 p-3 rounded-md bg-muted border border-border">
+                                <p class名称="text-sm text-foreground leading-relaxed flex items-center gap-2">
                                     <svg
-                                        className="w-4 h-4 flex-shrink-0 text-muted-foreground"
+                                        class名称="w-4 h-4 flex-shrink-0 text-muted-foreground"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -75,14 +75,14 @@ export function MemberApprovalRequiredToggle({ memberApprovalRequired, onToggleC
                                         />
                                     </svg>
                                     <span>
-                                        This setting is controlled by the <code className="bg-secondary px-1 py-0.5 rounded text-xs font-mono">REQUIRE_APPROVAL_NEW_MEMBERS</code> environment variable.
+                                        This setting is controlled by the <code class名称="bg-secondary px-1 py-0.5 rounded text-xs font-mono">REQUIRE_APPROVAL_NEW_MEMBERS</code> environment variable.
                                     </span>
                                 </p>
                             </div>
                         )}
                     </div>
                 </div>
-                <div className="flex-shrink-0">
+                <div class名称="flex-shrink-0">
                     <Switch
                         checked={enabled}
                         onCheckedChange={handleToggle}

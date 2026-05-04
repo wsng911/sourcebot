@@ -1,7 +1,7 @@
 import { ErrorCode } from "@/lib/errorCodes";
 import { ServiceError } from "@/lib/serviceError";
 import { OrgRole } from "@sourcebot/db";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 
 export const withMinimumOrgRole = async <T>(
     userRole: OrgRole,
@@ -22,7 +22,7 @@ export const withMinimumOrgRole = async <T>(
 
     if (getAuthorizationPrecedence(userRole) < getAuthorizationPrecedence(minRequiredRole)) {
         return {
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
             message: "You do not have sufficient permissions to perform this action.",
         } satisfies ServiceError;

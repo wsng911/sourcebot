@@ -32,33 +32,33 @@ export const RepoBranchesTable = ({ indexRevisions, repoWebUrl, repoCodeHostType
     const columns = React.useMemo<ColumnDef<string>[]>(() => {
         return [
             {
-                id: "refName",
+                id: "ref名称",
                 accessorFn: (row) => row,
                 header: "Revision",
                 cell: ({ row }) => {
-                    const refName = row.original;
-                    const shortRefName = refName.replace(/^refs\/(heads|tags)\//, "");
+                    const ref名称 = row.original;
+                    const shortRef名称 = ref名称.replace(/^refs\/(heads|tags)\//, "");
 
                     const branchUrl = getCodeHostBrowseAtBranchUrl({
                         webUrl: repoWebUrl,
                         codeHostType: repoCodeHostType,
-                        branchName: refName,
+                        branch名称: ref名称,
                     });
 
                     return branchUrl ? (
                         <Link
                             href={branchUrl}
-                            className="font-mono text-sm text-link hover:underline"
+                            class名称="font-mono text-sm text-link hover:underline"
                             target="_blank"
                         >
-                            {shortRefName}
+                            {shortRef名称}
                         </Link>
                     ) : (
                         <span
-                            className="font-mono text-sm text-muted-foreground"
+                            class名称="font-mono text-sm text-muted-foreground"
                             title="This revision is not indexed"
                         >
-                            {shortRefName}
+                            {shortRef名称}
                         </span>
                     )
                 },
@@ -87,17 +87,17 @@ export const RepoBranchesTable = ({ indexRevisions, repoWebUrl, repoCodeHostType
     })
 
     return (
-        <div className="space-y-4">
-            <div className="flex items-center gap-2">
+        <div class名称="space-y-4">
+            <div class名称="flex items-center gap-2">
                 <Input
                     placeholder="Filter branches..."
-                    value={(table.getColumn("refName")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) => table.getColumn("refName")?.setFilterValue(event.target.value)}
-                    className="max-w-sm"
+                    value={(table.getColumn("ref名称")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) => table.getColumn("ref名称")?.setFilterValue(event.target.value)}
+                    class名称="max-w-sm"
                 />
             </div>
 
-            <div className="rounded-md border">
+            <div class名称="rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -121,7 +121,7 @@ export const RepoBranchesTable = ({ indexRevisions, repoWebUrl, repoCodeHostType
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} class名称="h-24 text-center">
                                     No branches found.
                                 </TableCell>
                             </TableRow>
@@ -130,7 +130,7 @@ export const RepoBranchesTable = ({ indexRevisions, repoWebUrl, repoCodeHostType
                 </Table>
             </div>
 
-            <div className="flex items-center justify-end space-x-2">
+            <div class名称="flex items-center justify-end space-x-2">
                 <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                     Previous
                 </Button>

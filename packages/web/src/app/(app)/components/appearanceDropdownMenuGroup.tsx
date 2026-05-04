@@ -31,13 +31,13 @@ export const AppearanceDropdownMenuGroup = () => {
     const ThemeIcon = useMemo(() => {
         switch (theme) {
             case "light":
-                return <Sun className="h-4 w-4 mr-2" />;
+                return <Sun class名称="h-4 w-4 mr-2" />;
             case "dark":
-                return <Moon className="h-4 w-4 mr-2" />;
+                return <Moon class名称="h-4 w-4 mr-2" />;
             case "system":
-                return <Laptop className="h-4 w-4 mr-2" />;
+                return <Laptop class名称="h-4 w-4 mr-2" />;
             default:
-                return <Laptop className="h-4 w-4 mr-2" />;
+                return <Laptop class名称="h-4 w-4 mr-2" />;
         }
     }, [theme]);
 
@@ -66,7 +66,7 @@ export const AppearanceDropdownMenuGroup = () => {
             </DropdownMenuSub>
             <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
-                    <CodeIcon className="h-4 w-4 mr-2" />
+                    <CodeIcon class名称="h-4 w-4 mr-2" />
                     <span>Code navigation</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>

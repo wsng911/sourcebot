@@ -10,14 +10,14 @@ import { formatAuthorsText, getCommitAuthors } from "./commitAuthors";
 import { AuthorsAvatarGroup } from "./commitParts";
 
 export const LatestCommitInfo = () => {
-    const { repoName, revisionName, path } = useBrowseParams();
+    const { repo名称, revision名称, path } = useBrowseParams();
 
     const { data: commit } = useQuery({
-        queryKey: ['latestCommitInfo', repoName, revisionName ?? null, path],
+        queryKey: ['latestCommitInfo', repo名称, revision名称 ?? null, path],
         queryFn: async () => {
             const result = await listCommits({
-                repo: repoName,
-                ref: revisionName,
+                repo: repo名称,
+                ref: revision名称,
                 path: path || undefined,
                 page: 1,
                 perPage: 1,
@@ -41,15 +41,15 @@ export const LatestCommitInfo = () => {
     const relativeDate = formatDistanceToNow(new Date(commit.date), { addSuffix: true });
 
     return (
-        <div className="flex flex-row items-center gap-2 min-w-0 overflow-hidden">
+        <div class名称="flex flex-row items-center gap-2 min-w-0 overflow-hidden">
             <AuthorsAvatarGroup authors={authors} />
-            <span className="text-sm font-medium flex-shrink-0" title={authors.map((a) => a.name).join(", ")}>
+            <span class名称="text-sm font-medium flex-shrink-0" title={authors.map((a) => a.name).join(", ")}>
                 {formatAuthorsText(authors)}
             </span>
-            <span className="text-sm text-muted-foreground truncate" title={commit.message}>
+            <span class名称="text-sm text-muted-foreground truncate" title={commit.message}>
                 {commit.message}
             </span>
-            <span className="text-sm text-muted-foreground flex-shrink-0" title={commit.date}>
+            <span class名称="text-sm text-muted-foreground flex-shrink-0" title={commit.date}>
                 {relativeDate}
             </span>
         </div>

@@ -2,16 +2,16 @@
 
 import { sew } from "@/middleware/sew";
 import { getAuditService } from "@/ee/features/audit/factory";
-import { getAnonymousId, getOrCreateAnonymousId } from "@/lib/anonymousId";
+import { getAnonymousId, getOr创建AnonymousId } from "@/lib/anonymousId";
 import { ErrorCode } from "@/lib/errorCodes";
 import { captureEvent } from "@/lib/posthog";
 import { notFound, ServiceError } from "@/lib/serviceError";
 import { withAuth, withOptionalAuth } from "@/middleware/withAuth";
 import { ChatVisibility, Prisma } from "@sourcebot/db";
 import { env } from "@sourcebot/shared";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { SBChatMessage } from "./types";
-import { generateChatNameFromMessage, getConfiguredLanguageModels, isChatSharedWithUser, isOwnerOfChat } from "./utils.server";
+import { generateChat名称FromMessage, getConfiguredLanguageModels, isChat分享dWithUser, isOwnerOfChat } from "./utils.server";
 
 const auditService = getAuditService();
 
@@ -20,7 +20,7 @@ export const createChat = async ({ source }: { source?: string } = {}) => sew(()
         const isGuestUser = user === undefined;
 
         // For anonymous users, get or create an anonymous ID to track ownership
-        const anonymousCreatorId = isGuestUser ? await getOrCreateAnonymousId() : undefined;
+        const anonymousCreatorId = isGuestUser ? await getOr创建AnonymousId() : undefined;
 
         const chat = await prisma.chat.create({
             data: {
@@ -76,10 +76,10 @@ export const getChatInfo = async ({ chatId }: { chatId: string }) => sew(() =>
         }
 
         const isOwner = await isOwnerOfChat(chat, user);
-        const isSharedWithUser = await isChatSharedWithUser({ prisma, chatId, userId: user?.id });
+        const is分享dWithUser = await isChat分享dWithUser({ prisma, chatId, userId: user?.id });
 
-        // Private chats can only be viewed by the owner or users it's been shared with
-        if (chat.visibility === ChatVisibility.PRIVATE && !isOwner && !isSharedWithUser) {
+        // 私有 chats can only be viewed by the owner or users it's been shared with
+        if (chat.visibility === ChatVisibility.PRIVATE && !isOwner && !is分享dWithUser) {
             return notFound();
         }
 
@@ -88,7 +88,7 @@ export const getChatInfo = async ({ chatId }: { chatId: string }) => sew(() =>
             visibility: chat.visibility,
             name: chat.name,
             isOwner,
-            isSharedWithUser,
+            is分享dWithUser,
         };
     })
 );
@@ -114,7 +114,7 @@ export const getUserChatHistory = async () => sew(() =>
     })
 );
 
-export const updateChatName = async ({ chatId, name }: { chatId: string, name: string }) => sew(() =>
+export const updateChat名称 = async ({ chatId, name }: { chatId: string, name: string }) => sew(() =>
     withOptionalAuth(async ({ org, user, prisma }) => {
         const chat = await prisma.chat.findUnique({
             where: {
@@ -192,7 +192,7 @@ export const updateChatVisibility = async ({ chatId, visibility }: { chatId: str
     })
 );
 
-export const generateAndUpdateChatNameFromMessage = async ({ chatId, languageModelId, message }: { chatId: string, languageModelId: string, message: string }) => sew(() =>
+export const generateAndUpdateChat名称FromMessage = async ({ chatId, languageModelId, message }: { chatId: string, languageModelId: string, message: string }) => sew(() =>
     withOptionalAuth(async ({ prisma, user, org }) => {
         const chat = await prisma.chat.findUnique({
             where: {
@@ -216,13 +216,13 @@ export const generateAndUpdateChatNameFromMessage = async ({ chatId, languageMod
 
         if (!languageModelConfig) {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.INVALID_REQUEST_BODY,
                 message: `Language model ${languageModelId} is not configured.`,
             } satisfies ServiceError;
         }
 
-        const name = await generateChatNameFromMessage({ message, languageModelConfig });
+        const name = await generateChat名称FromMessage({ message, languageModelConfig });
 
         await prisma.chat.update({
             where: {
@@ -317,7 +317,7 @@ export const claimAnonymousChats = async () => sew(() =>
  * Duplicates a chat with all its messages.
  * The new chat will be owned by the current user (authenticated or anonymous).
  */
-export const duplicateChat = async ({ chatId, newName }: { chatId: string, newName: string }) => sew(() =>
+export const duplicateChat = async ({ chatId, new名称 }: { chatId: string, new名称: string }) => sew(() =>
     withOptionalAuth(async ({ org, user, prisma }) => {
         const originalChat = await prisma.chat.findUnique({
             where: {
@@ -332,18 +332,18 @@ export const duplicateChat = async ({ chatId, newName }: { chatId: string, newNa
 
         // Check if user can access the chat (owner, shared, or public)
         const isOwner = await isOwnerOfChat(originalChat, user);
-        const isSharedWithUser = await isChatSharedWithUser({ prisma, chatId, userId: user?.id });
-        if (originalChat.visibility === ChatVisibility.PRIVATE && !isOwner && !isSharedWithUser) {
+        const is分享dWithUser = await isChat分享dWithUser({ prisma, chatId, userId: user?.id });
+        if (originalChat.visibility === ChatVisibility.PRIVATE && !isOwner && !is分享dWithUser) {
             return notFound();
         }
 
         const isGuestUser = user === undefined;
-        const anonymousCreatorId = isGuestUser ? await getOrCreateAnonymousId() : undefined;
+        const anonymousCreatorId = isGuestUser ? await getOr创建AnonymousId() : undefined;
 
         const newChat = await prisma.chat.create({
             data: {
                 orgId: org.id,
-                name: newName,
+                name: new名称,
                 messages: originalChat.messages as unknown as Prisma.InputJsonValue,
                 createdById: user?.id,
                 anonymousCreatorId,
@@ -360,7 +360,7 @@ export const duplicateChat = async ({ chatId, newName }: { chatId: string, newNa
 /**
  * Returns the users that have been explicitly shared access to a chat.
  */
-export const getSharedWithUsersForChat = async ({ chatId }: { chatId: string }) => sew(() =>
+export const get分享dWithUsersForChat = async ({ chatId }: { chatId: string }) => sew(() =>
     withAuth(async ({ org, user, prisma }) => {
         const chat = await prisma.chat.findUnique({
             where: {
@@ -397,7 +397,7 @@ export const getSharedWithUsersForChat = async ({ chatId }: { chatId: string }) 
 );
 
 /**
- * Shares the chat with a list of users.
+ * 分享s the chat with a list of users.
  */
 export const shareChatWithUsers = async ({ chatId, userIds }: { chatId: string, userIds: string[] }) => sew(() =>
     withAuth(async ({ org, user, prisma }) => {
@@ -513,8 +513,8 @@ export const submitFeedback = async ({
         }
 
         // When a chat is private, only the creator or shared users can submit feedback.
-        const isSharedWithUser = await isChatSharedWithUser({ prisma, chatId, userId: user?.id });
-        if (chat.visibility === ChatVisibility.PRIVATE && chat.createdById !== user?.id && !isSharedWithUser) {
+        const is分享dWithUser = await isChat分享dWithUser({ prisma, chatId, userId: user?.id });
+        if (chat.visibility === ChatVisibility.PRIVATE && chat.createdById !== user?.id && !is分享dWithUser) {
             return notFound();
         }
 
@@ -550,7 +550,7 @@ export const submitFeedback = async ({
     })
 )
 
-export const getAskGhLoginWallData = async () => sew(async () => {
+export const getAskGh登录WallData = async () => sew(async () => {
     const isEnabled = env.EXPERIMENT_ASK_GH_ENABLED === 'true';
     if (!isEnabled) {
         return { isEnabled: false as const, providers: [] };

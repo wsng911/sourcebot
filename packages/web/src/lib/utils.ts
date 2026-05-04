@@ -36,7 +36,7 @@ export function truncateSha(ref: string): string {
 }
 
 /**
- * Creates an invite link URL from the base URL and invite ID
+ * 创建s an invite link URL from the base URL and invite ID
  * @param baseUrl The base URL of the application
  * @param inviteLinkId The invite link ID
  * @returns The complete invite link URL or null if no inviteLinkId
@@ -46,7 +46,7 @@ export const createInviteLink = (baseUrl: string, inviteLinkId?: string | null):
 }
 
 /**
- * Adds a list of (potentially undefined) query parameters to a path.
+ * 添加s a list of (potentially undefined) query parameters to a path.
  * 
  * @param path The path to add the query parameters to.
  * @param queryParams A list of key-value pairs (key=param name, value=param value) to add to the path.
@@ -76,8 +76,8 @@ const encodeRFC3986URIComponent = (str: string) => {
 type AuthProviderInfo = {
     id: string;
     name: string;
-    displayName: string;
-    icon: { src: string; className?: string } | null;
+    display名称: string;
+    icon: { src: string; class名称?: string } | null;
 }
 
 export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
@@ -86,17 +86,17 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "github",
                 name: "GitHub",
-                displayName: "GitHub",
+                display名称: "GitHub",
                 icon: {
                     src: githubLogo,
-                    className: "dark:invert",
+                    class名称: "dark:invert",
                 },
             };
         case "gitlab":
             return {
                 id: "gitlab",
                 name: "GitLab",
-                displayName: "GitLab",
+                display名称: "GitLab",
                 icon: {
                     src: gitlabLogo,
                 },
@@ -105,7 +105,7 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "google",
                 name: "Google",
-                displayName: "Google",
+                display名称: "Google",
                 icon: {
                     src: googleLogo,
                 },
@@ -114,17 +114,17 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "okta",
                 name: "Okta",
-                displayName: "Okta",
+                display名称: "Okta",
                 icon: {
                     src: oktaLogo,
-                    className: "dark:invert",
+                    class名称: "dark:invert",
                 },
             };
         case "keycloak":
             return {
                 id: "keycloak",
                 name: "Keycloak",
-                displayName: "Keycloak",
+                display名称: "Keycloak",
                 icon: {
                     src: keycloakLogo,
                 },
@@ -133,7 +133,7 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "microsoft-entra-id",
                 name: "Microsoft Entra ID",
-                displayName: "Microsoft Entra ID",
+                display名称: "Microsoft Entra ID",
                 icon: {
                     src: microsoftLogo,
                 },
@@ -142,7 +142,7 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "authentik",
                 name: "Authentik",
-                displayName: "Authentik",
+                display名称: "Authentik",
                 icon: {
                     src: authentikLogo,
                 },
@@ -151,7 +151,7 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "jumpcloud",
                 name: "JumpCloud",
-                displayName: "JumpCloud",
+                display名称: "JumpCloud",
                 icon: {
                     src: jumpcloudLogo,
                 },
@@ -160,21 +160,21 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "credentials",
                 name: "Credentials",
-                displayName: "Email & Password",
+                display名称: "邮箱 & 密码",
                 icon: null, // No icon needed for credentials
             };
         case "nodemailer":
             return {
                 id: "nodemailer",
-                name: "Email",
-                displayName: "Email Code",
+                name: "邮箱",
+                display名称: "邮箱 Code",
                 icon: null, // No icon needed for email
             };
         case "bitbucket-cloud":
             return {
                 id: "bitbucket-cloud",
                 name: "Bitbucket Cloud",
-                displayName: "Bitbucket Cloud",
+                display名称: "Bitbucket Cloud",
                 icon: {
                     src: bitbucketLogo,
                 },
@@ -183,7 +183,7 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: "bitbucket-server",
                 name: "Bitbucket Server",
-                displayName: "Bitbucket Server",
+                display名称: "Bitbucket Server",
                 icon: {
                     src: bitbucketLogo,
                 },
@@ -192,7 +192,7 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
             return {
                 id: providerId,
                 name: providerId,
-                displayName: providerId.charAt(0).toUpperCase() + providerId.slice(1),
+                display名称: providerId.charAt(0).toUpperCase() + providerId.slice(1),
                 icon: null,
             };
     }
@@ -200,119 +200,119 @@ export const getAuthProviderInfo = (providerId: string): AuthProviderInfo => {
 
 type CodeHostInfo = {
     type: CodeHostType;
-    displayName: string;
-    codeHostName: string;
+    display名称: string;
+    codeHost名称: string;
     externalWebUrl?: string;
     icon: string;
-    iconClassName?: string;
+    iconClass名称?: string;
 }
 
 export const getCodeHostInfoForRepo = (repo: {
     codeHostType: CodeHostType,
     name: string,
-    displayName?: string,
+    display名称?: string,
     externalWebUrl?: string,
 }): CodeHostInfo => {
-    const { codeHostType, name, displayName, externalWebUrl } = repo;
+    const { codeHostType, name, display名称, externalWebUrl } = repo;
 
     switch (codeHostType) {
         case 'github': {
-            const { src, className } = getCodeHostIcon('github')!;
+            const { src, class名称 } = getCodeHostIcon('github')!;
             return {
                 type: "github",
-                displayName: displayName ?? name,
-                codeHostName: "GitHub",
+                display名称: display名称 ?? name,
+                codeHost名称: "GitHub",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
         case 'gitlab': {
-            const { src, className } = getCodeHostIcon('gitlab')!;
+            const { src, class名称 } = getCodeHostIcon('gitlab')!;
             return {
                 type: "gitlab",
-                displayName: displayName ?? name,
-                codeHostName: "GitLab",
+                display名称: display名称 ?? name,
+                codeHost名称: "GitLab",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
         case 'azuredevops': {
-            const { src, className } = getCodeHostIcon('azuredevops')!;
+            const { src, class名称 } = getCodeHostIcon('azuredevops')!;
             return {
                 type: "azuredevops",
-                displayName: displayName ?? name,
-                codeHostName: "Azure DevOps",
+                display名称: display名称 ?? name,
+                codeHost名称: "Azure DevOps",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
         case 'gitea': {
-            const { src, className } = getCodeHostIcon('gitea')!;
+            const { src, class名称 } = getCodeHostIcon('gitea')!;
             return {
                 type: "gitea",
-                displayName: displayName ?? name,
-                codeHostName: "Gitea",
+                display名称: display名称 ?? name,
+                codeHost名称: "Gitea",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
         case 'gerrit': {
-            const { src, className } = getCodeHostIcon('gerrit')!;
+            const { src, class名称 } = getCodeHostIcon('gerrit')!;
             return {
                 type: "gerrit",
-                displayName: displayName ?? name,
-                codeHostName: "Gerrit",
+                display名称: display名称 ?? name,
+                codeHost名称: "Gerrit",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
         case "bitbucketServer": {
-            const { src, className } = getCodeHostIcon('bitbucketServer')!;
+            const { src, class名称 } = getCodeHostIcon('bitbucketServer')!;
             return {
                 type: "bitbucketServer",
-                displayName: displayName ?? name,
-                codeHostName: "Bitbucket Server",
+                display名称: display名称 ?? name,
+                codeHost名称: "Bitbucket Server",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
         case "bitbucketCloud": {
-            const { src, className } = getCodeHostIcon('bitbucketCloud')!;
+            const { src, class名称 } = getCodeHostIcon('bitbucketCloud')!;
             return {
                 type: "bitbucketCloud",
-                displayName: displayName ?? name,
-                codeHostName: "Bitbucket Cloud",
+                display名称: display名称 ?? name,
+                codeHost名称: "Bitbucket Cloud",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
         case "genericGitHost": {
-            const { src, className } = getCodeHostIcon('genericGitHost')!;
+            const { src, class名称 } = getCodeHostIcon('genericGitHost')!;
             return {
                 type: "genericGitHost",
-                displayName: displayName ?? name,
-                codeHostName: "Git Host",
+                display名称: display名称 ?? name,
+                codeHost名称: "Git Host",
                 externalWebUrl,
                 icon: src,
-                iconClassName: className,
+                iconClass名称: class名称,
             }
         }
     }
 }
 
-export const getCodeHostIcon = (codeHostType: CodeHostType | ConnectionType): { src: string, className?: string } => {
+export const getCodeHostIcon = (codeHostType: CodeHostType | ConnectionType): { src: string, class名称?: string } => {
     switch (codeHostType) {
         case "github":
             return {
                 src: githubLogo,
-                className: "dark:invert",
+                class名称: "dark:invert",
             };
         case "gitlab":
             return {
@@ -380,33 +380,33 @@ export const getCodeHostCommitUrl = ({
 export const getCodeHostBrowseAtBranchUrl = ({
     webUrl,
     codeHostType,
-    branchName: _branchName,
+    branch名称: _branch名称,
 }: {
     webUrl?: string | null,
     codeHostType: CodeHostType,
-    branchName: string,
+    branch名称: string,
 }) => {
     if (!webUrl) {
         return undefined;
     }
 
-    const branchName = _branchName.replace(/^refs\/(heads|tags)\//, '');
+    const branch名称 = _branch名称.replace(/^refs\/(heads|tags)\//, '');
 
     switch (codeHostType) {
         case 'github':
-            return `${webUrl}/tree/${branchName}`;
+            return `${webUrl}/tree/${branch名称}`;
         case 'gitlab':
-            return `${webUrl}/-/tree/${branchName}`;
+            return `${webUrl}/-/tree/${branch名称}`;
         case 'gitea':
-            return `${webUrl}/src/branch/${branchName}`;
+            return `${webUrl}/src/branch/${branch名称}`;
         case 'azuredevops':
-            return `${webUrl}?branch=${branchName}`;
+            return `${webUrl}?branch=${branch名称}`;
         case 'bitbucketCloud':
-            return `${webUrl}?at=${branchName}`;
+            return `${webUrl}?at=${branch名称}`;
         case 'bitbucketServer':
-            return `${webUrl}?at=${branchName}`;
+            return `${webUrl}?at=${branch名称}`;
         case 'gerrit':
-            return `${webUrl}/+/${branchName}`;
+            return `${webUrl}/+/${branch名称}`;
         case 'genericGitHost':
             return undefined;
     }
@@ -415,35 +415,35 @@ export const getCodeHostBrowseAtBranchUrl = ({
 export const getCodeHostBrowseFileAtBranchUrl = ({
     webUrl,
     codeHostType,
-    branchName: _branchName,
+    branch名称: _branch名称,
     filePath,
 }: {
     webUrl?: string | null,
     codeHostType: CodeHostType,
-    branchName: string,
+    branch名称: string,
     filePath: string,
 }) => {
     if (!webUrl) {
         return undefined;
     }
 
-    const branchName = _branchName.replace(/^refs\/(heads|tags)\//, '');
+    const branch名称 = _branch名称.replace(/^refs\/(heads|tags)\//, '');
 
     switch (codeHostType) {
         case 'github':
-            return `${webUrl}/blob/${branchName}/${filePath}`;
+            return `${webUrl}/blob/${branch名称}/${filePath}`;
         case 'gitlab':
-            return `${webUrl}/-/blob/${branchName}/${filePath}`;
+            return `${webUrl}/-/blob/${branch名称}/${filePath}`;
         case 'gitea':
-            return `${webUrl}/src/branch/${branchName}/${filePath}`;
+            return `${webUrl}/src/branch/${branch名称}/${filePath}`;
         case 'azuredevops':
-            return `${webUrl}?path=${filePath}&version=${branchName}`;
+            return `${webUrl}?path=${filePath}&version=${branch名称}`;
         case 'bitbucketCloud':
-            return `${webUrl}/src/${branchName}/${filePath}`;
+            return `${webUrl}/src/${branch名称}/${filePath}`;
         case 'bitbucketServer':
-            return `${webUrl}/browse/${filePath}?at=${branchName}`;
+            return `${webUrl}/browse/${filePath}?at=${branch名称}`;
         case 'gerrit':
-            return `${webUrl}/+/${branchName}/${filePath}`;
+            return `${webUrl}/+/${branch名称}/${filePath}`;
         case 'genericGitHost':
             return undefined;
 
@@ -506,18 +506,18 @@ export const getShortenedNumberDisplayString = (number: number, fractionDigits: 
     }
 }
 
-export const measureSync = <T>(cb: () => T, measureName: string, outputLog: boolean = true) => {
-    const startMark = `${measureName}.start`;
-    const endMark = `${measureName}.end`;
+export const measure同步 = <T>(cb: () => T, measure名称: string, outputLog: boolean = true) => {
+    const startMark = `${measure名称}.start`;
+    const endMark = `${measure名称}.end`;
 
     performance.mark(startMark);
     const data = cb();
     performance.mark(endMark);
 
-    const measure = performance.measure(measureName, startMark, endMark);
+    const measure = performance.measure(measure名称, startMark, endMark);
     const durationMs = measure.duration;
     if (outputLog) {
-        console.debug(`[${measureName}] took ${durationMs}ms`);
+        console.debug(`[${measure名称}] took ${durationMs}ms`);
     }
 
     return {
@@ -526,18 +526,18 @@ export const measureSync = <T>(cb: () => T, measureName: string, outputLog: bool
     }
 }
 
-export const measure = async <T>(cb: () => Promise<T>, measureName: string, outputLog: boolean = true) => {
-    const startMark = `${measureName}.start`;
-    const endMark = `${measureName}.end`;
+export const measure = async <T>(cb: () => Promise<T>, measure名称: string, outputLog: boolean = true) => {
+    const startMark = `${measure名称}.start`;
+    const endMark = `${measure名称}.end`;
 
     performance.mark(startMark);
     const data = await cb();
     performance.mark(endMark);
 
-    const measure = performance.measure(measureName, startMark, endMark);
+    const measure = performance.measure(measure名称, startMark, endMark);
     const durationMs = measure.duration;
     if (outputLog) {
-        console.debug(`[${measureName}] took ${durationMs}ms`);
+        console.debug(`[${measure名称}] took ${durationMs}ms`);
     }
 
     return {
@@ -577,9 +577,9 @@ export const getRepoImageSrc = (imageUrl: string | undefined, repoId: number): s
             'bitbucket.org',
         ];
 
-        const isPublicInstance = publicHostnames.includes(url.hostname);
+        const is公开Instance = publicHostnames.includes(url.hostname);
 
-        if (isPublicInstance) {
+        if (is公开Instance) {
             return imageUrl;
         } else {
             // Use the proxied route for self-hosted instances

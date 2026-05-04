@@ -2,7 +2,7 @@
 import posthog from 'posthog-js'
 import { usePostHog } from 'posthog-js/react'
 import { PostHogProvider as PHProvider } from 'posthog-js/react'
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname, use搜索Params } from "next/navigation"
 import { Suspense, useEffect } from "react"
 import { useSession } from 'next-auth/react'
 import { captureEvent } from '@/hooks/useCaptureEvent'
@@ -10,7 +10,7 @@ import { captureEvent } from '@/hooks/useCaptureEvent'
 // @see: https://posthog.com/docs/libraries/next-js#capturing-pageviews
 function PostHogPageView() {
     const pathname = usePathname()
-    const searchParams = useSearchParams()
+    const searchParams = use搜索Params()
     const posthog = usePostHog()
 
     useEffect(() => {

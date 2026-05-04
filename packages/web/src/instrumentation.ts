@@ -9,7 +9,7 @@ export async function register() {
     ) {
         console.log("Registering Langfuse");
         registerOTel({
-            serviceName: 'sourcebot',
+            service名称: 'sourcebot',
             traceExporter: new LangfuseExporter({
                 secretKey: process.env.LANGFUSE_SECRET_KEY,
                 publicKey: process.env.NEXT_PUBLIC_LANGFUSE_PUBLIC_KEY,

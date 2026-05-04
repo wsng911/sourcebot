@@ -1,6 +1,6 @@
 import { StreamLanguage, LanguageSupport } from "@codemirror/language";
 
-// CodeMirror 6 languages
+// Code镜像 6 languages
 import { brainfuck } from "codemirror-lang-brainfuck"; // 3rd party
 import { css } from "@codemirror/lang-css";
 import { cpp } from "@codemirror/lang-cpp";
@@ -45,7 +45,7 @@ import { xml } from "@codemirror/lang-xml"
 import { yaml } from "@codemirror/lang-yaml";
 import { zig } from "codemirror-lang-zig"; // 3rd party
 
-// Legacy CodeMirror 5 modes
+// Legacy Code镜像 5 modes
 // https://codemirror.net/5/mode/
 import { apl } from "@codemirror/legacy-modes/mode/apl";
 // import { asn1 } from "@codemirror/legacy-modes/mode/asn1"; // this seems to be broken
@@ -104,13 +104,13 @@ import { vbScript } from "@codemirror/legacy-modes/mode/vbscript";
 import { velocity } from "@codemirror/legacy-modes/mode/velocity";
 import { verilog } from "@codemirror/legacy-modes/mode/verilog";
 import { vhdl } from "@codemirror/legacy-modes/mode/vhdl";
-// import { wast } from "@codemirror/legacy-modes/mode/wast"; // available in CodeMirror 6
+// import { wast } from "@codemirror/legacy-modes/mode/wast"; // available in Code镜像 6
 import { webIDL } from "@codemirror/legacy-modes/mode/webidl";
 import { xQuery } from "@codemirror/legacy-modes/mode/xquery";
 import { languageMetadataMap } from "@/lib/languageMetadata";
 
 
-export type CodeMirrorLanguageKey = keyof typeof codemirrorLanguageMap;
+export type Code镜像LanguageKey = keyof typeof codemirrorLanguageMap;
 
 export const getCodemirrorLanguage = (linguistLanguage: string): StreamLanguage<unknown> | LanguageSupport | null => {
     if (languageMetadataMap[linguistLanguage]?.codemirrorLanguage) {
@@ -123,7 +123,7 @@ export const getCodemirrorLanguage = (linguistLanguage: string): StreamLanguage<
 }
 
 export const codemirrorLanguageMap = {
-    // CodeMirror 6 languages
+    // Code镜像 6 languages
     "brainfuck": brainfuck(),
     "css": css(),
     "c": cpp(),
@@ -170,7 +170,7 @@ export const codemirrorLanguageMap = {
     "yaml": yaml(),
     "zig": zig(),
     "basic": StreamLanguage.define(vb),
-    // Legacy CodeMirror 5 modes
+    // Legacy Code镜像 5 modes
     "apl": StreamLanguage.define(apl),
     "ceylon": StreamLanguage.define(ceylon),
     "clojure": StreamLanguage.define(clojure),
@@ -225,7 +225,7 @@ export const codemirrorLanguageMap = {
     "velocity": StreamLanguage.define(velocity),
     "verilog": StreamLanguage.define(verilog),
     "vhdl": StreamLanguage.define(vhdl),
-   //  "wast": StreamLanguage.define(wast), // available in CodeMirror 6
+   //  "wast": StreamLanguage.define(wast), // available in Code镜像 6
     "webidl": StreamLanguage.define(webIDL),
     "xquery": StreamLanguage.define(xQuery),
 };

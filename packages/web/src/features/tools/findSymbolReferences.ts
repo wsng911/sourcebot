@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { isServiceError } from "@/lib/utils";
-import { findSearchBasedSymbolReferences } from "@/features/codeNav/api";
+import { find搜索BasedSymbolReferences } from "@/features/codeNav/api";
 import { Source, ToolDefinition } from "./types";
 import { logger } from "./logger";
 import description from "./findSymbolReferences.txt";
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 import { CodeHostType } from "@sourcebot/db";
 
 const MAX_LINE_LENGTH = 2000;
@@ -17,12 +17,12 @@ const findSymbolReferencesShape = {
 
 export type FindSymbolRepoInfo = {
     name: string;
-    displayName: string;
+    display名称: string;
     codeHostType: CodeHostType;
 };
 
 export type FindSymbolFile = {
-    fileName: string;
+    file名称: string;
     repo: string;
     revision: string;
 };
@@ -50,10 +50,10 @@ export const findSymbolReferencesDefinition: ToolDefinition<
         logger.debug('find_symbol_references', { symbol, repo });
         const revision = "HEAD";
 
-        const response = await findSearchBasedSymbolReferences({
-            symbolName: symbol,
-            revisionName: revision,
-            repoName: repo,
+        const response = await find搜索BasedSymbolReferences({
+            symbol名称: symbol,
+            revision名称: revision,
+            repo名称: repo,
         });
 
         if (isServiceError(response)) {
@@ -63,13 +63,13 @@ export const findSymbolReferencesDefinition: ToolDefinition<
         const matchCount = response.stats.matchCount;
         const fileCount = response.files.length;
 
-        const repoInfoResult = await getRepoInfoByName(repo);
+        const repoInfoResult = await getRepoInfoBy名称(repo);
         if (isServiceError(repoInfoResult) || !repoInfoResult) {
-            throw new Error(`Repository "${repo}" not found.`);
+            throw new Error(`仓库 "${repo}" not found.`);
         }
         const repoInfo: FindSymbolRepoInfo = {
             name: repoInfoResult.name,
-            displayName: repoInfoResult.displayName ?? repoInfoResult.name,
+            display名称: repoInfoResult.display名称 ?? repoInfoResult.name,
             codeHostType: repoInfoResult.codeHostType,
         };
 
@@ -79,7 +79,7 @@ export const findSymbolReferencesDefinition: ToolDefinition<
             fileCount,
             repoInfo,
             files: response.files.map((file) => ({
-                fileName: file.fileName,
+                file名称: file.file名称,
                 repo: file.repository,
                 revision,
             })),
@@ -98,7 +98,7 @@ export const findSymbolReferencesDefinition: ToolDefinition<
 
         for (const file of response.files) {
             outputLines.push('');
-            outputLines.push(`[${file.repository}] ${file.fileName}:`);
+            outputLines.push(`[${file.repository}] ${file.file名称}:`);
             for (const { lineContent, range } of file.matches) {
                 const lineNum = range.start.lineNumber;
                 const trimmed = lineContent.trimEnd();
@@ -112,8 +112,8 @@ export const findSymbolReferencesDefinition: ToolDefinition<
         const sources: Source[] = metadata.files.map((file) => ({
             type: 'file' as const,
             repo: file.repo,
-            path: file.fileName,
-            name: file.fileName.split('/').pop() ?? file.fileName,
+            path: file.file名称,
+            name: file.file名称.split('/').pop() ?? file.file名称,
             revision: file.revision,
         }));
 

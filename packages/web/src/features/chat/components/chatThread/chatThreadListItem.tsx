@@ -227,7 +227,7 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
 
         // The reference id is attached to the DOM element as a class name.
         // @see: markdownRenderer.tsx
-        const referenceElements = Array.from(answerRef.current?.getElementsByClassName(selectedReference.id) ?? []);
+        const referenceElements = Array.from(answerRef.current?.getElementsByClass名称(selectedReference.id) ?? []);
         if (referenceElements.length === 0) {
             return;
         }
@@ -248,7 +248,7 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
 
         return () => {
             referenceElements.forEach(element => {
-                // Remove both possible selected classes
+                // 移除 both possible selected classes
                 element.classList.remove('chat-reference--selected');
                 element.classList.remove('chat-citation--selected');
             });
@@ -263,7 +263,7 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
 
         // The reference id is attached to the DOM element as a class name.
         // @see: markdownRenderer.tsx
-        const referenceElements = Array.from(answerRef.current?.getElementsByClassName(hoveredReference.id) ?? []);
+        const referenceElements = Array.from(answerRef.current?.getElementsByClass名称(hoveredReference.id) ?? []);
         if (referenceElements.length === 0) {
             return;
         }
@@ -277,7 +277,7 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
 
         return () => {
             referenceElements.forEach(element => {
-                // Remove both possible hover classes
+                // 移除 both possible hover classes
                 element.classList.remove('chat-reference--hover');
                 element.classList.remove('chat-citation--hover');
             });
@@ -307,7 +307,7 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
 
     return (
         <div
-            className="flex flex-col md:flex-row relative min-h-[calc(100vh-250px)]"
+            class名称="flex flex-col md:flex-row relative min-h-[calc(100vh-250px)]"
             ref={ref}
         >
             <ResizablePanelGroup
@@ -328,28 +328,28 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
                 >
                     <div
                         ref={leftPanelRef}
-                        className="py-4 h-full"
+                        class名称="py-4 h-full"
                     >
-                        <div className="flex flex-row gap-2 mb-4">
+                        <div class名称="flex flex-row gap-2 mb-4">
                             {isStreaming ? (
-                                <Loader2 className="w-4 h-4 animate-spin flex-shrink-0 mt-1.5" />
+                                <Loader2 class名称="w-4 h-4 animate-spin flex-shrink-0 mt-1.5" />
                             ) : (
-                                <CheckCircle className="w-4 h-4 text-green-700 flex-shrink-0 mt-1.5" />
+                                <CheckCircle class名称="w-4 h-4 text-green-700 flex-shrink-0 mt-1.5" />
                             )}
                             <MarkdownRenderer
                                 content={userQuestion.trim()}
-                                className="prose-p:m-0"
+                                class名称="prose-p:m-0"
                                 escapeHtml={true}
                             />
                         </div>
 
                         {isThinking && (
-                            <div className="space-y-4 mb-4">
-                                <Skeleton className="h-4 max-w-32" />
-                                <div className="space-y-2">
-                                    <Skeleton className="h-3 max-w-72" />
-                                    <Skeleton className="h-3 max-w-64" />
-                                    <Skeleton className="h-3 max-w-56" />
+                            <div class名称="space-y-4 mb-4">
+                                <Skeleton class名称="h-4 max-w-32" />
+                                <div class名称="space-y-2">
+                                    <Skeleton class名称="h-3 max-w-72" />
+                                    <Skeleton class名称="h-3 max-w-64" />
+                                    <Skeleton class名称="h-3 max-w-56" />
                                 </div>
                             </div>
                         )}
@@ -373,11 +373,11 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
                                 traceId={assistantMessage.metadata?.traceId}
                             />
                         ) : !isStreaming && (
-                            <p className="text-destructive">Error: No answer response was provided</p>
+                            <p class名称="text-destructive">Error: No answer response was provided</p>
                         )}
                     </div>
                 </ResizablePanel>
-                <AnimatedResizableHandle className='mx-4' />
+                <AnimatedResizableHandle class名称='mx-4' />
                 <ResizablePanel
                     order={2}
                     minSize={30}
@@ -390,7 +390,7 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
                     }}
                 >
                     <div
-                        className="sticky top-0"
+                        class名称="sticky top-0"
                     >
                         {referencedFileSources.length > 0 ? (
                             <ReferencedSourcesListView
@@ -404,13 +404,13 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
                                 style={rightPanelStyle}
                             />
                         ) : isStreaming ? (
-                            <div className="space-y-4">
+                            <div class名称="space-y-4">
                                 {Array.from({ length: 3 }).map((_, index) => (
-                                    <Skeleton key={index} className="w-full h-48" />
+                                    <Skeleton key={index} class名称="w-full h-48" />
                                 ))}
                             </div>
                         ) : (
-                            <div className="p-4 text-center text-muted-foreground text-sm">
+                            <div class名称="p-4 text-center text-muted-foreground text-sm">
                                 No file references found
                             </div>
                         )}
@@ -421,7 +421,7 @@ const ChatThreadListItemComponent = forwardRef<HTMLDivElement, ChatThreadListIte
     )
 });
 
-ChatThreadListItemComponent.displayName = 'ChatThreadListItem';
+ChatThreadListItemComponent.display名称 = 'ChatThreadListItem';
 
 // Custom comparison function that handles the known issue where useChat mutates
 // message objects in place during streaming, causing fast-deep-equal to return

@@ -5,11 +5,11 @@ import { ToolDefinition } from "./types";
 import { logger } from "./logger";
 import description from "./listCommits.txt";
 import { CodeHostType } from "@sourcebot/db";
-import { getRepoInfoByName } from "@/actions";
+import { getRepoInfoBy名称 } from "@/actions";
 
 const listCommitsShape = {
     repo: z.string().describe("The repository to list commits from"),
-    query: z.string().describe("Search query to filter commits by message (case-insensitive)").optional(),
+    query: z.string().describe("搜索 query to filter commits by message (case-insensitive)").optional(),
     since: z.string().describe("Start date for commit range (e.g., '30 days ago', '2024-01-01', 'last week')").optional(),
     until: z.string().describe("End date for commit range (e.g., 'yesterday', '2024-12-31', 'today')").optional(),
     author: z.string().describe("Filter commits by author name or email (case-insensitive)").optional(),
@@ -21,7 +21,7 @@ const listCommitsShape = {
 
 export type ListCommitsRepoInfo = {
     name: string;
-    displayName: string;
+    display名称: string;
     codeHostType: CodeHostType;
 };
 
@@ -59,13 +59,13 @@ export const listCommitsDefinition: ToolDefinition<"list_commits", typeof listCo
             throw new Error(response.message);
         }
 
-        const repoInfoResult = await getRepoInfoByName(repo);
+        const repoInfoResult = await getRepoInfoBy名称(repo);
         if (isServiceError(repoInfoResult) || !repoInfoResult) {
-            throw new Error(`Repository "${repo}" not found.`);
+            throw new Error(`仓库 "${repo}" not found.`);
         }
         const repoInfo: ListCommitsRepoInfo = {
             name: repoInfoResult.name,
-            displayName: repoInfoResult.displayName ?? repoInfoResult.name,
+            display名称: repoInfoResult.display名称 ?? repoInfoResult.name,
             codeHostType: repoInfoResult.codeHostType,
         };
 

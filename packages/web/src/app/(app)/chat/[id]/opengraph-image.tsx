@@ -43,13 +43,13 @@ export default async function Image({ params }: ImageProps) {
     }
 
     const MAX_CHAT_NAME_LENGTH = 40;
-    const rawChatName = chat.name ?? 'Untitled chat';
-    const chatName = rawChatName.length > MAX_CHAT_NAME_LENGTH
-        ? rawChatName.substring(0, MAX_CHAT_NAME_LENGTH).trim() + '...'
-        : rawChatName;
-    const creatorEmail = chat.createdBy?.email;
+    const rawChat名称 = chat.name ?? 'Untitled chat';
+    const chat名称 = rawChat名称.length > MAX_CHAT_NAME_LENGTH
+        ? rawChat名称.substring(0, MAX_CHAT_NAME_LENGTH).trim() + '...'
+        : rawChat名称;
+    const creator邮箱 = chat.createdBy?.email;
     const creatorImage = chat.createdBy?.image
-        ?? (creatorEmail ? 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(creatorEmail, 50, 50)) : undefined);
+        ?? (creator邮箱 ? 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(creator邮箱, 50, 50)) : undefined);
 
     return new ImageResponse(
         (
@@ -133,7 +133,7 @@ export default async function Image({ params }: ImageProps) {
                                 color: '#ffffff',
                             }}
                         >
-                            {chatName}
+                            {chat名称}
                         </span>
                     </div>
 

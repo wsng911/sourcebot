@@ -1,5 +1,5 @@
-import { EditorSelection, Extension, StateEffect, StateField, Text, Transaction } from "@codemirror/state";
-import { Decoration, DecorationSet, EditorView } from "@codemirror/view";
+import { 编辑orSelection, Extension, StateEffect, StateField, Text, Transaction } from "@codemirror/state";
+import { Decoration, DecorationSet, 编辑orView } from "@codemirror/view";
 import { SourceRange } from "@/features/search";
 
 const setMatchState = StateEffect.define<{
@@ -7,7 +7,7 @@ const setMatchState = StateEffect.define<{
     ranges: SourceRange[],
 }>();
 
-const convertToCodeMirrorRange = (range: SourceRange, document: Text) => {
+const convertToCode镜像Range = (range: SourceRange, document: Text) => {
     const { start, end } = range;
     const from = document.line(start.lineNumber).from + start.column - 1;
     const to = document.line(end.lineNumber).from + end.column - 1;
@@ -31,7 +31,7 @@ const matchHighlighter = StateField.define<DecorationSet>({
                         return a.start.byteOffset - b.start.byteOffset;
                     })
                     .map((range, index) => {
-                        const { from, to } = convertToCodeMirrorRange(range, transaction.newDoc);
+                        const { from, to } = convertToCode镜像Range(range, transaction.newDoc);
                         const mark = index === selectedMatchIndex ? selectedMatchMark : matchMark;
                         if (from < to) {
                             return mark.range(from, to);
@@ -47,7 +47,7 @@ const matchHighlighter = StateField.define<DecorationSet>({
 
         return highlights;
     },
-    provide: (field) => EditorView.decorations.from(field),
+    provide: (field) => 编辑orView.decorations.from(field),
 });
 
 const matchMark = Decoration.mark({
@@ -57,7 +57,7 @@ const selectedMatchMark = Decoration.mark({
     class: "searchMatch-selected"
 });
 
-export const highlightRanges = (selectedMatchIndex: number, ranges: SourceRange[], view: EditorView) => {
+export const highlightRanges = (selectedMatchIndex: number, ranges: SourceRange[], view: 编辑orView) => {
     const setState = setMatchState.of({
         selectedMatchIndex,
         ranges,
@@ -67,9 +67,9 @@ export const highlightRanges = (selectedMatchIndex: number, ranges: SourceRange[
     effects.push(setState);
 
     if (selectedMatchIndex >= 0 && selectedMatchIndex < ranges.length) {
-        const { from, to } = convertToCodeMirrorRange(ranges[selectedMatchIndex], view.state.doc);
-        const selection = EditorSelection.range(from, to);
-        effects.push(EditorView.scrollIntoView(selection, {
+        const { from, to } = convertToCode镜像Range(ranges[selectedMatchIndex], view.state.doc);
+        const selection = 编辑orSelection.range(from, to);
+        effects.push(编辑orView.scrollIntoView(selection, {
             y: "start",
         }));
     };

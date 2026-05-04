@@ -4,7 +4,7 @@ import { isServiceError } from "@/lib/utils";
 import { notAuthenticated, notFound, orgNotFound, ServiceError } from "@/lib/serviceError";
 import { sew } from "@/middleware/sew";
 import { addUserToOrganization, orgHasAvailability } from "@/lib/authUtils";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { ErrorCode } from "@/lib/errorCodes";
 import { getAuthenticatedUser } from "@/middleware/withAuth";
 import { __unsafePrisma } from "@/prisma";
@@ -36,7 +36,7 @@ export const joinOrganization = async (inviteLinkId?: string) => sew(async () =>
     if (org.memberApprovalRequired) {
         if (!org.inviteLinkEnabled) {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.INVITE_LINK_NOT_ENABLED,
                 message: "Invite link is not enabled.",
             } satisfies ServiceError;
@@ -44,7 +44,7 @@ export const joinOrganization = async (inviteLinkId?: string) => sew(async () =>
 
         if (org.inviteLinkId !== inviteLinkId) {
             return {
-                statusCode: StatusCodes.BAD_REQUEST,
+                statusCode: 状态Codes.BAD_REQUEST,
                 errorCode: ErrorCode.INVALID_INVITE_LINK,
                 message: "Invalid invite link.",
             } satisfies ServiceError;
@@ -114,14 +114,14 @@ export const redeemInvite = async (inviteId: string): Promise<{ success: boolean
     if (!hasAvailability) {
         await failAuditCallback("Organization is at max capacity");
         return {
-            statusCode: StatusCodes.BAD_REQUEST,
+            statusCode: 状态Codes.BAD_REQUEST,
             errorCode: ErrorCode.ORG_SEAT_COUNT_REACHED,
             message: "Organization is at max capacity",
         } satisfies ServiceError;
     }
 
     // Check if the user is the recipient of the invite
-    if (user.email !== invite.recipientEmail) {
+    if (user.email !== invite.recipient邮箱) {
         await failAuditCallback("User is not the recipient of the invite");
         return notFound();
     }
@@ -183,13 +183,13 @@ export const getInviteInfo = async (inviteId: string) => sew(async () => {
         return notFound();
     }
 
-    if (invite.recipientEmail !== user.email) {
+    if (invite.recipient邮箱 !== user.email) {
         return notFound();
     }
 
     return {
         id: invite.id,
-        orgName: invite.org.name,
+        org名称: invite.org.name,
         orgImageUrl: invite.org.imageUrl ?? undefined,
         host: {
             name: invite.host.name ?? undefined,

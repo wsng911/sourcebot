@@ -12,7 +12,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import useCaptureEvent from "@/hooks/useCaptureEvent";
 import { measure, unwrapServiceError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { SearchIcon } from "lucide-react";
+import { 搜索Icon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import {
@@ -39,19 +39,19 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
         updateBrowseState,
     } = useBrowseState();
 
-    const { repoName, revisionName, path, pathType } = useBrowseParams();
+    const { repo名称, revision名称, path, pathType } = useBrowseParams();
     const [openPaths, setOpenPaths] = useState<Set<string>>(new Set());
     const captureEvent = useCaptureEvent();
 
     const fileTreePanelRef = useRef<ImperativePanelHandle>(null);
 
     const { data, isError, isPending } = useQuery({
-        queryKey: ['tree', repoName, revisionName, ...Array.from(openPaths)],
+        queryKey: ['tree', repo名称, revision名称, ...Array.from(openPaths)],
         queryFn: async () => {
             const result = await measure(async () => unwrapServiceError(
                 getTree({
-                    repoName,
-                    revisionName: revisionName ?? 'HEAD',
+                    repo名称,
+                    revision名称: revision名称 ?? 'HEAD',
                     paths: Array.from(openPaths),
                 })
             ), 'getTree');
@@ -73,7 +73,7 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
     // reset the open paths since they no longer reference the same repository/revision.
     useEffect(() => {
         setOpenPaths(new Set());
-    }, [repoName, revisionName]);
+    }, [repo名称, revision名称]);
 
     // When the path changes (e.g., the user clicks a reference in the explore panel),
     // we want this to be open and visible in the file tree.
@@ -120,7 +120,7 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
         }
     }, {
         enableOnFormTags: true,
-        enableOnContentEditable: true,
+        enableOnContent编辑able: true,
         description: "Toggle file tree panel",
     });
 
@@ -137,8 +137,8 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
                 onCollapse={() => updateBrowseState({ isFileTreePanelCollapsed: true })}
                 onExpand={() => updateBrowseState({ isFileTreePanelCollapsed: false })}
             >
-                <div className="flex flex-col h-full">
-                    <div className="flex flex-row items-center p-2 gap-2">
+                <div class名称="flex flex-col h-full">
+                    <div class名称="flex flex-row items-center p-2 gap-2">
                         <Tooltip
                             delayDuration={100}
                         >
@@ -146,47 +146,47 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="h-8 w-8"
+                                    class名称="h-8 w-8"
                                     onClick={() => {
                                         fileTreePanelRef.current?.collapse();
                                     }}
                                 >
-                                    <CollapseIcon className="w-4 h-4" />
+                                    <CollapseIcon class名称="w-4 h-4" />
                                 </Button>
                             </TooltipTrigger>
-                            <TooltipContent side="bottom" className="flex flex-row items-center gap-2">
+                            <TooltipContent side="bottom" class名称="flex flex-row items-center gap-2">
                                 <KeyboardShortcutHint shortcut="mod+b" />
-                                <Separator orientation="vertical" className="h-4" />
-                                <span>Close file tree</span>
+                                <Separator orientation="vertical" class名称="h-4" />
+                                <span>关闭 file tree</span>
                             </TooltipContent>
                         </Tooltip>
-                        <p className="font-medium">File Tree</p>
+                        <p class名称="font-medium">File Tree</p>
                         <Tooltip delayDuration={100}>
                             <TooltipTrigger asChild>
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="h-8 w-8 ml-auto"
+                                    class名称="h-8 w-8 ml-auto"
                                     onClick={() => {
-                                        updateBrowseState({ isFileSearchOpen: true });
+                                        updateBrowseState({ isFile搜索Open: true });
                                     }}
                                 >
-                                    <SearchIcon className="w-4 h-4" />
+                                    <搜索Icon class名称="w-4 h-4" />
                                 </Button>
                             </TooltipTrigger>
-                            <TooltipContent side="bottom" className="flex flex-row items-center gap-2">
+                            <TooltipContent side="bottom" class名称="flex flex-row items-center gap-2">
                                 <KeyboardShortcutHint shortcut="mod+p" />
-                                <Separator orientation="vertical" className="h-4" />
-                                <span>Search files</span>
+                                <Separator orientation="vertical" class名称="h-4" />
+                                <span>搜索 files</span>
                             </TooltipContent>
                         </Tooltip>
                     </div>
-                    <Separator orientation="horizontal" className="w-full mb-2" />
+                    <Separator orientation="horizontal" class名称="w-full mb-2" />
                     {isPending ? (
                         <FileTreePanelSkeleton />
                     ) :
                         isError ? (
-                            <div className="flex flex-col items-center justify-center h-full">
+                            <div class名称="flex flex-col items-center justify-center h-full">
                                 <p>Error loading file tree</p>
                             </div>
                         ) : (
@@ -200,7 +200,7 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
                 </div>
             </ResizablePanel>
             {isFileTreePanelCollapsed && (
-                <div className="flex flex-col items-center h-full p-2">
+                <div class名称="flex flex-col items-center h-full p-2">
                     <Tooltip
                         delayDuration={100}
                     >
@@ -208,17 +208,17 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-8 w-8"
+                                class名称="h-8 w-8"
                                 onClick={() => {
                                     fileTreePanelRef.current?.expand();
                                 }}
                             >
-                                <ExpandIcon className="w-4 h-4" />
+                                <ExpandIcon class名称="w-4 h-4" />
                             </Button>
                         </TooltipTrigger>
-                        <TooltipContent side="bottom" className="flex flex-row items-center gap-2">
+                        <TooltipContent side="bottom" class名称="flex flex-row items-center gap-2">
                             <KeyboardShortcutHint shortcut="mod+b" />
-                            <Separator orientation="vertical" className="h-4" />
+                            <Separator orientation="vertical" class名称="h-4" />
                             <span>Open file tree</span>
                         </TooltipContent>
                     </Tooltip>
@@ -231,157 +231,157 @@ export const FileTreePanel = ({ order }: FileTreePanelProps) => {
 
 const FileTreePanelSkeleton = () => {
     return (
-        <div className="p-2 space-y-2">
+        <div class名称="p-2 space-y-2">
             {/* Root level items */}
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-24" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-24" />
             </div>
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-20" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-20" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-28" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-28" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-16" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-16" />
             </div>
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-32" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-32" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-16" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-16" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-20" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-20" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-28" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-28" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-24" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-24" />
             </div>
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-28" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-28" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-20" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-20" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-32" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-32" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-24" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-24" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-16" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-16" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-28" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-28" />
             </div>
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-20" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-20" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-32" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-32" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-16" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-16" />
             </div>
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-24" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-24" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-20" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-20" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-28" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-28" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-24" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-24" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-28" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-28" />
             </div>
-            <div className="flex items-center gap-2 pl-12">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-20" />
+            <div class名称="flex items-center gap-2 pl-12">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-20" />
             </div>
-            <div className="flex items-center gap-2 pl-12">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-16" />
+            <div class名称="flex items-center gap-2 pl-12">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-16" />
             </div>
-            <div className="flex items-center gap-2 pl-8">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-24" />
+            <div class名称="flex items-center gap-2 pl-8">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-24" />
             </div>
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-24" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-24" />
             </div>
-            <div className="flex items-center gap-2">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-32" />
+            <div class名称="flex items-center gap-2">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-32" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-16" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-16" />
             </div>
-            <div className="flex items-center gap-2 pl-4">
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="w-4 h-4" />
-                <Skeleton className="h-4 w-28" />
+            <div class名称="flex items-center gap-2 pl-4">
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="w-4 h-4" />
+                <Skeleton class名称="h-4 w-28" />
             </div>
         </div>
     )

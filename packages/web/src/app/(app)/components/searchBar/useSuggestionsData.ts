@@ -3,9 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Suggestion, SuggestionMode } from "./searchSuggestionsBox";
 import { listRepos, search } from "@/app/api/(client)/client";
-import { getSearchContexts } from "@/actions";
+import { get搜索Contexts } from "@/actions";
 import { useMemo } from "react";
-import { SearchSymbol } from "@/features/search";
+import { 搜索Symbol } from "@/features/search";
 import { languageMetadataMap } from "@/lib/languageMetadata";
 import {
     VscSymbolClass,
@@ -18,7 +18,7 @@ import {
     VscSymbolStructure,
     VscSymbolVariable
 } from "react-icons/vsc";
-import { useSearchHistory } from "@/hooks/useSearchHistory";
+import { use搜索History } from "@/hooks/use搜索History";
 import { getFormattedDate, isServiceError, unwrapServiceError } from "@/lib/utils";
 
 
@@ -46,7 +46,7 @@ export const useSuggestionsData = ({
         select: (data): Suggestion[] => {
             return data
                 .map(r => ({
-                    value: r.repoName,
+                    value: r.repo名称,
                 }));
         },
         enabled: suggestionMode === "repo",
@@ -66,7 +66,7 @@ export const useSuggestionsData = ({
             }
 
             return data.files.map((file) => ({
-                value: file.fileName.text,
+                value: file.file名称.text,
             }));
         },
         enabled: suggestionMode === "file"
@@ -91,7 +91,7 @@ export const useSuggestionsData = ({
             }
 
             // De-duplicate on symbol name & kind.
-            const symbolMap = new Map<string, SearchSymbol>(symbols.map((symbol: SearchSymbol) => [`${symbol.kind}.${symbol.symbol}`, symbol]));
+            const symbolMap = new Map<string, 搜索Symbol>(symbols.map((symbol: 搜索Symbol) => [`${symbol.kind}.${symbol.symbol}`, symbol]));
             const suggestions = Array.from(symbolMap.values()).map((symbol) => ({
                 value: symbol.symbol,
                 Icon: getSymbolIcon(symbol),
@@ -103,9 +103,9 @@ export const useSuggestionsData = ({
     });
     const isLoadingSymbols = useMemo(() => suggestionMode === "symbol" && _isLoadingSymbols, [suggestionMode, _isLoadingSymbols]);
 
-    const { data: searchContextSuggestions, isLoading: _isLoadingSearchContexts } = useQuery({
+    const { data: searchContextSuggestions, isLoading: _isLoading搜索Contexts } = useQuery({
         queryKey: ["searchContexts"],
-        queryFn: () => getSearchContexts(),
+        queryFn: () => get搜索Contexts(),
         select: (data): Suggestion[] => {
             if (isServiceError(data)) {
                 return [];
@@ -119,7 +119,7 @@ export const useSuggestionsData = ({
         },
         enabled: suggestionMode === "context",
     });
-    const isLoadingSearchContexts = useMemo(() => suggestionMode === "context" && _isLoadingSearchContexts, [_isLoadingSearchContexts, suggestionMode]);
+    const isLoading搜索Contexts = useMemo(() => suggestionMode === "context" && _isLoading搜索Contexts, [_isLoading搜索Contexts, suggestionMode]);
 
     const languageSuggestions = useMemo((): Suggestion[] => {
         return Object.keys(languageMetadataMap).map((lang) => {
@@ -139,7 +139,7 @@ export const useSuggestionsData = ({
         });
     }, []);
 
-    const { searchHistory } = useSearchHistory();
+    const { searchHistory } = use搜索History();
     const searchHistorySuggestions = useMemo(() => {
         return searchHistory.map(search => ({
             value: search.query,
@@ -148,8 +148,8 @@ export const useSuggestionsData = ({
     }, [searchHistory]);
 
     const isLoadingSuggestions = useMemo(() => {
-        return isLoadingSymbols || isLoadingFiles || isLoadingRepos || isLoadingSearchContexts;
-    }, [isLoadingFiles, isLoadingRepos, isLoadingSymbols, isLoadingSearchContexts]);
+        return isLoadingSymbols || isLoadingFiles || isLoadingRepos || isLoading搜索Contexts;
+    }, [isLoadingFiles, isLoadingRepos, isLoadingSymbols, isLoading搜索Contexts]);
 
     return {
         repoSuggestions: repoSuggestions ?? [],
@@ -162,7 +162,7 @@ export const useSuggestionsData = ({
     }
 }
 
-const getSymbolIcon = (symbol: SearchSymbol) => {
+const getSymbolIcon = (symbol: 搜索Symbol) => {
     switch (symbol.kind) {
         case "methodSpec":
         case "method":

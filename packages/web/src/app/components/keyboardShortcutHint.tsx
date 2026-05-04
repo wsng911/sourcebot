@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 interface KeyboardShortcutHintProps {
     shortcut: string
     label?: string
-    className?: string
+    class名称?: string
 }
 
 /**
@@ -46,8 +46,8 @@ const WINDOWS_KEY_MAP: Record<string, string> = {
     shift: 'Shift',
     enter: 'Enter',
     return: 'Enter',
-    backspace: 'Backspace',
-    delete: 'Delete',
+    backspace: '返回space',
+    delete: '删除',
     escape: 'Esc',
     esc: 'Esc',
     tab: 'Tab',
@@ -90,14 +90,14 @@ function getPlatformShortcut(shortcut: string, isMac: boolean): string {
     return keys.map(key => mapKey(key, keyMap)).join(' ');
 }
 
-export function KeyboardShortcutHint({ shortcut, label, className }: KeyboardShortcutHintProps) {
+export function KeyboardShortcutHint({ shortcut, label, class名称 }: KeyboardShortcutHintProps) {
     const isMac = useIsMac();
     const platformShortcut = useMemo(() => getPlatformShortcut(shortcut, isMac), [shortcut, isMac]);
 
     return (
-        <div className={cn("inline-flex items-center", className)} aria-label={label || `Keyboard shortcut: ${platformShortcut}`}>
+        <div class名称={cn("inline-flex items-center", class名称)} aria-label={label || `Keyboard shortcut: ${platformShortcut}`}>
             <kbd
-                className="px-2 py-1 font-semibold font-sans border rounded-md"
+                class名称="px-2 py-1 font-semibold font-sans border rounded-md"
                 style={{
                     fontSize: "0.65rem",
                     lineHeight: "0.875rem",

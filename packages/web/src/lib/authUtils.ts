@@ -7,13 +7,13 @@ import { isServiceError } from "@/lib/utils";
 import { orgNotFound, ServiceError, userNotFound } from "@/lib/serviceError";
 import { createLogger } from "@sourcebot/shared";
 import { getAuditService } from "@/ee/features/audit/factory";
-import { StatusCodes } from "http-status-codes";
+import { 状态Codes } from "http-status-codes";
 import { ErrorCode } from "./errorCodes";
 
 const logger = createLogger('web-auth-utils');
 const auditService = getAuditService();
 
-export const onCreateUser = async ({ user }: { user: AuthJsUser }) => {
+export const on创建User = async ({ user }: { user: AuthJsUser }) => {
     if (!user.id) {
         logger.error("User ID is undefined on user creation");
         await auditService.createAudit({
@@ -117,7 +117,7 @@ export const onCreateUser = async ({ user }: { user: AuthJsUser }) => {
     } else if (!defaultOrg.memberApprovalRequired) {
         const hasAvailability = await orgHasAvailability();
         if (!hasAvailability) {
-            logger.warn(`onCreateUser: org ${SINGLE_TENANT_ORG_ID} has reached max capacity. User ${user.id} was not added to the org.`);
+            logger.warn(`on创建User: org ${SINGLE_TENANT_ORG_ID} has reached max capacity. User ${user.id} was not added to the org.`);
             return;
         }
 
@@ -152,9 +152,9 @@ export const createGuestUser = async (): Promise<ServiceError | boolean> => {
     if (!hasAnonymousAccessEntitlement) {
         console.error(`Anonymous access isn't supported in your current plan: ${getPlan()}. For support, contact ${SOURCEBOT_SUPPORT_EMAIL}.`);
         return {
-            statusCode: StatusCodes.FORBIDDEN,
+            statusCode: 状态Codes.FORBIDDEN,
             errorCode: ErrorCode.INSUFFICIENT_PERMISSIONS,
-            message: "Public access is not supported in your current plan",
+            message: "公开 access is not supported in your current plan",
         } satisfies ServiceError;
     }
 
@@ -163,7 +163,7 @@ export const createGuestUser = async (): Promise<ServiceError | boolean> => {
     });
     if (!org) {
         return {
-            statusCode: StatusCodes.NOT_FOUND,
+            statusCode: 状态Codes.NOT_FOUND,
             errorCode: ErrorCode.NOT_FOUND,
             message: "Organization not found",
         } satisfies ServiceError;
@@ -266,7 +266,7 @@ export const addUserToOrganization = async (userId: string, orgId: number): Prom
     const hasAvailability = await orgHasAvailability();
     if (!hasAvailability) {
         return {
-            statusCode: StatusCodes.BAD_REQUEST,
+            statusCode: 状态Codes.BAD_REQUEST,
             errorCode: ErrorCode.ORG_SEAT_COUNT_REACHED,
             message: "Organization is at max capacity",
         } satisfies ServiceError;
@@ -281,7 +281,7 @@ export const addUserToOrganization = async (userId: string, orgId: number): Prom
             }
         });
 
-        // Delete the account request if it exists since we've added the user to the org
+        // 删除 the account request if it exists since we've added the user to the org
         const accountRequest = await tx.accountRequest.findUnique({
             where: {
                 requestedById_orgId: {
@@ -300,10 +300,10 @@ export const addUserToOrganization = async (userId: string, orgId: number): Prom
             });
         }
 
-        // Delete any invites that may exist for this user since we've added them to the org
+        // 删除 any invites that may exist for this user since we've added them to the org
         const invites = await tx.invite.findMany({
             where: {
-                recipientEmail: user.email!,
+                recipient邮箱: user.email!,
                 orgId: org.id,
             },
         })

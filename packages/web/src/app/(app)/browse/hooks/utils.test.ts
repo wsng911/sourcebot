@@ -6,8 +6,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse tree path with trailing slash', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/tree/');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: '',
                 pathType: 'tree',
             });
@@ -16,8 +16,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse tree path without trailing slash', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/tree');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: '',
                 pathType: 'tree',
             });
@@ -26,8 +26,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse tree path with nested directory', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/tree/packages/web/src');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: 'packages/web/src',
                 pathType: 'tree',
             });
@@ -36,8 +36,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse tree path without revision', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt/-/tree/docs');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: undefined,
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: undefined,
                 path: 'docs',
                 pathType: 'tree',
             });
@@ -50,8 +50,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse blob path with file', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/blob/README.md');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: 'README.md',
                 pathType: 'blob',
             });
@@ -60,8 +60,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse blob path with nested file', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/blob/packages/web/src/app/page.tsx');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: 'packages/web/src/app/page.tsx',
                 pathType: 'blob',
             });
@@ -70,8 +70,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse blob path without revision', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt/-/blob/main.go');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: undefined,
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: undefined,
                 path: 'main.go',
                 pathType: 'blob',
             });
@@ -82,8 +82,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should decode URL-encoded spaces in path', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/tree/folder%20with%20spaces');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: 'folder with spaces',
                 pathType: 'tree',
             });
@@ -92,8 +92,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should decode URL-encoded special characters in path', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/blob/file%20with%20%26%20symbols.txt');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: 'file with & symbols.txt',
                 pathType: 'blob',
             });
@@ -102,8 +102,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should decode paths with percent symbols in path', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/blob/%25hello%25%2Fworld.c');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: '%hello%/world.c',
                 pathType: 'blob',
             });
@@ -112,8 +112,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should decode paths with @ symbol encoded', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt%40HEAD/-/blob/file.txt');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: 'file.txt',
                 pathType: 'blob',
             });
@@ -124,8 +124,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse with branch name', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@main/-/tree/');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'main',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'main',
                 path: '',
                 pathType: 'tree',
             });
@@ -134,8 +134,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse with commit hash', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@a1b2c3d/-/tree/');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'a1b2c3d',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'a1b2c3d',
                 path: '',
                 pathType: 'tree',
             });
@@ -144,8 +144,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should parse with tag', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@v1.0.0/-/tree/');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'v1.0.0',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'v1.0.0',
                 path: '',
                 pathType: 'tree',
             });
@@ -156,8 +156,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should handle repo name with multiple @ symbols', () => {
             const result = getBrowseParamsFromPathParam('gitlab.com/user@domain/repo@main/-/tree/');
             expect(result).toEqual({
-                repoName: 'gitlab.com/user@domain/repo',
-                revisionName: 'main',
+                repo名称: 'gitlab.com/user@domain/repo',
+                revision名称: 'main',
                 path: '',
                 pathType: 'tree',
             });
@@ -166,8 +166,8 @@ describe('getBrowseParamsFromPathParam', () => {
         it('should handle paths with @ symbols', () => {
             const result = getBrowseParamsFromPathParam('github.com/sourcebot-dev/zoekt@HEAD/-/blob/file@v1.0.0.txt');
             expect(result).toEqual({
-                repoName: 'github.com/sourcebot-dev/zoekt',
-                revisionName: 'HEAD',
+                repo名称: 'github.com/sourcebot-dev/zoekt',
+                revision名称: 'HEAD',
                 path: 'file@v1.0.0.txt',
                 pathType: 'blob',
             });
